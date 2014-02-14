@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/badassgame.iml" filepath="$PROJECT_DIR$/badassgame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../BadEngine/trunk/badengine.iml" filepath="$PROJECT_DIR$/../../BadEngine/trunk/badengine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Data/trunk/data.iml" filepath="$PROJECT_DIR$/../../Data/trunk/data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../GoodEngine/trunk/goodengine.iml" filepath="$PROJECT_DIR$/../../GoodEngine/trunk/goodengine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Resources/resources.iml" filepath="$PROJECT_DIR$/../../Resources/resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Sandbox/sandbox.iml" filepath="$PROJECT_DIR$/../../Sandbox/sandbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/trunk.iml" filepath="$PROJECT_DIR$/trunk.iml" />
     </modules>
   </component>

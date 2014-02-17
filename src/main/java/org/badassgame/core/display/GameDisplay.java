@@ -1,6 +1,6 @@
 package org.badassgame.core.display;
 
-import org.badassgame.goodengine.instance.view.DisplayView;
+import org.badassgame.goodengine.instance.view.GameView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,5 +15,5 @@ public interface GameDisplay {
      *
      * @param gameView
      */
-    public void showView(DisplayView gameView);
+    public void showView(GameView gameView);
 }

@@ -1,6 +1,7 @@
 package org.badassgame.core.display;
 
-import org.badassgame.goodengine.instance.view.GameView;
+import org.badassgame.goodengine.instance.GameView;
+
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,6 +1,6 @@
 package org.badassgame.core.display;
 
-import org.badassgame.goodengine.instance.GameView;
+import org.badassgame.goodengine.view.View;
 
 
 /**
@@ -16,5 +16,5 @@ public interface GameDisplay {
      *
      * @param gameView
      */
-    public void showView(GameView gameView);
+    public void showView(View gameView);
 }

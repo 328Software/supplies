@@ -1,4 +1,4 @@
-package org.badassgame.core.main;
+package org.supply.simulator.core.main;
 
 /**
  * Created with IntelliJ IDEA.

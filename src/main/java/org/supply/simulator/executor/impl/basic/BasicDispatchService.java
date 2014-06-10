@@ -3,10 +3,7 @@ package org.supply.simulator.executor.impl.basic;
 import org.supply.simulator.executor.*;
 
 import java.util.*;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,59 +11,79 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BasicDispatchService extends BasicTask implements DispatchService, Task {
 
-    ScheduledThreadPoolExecutor executor;
-    Map<Runnable, Future> futures;
-    Map<Runnable, AtomicInteger> executionCount;
+    protected ScheduledThreadPoolExecutor executor;
+    protected Map<Runnable, Future> futures;
+    protected Map<Runnable, AtomicInteger> executionCount;
 
     public BasicDispatchService() {
-        futures = new HashMap<Runnable, Future>();
-        executionCount = new HashMap<Runnable, AtomicInteger>();
+        futures = new ConcurrentHashMap<Runnable, Future>();
+        executionCount = new ConcurrentHashMap<Runnable, AtomicInteger>();
     }
 
     @Override
     public void run() {
         try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             //TODO something at least. also log this
             System.err.println("oh darn!");
         }
     }
 
+    @Override
     public void addTask(final RepeatableTask task) {
         final RepeatingScheduleInformation scheduleInformation = task.getScheduleInformation();
-        if(scheduleInformation.getNumberOfExecutions() == 0) {
-            executor.scheduleWithFixedDelay(task, 0, scheduleInformation.getIntervalMillis(), TimeUnit.MILLISECONDS);
-        } else {
 
+        long interval = scheduleInformation.getIntervalMillis();
+        interval = (interval <= 0)?1:interval;
+
+        if(scheduleInformation.getNumberOfExecutions() == 0) {
+            synchronized (this) {
+                Future f = executor.scheduleWithFixedDelay(task, 0, interval, TimeUnit.MILLISECONDS);
+                futures.put(task, f);
+            }
+        } else {
             Runnable r = new Runnable() {
-                int numberOfExecutions = scheduleInformation.getNumberOfExecutions();
+                final int numberOfExecutions = scheduleInformation.getNumberOfExecutions();
 
                 @Override
                 public void run() {
-                    Future thisFuture = futures.get(this);
-                    if(executionCount.get(this).intValue() >=  numberOfExecutions) {
-                        futures.remove(this);
-                        executionCount.remove(this);
-                        thisFuture.cancel(true); //TODO decide if this is decidable
-                    } else {
-                        executionCount.get(this).incrementAndGet();
-                        task.run();
+                    Future thisFuture = futures.get(task);
+                    executionCount.get(task).incrementAndGet();
+                    task.run();
+                    if(executionCount.get(task).intValue() >= numberOfExecutions) {
+                        synchronized (this) {
+                            executionCount.remove(task);
+                            futures.remove(task);
+                            thisFuture.cancel(true); //TODO decide if this is decidable
+                        }
                     }
                 }
             };
 
-            executionCount.put(r,new AtomicInteger());
 
             synchronized (this) {
-                Future f = executor.scheduleWithFixedDelay(r, 0, scheduleInformation.getIntervalMillis(), TimeUnit.MILLISECONDS);
-                futures.put(r, f);
+                executionCount.put(task,new AtomicInteger());
+                Future f = executor.scheduleWithFixedDelay(r, 0, interval, TimeUnit.MILLISECONDS);
+                futures.put(task, f);
             }
         }
     }
 
+    @Override
+    public void removeTask(final RepeatableTask task) {
+        executionCount.remove(task);
+        futures.remove(task).cancel(true);
+    }
+
+    @Override
     public void stopService() {
         stopService(0);
+    }
+
+    @Override
+    public int getTaskCount() {
+        return futures.size();
     }
 
     public void stopService(int timeout) {
@@ -78,10 +95,6 @@ public class BasicDispatchService extends BasicTask implements DispatchService, 
         } finally {
             executor.shutdownNow();
         }
-    }
-
-    public void cancelTask(final RepeatableTask task) {
-        executor.remove(task);
     }
 
     public void setExecutor(ScheduledThreadPoolExecutor executor) {

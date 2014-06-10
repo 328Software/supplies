@@ -19,7 +19,7 @@ public class BasicRepeatingScheduleInformation extends BasicScheduleInformation 
         return numberOfExecutions;
     }
 
-    public void setInterval(long intervalMillis) {
+    public void setIntervalMillis(long intervalMillis) {
         this.intervalMillis = intervalMillis;
     }
 

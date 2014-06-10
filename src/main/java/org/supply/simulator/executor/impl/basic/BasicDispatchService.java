@@ -20,6 +20,7 @@ public class BasicDispatchService extends BasicTask implements DispatchService, 
 
     public BasicDispatchService() {
         futures = new HashMap<Runnable, Future>();
+        executionCount = new HashMap<Runnable, AtomicInteger>();
     }
 
     @Override

@@ -26,9 +26,7 @@ public abstract class BasicRepeatableTask extends BasicTask implements Repeatabl
 
         BasicRepeatableTask that = (BasicRepeatableTask) o;
 
-        if (!scheduleInformation.equals(that.scheduleInformation)) return false;
-
-        return true;
+        return scheduleInformation.equals(that.scheduleInformation);
     }
 
     @Override

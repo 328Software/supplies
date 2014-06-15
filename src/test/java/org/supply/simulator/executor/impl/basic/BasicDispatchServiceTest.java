@@ -1,10 +1,7 @@
 package org.supply.simulator.executor.impl.basic;
 
-import com.carrotsearch.junitbenchmarks.AbstractBenchmark;
 import org.junit.Before;
 import org.junit.Test;
-import org.supply.simulator.executor.RepeatableTask;
-import org.supply.simulator.executor.ScheduleInformation;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -17,7 +14,7 @@ public class BasicDispatchServiceTest  {
 
     BasicDispatchService dispatchService;
 
-    BasicRepeatableTask task1;
+    BasicRepeatableTask task1, task2;
 
     @Before
     public void createFixture() {
@@ -38,7 +35,7 @@ public class BasicDispatchServiceTest  {
     }
 
     @Test
-    public void testAddTask() {
+    synchronized public void testAddTask() {
 
         dispatchService.addTask(task1);
 
@@ -47,7 +44,7 @@ public class BasicDispatchServiceTest  {
     }
 
     @Test
-    public void testRemoveTask() {
+    synchronized public void testRemoveTask() {
         dispatchService.addTask(task1);
 
         assert(1 == dispatchService.getTaskCount());
@@ -55,5 +52,32 @@ public class BasicDispatchServiceTest  {
         dispatchService.removeTask(task1);
 
         assert(0 == dispatchService.getTaskCount());
+    }
+
+    @Test
+    synchronized public void testAddTwoTasks() {
+//        dispatchService = new BasicDispatchService();
+//        dispatchService.setExecutor(new ScheduledThreadPoolExecutor(2));
+
+        System.out.println("Start testAddTwoTasks");
+        task2 = new BasicRepeatableTask() {
+            @Override
+            public void run() {
+                System.out.println("Hello brandon!");
+            }
+        };
+        BasicRepeatingScheduleInformation info = new BasicRepeatingScheduleInformation();
+        info.setIntervalMillis(100);
+        info.setNumberOfExecutions(4);
+//        info.setMaxDurationMillis();
+        task2.setScheduleInformation(info);
+
+
+
+        dispatchService.addTask(task1);
+        dispatchService.addTask(task2);
+
+        //without concurrency this can cause some issues
+        while(dispatchService.getTaskCount() > 0);
     }
 }

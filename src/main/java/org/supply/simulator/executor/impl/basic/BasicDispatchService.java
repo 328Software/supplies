@@ -11,13 +11,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BasicDispatchService extends BasicTask implements DispatchService, Task {
 
-    protected ScheduledThreadPoolExecutor executor;
-    protected Map<Runnable, Future> futures;
-    protected Map<Runnable, AtomicInteger> executionCount;
+    //todo make sure volatile is sufficient
+    volatile protected ScheduledThreadPoolExecutor executor;
+    volatile protected Map<Runnable, Future> futures;
+    volatile protected Map<Runnable, AtomicInteger> executionCount;
 
     public BasicDispatchService() {
-        futures = new ConcurrentHashMap<Runnable, Future>();
-        executionCount = new ConcurrentHashMap<Runnable, AtomicInteger>();
+        futures = new HashMap<Runnable, Future>();
+        executionCount = new HashMap<Runnable, AtomicInteger>();
     }
 
     @Override

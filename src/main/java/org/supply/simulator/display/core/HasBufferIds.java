@@ -1,9 +1,9 @@
-package org.supply.simulator.display.chunk;
+package org.supply.simulator.display.core;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface BufferIds {
+public interface HasBufferIds {
 
     /**
      *
@@ -13,9 +13,10 @@ public interface BufferIds {
 
     /**
      *
-     * @param indicesBufferId
+     * @param rows
+     * @param cols
      */
-    void setIndicesBufferId(int indicesBufferId);
+    void setIndicesBufferId(int rows, int cols);
 
     /**
      *
@@ -27,7 +28,13 @@ public interface BufferIds {
      *
      * @param verticesArrayId
      */
-    void setVerticesArrayId(int verticesArrayId);
+    void setPositionsArrayId(int verticesArrayId);
+
+    /**
+     *
+     * @param entityBufferID
+     */
+    void setEntityBufferId(int entityBufferID);
 
     /**
      *
@@ -51,5 +58,11 @@ public interface BufferIds {
      *
      * @return
      */
-    int getVerticesArrayId();
+    int getPositionsArrayId();
+
+    /**
+     *
+     * @return
+     */
+    int getEntityBufferId();
 }

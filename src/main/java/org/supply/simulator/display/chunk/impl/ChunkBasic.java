@@ -1,39 +1,92 @@
 package org.supply.simulator.display.chunk.impl;
 
-import org.supply.simulator.display.chunk.BufferIds;
+import org.lwjgl.opengl.*;
+import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.chunk.VertexData;
+import org.supply.simulator.display.core.HasRenderableInfo;
+import org.supply.simulator.display.core.HasRenderableInfoAbstract;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public class ChunkBasic implements Chunk{
+public class ChunkBasic<T>
+        extends    HasRenderableInfoAbstract
+        implements Chunk<VertexDataBasic>, Renderable, HasRenderableInfo {
 
-    private int length;
-    private int width;
+    public static final int VERTICES_PER_CHUNK = 100;
+    public static final int INDICES_PER_VERTEX = 6;
+    @Override
+    public void build(VertexDataBasic data) {
+        rows = data.getRows();
+        columns = data.getCols();
+
+        vertexAttributesId = GL30.glGenVertexArrays();
+
+        GL30.glBindVertexArray(vertexAttributesId);
+
+
+        positionsArrayId = GL15.glGenBuffers();
+        colorsArrayId = GL15.glGenBuffers();
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getPositionsBuffer(), GL15.GL_STATIC_DRAW);
+
+        GL20.glVertexAttribPointer(locations[0], data.POSITION_COUNT, GL11.GL_FLOAT,
+                false, data.POSITION_BYTES, data.POSITION_BYTE_OFFSET);
+
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorsArrayId);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getColorBuffer(), GL15.GL_STATIC_DRAW);
+
+        GL20.glVertexAttribPointer(locations[1], data.COLOR_COUNT, GL11.GL_UNSIGNED_BYTE,
+                true, data.COLOR_BYTES, 0);
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+
+        GL30.glBindVertexArray(0);
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    }
 
     @Override
-    public void init(int length, int width) {
+    public void destroy() {
+        GL30.glBindVertexArray(vertexAttributesId);
+
+        GL20.glDisableVertexAttribArray(locations[0]);
+        GL20.glDisableVertexAttribArray(locations[1]);
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL15.glDeleteBuffers(positionsArrayId);
+
+        //TODO figure out why we are unbinding this buffer twice
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL15.glDeleteBuffers(colorsArrayId);
+
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL15.glDeleteBuffers(indicesBufferId);
+
+        GL30.glBindVertexArray(0);
+        GL30.glDeleteVertexArrays(vertexAttributesId);
+
 
     }
 
     @Override
-    public void addVertex(VertexData vertexData) {
+    public void render() {
+        GL30.glBindVertexArray(vertexAttributesId);
+        GL20.glEnableVertexAttribArray(locations[0]);
+        GL20.glEnableVertexAttribArray(locations[1]);
 
-    }
+        // Bind to the index VBO that has all the information about the order of the vertices
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
 
-    @Override
-    public void addVertices(VertexData[] vertexData) {
+        // Draw the vertices
+        GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, rows*columns*INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
+        // Put everything back to default (deselect)
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL20.glDisableVertexAttribArray(locations[0]);
+        GL20.glDisableVertexAttribArray(locations[1]);
+        GL30.glBindVertexArray(0);
 
-    }
-
-    @Override
-    public void build() {
-
-    }
-
-    @Override
-    public BufferIds getBufferIds() {
-        return null;
     }
 }

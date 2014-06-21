@@ -1,41 +1,22 @@
 package org.supply.simulator.display.chunk;
 
+import org.lwjgl.util.Renderable;
+import org.supply.simulator.display.core.HasRenderableInfo;
+
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface Chunk {
+public interface Chunk<T> extends Renderable, HasRenderableInfo {
 
     /**
      *
-     * @param length
-     * @param width
+     * @param data
      */
-    public void init (int length, int width);
-
-    /**
-     *
-     * @param vertexData
-     */
-    public void addVertex(VertexData vertexData);
-
-    /**
-     *
-     * @param vertexData
-     */
-    public void addVertices(VertexData[] vertexData);
+    public void build(T data);
 
     /**
      *
      */
-    public void build ();
-
-    /**
-     *
-     * @return
-     */
-    public BufferIds getBufferIds ();
-
-
-
+    public void destroy();
 
 }

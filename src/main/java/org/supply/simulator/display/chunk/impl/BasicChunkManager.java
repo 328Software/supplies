@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by Alex on 6/17/2014.
  */
-public class ChunkManagerBasic<K,V extends Chunk>
+public class BasicChunkManager<K,V extends Chunk>
         implements ChunkManager<K,V>, Iterator<V>{
 
     private HashMap<K,V> chunks;
@@ -18,10 +18,10 @@ public class ChunkManagerBasic<K,V extends Chunk>
 
     private int VIEWDISTANCE=100;
 
-    public ChunkManagerBasic () {
+    public BasicChunkManager() {
         chunks = new HashMap<>();
         chunkIds = new ArrayList<>();
-        iteratorCount=0;
+        iteratorCount=-1;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ChunkManagerBasic<K,V extends Chunk>
     public V next() {
         if (iteratorCount>=chunkIds.size()) {
             iteratorCount++;
-            return chunks.get(chunkIds.get(iteratorCount-1));
+            return chunks.get(chunkIds.get(iteratorCount));
         } else {
             return null;
         }

@@ -12,16 +12,16 @@ import java.nio.FloatBuffer;
 /**
  * Created by Alex on 6/17/2014.
  */
-public class ChunkBasic
+public class BasicChunk
         extends    HasRenderableInfoAbstract
         implements Chunk, Renderable, HasRenderableInfo {
 
     public static final int VERTICES_PER_CHUNK = 100;
     public static final int INDICES_PER_VERTEX = 6;
 
-    private ChunkDataBasic<FloatBuffer,ByteBuffer> data;
+    private BasicChunkData<FloatBuffer,ByteBuffer> data;
 
-    public void setData(ChunkDataBasic<FloatBuffer,ByteBuffer> data) {
+    public void setData(BasicChunkData<FloatBuffer,ByteBuffer> data) {
         this.data=data;
     }
 
@@ -57,6 +57,7 @@ public class ChunkBasic
         GL30.glBindVertexArray(0);
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        data=null;
     }
 
     @Override
@@ -69,7 +70,7 @@ public class ChunkBasic
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         GL15.glDeleteBuffers(positionsArrayId);
 
-        //TODO figure out why we are unbinding this buffer twice
+        //  TODO figure out why we are unbinding this buffer twice
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         GL15.glDeleteBuffers(colorsArrayId);
 

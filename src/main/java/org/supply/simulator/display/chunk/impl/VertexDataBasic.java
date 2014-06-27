@@ -11,7 +11,7 @@ import java.nio.FloatBuffer;
 /**
  * Created by Alex on 6/17/2014.
  */
-public class VertexDataBasic<V extends Buffer,C extends Buffer> extends HasSizeAbstract implements VertexData, HasSize {
+public class VertexDataBasic<V extends Buffer,C extends Buffer> extends HasSizeAbstract implements VertexData<V,C>, HasSize {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;

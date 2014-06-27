@@ -73,8 +73,10 @@ public class BasicDispatchService extends BasicTask implements DispatchService, 
 
     @Override
     public void removeTask(final RepeatableTask task) {
-        executionCount.remove(task);
-        futures.remove(task).cancel(true);
+        synchronized (this) {
+            executionCount.remove(task);
+            futures.remove(task).cancel(true);
+        }
     }
 
     @Override
@@ -87,6 +89,7 @@ public class BasicDispatchService extends BasicTask implements DispatchService, 
         return futures.size();
     }
 
+    @Override
     public void stopService(int timeout) {
         try {
             executor.shutdown();
@@ -96,6 +99,10 @@ public class BasicDispatchService extends BasicTask implements DispatchService, 
         } finally {
             executor.shutdownNow();
         }
+    }
+
+    public Set<Runnable> getAll() {
+        return futures.keySet();
     }
 
     public void setExecutor(ScheduledThreadPoolExecutor executor) {

@@ -7,5 +7,6 @@ public interface DispatchService {
     void addTask(RepeatableTask task);
     void removeTask(RepeatableTask task);
     void stopService();
+    void stopService(int timeout);
     int getTaskCount();
 }

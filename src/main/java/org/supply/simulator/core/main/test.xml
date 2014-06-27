@@ -15,4 +15,8 @@
         <property name="id" value="RALPH"/>
         <property name="bigData" value="#{1.41}"/>
     </bean>
+
+    <bean id="otherClassThatUsesBeanDip" class="org.supply.simulator.core.main.Main">
+        <property name="myStaticBean" ref="beanDip"/>
+    </bean>
 </beans>

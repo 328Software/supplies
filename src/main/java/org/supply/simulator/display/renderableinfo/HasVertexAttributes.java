@@ -1,4 +1,4 @@
-package org.supply.simulator.display.core;
+package org.supply.simulator.display.renderableinfo;
 
 /**
  * Created by Alex on 6/19/2014.

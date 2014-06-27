@@ -3,22 +3,30 @@ package org.supply.simulator.display.chunk.impl;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.core.HasRenderableInfo;
-import org.supply.simulator.display.core.HasRenderableInfoAbstract;
+import org.supply.simulator.display.chunk.VertexData;
+import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
+import org.supply.simulator.display.renderableinfo.HasRenderableInfoAbstract;
+
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public class ChunkBasic<T>
+public class ChunkBasic
         extends    HasRenderableInfoAbstract
-        implements Chunk<VertexDataBasic>, Renderable, HasRenderableInfo {
+        implements Chunk, Renderable, HasRenderableInfo {
 
     public static final int VERTICES_PER_CHUNK = 100;
     public static final int INDICES_PER_VERTEX = 6;
+
+    private VertexDataBasic<FloatBuffer,ByteBuffer> data;
+
+
     @Override
-    public void build(VertexDataBasic data) {
+    public void build() {
         rows = data.getRows();
-        columns = data.getCols();
+        columns = data.getColumns();
 
         vertexAttributesId = GL30.glGenVertexArrays();
 

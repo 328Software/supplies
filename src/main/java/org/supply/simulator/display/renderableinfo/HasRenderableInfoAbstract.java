@@ -1,4 +1,4 @@
-package org.supply.simulator.display.core;
+package org.supply.simulator.display.renderableinfo;
 
 /**
  * Created by Alex on 6/20/2014.
@@ -88,7 +88,7 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
     }
 
     @Override
-    public int getCols() {
+    public int getColumns() {
         return this.columns;
     }
 

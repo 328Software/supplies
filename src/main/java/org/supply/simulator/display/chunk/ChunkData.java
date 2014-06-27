@@ -7,7 +7,7 @@ import java.nio.Buffer;
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface VertexData<V extends Buffer, C extends Buffer> extends HasSize {
+public interface ChunkData<V extends Buffer, C extends Buffer> extends HasSize {
 
     /**
      *

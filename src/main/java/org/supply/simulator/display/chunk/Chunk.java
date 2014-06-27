@@ -6,7 +6,7 @@ import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface Chunk<T extends VertexData> extends Renderable, HasRenderableInfo {
+public interface Chunk extends Renderable, HasRenderableInfo {
 
     /**
      *

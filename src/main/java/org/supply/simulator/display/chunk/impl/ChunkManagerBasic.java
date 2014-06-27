@@ -2,20 +2,17 @@ package org.supply.simulator.display.chunk.impl;
 
 import org.supply.simulator.display.chunk.Chunk;
 import org.supply.simulator.display.chunk.ChunkManager;
-import org.supply.simulator.display.chunk.VertexData;
 import org.supply.simulator.display.window.Camera;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.util.*;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public class ChunkManagerBasic<K,V extends Chunk,T,S>
-        implements ChunkManager<K,ChunkBasic<T>,VertexDataBasic,HashMap<K,ChunkBasic<T>>>, Iterator{
+public class ChunkManagerBasic<K,V extends Chunk>
+        implements ChunkManager<K,V>, Iterator<V>{
 
-    private HashMap<K,ChunkBasic<T>> chunks;
+    private HashMap<K,V> chunks;
     private ArrayList<K> chunkIds;
     private int iteratorCount;
 
@@ -29,8 +26,9 @@ public class ChunkManagerBasic<K,V extends Chunk,T,S>
 
     @Override
     public void updateChunks(Camera view) {
-        ArrayList<K> nextChunks = getViewAbleChunks(view);
+        ArrayList<K> nextChunks = getViewableChunks(view);
 
+        iteratorCount=0;
 
         // DELETE CHUNKS THAT HAVE LEFT RANGE
         for (K id:chunkIds) {
@@ -45,16 +43,11 @@ public class ChunkManagerBasic<K,V extends Chunk,T,S>
         for (K id:nextChunks) {
             if (!chunkIds.contains(id)) {
                 chunkIds.add(id);
-                Chunk<VertexDataBasic> chunk = new ChunkBasic<>();
-                chunk.build(getVertexDataFromDAO(id));
+                V chunk = getChunkFromDAO(id);
+                chunk.build();
             }
         }
 
-    }
-
-    @Override
-    public HashMap<K,ChunkBasic<T>> getChunks() {
-        return chunks;
     }
 
     @Override
@@ -63,7 +56,7 @@ public class ChunkManagerBasic<K,V extends Chunk,T,S>
     }
 
     @Override
-    public Object next() {
+    public V next() {
         if (iteratorCount>=chunkIds.size()) {
             iteratorCount++;
             return chunks.get(chunkIds.get(iteratorCount-1));
@@ -77,13 +70,13 @@ public class ChunkManagerBasic<K,V extends Chunk,T,S>
 
     }
 
-    private VertexDataBasic getVertexDataFromDAO (K chunkId) {
+    private V getChunkFromDAO(K chunkId) {
         //TODO interface with DAO
-        VertexDataBasic<FloatBuffer,ByteBuffer> data = new VertexDataBasic<>();
-        return data;
+        V chunk = null;
+        return chunk;
     }
 
-    private ArrayList<K> getViewAbleChunks (Camera view) {
+    private ArrayList<K> getViewableChunks(Camera view) {
         //TODO Badass algorithm here
         return new ArrayList<K>();
     }

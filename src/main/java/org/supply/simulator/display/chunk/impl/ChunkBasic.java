@@ -3,7 +3,6 @@ package org.supply.simulator.display.chunk.impl;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.chunk.VertexData;
 import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
 import org.supply.simulator.display.renderableinfo.HasRenderableInfoAbstract;
 
@@ -20,7 +19,11 @@ public class ChunkBasic
     public static final int VERTICES_PER_CHUNK = 100;
     public static final int INDICES_PER_VERTEX = 6;
 
-    private VertexDataBasic<FloatBuffer,ByteBuffer> data;
+    private ChunkDataBasic<FloatBuffer,ByteBuffer> data;
+
+    public void setData(ChunkDataBasic<FloatBuffer,ByteBuffer> data) {
+        this.data=data;
+    }
 
 
     @Override

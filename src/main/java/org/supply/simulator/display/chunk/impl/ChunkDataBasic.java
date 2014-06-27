@@ -1,17 +1,15 @@
 package org.supply.simulator.display.chunk.impl;
 
-import org.supply.simulator.display.chunk.VertexData;
+import org.supply.simulator.display.chunk.ChunkData;
 import org.supply.simulator.display.renderableinfo.HasSize;
 import org.supply.simulator.display.renderableinfo.HasSizeAbstract;
 
 import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public class VertexDataBasic<V extends Buffer,C extends Buffer> extends HasSizeAbstract implements VertexData<V,C>, HasSize {
+public class ChunkDataBasic<V extends Buffer,C extends Buffer> extends HasSizeAbstract implements ChunkData<V,C>, HasSize {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;

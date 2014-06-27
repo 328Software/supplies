@@ -9,12 +9,9 @@ import java.util.Map;
  * Created by Alex on 6/17/2014.
  */
 public interface ChunkManager<
-                         //TYPES:
         K,               //CHUNK ID: used to get chunks from DB
-        V extends Chunk, //CHUNK
-        T,               //VERTEX DATA
-        S                //TYPE where chunks are stored
-        > {
+        V extends Chunk  //CHUNK object
+        > extends Iterator<V> {
 
     /**
      *
@@ -22,9 +19,4 @@ public interface ChunkManager<
      */
     public void updateChunks(Camera view);
 
-    /**
-     *
-     * @return
-     */
-    public S getChunks();
 }

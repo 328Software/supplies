@@ -5,31 +5,14 @@
 <beans>
 
 
-    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName"/>
+    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName">
+        <property name="myStaticBean" ref="beanDip"/>
+        <property name="testString" value="kiss my fat butt sucker"/>
+    </bean>
 
     <bean id="beanDip" class="org.supply.simulator.core.main.Main.SomeBean">
-        <property name="usefulNumber" value="#{new Integer(11)}"/>
+        <property name="usefulNumber" value="#{11}"/>
         <property name="id" value="RALPH"/>
         <property name="bigData" value="#{1.41}"/>
-    </bean>
-
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetObject" ref="main"/>
-        <property name="targetMethod" value="setTestString"/>
-        <property name="arguments">
-            <list>
-                <value>hello brandon you are awesome</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetObject" ref="main"/>
-        <property name="targetMethod" value="setMyStaticBean"/>
-        <property name="arguments">
-            <list>
-                <ref bean="beanDip"/>
-            </list>
-        </property>
     </bean>
 </beans>

@@ -14,12 +14,11 @@ public class Main {
 
     public static ApplicationContext context = new ClassPathXmlApplicationContext("/org/supply/simulator/core/main/test.xml");
     public static SomeBean myStaticBean;
+    private static String testString;
 
     public Main() {
         System.out.println("hello");
     }
-
-    private static String testString;
 
 
     public static void main(String[] args) throws Exception {
@@ -30,17 +29,22 @@ public class Main {
         System.out.println(myStaticBean.usefulNumber);
     }
 
-    public static void setTestString(String ts) {
-        testString = ts;
+    public void setTestString(String ts) {
+        Main.testString = ts;
     }
 
+
+    public void setMyStaticBean(SomeBean myStaticBean) {
+        Main.myStaticBean = myStaticBean;
+    }
 
     public static class SomeBean {
         int usefulNumber;
         String id;
+
+
+
         Double bigData;
-
-
 
         public void setUsefulNumber(int usefulNumber) {
             this.usefulNumber = usefulNumber;
@@ -49,13 +53,9 @@ public class Main {
         public void setId(String id) {
             this.id = id;
         }
-
         public void setBigData(Double bigData) {
             this.bigData = bigData;
         }
-    }
 
-    public static void setMyStaticBean(SomeBean myStaticBean) {
-        Main.myStaticBean = myStaticBean;
     }
 }

@@ -25,6 +25,8 @@ public class BasicChunk
         this.data=data;
     }
 
+   // public void setEntityDAO(){};
+
 
     @Override
     public void build() {
@@ -85,6 +87,7 @@ public class BasicChunk
 
     @Override
     public void render() {
+
         GL30.glBindVertexArray(vertexAttributesId);
         GL20.glEnableVertexAttribArray(locations[0]);
         GL20.glEnableVertexAttribArray(locations[1]);
@@ -101,4 +104,8 @@ public class BasicChunk
         GL30.glBindVertexArray(0);
 
     }
+
+//    private void updateEntities() {
+
+//    }
 }

@@ -9,6 +9,9 @@
         <conf name="test" visibility="public" extends="runtime"/>
         <conf name="default" visibility="public" extends="runtime,master"/>
         <conf name="junit" visibility="public"/>
+        <conf name="windows-native" visibility="public"/>
+        <conf name="linux-native" visibility="public"/>
+        <conf name="osx-native" visibility="public"/>
     </configurations>
 
     <publications defaultconf="master">

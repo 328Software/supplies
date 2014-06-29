@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+
+    <!--used to set all of the objects on main for the application start-->
+    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName"/>
+
+    <bean id="taskManager" class="org.supply.simulator.executor.impl.basic.BasicTaskManager">
+        <property name="executor" ref="executor"/>
+        <property name="dispatchService" ref="dispatchService"/>
+    </bean>
+
+    <bean id="dispatchService" class="org.supply.simulator.executor.impl.basic.BasicDispatchService">
+        <property name="executor" ref="executor"/>
+    </bean>
+
+    <bean id="executor" class="java.util.concurrent.ScheduledThreadPoolExecutor">
+        <constructor-arg index="0" value="10"/>
+    </bean>
+</beans>

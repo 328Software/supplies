@@ -1,7 +1,11 @@
 package org.supply.simulator.core.main;
 
-import org.springframework.context.ApplicationContext;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.supply.simulator.executor.DispatchService;
+import org.supply.simulator.executor.TaskManager;
+import org.apache.logging.log4j.LogManager;
+import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,52 +14,45 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Time: 9:42 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Main {
+public class Main extends HasLogger {
 
-    public static ApplicationContext context = new ClassPathXmlApplicationContext("/org/supply/simulator/core/main/test.xml");
-    public static SomeBean myStaticBean;
-    private static String testString;
+    private static Logger logger = LogManager.getLogger(Main.class);
+    private static DispatchService dispatchService;
+    private static TaskManager taskManager;
 
-    public Main() {
-        System.out.println("hello");
+    static {
+        //load everything
+        new ClassPathXmlApplicationContext("/application-context.xml");
     }
 
-
+    /**
+     * The main method.
+     *
+     * @param args No arguments are currently used
+     * @throws Exception No checked exceptions are thrown by this method.
+     */
     public static void main(String[] args) throws Exception {
-        System.out.println("and i was running");
-        System.out.println(testString);
-        System.out.println(myStaticBean.bigData);
-        System.out.println(myStaticBean.id);
-        System.out.println(myStaticBean.usefulNumber);
+        logger.info("=========================== Starting main!! ===========================");
+        logger.debug("Dispatch service is " + dispatchService.getClass().getName());
+        logger.debug("Task manager is " + taskManager.getClass().getName());
+        logger.info("================================ Done!! ===============================");
     }
 
-    public void setTestString(String ts) {
-        Main.testString = ts;
+    public void setDispatchService(DispatchService dispatchService) {
+        Main.dispatchService = dispatchService;
     }
 
-
-    public void setMyStaticBean(SomeBean myStaticBean) {
-        Main.myStaticBean = myStaticBean;
+    public void setTaskManager(TaskManager taskManager) {
+        Main.taskManager = taskManager;
     }
 
-    public static class SomeBean {
-        int usefulNumber;
-        String id;
+    @Override
+    public Logger getLogger() {
+        return logger;
+    }
 
-
-
-        Double bigData;
-
-        public void setUsefulNumber(int usefulNumber) {
-            this.usefulNumber = usefulNumber;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-        public void setBigData(Double bigData) {
-            this.bigData = bigData;
-        }
-
+    @Override
+    public void setLogger(Logger logger) {
+        Main.logger = logger;
     }
 }

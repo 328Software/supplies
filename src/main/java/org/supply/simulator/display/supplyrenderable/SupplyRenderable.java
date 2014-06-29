@@ -1,12 +1,11 @@
-package org.supply.simulator.display.chunk;
+package org.supply.simulator.display.supplyrenderable;
 
 import org.lwjgl.util.Renderable;
-import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
 
 /**
- * Created by Alex on 6/17/2014.
+ * Created by Alex on 6/29/2014.
  */
-public interface Chunk extends Renderable, HasRenderableInfo {
+public interface SupplyRenderable  extends HasRenderableInfo, Renderable {
 
     /**
      *
@@ -29,5 +28,6 @@ public interface Chunk extends Renderable, HasRenderableInfo {
      * @return
      */
     public boolean isDestroyed();
+
 
 }

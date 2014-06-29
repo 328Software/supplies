@@ -1,11 +1,10 @@
-package org.supply.simulator.display.chunk.impl;
+package org.supply.simulator.display.manager.chunk.impl;
 
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.Renderable;
-import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.chunk.ChunkManager;
-import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
-import org.supply.simulator.display.renderableinfo.HasRenderableInfoAbstract;
+import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.supplyrenderable.HasRenderableInfo;
+import org.supply.simulator.display.supplyrenderable.HasRenderableInfoAbstract;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -25,13 +24,15 @@ public class BasicChunk
 
     private BasicChunkData<FloatBuffer,ByteBuffer> data;
 
-    public void setData(BasicChunkData<FloatBuffer,ByteBuffer> data) {
-        this.data=data;
+    public BasicChunk () {
         isBuilt =false;
         isDestroyed=true;
     }
 
-   // public void setEntityDAO(){};
+    public void setData(BasicChunkData<FloatBuffer,ByteBuffer> data) {
+        this.data=data;
+
+    }
 
 
     @Override

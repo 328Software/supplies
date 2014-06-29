@@ -1,4 +1,4 @@
-package org.supply.simulator.display.renderableinfo;
+package org.supply.simulator.display.supplyrenderable;
 
 /**
  * Created by Alex on 6/17/2014.

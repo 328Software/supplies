@@ -1,7 +1,7 @@
-package org.supply.simulator.display.chunk.impl;
+package org.supply.simulator.display.manager.chunk;
 
-import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.chunk.ChunkManager;
+import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by Alex on 6/17/2014.
  */
-public class BasicChunkManager<K,V extends Chunk>
+public abstract class AbstractChunkManager<K,V extends Chunk>
         implements ChunkManager<K,V> {
 
     private HashMap<K,V> chunks;
@@ -18,14 +18,14 @@ public class BasicChunkManager<K,V extends Chunk>
 
     private int VIEWDISTANCE=100;
 
-    public BasicChunkManager() {
+    public AbstractChunkManager() {
         chunks = new HashMap<>();
         chunkIds = new ArrayList<>();
         iteratorCount=-1;
     }
 
     @Override
-    public void updateChunks(Camera view) {
+    public void update(Camera view) {
         ArrayList<K> nextChunks = getViewableChunks(view);
 
         iteratorCount=0;
@@ -43,7 +43,7 @@ public class BasicChunkManager<K,V extends Chunk>
         for (K id:nextChunks) {
             if (!chunkIds.contains(id)) {
                 chunkIds.add(id);
-                V chunk = getChunkFromDAO(id);
+                V chunk = getChunk(id);
                 chunk.build();
                 chunks.put(id, chunk);
             }
@@ -53,17 +53,17 @@ public class BasicChunkManager<K,V extends Chunk>
 
     @Override
     public int size() {
-        return 0;
+        return chunks.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return chunks.isEmpty();
     }
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return chunks.containsKey(o);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class BasicChunkManager<K,V extends Chunk>
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+    return chunks.values().toArray();
     }
 
     @Override
@@ -138,11 +138,7 @@ public class BasicChunkManager<K,V extends Chunk>
 
 
 
-    private V getChunkFromDAO(K chunkId) {
-        //TODO interface with DAO
-        V chunk = null;
-        return chunk;
-    }
+    protected abstract V getChunk(K chunkId);
 
     private ArrayList<K> getViewableChunks(Camera view) {
         //TODO Badass algorithm here

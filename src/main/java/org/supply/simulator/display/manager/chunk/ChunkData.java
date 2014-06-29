@@ -1,6 +1,6 @@
-package org.supply.simulator.display.chunk;
+package org.supply.simulator.display.manager.chunk;
 
-import org.supply.simulator.display.renderableinfo.HasSize;
+import org.supply.simulator.display.supplyrenderable.HasSize;
 
 import java.nio.Buffer;
 

@@ -84,31 +84,37 @@ public class BasicShaderEngine implements ShaderEngine {
 
     @Override
     public void useProgram(ShaderProgramType type) {
-
+        GL20.glUseProgram(programIds[type.value()]);
     }
 
     @Override
     public void createProgram(ShaderProgramType type) {
         programIds[type.value()] = GL20.glCreateProgram();
+        int vertexId = -1;
+        int fragmentId = -1;
 
         if (vertexShader[type.value()]!=null) {
-            GL20.glAttachShader(programIds[type.value()],
-                    loadShader(vertexShader[type.value()], GL20.GL_VERTEX_SHADER));
+            vertexId = loadShader(vertexShader[type.value()], GL20.GL_VERTEX_SHADER);
 
-            //Position information will be attribute 0
-            GL20.glBindAttribLocation(programIds[type.value()], 0, "in_Position");
-            // Color information will be attribute 1
-            GL20.glBindAttribLocation(programIds[type.value()], 1, "in_Color");
         } else {
             System.out.println("FIAL");
         }
 
         if (fragmentShader[type.value()]!=null) {
-            GL20.glAttachShader(programIds[type.value()],
-                    loadShader(fragmentShader[type.value()], GL20.GL_FRAGMENT_SHADER));
+            fragmentId=loadShader(fragmentShader[type.value()], GL20.GL_FRAGMENT_SHADER);
         } else {
             System.out.println("FIAL");
         }
+
+
+
+        GL20.glAttachShader(programIds[type.value()],vertexId);
+        GL20.glAttachShader(programIds[type.value()],fragmentId);
+
+        //Position information will be attribute 0
+        GL20.glBindAttribLocation(programIds[type.value()], 0, "in_Position");
+        // Color information will be attribute 1
+        GL20.glBindAttribLocation(programIds[type.value()], 1, "in_Color");
 
         if (geometryShader[type.value()]!=null) {
 
@@ -122,12 +128,14 @@ public class BasicShaderEngine implements ShaderEngine {
 
         }
 
+
+        GL20.glLinkProgram(programIds[type.value()]);
+        GL20.glValidateProgram(programIds[type.value()]);
+
         projectionMatrixLocation[type.value()] = GL20.glGetUniformLocation(programIds[type.value()],"projectionMatrix");
         viewMatrixLocation[type.value()]       = GL20.glGetUniformLocation(programIds[type.value()], "viewMatrix");
         modelMatrixLocation[type.value()]      = GL20.glGetUniformLocation(programIds[type.value()], "modelMatrix");
 
-        GL20.glLinkProgram(programIds[type.value()]);
-        GL20.glValidateProgram(programIds[type.value()]);
     }
 
     @Override

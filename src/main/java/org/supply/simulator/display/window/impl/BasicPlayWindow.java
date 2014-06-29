@@ -5,19 +5,15 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.chunk.Chunk;
-import org.supply.simulator.display.chunk.ChunkManager;
-import org.supply.simulator.display.chunk.impl.BasicChunk;
-import org.supply.simulator.display.chunk.impl.BasicChunkManager;
-import org.supply.simulator.display.renderableinfo.HasRenderableInfoAbstract;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkManager;
+import org.supply.simulator.display.supplyrenderable.HasRenderableInfoAbstract;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
-import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.Window;
 
 import java.nio.FloatBuffer;
-import java.util.Iterator;
 
 /**
  * Created by Alex on 6/27/2014.
@@ -36,9 +32,12 @@ public class BasicPlayWindow extends HasRenderableInfoAbstract implements Window
     private Matrix4f modelMatrix = null;
     private FloatBuffer matrix44Buffer = null;
 
-    public BasicPlayWindow () {
-        setupMatrices();
-        shaderEngine.createProgram(ShaderProgramType.PLAY);
+    private boolean isBuilt;
+    private boolean isDestroyed;
+
+    public BasicPlayWindow() {
+        isBuilt = false;
+        isDestroyed = false;
     }
 
     @Override
@@ -99,11 +98,11 @@ public class BasicPlayWindow extends HasRenderableInfoAbstract implements Window
         shaderEngine.useProgram(ShaderProgramType.PLAY);
 
         // Update chunks with new camera position
-        chunkManager.updateChunks(camera);
+        chunkManager.update(camera);
 
-        while (chunkManager.hasNext()) {
-            chunkManager.next().render();
-        }
+//        while (chunkManager.hasNext()) {
+//            chunkManager.next().render();
+//        }
 
 
         shaderEngine.useProgram(ShaderProgramType.CLEAR);
@@ -115,9 +114,27 @@ public class BasicPlayWindow extends HasRenderableInfoAbstract implements Window
 
     }
 
+    @Override
+    public void build() {
+        setupMatrices();
+        shaderEngine.createProgram(ShaderProgramType.PLAY);
+        isBuilt = true;
+    }
+
+    @Override
+    public boolean isBuilt() {
+        return isBuilt;
+    }
+
     public void destroy() {
         shaderEngine.useProgram(ShaderProgramType.CLEAR);
         shaderEngine.deleteProgram(ShaderProgramType.PLAY);
+        isDestroyed=true;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     private Camera getCameraFromStream() {

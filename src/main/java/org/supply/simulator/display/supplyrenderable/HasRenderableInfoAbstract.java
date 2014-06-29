@@ -1,9 +1,13 @@
-package org.supply.simulator.display.renderableinfo;
+package org.supply.simulator.display.supplyrenderable;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 6/20/2014.
  */
 public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
+
+    private static ArrayList<Integer> indicesBufferIdArray;
 
     protected int rows;
     protected int columns;
@@ -97,5 +101,6 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
         return this.locations;
 
     }
+
 
 }

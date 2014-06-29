@@ -3,6 +3,7 @@ package org.supply.simulator.display.chunk.impl;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.chunk.Chunk;
+import org.supply.simulator.display.chunk.ChunkManager;
 import org.supply.simulator.display.renderableinfo.HasRenderableInfo;
 import org.supply.simulator.display.renderableinfo.HasRenderableInfoAbstract;
 
@@ -19,10 +20,15 @@ public class BasicChunk
     public static final int VERTICES_PER_CHUNK = 100;
     public static final int INDICES_PER_VERTEX = 6;
 
+    private boolean isBuilt;
+    private boolean isDestroyed;
+
     private BasicChunkData<FloatBuffer,ByteBuffer> data;
 
     public void setData(BasicChunkData<FloatBuffer,ByteBuffer> data) {
         this.data=data;
+        isBuilt =false;
+        isDestroyed=true;
     }
 
    // public void setEntityDAO(){};
@@ -60,6 +66,12 @@ public class BasicChunk
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         data=null;
+        isBuilt =true;
+    }
+
+    @Override
+    public boolean isBuilt() {
+        return isBuilt;
     }
 
     @Override
@@ -82,7 +94,12 @@ public class BasicChunk
         GL30.glBindVertexArray(0);
         GL30.glDeleteVertexArrays(vertexAttributesId);
 
+        isDestroyed = true;
+    }
 
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     @Override
@@ -104,8 +121,4 @@ public class BasicChunk
         GL30.glBindVertexArray(0);
 
     }
-
-//    private void updateEntities() {
-
-//    }
 }

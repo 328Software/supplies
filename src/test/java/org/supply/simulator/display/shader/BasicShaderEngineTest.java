@@ -12,6 +12,8 @@ public class BasicShaderEngineTest {
     private ShaderEngine engine;
     @Before
     public void createFixture () {
+        System.out.println("START BasicShaderEngineTest");
+
         engine = new BasicShaderEngine();
         engine.setPlayVertexShader("shaders/vertex.glsl");
         engine.setPlayFragmentShader("shaders/fragments.glsl");
@@ -20,6 +22,7 @@ public class BasicShaderEngineTest {
 
     @Test
     public void createPlayShader () {
+        System.out.println("    TEST createPlayShader");
         engine.createProgram(ShaderProgramType.PLAY);
         if (engine.getModelMatrixLocation(ShaderProgramType.PLAY)!=0
                 ||engine.getProjectionMatrixLocation(ShaderProgramType.PLAY)!=1
@@ -27,6 +30,8 @@ public class BasicShaderEngineTest {
             System.out.println("View matrix location wrong");
             System.exit(-1);
         }
+        System.out.println("Successfully created shader program");
+
 
     }
 
@@ -34,12 +39,14 @@ public class BasicShaderEngineTest {
     public void usePlayShader() {
         engine.useProgram(ShaderProgramType.PLAY);
         engine.useProgram(ShaderProgramType.CLEAR);
+        System.out.println("Successfully used program");
     }
 
     @Test
     public void destroyPlayShader () {
 
         engine.deleteProgram(ShaderProgramType.PLAY);
+        System.out.println("Successfully destroyed program");
     }
 
 

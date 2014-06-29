@@ -1,4 +1,4 @@
-<ivy-module version="2.0">
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
     <info organisation="org.supply.simulator" module="simulator"/>
 
 
@@ -53,6 +53,22 @@
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <conf name="test" mapped="default"/>
+        </dependency>
+
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.0">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+        </dependency>
+
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.9.0" conf="*">
+            <artifact name="lwjgl-platform" e:classifier="natives-linux" conf="linux-native"/>
+            <artifact name="lwjgl-platform" e:classifier="natives-windows" conf="windows-native"/>
+            <artifact name="lwjgl-platform" e:classifier="natives-osx" conf="osx-native"/>
+        </dependency>
+
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl_util" rev="2.9.0">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
         </dependency>
 
         <!--<dependency org="commons-logging" name="commons-logging" rev="1.1.3">-->

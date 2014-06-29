@@ -15,7 +15,19 @@ public interface Chunk extends Renderable, HasRenderableInfo {
 
     /**
      *
+     * @return
+     */
+    public boolean isBuilt();
+
+    /**
+     *
      */
     public void destroy();
+
+    /**
+     *
+     * @return
+     */
+    public boolean isDestroyed();
 
 }

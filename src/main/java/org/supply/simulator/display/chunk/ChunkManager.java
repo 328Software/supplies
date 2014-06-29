@@ -1,6 +1,7 @@
 package org.supply.simulator.display.chunk;
 import org.supply.simulator.display.window.Camera;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 public interface ChunkManager<
         K,               //CHUNK ID: used to get chunks from DB
         V extends Chunk  //CHUNK object
-        > extends Iterator<V> {
+        > extends Collection<V>, Iterable<V> {
 
     /**
      *

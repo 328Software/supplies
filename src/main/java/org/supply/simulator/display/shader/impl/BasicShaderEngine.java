@@ -33,6 +33,12 @@ public class BasicShaderEngine implements ShaderEngine {
         modelMatrixLocation= new int[ShaderProgramType.COUNT];
         programIds[ShaderProgramType.CLEAR.value()] = 0;
 
+        vertexShader = new String [ShaderProgramType.COUNT];
+        tessellationShader= new String [ShaderProgramType.COUNT];
+        geometryShader= new String [ShaderProgramType.COUNT];
+        fragmentShader= new String [ShaderProgramType.COUNT];
+        computeShader= new String [ShaderProgramType.COUNT];
+
     }
 
     @Override

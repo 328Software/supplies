@@ -8,6 +8,7 @@ import org.supply.simulator.display.supplyrenderable.HasRenderableInfoAbstract;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 /**
  * Created by Alex on 6/17/2014.
@@ -22,14 +23,14 @@ public class BasicChunk
     private boolean isBuilt;
     private boolean isDestroyed;
 
-    private BasicChunkData<FloatBuffer,ByteBuffer> data;
+    private BasicChunkData<FloatBuffer,ByteBuffer,IntBuffer> data;
 
     public BasicChunk () {
         isBuilt =false;
         isDestroyed=true;
     }
 
-    public void setData(BasicChunkData<FloatBuffer,ByteBuffer> data) {
+    public void setData(BasicChunkData<FloatBuffer,ByteBuffer,IntBuffer> data) {
         this.data=data;
 
     }
@@ -39,6 +40,12 @@ public class BasicChunk
     public void build() {
         rows = data.getRows();
         columns = data.getColumns();
+
+        //TODO THE BIG QUESTION: do we reuse indicesBufferIds?
+        indicesBufferId = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, data.getIndicesBuffer(),GL15.GL_STATIC_DRAW);
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         vertexAttributesId = GL30.glGenVertexArrays();
 

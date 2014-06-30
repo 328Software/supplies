@@ -8,8 +8,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.shader.ShaderProgramType;
-import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.impl.BasicCamera;
 
@@ -32,35 +30,28 @@ public class DisplayCoreTest {
     public void createFixture() {
         input = new Input();
         input.init();
-        start();
+        build();
 
     }
 
     @Test
     public void TestDisplayCore() {
-        if (doInteractiveTest) {
-            while (!Display.isCloseRequested()) {
-
-                    input.refreshInput();
-
-            }
-
-        }
+        render();
     }
 
 
     @After
     public void destroyFixture() {
-        stop();
+        destroy();
     }
 
 
-    public static void start() {
+    public static void build() {
         System.out.println("START DISPLAY");
         setupOpenGL();
     }
 
-    public static void stop() {
+    public static void destroy() {
         System.out.println("STOP DISPLAY");
         destroyOpenGl();
     }
@@ -80,18 +71,22 @@ public class DisplayCoreTest {
             GL11.glViewport(0, 0, WIDTH, HEIGHT);
         } catch (LWJGLException e) {
             e.printStackTrace();
-//            System.exit(-1);
         }
 
-        // Setup an XNA like background color
         GL11.glClearColor(130f / 255f, 208f / 255f, 157f / 255f, 0f);
 
-        // Map the internal OpenGL coordinate system to the entire screen
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
     }
 
     private static void destroyOpenGl() {
         Display.destroy();
+    }
+
+    public static void render() {
+
+        Display.sync(60);
+
+        Display.update();
     }
 
     public class Input {

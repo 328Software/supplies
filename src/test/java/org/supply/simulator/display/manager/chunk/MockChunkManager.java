@@ -4,26 +4,97 @@ import org.lwjgl.BufferUtils;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.window.Camera;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,BasicChunk> {
+public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Integer,BasicChunk> {
 
-    @Override
-    protected BasicChunk getChunk(K chunkId) {
-        BasicChunk chunk = new BasicChunk();
-        chunk.setData(getData(100,100));
-        return chunk;//dummy test data;
+    public MockChunkManager () {
+        super();
     }
 
-    public static BasicChunkData<FloatBuffer, ByteBuffer> getData (int row, int col) {
-        BasicChunkData<FloatBuffer, ByteBuffer> basicDataOut = new BasicChunkData<FloatBuffer, ByteBuffer>();
+    @Override
+    protected BasicChunk getChunk(Integer chunkId) {
+        return getChunk(1000,1000);//dummy test data;
+    }
+
+    @Override
+    protected ArrayList<Integer> getViewableChunks(Camera view) {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        return list;
+
+
+    }
+
+
+    @Override
+    public Iterator<BasicChunk> iterator() {
+
+        return new MockIterator() ;
+    }
+
+    private class MockIterator implements Iterator<BasicChunk> {
+
+            @Override
+            public boolean hasNext() {
+                return iteratorCount<chunkIds.size();
+            }
+
+            @Override
+            public BasicChunk next() {
+                if (iteratorCount<chunkIds.size()) {
+                    BasicChunk chunk = chunks.get(chunkIds.get(iteratorCount));
+                    iteratorCount++;
+                    return chunk;
+                } else {
+                    return null;
+                }
+            }
+
+            @Override
+            public void remove() {
+
+            }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static BasicChunk getChunk(int row, int col) {
+        BasicChunk chunk = new BasicChunk();
+        chunk.setData(getData(row,col));
+        chunk.setAttributeLocations(new int[] {0,1});
+        return chunk;
+
+    }
+
+
+
+
+    public static BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> getData (int row, int col) {
+        BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> basicDataOut = new BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer>();
         List<Integer> values = new ArrayList<Integer>();
 
         ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
@@ -83,8 +154,19 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,
         verticesFloatBuffer.flip();
         verticesByteBuffer.flip();
 
+        int[] indices = new int[values.size()];
+
+        for(int i = 0; i < indices.length;i++) {
+            indices[i] = values.get(i);
+        }
+
+        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
+        indicesBuffer.put(indices);
+        indicesBuffer.flip();
+
         basicDataOut.setColorBuffer(verticesByteBuffer);
         basicDataOut.setPositionsBuffer(verticesFloatBuffer);
+        basicDataOut.setIndicesBuffer(indicesBuffer);
         basicDataOut.setSize(row,col);
 
         return basicDataOut;

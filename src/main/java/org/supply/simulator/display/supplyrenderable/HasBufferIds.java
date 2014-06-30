@@ -13,10 +13,8 @@ public interface HasBufferIds {
 
     /**
      *
-     * @param rows
-     * @param cols
      */
-    void setIndicesBufferId(int rows, int cols);
+    void setIndicesBufferId(int indicesBufferId);
 
     /**
      *

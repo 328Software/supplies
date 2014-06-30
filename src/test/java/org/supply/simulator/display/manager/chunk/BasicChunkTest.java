@@ -3,7 +3,6 @@ package org.supply.simulator.display.manager.chunk;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 
@@ -15,7 +14,7 @@ public class BasicChunkTest  {
     private BasicChunk chunk;
     @Before
     public void createFixture () {
-        DisplayCoreTest.start();
+        DisplayCoreTest.build();
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getData(100,100));
         chunk.setAttributeLocations(new int[] {0,1});
@@ -48,6 +47,6 @@ public class BasicChunkTest  {
             System.exit(-1);
         }
         System.out.println("Chunk destroyed successfully");
-        DisplayCoreTest.stop();
+        DisplayCoreTest.destroy();
     }
 }

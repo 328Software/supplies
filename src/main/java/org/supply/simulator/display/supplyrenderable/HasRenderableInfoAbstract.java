@@ -38,7 +38,7 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
     }
 
     @Override
-    public void setIndicesBufferId(int rows, int cols) {
+    public void setIndicesBufferId(int indicesBufferId) {
         //this.indicesBufferId = indicesBufferId;
     }
 

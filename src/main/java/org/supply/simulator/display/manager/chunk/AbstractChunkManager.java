@@ -1,7 +1,5 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.supply.simulator.display.manager.chunk.Chunk;
-import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.*;
@@ -12,42 +10,59 @@ import java.util.*;
 public abstract class AbstractChunkManager<K,V extends Chunk>
         implements ChunkManager<K,V> {
 
-    private HashMap<K,V> chunks;
-    private ArrayList<K> chunkIds;
-    private int iteratorCount;
+    protected HashMap<K,V> chunks;
+    protected ArrayList<K> chunkIds;
+    protected int iteratorCount;
+
+    private Camera lastView;
 
     private int VIEWDISTANCE=100;
 
     public AbstractChunkManager() {
+        lastView = null;
         chunks = new HashMap<>();
         chunkIds = new ArrayList<>();
-        iteratorCount=-1;
+        iteratorCount=0;
     }
 
     @Override
     public void update(Camera view) {
-        ArrayList<K> nextChunks = getViewableChunks(view);
 
-        iteratorCount=0;
+        if (view.equals(lastView)) {
 
-        // DELETE CHUNKS THAT HAVE LEFT RANGE
-        for (K id:chunkIds) {
-            if (!nextChunks.contains(id)) {
-                chunkIds.remove(id);
-                chunks.get(id).destroy();
-                chunks.remove(id);
+            ArrayList<K> nextChunks = getViewableChunks(view);
+
+            System.out.println("***UPDATE CHUNKS");
+            System.out.println("<<<<<<<<<<<<PRINT_CAMERA");
+            System.out.println("Camera angle: " + view.getCameraAngle());
+            System.out.println("Camera pos:   " + view.getCameraPos());
+            System.out.println("Model pos:    " + view.getModelPos());
+            System.out.println("Model angle:  " + view.getModelAngle());
+            System.out.println("Model scale:  " + view.getModelScale());
+            System.out.println(">>>>>>>>>>>>");
+
+            iteratorCount=0;
+
+            // DELETE CHUNKS THAT HAVE LEFT RANGE
+            for (K id:chunkIds) {
+                if (!nextChunks.contains(id)) {
+                    chunkIds.remove(id);
+                    chunks.get(id).destroy();
+                    chunks.remove(id);
+                }
+            }
+
+            // CREATE CHUNKS THAT HAVE ENTERED RANGE
+            for (K id:nextChunks) {
+                if (!chunkIds.contains(id)) {
+                    chunkIds.add(id);
+                    V chunk = getChunk(id);
+                    chunk.build();
+                    chunks.put(id, chunk);
+                }
             }
         }
-
-        // CREATE CHUNKS THAT HAVE ENTERED RANGE
-        for (K id:nextChunks) {
-            if (!chunkIds.contains(id)) {
-                chunkIds.add(id);
-                V chunk = getChunk(id);
-                chunk.build();
-                chunks.put(id, chunk);
-            }
-        }
+        lastView = view;
 
     }
 
@@ -78,7 +93,8 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return null;
+        a = (T[])chunks.values().toArray();
+        return a;
     }
 
     @Override
@@ -113,7 +129,11 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
     @Override
     public void clear() {
-
+        for (K id:chunkIds) {
+            chunkIds.remove(id);
+            chunks.get(id).destroy();
+            chunks.remove(id);
+        }
     }
 
     //    @Override
@@ -140,10 +160,7 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
     protected abstract V getChunk(K chunkId);
 
-    private ArrayList<K> getViewableChunks(Camera view) {
-        //TODO Badass algorithm here
-        return new ArrayList<K>();
-    }
+    protected abstract ArrayList<K> getViewableChunks(Camera view);
 
 }
 

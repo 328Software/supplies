@@ -1,6 +1,5 @@
 package org.supply.simulator.display.manager;
 
-import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 import org.supply.simulator.display.window.Camera;
 

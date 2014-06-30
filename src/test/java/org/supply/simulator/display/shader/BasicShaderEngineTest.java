@@ -15,7 +15,7 @@ public class BasicShaderEngineTest {
     private ShaderEngine engine;
     @Before
     public void createFixture () {
-        DisplayCoreTest.start();
+        DisplayCoreTest.build();
         System.out.println("START BasicShaderEngineTest");
 
         engine = new BasicShaderEngine();
@@ -48,7 +48,7 @@ public class BasicShaderEngineTest {
     @After
     public void destroyObject() {
 
-        DisplayCoreTest.stop();
+        DisplayCoreTest.destroy();
     }
 
 }

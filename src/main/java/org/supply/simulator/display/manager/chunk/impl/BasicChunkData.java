@@ -9,7 +9,9 @@ import java.nio.Buffer;
 /**
  * Created by Alex on 6/17/2014.
  */
-public class BasicChunkData<V extends Buffer,C extends Buffer> extends HasSizeAbstract implements ChunkData<V,C>, HasSize {
+public class BasicChunkData<V extends Buffer,C extends Buffer, I extends Buffer>
+        extends HasSizeAbstract
+        implements ChunkData<V,C,I>, HasSize {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -32,6 +34,7 @@ public class BasicChunkData<V extends Buffer,C extends Buffer> extends HasSizeAb
 
     private C colors;
     private V positions;
+    private I indices;
 
 
     @Override
@@ -45,6 +48,11 @@ public class BasicChunkData<V extends Buffer,C extends Buffer> extends HasSizeAb
     }
 
     @Override
+    public I getIndicesBuffer() {
+        return this.indices;
+    }
+
+    @Override
     public void setPositionsBuffer(V buf) {
         positions = buf;
     }
@@ -52,5 +60,10 @@ public class BasicChunkData<V extends Buffer,C extends Buffer> extends HasSizeAb
     @Override
     public void setColorBuffer(C buf) {
         colors = buf;
+    }
+
+    @Override
+    public void setIndicesBuffer(I buf) {
+        indices = buf;
     }
 }

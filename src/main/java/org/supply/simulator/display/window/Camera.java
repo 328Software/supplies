@@ -1,11 +1,20 @@
 package org.supply.simulator.display.window;
 
+import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface Camera {
+public interface Camera extends SupplyRenderable {
+
+    /**
+     *
+     * @param camera
+     * @return
+     */
+    public boolean equals(Camera camera);
 
     //*****Setters
 
@@ -38,6 +47,13 @@ public interface Camera {
      * @param cameraPos
      */
     public void setCameraPos(Vector3f cameraPos);
+
+    public void setProjectionMatrixLocation(int projectionMatrixLocation);
+
+
+    public void setModelMatrixLocation(int modelMatrixLocation);
+
+    public void setViewMatrixLocation(int viewMatrixLocation);
     //*****Setters
 
     
@@ -71,5 +87,15 @@ public interface Camera {
      * @return
      */
     public Vector3f getCameraPos();
+
+
+    public int getProjectionMatrixLocation();
+
+    public int getViewMatrixLocation();
+
+    public int getModelMatrixLocation();
+
     //*****Getters
+
+
 }

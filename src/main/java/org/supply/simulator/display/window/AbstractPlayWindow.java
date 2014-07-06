@@ -1,23 +1,27 @@
 package org.supply.simulator.display.window;
 
 import org.lwjgl.opengl.GL11;
+import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkManager;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
 import org.supply.simulator.display.supplyrenderable.HasRenderableInfoAbstract;
+import org.supply.simulator.display.window.impl.BasicCamera;
 
 import java.util.Iterator;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public abstract class AbstractPlayWindow<S extends ShaderEngine> extends HasRenderableInfoAbstract implements Window<S> {
+public abstract class AbstractPlayWindow extends HasRenderableInfoAbstract implements Window {
 
     protected ShaderEngine shaderEngine;
 
-    protected ChunkManager<Integer,BasicChunk> chunkManager;
+    protected Manager<Integer,BasicChunk> chunkManager;
+
+    private Camera camera;
 
     private boolean isBuilt;
     private boolean isDestroyed;
@@ -33,17 +37,29 @@ public abstract class AbstractPlayWindow<S extends ShaderEngine> extends HasRend
     }
 
     @Override
+    public void setCamera(Camera camera) {this.camera = camera;}
+
+    @Override
+    public void setChunkManager(Manager manager) {
+        chunkManager = manager;
+    }
+
+    @Override
+    public void setEntityManager(Manager manager) {
+
+    }
+
+    @Override
     public void render() {
 
         // Get new camera position
-        Camera cameraData = getCameraFromStream();
-        cameraData.build();
+        camera.build();
 
 
         // Set shader program type to VIEW
         shaderEngine.useProgram(ShaderProgramType.PLAY);
 
-        cameraData.render();
+        camera.render();
 
         // Clear shader program type
         shaderEngine.useProgram(ShaderProgramType.CLEAR);
@@ -56,7 +72,7 @@ public abstract class AbstractPlayWindow<S extends ShaderEngine> extends HasRend
         shaderEngine.useProgram(ShaderProgramType.PLAY);
 
         // Update chunks with new camera position
-        chunkManager.update(cameraData);
+        chunkManager.update(camera);
         Iterator<BasicChunk> it = chunkManager.iterator();
         while (it.hasNext())
         {
@@ -77,6 +93,9 @@ public abstract class AbstractPlayWindow<S extends ShaderEngine> extends HasRend
     @Override
     public void build() {
         shaderEngine.createProgram(ShaderProgramType.PLAY);
+        camera.setProjectionMatrixLocation(shaderEngine.getProjectionMatrixLocation(ShaderProgramType.PLAY));
+        camera.setModelMatrixLocation(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY));
+        camera.setViewMatrixLocation(shaderEngine.getViewMatrixLocation(ShaderProgramType.PLAY));
         isBuilt = true;
     }
 
@@ -96,6 +115,4 @@ public abstract class AbstractPlayWindow<S extends ShaderEngine> extends HasRend
     public boolean isDestroyed() {
         return isDestroyed;
     }
-
-    protected abstract Camera getCameraFromStream();
 }

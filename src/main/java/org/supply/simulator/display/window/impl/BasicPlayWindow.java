@@ -18,16 +18,8 @@ import java.nio.FloatBuffer;
 /**
  * Created by Alex on 6/27/2014.
  */
-public class BasicPlayWindow<S extends ShaderEngine>  extends AbstractPlayWindow<S> implements Window<S>{
+public class BasicPlayWindow extends AbstractPlayWindow implements Window{
     public BasicPlayWindow() {
         super();
     }
-
-    protected Camera getCameraFromStream() {
-
-
-        //TODO camera data stream
-        return null;
-    }
-
 }

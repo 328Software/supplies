@@ -6,12 +6,13 @@ import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 /**
  * Created by Alex on 6/29/2014.
  */
 public class BasicChunkDataTest {
-    private BasicChunkData<FloatBuffer, ByteBuffer> data;
+    private BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer> data;
     private int rows;
     private int columns;
 
@@ -29,7 +30,7 @@ public class BasicChunkDataTest {
 
     @Test
     public void checkSetters () {
-        if (data.getColorBuffer()==null||data.getPositionsBuffer()==null) {
+        if (data.getColorBuffer()==null||data.getPositionsBuffer()==null||data.getIndicesBuffer()==null) {
            System.exit(-1);
         }
         if (data.getColumns()!=columns||data.getRows()!=rows) {

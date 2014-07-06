@@ -28,7 +28,7 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
     @Override
     public void update(Camera view) {
 
-        if (view.equals(lastView)) {
+        if (!view.equals(lastView)) {
 
             ArrayList<K> nextChunks = getViewableChunks(view);
 
@@ -43,14 +43,14 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
             iteratorCount=0;
 
-            // DELETE CHUNKS THAT HAVE LEFT RANGE
-            for (K id:chunkIds) {
-                if (!nextChunks.contains(id)) {
-                    chunkIds.remove(id);
-                    chunks.get(id).destroy();
-                    chunks.remove(id);
-                }
-            }
+//            // DELETE CHUNKS THAT HAVE LEFT RANGE
+//            for (K id:chunkIds) {
+//                if (!nextChunks.contains(id)) {
+//                    chunkIds.remove(id);
+//                    chunks.get(id).destroy();
+//                    chunks.remove(id);
+//                }
+//            }
 
             // CREATE CHUNKS THAT HAVE ENTERED RANGE
             for (K id:nextChunks) {
@@ -130,10 +130,10 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
     @Override
     public void clear() {
         for (K id:chunkIds) {
-            chunkIds.remove(id);
             chunks.get(id).destroy();
             chunks.remove(id);
         }
+        chunkIds.clear();
     }
 
     //    @Override

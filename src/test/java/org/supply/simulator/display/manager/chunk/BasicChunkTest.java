@@ -3,6 +3,7 @@ package org.supply.simulator.display.manager.chunk;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 
@@ -24,7 +25,7 @@ public class BasicChunkTest  {
             System.exit(-1);
         }
 
-
+        OpenGLDebugger.printChunkBuffers(chunk);
 
         System.out.println("Chunk built successfully");
         System.out.println("OPENGL BUFFERS:");

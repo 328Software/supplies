@@ -48,9 +48,16 @@ public interface Camera extends SupplyRenderable {
      */
     public void setCameraPos(Vector3f cameraPos);
 
+    /**
+     *
+     * @param projectionMatrixLocation
+     */
     public void setProjectionMatrixLocation(int projectionMatrixLocation);
 
-
+    /**
+     *
+     * @param modelMatrixLocation
+     */
     public void setModelMatrixLocation(int modelMatrixLocation);
 
     public void setViewMatrixLocation(int viewMatrixLocation);

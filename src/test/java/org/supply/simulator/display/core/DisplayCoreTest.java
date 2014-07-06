@@ -23,13 +23,9 @@ public class DisplayCoreTest {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private Input input;
-
 
     @Before
     public void createFixture() {
-        input = new Input();
-        input.init();
         build();
 
     }
@@ -89,47 +85,4 @@ public class DisplayCoreTest {
         Display.update();
     }
 
-    public class Input {
-
-        private final float rotationDelta = 0.02f;
-        private final float rotationDelta2 = 3f;
-        private final float posDelta = 0.02f;
-        private final float mouseDeltaThresh = 0.000000001f;
-
-        private final float scaleDelta = 0.1f;
-        private final Vector3f scaleAddResolution = new Vector3f(scaleDelta, scaleDelta, scaleDelta);
-        private final Vector3f scaleMinusResolution = new Vector3f(-scaleDelta, -scaleDelta, -scaleDelta);
-
-        private BasicCamera camera;
-
-        public void init() {
-            Keyboard.enableRepeatEvents(true);
-            camera = new BasicCamera();
-            camera.setModelPos(new Vector3f(0, 0, 0));
-            camera.setModelAngle(new Vector3f(0, 0, 0));
-            camera.setModelScale(new Vector3f(1, 1, 1));
-            camera.setCameraPos(new Vector3f(0, 0, -1));
-            camera.setCameraAngle(new Vector3f(0, 0, 0));
-        }
-
-        public void refreshInput() {
-            Mouse.poll();
-            while (Keyboard.next()/*||Mouse.next()|| Mouse.isInsideWindow()*/) {
-                // Only listen to events where the key was pressed (down event)
-                if (!Keyboard.getEventKeyState()) continue;
-
-//
-            }
-
-        }
-
-            //*****Getters
-
-        public Camera getCamera() {
-            return (Camera)this.camera;
-            }
-
-
-
-    }
 }

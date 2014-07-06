@@ -1,5 +1,6 @@
 package org.supply.simulator.display.manager.chunk.impl;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.manager.chunk.Chunk;
@@ -17,7 +18,6 @@ public class BasicChunk
         extends    HasRenderableInfoAbstract
         implements Chunk, Renderable, HasRenderableInfo {
 
-    public static final int VERTICES_PER_CHUNK = 100;
     public static final int INDICES_PER_VERTEX = 6;
 
     private boolean isBuilt;

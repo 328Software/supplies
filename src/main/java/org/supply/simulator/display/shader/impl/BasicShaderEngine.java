@@ -89,7 +89,7 @@ public class BasicShaderEngine implements ShaderEngine {
 
     @Override
     public void createProgram(ShaderProgramType type) {
-        programIds[type.value()] = GL20.glCreateProgram();
+
         int vertexId = -1;
         int fragmentId = -1;
 
@@ -106,6 +106,7 @@ public class BasicShaderEngine implements ShaderEngine {
             System.out.println("FIAL");
         }
 
+        programIds[type.value()] = GL20.glCreateProgram();
 
 
         GL20.glAttachShader(programIds[type.value()],vertexId);

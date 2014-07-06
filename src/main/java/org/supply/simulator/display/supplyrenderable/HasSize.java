@@ -19,6 +19,16 @@ public interface HasSize {
 
     /**
      *
+     */
+    void setRows(int rows);
+
+    /**
+     *
+     */
+    void setColumns(int columns);
+
+    /**
+     *
      * @param rows
      * @param cols
      */

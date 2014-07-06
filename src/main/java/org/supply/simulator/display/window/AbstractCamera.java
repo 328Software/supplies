@@ -34,11 +34,16 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
     protected int viewMatrixLocation;
 
     public AbstractCamera () {
-        isBuilt= false;
+        isBuilt = false;
+    }
+
+    @Override
+    public void build () {
+
 
         projectionMatrix = new Matrix4f();
         float fieldOfView = 60f;
-        float aspectRatio = (float)columns / (float)rows;
+        float aspectRatio = (float)100 / (float)100;
         float near_plane = 0.1f;
         float far_plane = 100f;
 
@@ -59,11 +64,13 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
         modelScale  =    new Vector3f(1, 1, 1);
         cameraPos   =    new Vector3f(0, 0,-1);
         cameraAngle =    new Vector3f(0, 0, 0);
+
+        isBuilt= true;
     }
 
 
     @Override
-    public void build() {
+    public void update() {
         getNewData();
 
         // Reset view
@@ -79,7 +86,7 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
 
         // Translate, rotate and scale model
         Matrix4f.scale(modelScale, modelMatrix, modelMatrix);
-        Matrix4f.translate(cameraPos, modelMatrix, modelMatrix);
+        Matrix4f.translate(modelPos, modelMatrix, modelMatrix);
 
         Matrix4f.rotate(modelAngle.z* (float)(PI / 180d), new Vector3f(0, 0, 1),
                 modelMatrix, modelMatrix);
@@ -87,7 +94,6 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
                 modelMatrix, modelMatrix);
         Matrix4f.rotate(modelAngle.x* (float)(PI / 180d), new Vector3f(1, 0, 0),
                 modelMatrix, modelMatrix);
-        isBuilt = true;
     }
 
     @Override

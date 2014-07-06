@@ -15,7 +15,7 @@ public class BasicChunkTest  {
     private BasicChunk chunk;
     @Before
     public void createFixture () {
-        DisplayCoreTest.build();
+        DisplayCoreTest.build("BasicChunkTest");
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getData(100,100));
         chunk.setAttributeLocations(new int[] {0,1});

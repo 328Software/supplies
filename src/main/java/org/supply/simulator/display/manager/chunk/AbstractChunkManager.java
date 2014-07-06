@@ -27,7 +27,7 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
     @Override
     public void update(Camera view) {
-
+        iteratorCount=0;
         if (!view.equals(lastView)) {
 
             ArrayList<K> nextChunks = getViewableChunks(view);
@@ -41,7 +41,7 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
             System.out.println("Model scale:  " + view.getModelScale());
             System.out.println(">>>>>>>>>>>>");
 
-            iteratorCount=0;
+
 
 //            // DELETE CHUNKS THAT HAVE LEFT RANGE
 //            for (K id:chunkIds) {

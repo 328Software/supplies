@@ -71,8 +71,6 @@ public class BasicChunk
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
         GL30.glBindVertexArray(0);
-
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         data=null;
         isBuilt =true;
     }

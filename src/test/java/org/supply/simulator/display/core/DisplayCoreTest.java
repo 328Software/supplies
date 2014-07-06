@@ -19,14 +19,15 @@ public class DisplayCoreTest {
     private static final boolean doInteractiveTest = false;
 
     // Setup variables
-    private static final String WINDOW_TITLE = "Supply Simulator: You suck";
+    private static String WINDOW_TITLE;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
 
     @Before
     public void createFixture() {
-        build();
+        WINDOW_TITLE = "Supply Simulator: You suck";
+        build(WINDOW_TITLE);
 
     }
 
@@ -42,9 +43,9 @@ public class DisplayCoreTest {
     }
 
 
-    public static void build() {
+    public static void build(String title) {
         System.out.println("START DISPLAY");
-        setupOpenGL();
+        setupOpenGL(title);
     }
 
     public static void destroy() {
@@ -52,7 +53,7 @@ public class DisplayCoreTest {
         destroyOpenGl();
     }
 
-    private static void setupOpenGL() {
+    private static void setupOpenGL(String title) {
         // Setup an OpenGL context with API version 3.2
         try {
             PixelFormat pixelFormat = new PixelFormat();
@@ -61,7 +62,7 @@ public class DisplayCoreTest {
                     .withProfileCore(true);
 
             org.lwjgl.opengl.Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-            org.lwjgl.opengl.Display.setTitle(WINDOW_TITLE);
+            org.lwjgl.opengl.Display.setTitle(title);
             org.lwjgl.opengl.Display.create(pixelFormat, contextAtrributes);
 
             GL11.glViewport(0, 0, WIDTH, HEIGHT);

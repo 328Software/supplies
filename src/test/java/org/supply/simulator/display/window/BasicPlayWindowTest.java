@@ -18,15 +18,15 @@ public class BasicPlayWindowTest {
 
     @Before
     public void create() {
-        DisplayCoreTest.build();
+        DisplayCoreTest.build("BasicPlayWindowTest");
 
         BasicShaderEngine shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayVertexShader("shaders/vertex.glsl");
         shaderEngine.setPlayFragmentShader("shaders/fragments.glsl");
 
         window = new BasicPlayWindow();
-        window.setCamera(new MockCamera());
         window.setShaderEngine(shaderEngine);
+        window.setCamera(new MockCamera());
         window.setChunkManager(new MockChunkManager<>());
 
         window.build();
@@ -44,13 +44,4 @@ public class BasicPlayWindowTest {
         window.destroy();
         DisplayCoreTest.destroy();
     }
-
-//    @After
-//    public void destroy() {
-//        //
-//
-//
-//
-//    }
-
 }

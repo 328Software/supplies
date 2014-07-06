@@ -5,25 +5,44 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.supply.simulator.display.core.DisplayCore;
+import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.shader.ShaderProgramType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.MockCamera;
-import org.supply.simulator.display.window.impl.BasicPlayWindow;
 
 /**
  * Created by Alex on 7/3/2014.
  */
-public class NewTest {
-    MockCamera camera;
+public class ChunkCameraShaderTest {
+
+
+
+//    MockCamera camera;
     BasicShaderEngine shaderEngine;
     BasicChunk chunk;
+    MockCamera camera;
+
+//    private Vector3f modelPos;
+//    private Vector3f modelAngle;
+//    private Vector3f modelScale = null;
+//    private Vector3f cameraPos = null;
+//    private Vector3f cameraAngle = null;
+//    private Matrix4f projectionMatrix;
+//    private Matrix4f viewMatrix;
+//    private Matrix4f modelMatrix;
+//    private FloatBuffer matrix44Buffer;
+
+    private int columns;
+    private int rows;
+
 
     @Before
     public void create() {
-        DisplayCoreTest.build();
+        columns=100;
+        rows=100;
+        DisplayCoreTest.build("ChunkCameraShaderTest");
 
         shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayVertexShader("shaders/vertex.glsl");
@@ -31,15 +50,21 @@ public class NewTest {
 
         shaderEngine.createProgram(ShaderProgramType.PLAY);
 
+
+
         camera = new MockCamera();
+        camera.setRows(rows);
+        camera.setColumns(columns);
         camera.setProjectionMatrixLocation(shaderEngine.getProjectionMatrixLocation(ShaderProgramType.PLAY));
-        camera.setModelMatrixLocation(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY));
         camera.setViewMatrixLocation(shaderEngine.getViewMatrixLocation(ShaderProgramType.PLAY));
+        camera.setModelMatrixLocation(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY));
+        camera.build();
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getData(100,100));
+        chunk.setData(MockChunkManager.getData(rows,columns));
         chunk.setAttributeLocations(new int[] {0,1});
         chunk.build();
+        OpenGLDebugger.printChunkBuffers(chunk);
 
     }
 
@@ -47,23 +72,24 @@ public class NewTest {
     public void render() {
         while (!Display.isCloseRequested()) {
 
-            camera.build();
+            camera.update();
+
+
             shaderEngine.useProgram(ShaderProgramType.PLAY);
-
-            shaderEngine.useProgram(ShaderProgramType.CLEAR);
-
-            // Clear bit
-            //TODO What does this do?
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
-            // Set shader program type to CHUNK
-            shaderEngine.useProgram(ShaderProgramType.PLAY);
-
-            chunk.render();
 
             camera.render();
 
+
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
+
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+            shaderEngine.useProgram(ShaderProgramType.PLAY);
+            chunk.render();
+
+            shaderEngine.useProgram(ShaderProgramType.CLEAR);
+
+
             DisplayCoreTest.render();
         }
 
@@ -74,9 +100,12 @@ public class NewTest {
         //
         shaderEngine.useProgram(ShaderProgramType.CLEAR);
         shaderEngine.deleteProgram(ShaderProgramType.PLAY);
+
+
         chunk.destroy();
         DisplayCoreTest.destroy();
 
     }
+
 
 }

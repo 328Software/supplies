@@ -53,7 +53,7 @@ public abstract class AbstractPlayWindow extends HasRenderableInfoAbstract imple
     public void render() {
 
         // Get new camera position
-        camera.build();
+        camera.update();
 
 
         // Set shader program type to VIEW
@@ -96,6 +96,10 @@ public abstract class AbstractPlayWindow extends HasRenderableInfoAbstract imple
         camera.setProjectionMatrixLocation(shaderEngine.getProjectionMatrixLocation(ShaderProgramType.PLAY));
         camera.setModelMatrixLocation(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY));
         camera.setViewMatrixLocation(shaderEngine.getViewMatrixLocation(ShaderProgramType.PLAY));
+
+
+        camera.build();
+
         isBuilt = true;
     }
 

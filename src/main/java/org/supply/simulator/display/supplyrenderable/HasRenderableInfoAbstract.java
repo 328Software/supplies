@@ -97,6 +97,16 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
     }
 
     @Override
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    @Override
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    @Override
     public int[] getAttributeLocations () {
         return this.locations;
 

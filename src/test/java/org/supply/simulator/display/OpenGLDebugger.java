@@ -1,6 +1,4 @@
 package org.supply.simulator.display;
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
@@ -62,7 +60,7 @@ public class OpenGLDebugger  {
     public static void getFragmentShaderPositionValue(int rows, int cols) {
         ByteBuffer bytes  = BufferUtils.createByteBuffer(4 * rows * cols *
                 BasicChunkData.COLOR_BYTES);
-       // GL31.glGetUniformBlockIndex(ShaderProgramType.PLAY,"debugPosition");
+       // GL31.glGetUniformBlockIndex(ShaderProgramType.PLAY,"debugPosition");/
 
     }
 

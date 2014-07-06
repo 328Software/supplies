@@ -9,6 +9,9 @@ import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
  */
 public interface Camera extends SupplyRenderable {
 
+    public void update();
+
+
     /**
      *
      * @param camera

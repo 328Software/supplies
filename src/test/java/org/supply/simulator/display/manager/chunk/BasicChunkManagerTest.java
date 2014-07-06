@@ -9,6 +9,7 @@ import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkManager;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
+import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.MockCamera;
@@ -31,8 +32,8 @@ public class BasicChunkManagerTest {
         DisplayCoreTest.build("BasicChunkManagerTest");
 
         shaderEngine = new BasicShaderEngine();
-        shaderEngine.setPlayVertexShader("shaders/vertex.glsl");
-        shaderEngine.setPlayFragmentShader("shaders/fragments.glsl");
+        shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
+        shaderEngine.setPlayShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT);
 
         camera = new MockCamera();
 
@@ -50,7 +51,7 @@ public class BasicChunkManagerTest {
     @Test
     public void render() {
         while (!Display.isCloseRequested()) {
-            camera.update();
+            //camera.update();
 
 
             // Set shader program type to VIEW

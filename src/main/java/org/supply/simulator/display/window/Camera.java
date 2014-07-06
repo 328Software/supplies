@@ -5,17 +5,17 @@ import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
 /**
+ * Displays representation of the camera. Is SupplyRenderable. Also contains a lot of methods to control camera.
+ *
  * Created by Alex on 6/17/2014.
  */
 public interface Camera extends SupplyRenderable {
 
-    public void update();
-
-
     /**
+     * Compares this to another camera object
      *
-     * @param camera
-     * @return
+     * @param camera another camera object
+     * @return true if the two object are equal, false if not
      */
     public boolean equals(Camera camera);
 

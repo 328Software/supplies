@@ -1,5 +1,7 @@
 package org.supply.simulator.display.core;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,8 @@ import org.supply.simulator.display.window.impl.BasicCamera;
  */
 public class DisplayCoreTest {
 
+    protected static Logger logger = LogManager.getLogger(DisplayCoreTest.class);
+
     private static final boolean doInteractiveTest = false;
 
     // Setup variables
@@ -28,7 +32,6 @@ public class DisplayCoreTest {
     public void createFixture() {
         WINDOW_TITLE = "Supply Simulator: You suck";
         build(WINDOW_TITLE);
-
     }
 
     @Test
@@ -44,12 +47,12 @@ public class DisplayCoreTest {
 
 
     public static void build(String title) {
-        System.out.println("START DISPLAY");
+        logger.info("START DISPLAY");
         setupOpenGL(title);
     }
 
     public static void destroy() {
-        System.out.println("STOP DISPLAY");
+        logger.info("STOP DISPLAY");
         destroyOpenGl();
     }
 
@@ -67,7 +70,7 @@ public class DisplayCoreTest {
 
             GL11.glViewport(0, 0, WIDTH, HEIGHT);
         } catch (LWJGLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
 
         GL11.glClearColor(130f / 255f, 208f / 255f, 157f / 255f, 0f);

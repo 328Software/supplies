@@ -53,7 +53,7 @@ public abstract class AbstractPlayWindow extends HasRenderableInfoAbstract imple
     public void render() {
 
         // Get new camera position
-        camera.update();
+        //camera.update();
 
 
         // Set shader program type to VIEW

@@ -5,6 +5,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
+import org.supply.simulator.display.shader.ShaderType;
+import org.supply.simulator.logging.HasLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.io.InputStreamReader;
 /**
  * Created by Alex on 6/28/2014.
  */
-public class BasicShaderEngine implements ShaderEngine {
+public class BasicShaderEngine extends HasLogger implements ShaderEngine {
     private int [] programIds;
 
     private int[] projectionMatrixLocation;
@@ -42,29 +44,15 @@ public class BasicShaderEngine implements ShaderEngine {
     }
 
     @Override
-    public void setPlayVertexShader(String playVertexShader) {
-        this.vertexShader[ShaderProgramType.PLAY.value()] = playVertexShader;
+    public void setPlayShaderFile(String playVertexShader, ShaderType type) {
+        switch(type) {
+            case VERTEX: this.vertexShader[ShaderProgramType.PLAY.value()] = playVertexShader;
+                break;
+            case FRAGMENT: this.fragmentShader[ShaderProgramType.PLAY.value()] = playVertexShader;
+                break;
+        }
 
-    }
 
-    @Override
-    public void setPlayTessellationShader(String playTessellationShader) {
-        this.tessellationShader[ShaderProgramType.PLAY.value()] = playTessellationShader;
-    }
-
-    @Override
-    public void setPlayGeometryShader(String playGeometryShader) {
-        this.geometryShader[ShaderProgramType.PLAY.value()] = playGeometryShader;
-    }
-
-    @Override
-    public void setPlayFragmentShader(String playFragmentShader) {
-        this.fragmentShader[ShaderProgramType.PLAY.value()] = playFragmentShader;
-    }
-
-    @Override
-    public void setPlayComputeShader(String playComputeShader) {
-        this.computeShader[ShaderProgramType.PLAY.value()] = playComputeShader;
     }
 
     @Override
@@ -95,15 +83,16 @@ public class BasicShaderEngine implements ShaderEngine {
 
         if (vertexShader[type.value()]!=null) {
             vertexId = loadShader(vertexShader[type.value()], GL20.GL_VERTEX_SHADER);
-
         } else {
-            System.out.println("FIAL");
+            logger.error("Failed to load vertex shader");
+            System.exit(-1);
         }
 
         if (fragmentShader[type.value()]!=null) {
             fragmentId=loadShader(fragmentShader[type.value()], GL20.GL_FRAGMENT_SHADER);
         } else {
-            System.out.println("FIAL");
+            logger.error("Failed to load fragment shader");
+            System.exit(-1);
         }
 
         programIds[type.value()] = GL20.glCreateProgram();
@@ -162,7 +151,7 @@ public class BasicShaderEngine implements ShaderEngine {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("ERROR READING SHADER FILE " + fileName);
+            logger.error("ERROR READING SHADER FILE " + fileName);
             e.printStackTrace();
         }
 
@@ -171,7 +160,7 @@ public class BasicShaderEngine implements ShaderEngine {
         GL20.glShaderSource(shaderID, shaderSource);
         GL20.glCompileShader(shaderID);
         if (GL20.glGetShader(shaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-            System.err.println("Could not compile shader.");
+            logger.error("Could not compile shader.");
         }
 
         return shaderID;

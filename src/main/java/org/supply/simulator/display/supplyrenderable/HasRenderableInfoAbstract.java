@@ -1,11 +1,16 @@
 package org.supply.simulator.display.supplyrenderable;
 
+import org.lwjgl.opengl.GL11;
+import org.supply.simulator.logging.HasLogger;
+
 import java.util.ArrayList;
 
 /**
+ * Abstract class to implements all the getters/setters of HasRenderableInfo. It also adds some utility methods.
+ *
  * Created by Alex on 6/20/2014.
  */
-public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
+public abstract class HasRenderableInfoAbstract extends HasLogger implements HasRenderableInfo {
 
     private static ArrayList<Integer> indicesBufferIdArray;
 
@@ -51,13 +56,6 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
     @Override
     public void setPositionsArrayId(int verticesArrayId) {
         this.positionsArrayId = verticesArrayId;
-
-    }
-
-    @Override
-    public void setSize(int rows, int cols) {
-        this.rows = rows;
-        this.columns = cols;
 
     }
 
@@ -110,6 +108,30 @@ public abstract class HasRenderableInfoAbstract implements HasRenderableInfo {
     public int[] getAttributeLocations () {
         return this.locations;
 
+    }
+
+    /**
+     * Prints OpenGL error types
+     *
+     * @param className
+     */
+    public void printOpenGLError(String className) {
+        switch(GL11.glGetError()) {
+            case GL11.GL_NO_ERROR: //logger.info("OpenGl error in "+className+": GL_NO_ERROR");
+                break;
+            case GL11.GL_INVALID_ENUM: logger.error("OpenGl error in "+className+": GL_INVALID_ENUM");
+                break;
+            case GL11.GL_INVALID_VALUE: logger.error("OpenGl error in "+className+": GL_INVALID_VALUE");
+                break;
+            case GL11.GL_INVALID_OPERATION: logger.error("OpenGl error in "+className+": GL_INVALID_OPERATION");
+                break;
+            case GL11.GL_OUT_OF_MEMORY: logger.error("OpenGl error in "+className+": GL_OUT_OF_MEMORY");
+                break;
+            case GL11.GL_STACK_UNDERFLOW: logger.error("OpenGl error in "+className+": GL_STACK_UNDERFLOW");
+                break;
+            case GL11.GL_STACK_OVERFLOW: logger.error("OpenGl error in "+className+": GL_STACK_OVERFLOW");
+                break;
+        }
     }
 
 

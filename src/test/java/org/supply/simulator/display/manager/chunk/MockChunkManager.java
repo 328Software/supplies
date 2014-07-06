@@ -166,7 +166,8 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<In
         basicDataOut.setColors(verticesByteBuffer);
         basicDataOut.setPositions(verticesFloatBuffer);
         basicDataOut.setIndices(indicesBuffer);
-        basicDataOut.setSize(row,col);
+        basicDataOut.setColumns(col);
+        basicDataOut.setRows(row);
 
         return basicDataOut;
     }

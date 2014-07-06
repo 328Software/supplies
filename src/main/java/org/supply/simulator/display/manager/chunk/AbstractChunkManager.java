@@ -1,6 +1,7 @@
 package org.supply.simulator.display.manager.chunk;
 
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.logging.HasLogger;
 
 import java.util.*;
 
@@ -8,6 +9,7 @@ import java.util.*;
  * Created by Alex on 6/17/2014.
  */
 public abstract class AbstractChunkManager<K,V extends Chunk>
+        extends HasLogger
         implements ChunkManager<K,V> {
 
     protected HashMap<K,V> chunks;
@@ -32,15 +34,15 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
 
             ArrayList<K> nextChunks = getViewableChunks(view);
 
-            System.out.println("***UPDATE CHUNKS");
-            System.out.println("<<<<<<<<<<<<PRINT_CAMERA");
-            System.out.println("Camera angle: " + view.getCameraAngle());
-            System.out.println("Camera pos:   " + view.getCameraPos());
-            System.out.println("Model pos:    " + view.getModelPos());
-            System.out.println("Model angle:  " + view.getModelAngle());
-            System.out.println("Model scale:  " + view.getModelScale());
-            System.out.println(">>>>>>>>>>>>");
 
+            logger.trace("***UPDATE CHUNKS");
+            logger.trace("<<<<<<<<<<<<PRINT_CAMERA");
+            logger.trace("Camera angle: " + view.getCameraAngle());
+            logger.trace("Camera pos:   " + view.getCameraPos());
+            logger.trace("Model pos:    " + view.getModelPos());
+            logger.trace("Model angle:  " + view.getModelAngle());
+            logger.trace("Model scale:  " + view.getModelScale());
+            logger.trace(">>>>>>>>>>>>");
 
 
 //            // DELETE CHUNKS THAT HAVE LEFT RANGE
@@ -136,30 +138,20 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
         chunkIds.clear();
     }
 
-    //    @Override
-//    public boolean hasNext() {
-//        return iteratorCount<chunkIds.size();
-//    }
-//
-//    @Override
-//    public V next() {
-//        if (iteratorCount>=chunkIds.size()) {
-//            iteratorCount++;
-//            return chunks.get(chunkIds.get(iteratorCount));
-//        } else {
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public void remove() {
-//
-//    }
-
-
-
+    /**
+     * Abstract method to get chunk objects from the database.
+     *
+     * @param chunkId chunk Id
+     * @return chunk object from db
+     */
     protected abstract V getChunk(K chunkId);
 
+    /**
+     * (Private) method that uses the current camera to determine the chunks that are currently in view.
+     *
+     * @param view the Camera view
+     * @return an ArrayList containing the ids of the viewable chunks
+     */
     protected abstract ArrayList<K> getViewableChunks(Camera view);
 
 }

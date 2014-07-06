@@ -69,8 +69,8 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
     }
 
 
-    @Override
-    public void update() {
+
+    private void update() {
         getNewData();
 
         // Reset view
@@ -103,6 +103,7 @@ public abstract class AbstractCamera extends HasRenderableInfoAbstract implement
 
     @Override
     public void render() {
+        update();
         projectionMatrix.store(matrix44Buffer); matrix44Buffer.flip();
         GL20.glUniformMatrix4(projectionMatrixLocation, false, matrix44Buffer);
         viewMatrix.store(matrix44Buffer); matrix44Buffer.flip();

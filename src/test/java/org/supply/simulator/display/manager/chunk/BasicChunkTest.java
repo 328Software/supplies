@@ -6,11 +6,12 @@ import org.junit.Test;
 import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created by Alex on 6/28/2014.
  */
-public class BasicChunkTest  {
+public class BasicChunkTest extends HasLogger {
 
     private BasicChunk chunk;
     @Before
@@ -22,17 +23,18 @@ public class BasicChunkTest  {
         chunk.build();
 
         if (chunk.isBuilt()==false) {
+            logger.error("Chunk failed to build");
             System.exit(-1);
         }
 
         OpenGLDebugger.printChunkBuffers(chunk);
 
-        System.out.println("Chunk built successfully");
-        System.out.println("OPENGL BUFFERS:");
-        System.out.println(chunk.getEntityBufferId());
-        System.out.println(chunk.getPositionsArrayId());
-        System.out.println(chunk.getColorsArrayId());
-        System.out.println(chunk.getVertexAttributesId());
+        logger.info("Chunk built successfully");
+        logger.info("OPENGL BUFFERS:");
+        logger.info(chunk.getEntityBufferId());
+        logger.info(chunk.getPositionsArrayId());
+        logger.info(chunk.getColorsArrayId());
+        logger.info(chunk.getVertexAttributesId());
     }
 
     @Test
@@ -45,9 +47,10 @@ public class BasicChunkTest  {
     public  void destroyChunk () {
         chunk.destroy();
         if (chunk.isDestroyed()==false) {
+            logger.error("Chunk failed to destroy");
             System.exit(-1);
         }
-        System.out.println("Chunk destroyed successfully");
+        logger.info("Chunk destroyed successfully");
         DisplayCoreTest.destroy();
     }
 }

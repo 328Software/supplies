@@ -2,11 +2,12 @@ package org.supply.simulator.display.core.impl;
 
 import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.executor.RepeatingScheduleInformation;
+import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public class BasicDisplayCore implements DisplayCore{
+public class BasicDisplayCore extends HasLogger implements DisplayCore{
 
 
     @Override

@@ -3,6 +3,7 @@ package org.supply.simulator.display.manager.chunk;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.logging.HasLogger;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -11,7 +12,7 @@ import java.nio.IntBuffer;
 /**
  * Created by Alex on 6/29/2014.
  */
-public class BasicChunkDataTest {
+public class BasicChunkDataTest extends HasLogger {
     private BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer> data;
     private int rows;
     private int columns;
@@ -25,19 +26,21 @@ public class BasicChunkDataTest {
     public void createData() {
 
         data = MockChunkManager.getData(rows,columns);
-        System.out.println("created chunk data");
+        logger.info("Created chunk data");
     }
 
     @Test
     public void checkSetters () {
         if (data.getColors()==null||data.getPositions()==null||data.getIndices()==null) {
+            logger.error("Chunk data null");
            System.exit(-1);
         }
         if (data.getColumns()!=columns||data.getRows()!=rows) {
+            logger.error("Rows and columns incorrect");
             System.exit(-1);
         }
 
-        System.out.println("chunk data verified");
+        logger.info("Chunk data verified");
     }
 
 

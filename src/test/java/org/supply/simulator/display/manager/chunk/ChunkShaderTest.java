@@ -13,6 +13,7 @@ import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.shader.ShaderProgramType;
+import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 
 
@@ -51,8 +52,8 @@ public class ChunkShaderTest {
         DisplayCoreTest.build("ChunkShaderTest");
 
         shaderEngine = new BasicShaderEngine();
-        shaderEngine.setPlayVertexShader("shaders/vertex.glsl");
-        shaderEngine.setPlayFragmentShader("shaders/fragments.glsl");
+        shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
+        shaderEngine.setPlayShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT);
 
         shaderEngine.createProgram(ShaderProgramType.PLAY);
        // setupShaders();

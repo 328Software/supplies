@@ -6,31 +6,28 @@ package org.supply.simulator.display.supplyrenderable;
 public interface HasSize {
 
     /**
+     *  Returns rows.
      *
      * @return
      */
     int getRows();
 
     /**
+     *  Returns columns;
      *
      * @return
      */
     int getColumns();
 
     /**
+     * Sets rows;
      *
      */
     void setRows(int rows);
 
     /**
+     * Sets columns
      *
      */
     void setColumns(int columns);
-
-    /**
-     *
-     * @param rows
-     * @param cols
-     */
-    void setSize(int rows, int cols);
 }

@@ -9,6 +9,7 @@ import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.shader.ShaderProgramType;
+import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.MockCamera;
 
@@ -45,8 +46,8 @@ public class ChunkCameraShaderTest {
         DisplayCoreTest.build("ChunkCameraShaderTest");
 
         shaderEngine = new BasicShaderEngine();
-        shaderEngine.setPlayVertexShader("shaders/vertex.glsl");
-        shaderEngine.setPlayFragmentShader("shaders/fragments.glsl");
+        shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
+        shaderEngine.setPlayShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT);
 
         shaderEngine.createProgram(ShaderProgramType.PLAY);
 
@@ -72,7 +73,7 @@ public class ChunkCameraShaderTest {
     public void render() {
         while (!Display.isCloseRequested()) {
 
-            camera.update();
+            //camera.update();
 
 
             shaderEngine.useProgram(ShaderProgramType.PLAY);

@@ -60,8 +60,6 @@ public class OpenGLDebugger  {
     public static void getFragmentShaderPositionValue(int rows, int cols) {
         ByteBuffer bytes  = BufferUtils.createByteBuffer(4 * rows * cols *
                 BasicChunkData.COLOR_BYTES);
-       // GL31.glGetUniformBlockIndex(ShaderProgramType.PLAY,"debugPosition");/
-
     }
 
     public static void printColorBuffer(int bufferId,int rows, int cols) {
@@ -106,39 +104,39 @@ public class OpenGLDebugger  {
     private static void printFloatBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                System.out.print("{ ");
+                logger.trace("{ ");
                 for (int k = 0; k<stride;k++) {
-                    System.out.print(buf.getFloat()+" ");
+                    logger.trace(buf.getFloat()+" ");
                 }
-                System.out.print("}");
+                logger.trace("}");
             }
-            System.out.println();
+            logger.trace("\r\n");
         }
     }
 
     private static void printByteBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                System.out.print("{ ");
+                logger.trace("{ ");
                 for (int k = 0; k<stride;k++) {
-                    System.out.print(buf.get() + " ");
+                    logger.trace(buf.get() + " ");
                 }
-                System.out.print("}");
+                logger.trace("}");
             }
-            System.out.println();
+            logger.trace("\r\n");
         }
     }
 
     private static void printIntBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                System.out.print("{ ");
+                logger.trace("{ ");
                 for (int k = 0; k<stride;k++) {
-                    System.out.print(buf.getInt() + " ");
+                    logger.trace(buf.getInt() + " ");
                 }
-                System.out.print("}");
+                logger.trace("}");
             }
-            System.out.println();
+            logger.trace("\r\n");
         }
     }
 }

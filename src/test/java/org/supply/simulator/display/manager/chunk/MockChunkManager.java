@@ -1,7 +1,6 @@
 package org.supply.simulator.display.manager.chunk;
 
 import org.lwjgl.BufferUtils;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.display.window.Camera;
@@ -164,9 +163,9 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<In
         indicesBuffer.put(indices);
         indicesBuffer.flip();
 
-        basicDataOut.setColorBuffer(verticesByteBuffer);
-        basicDataOut.setPositionsBuffer(verticesFloatBuffer);
-        basicDataOut.setIndicesBuffer(indicesBuffer);
+        basicDataOut.setColors(verticesByteBuffer);
+        basicDataOut.setPositions(verticesFloatBuffer);
+        basicDataOut.setIndices(indicesBuffer);
         basicDataOut.setSize(row,col);
 
         return basicDataOut;

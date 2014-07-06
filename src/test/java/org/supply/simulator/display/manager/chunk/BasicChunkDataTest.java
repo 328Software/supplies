@@ -30,7 +30,7 @@ public class BasicChunkDataTest {
 
     @Test
     public void checkSetters () {
-        if (data.getColorBuffer()==null||data.getPositionsBuffer()==null||data.getIndicesBuffer()==null) {
+        if (data.getColors()==null||data.getPositions()==null||data.getIndices()==null) {
            System.exit(-1);
         }
         if (data.getColumns()!=columns||data.getRows()!=rows) {

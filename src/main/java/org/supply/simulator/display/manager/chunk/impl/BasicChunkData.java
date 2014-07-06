@@ -1,17 +1,19 @@
 package org.supply.simulator.display.manager.chunk.impl;
 
+import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.ChunkData;
 import org.supply.simulator.display.supplyrenderable.HasSize;
 import org.supply.simulator.display.supplyrenderable.HasSizeAbstract;
 
-import java.nio.Buffer;
 
 /**
  * Created by Alex on 6/17/2014.
  */
-public class BasicChunkData<V extends Buffer,C extends Buffer, I extends Buffer>
+public class BasicChunkData<V,C,I>
         extends HasSizeAbstract
-        implements ChunkData<V,C,I>, HasSize {
+        implements ChunkData<V,C,I>, HasSize, HasId<Long> {
+
+    private long id;
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -38,32 +40,41 @@ public class BasicChunkData<V extends Buffer,C extends Buffer, I extends Buffer>
 
 
     @Override
-    public V getPositionsBuffer() {
+    public V getPositions() {
         return this.positions;
     }
 
     @Override
-    public C getColorBuffer() {
+    public C getColors() {
         return this.colors;
     }
 
     @Override
-    public I getIndicesBuffer() {
+    public I getIndices() {
         return this.indices;
     }
 
     @Override
-    public void setPositionsBuffer(V buf) {
+    public void setPositions(V buf) {
         positions = buf;
     }
 
     @Override
-    public void setColorBuffer(C buf) {
+    public void setColors(C buf) {
         colors = buf;
     }
 
     @Override
-    public void setIndicesBuffer(I buf) {
+    public void setIndices(I buf) {
         indices = buf;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 }

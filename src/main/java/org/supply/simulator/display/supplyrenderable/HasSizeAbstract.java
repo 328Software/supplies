@@ -3,7 +3,7 @@ package org.supply.simulator.display.supplyrenderable;
 /**
  * Created by Alex on 6/20/2014.
  */
-public abstract class HasSizeAbstract {
+public abstract class HasSizeAbstract implements HasSize {
 
     public int getRows() {
         return rows;
@@ -17,7 +17,7 @@ public abstract class HasSizeAbstract {
         return columns;
     }
 
-    public void setCols(int columns) {
+    public void setColumns(int columns) {
         this.columns = columns;
     }
 

@@ -21,8 +21,8 @@
 
     <dependencies>
         <!--<dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.0">-->
-            <!--<conf name="default" mapped="default"/>-->
-            <!--<conf name="runtime" mapped="runtime"/>-->
+        <!--<conf name="default" mapped="default"/>-->
+        <!--<conf name="runtime" mapped="runtime"/>-->
         <!--</dependency>-->
 
         <dependency org="junit" name="junit" rev="4.11">
@@ -52,7 +52,7 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
-        <dependency org="org.springframework.boot" name="spring-boot-starter" rev="1.1.1.RELEASE">
+        <dependency org="org.springframework" name="spring-orm" rev="4.0.5.RELEASE">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <conf name="test" mapped="default"/>
@@ -61,6 +61,7 @@
         <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.0">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
+            <!--<conf name="test" mapped="default"/>-->
         </dependency>
 
         <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.9.0" conf="*">
@@ -72,14 +73,52 @@
         <dependency org="org.lwjgl.lwjgl" name="lwjgl_util" rev="2.9.0">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
+            <!--<conf name="test" mapped="default"/>-->
         </dependency>
 
-        <!--<dependency org="commons-logging" name="commons-logging" rev="1.1.3">-->
-            <!--<conf name="default" mapped="default"/>-->
-            <!--<conf name="runtime" mapped="runtime"/>-->
-            <!--<conf name="test" mapped="default"/>-->
-        <!--</dependency>-->
 
+        <dependency org="org.hibernate" name="hibernate-core" rev="4.3.5.Final">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+
+        <dependency org="org.hibernate" name="hibernate-ehcache" rev="4.3.5.Final">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+        <dependency org="org.hsqldb" name="hsqldb" rev="2.3.2">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+
+        <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+        <!--<dependency org="commons-logging" name="commons-logging" rev="1.1.3">-->
+        <!--<conf name="default" mapped="default"/>-->
+        <!--<conf name="runtime" mapped="runtime"/>-->
+        <!--<conf name="test" mapped="default"/>-->
+        <!--</dependency>-->
+        <dependency org="org.supply.simulator" name="data" rev="0.2">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.31">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
 
     </dependencies>
 </ivy-module>

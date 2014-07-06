@@ -7,41 +7,41 @@ import java.nio.Buffer;
 /**
  * Created by Alex on 6/17/2014.
  */
-public interface ChunkData<V extends Buffer, C extends Buffer, I extends Buffer> extends HasSize {
+public interface ChunkData<V, C, I> extends HasSize {
 
     /**
      *
      * @return
      */
-    V getPositionsBuffer();
+    V getPositions();
 
     /**
      *
      * @return
      */
-    C getColorBuffer();
+    C getColors();
 
     /**
      *
      * @return
      */
-    I getIndicesBuffer();
+    I getIndices();
 
     /**
      *
      * @param buf
      */
-    void setPositionsBuffer(V buf);
+    void setPositions(V buf);
 
     /**
      *
      * @param buf
      */
-    void setColorBuffer(C buf);
+    void setColors(C buf);
 
     /**
      *
      * @param buf
      */
-    void setIndicesBuffer(I buf);
+    void setIndices(I buf);
 }

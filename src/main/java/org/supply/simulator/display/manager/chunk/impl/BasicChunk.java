@@ -44,7 +44,7 @@ public class BasicChunk
         //TODO THE BIG QUESTION: do we reuse indicesBufferIds?
         indicesBufferId = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, data.getIndicesBuffer(),GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, data.getIndices(),GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         vertexAttributesId = GL30.glGenVertexArrays();
@@ -56,14 +56,14 @@ public class BasicChunk
         colorsArrayId = GL15.glGenBuffers();
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getPositionsBuffer(), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getPositions(), GL15.GL_STATIC_DRAW);
 
         GL20.glVertexAttribPointer(locations[0], data.POSITION_COUNT, GL11.GL_FLOAT,
                 false, data.POSITION_BYTES, data.POSITION_BYTE_OFFSET);
 
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorsArrayId);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getColorBuffer(), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getColors(), GL15.GL_STATIC_DRAW);
 
         GL20.glVertexAttribPointer(locations[1], data.COLOR_COUNT, GL11.GL_UNSIGNED_BYTE,
                 true, data.COLOR_BYTES, 0);

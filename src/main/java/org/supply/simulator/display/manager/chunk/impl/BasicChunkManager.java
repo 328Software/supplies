@@ -10,20 +10,14 @@ import java.util.ArrayList;
  * Created by Alex on 6/29/2014.
  */
 
-public class BasicChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,V> {
+public class BasicChunkManager<V extends Chunk> extends AbstractChunkManager<V> {
     public BasicChunkManager() {
          super();
     }
 
     @Override
-    protected V getChunk(K chunkId) {
-        //todo implement
-        return null;
+    protected void updateChunks(Camera view) {
+
     }
 
-    @Override
-    protected ArrayList<K> getViewableChunks(Camera view) {
-        //todo implement
-        return null;
-    }
 }

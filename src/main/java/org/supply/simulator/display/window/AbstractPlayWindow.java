@@ -16,7 +16,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
 
     protected ShaderEngine shaderEngine;
 
-    protected Manager<Integer,BasicChunk> chunkManager;
+    protected Manager<BasicChunk> chunkManager;
 
     private Camera camera;
 

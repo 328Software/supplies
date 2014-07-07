@@ -1,23 +1,17 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.lwjgl.BufferUtils;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkId;
 import org.supply.simulator.display.window.Camera;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,BasicChunk> {
+public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<BasicChunk> {
 
     private int chunkRows = 5;
     private int chunkColumns = 5;
@@ -29,86 +23,111 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,
 
     public MockChunkManager () {
         super();
+        chunks = new ArrayList<BasicChunk>();
+
     }
 
     @Override
-    protected BasicChunk getChunk(K chunkId) {
-
-      //  return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
-        BasicChunk chunk = new BasicChunk();
+    public void update(Camera view) {
 
 
-        chunk.setData(getBufferChunk(chunkRows, chunkRows,0,0));
-        chunk.setAttributeLocations(new int[] {0,1});
+        for (int i=0;i<totalChunkRows;i++) {
+            for (int j=0;j<totalChunkColumns;j++) {
+                //getViewableChunks
 
-//        if (counter < totalChunkRows) {
-//
-//        } else if (counter < totalChunkRows) {
-//
-//        }
-
-        return chunk;
+            }
+        }
     }
 
-    @Override
-    protected ArrayList<K> getViewableChunks(Camera view) {
-        ArrayList<K> list = new ArrayList<>();
-        //list.add();
-
-//        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
-//            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
-//                list.add(id);
-//            }
+//    @Override
+//    protected BasicChunk getChunk(K chunkId) {
+//
+//      //  return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
+//        BasicChunk chunk = new BasicChunk();
+//
+//
+//        chunk.setData(getChunkData(chunkRows, chunkRows, counterRows * chunkRows, counterColumns * chunkColumns));
+//        chunk.setAttributeLocations(new int[] {0,1});
+//        counterColumns++;
+//
+//        if (counterColumns > totalChunkColumns) {
+//            counterColumns = 0;
+//            counterRows++;
+//
 //        }
-        return new ArrayList<>(4);
+//
+//
+//        if (counterRows > totalChunkRows) {
+//            counterRows=0;
+//        }
+//
+//        return chunk;
+//    }
 
-
-    }
+//    @Override
+//    protected ArrayList<K> getViewableChunks(Camera view) {
+//        ArrayList<K> list = new ArrayList<>();
+//        //list.add();
+//
+////        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
+////            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
+////                list.add(id);
+////            }
+////        }
+//        return new ArrayList<>(4);
+//
+//
+//    }
 
 
     @Override
     public Iterator<BasicChunk> iterator() {
 
-        return new MockIterator() ;
+        return chunks.iterator();
     }
 
-    private class MockIterator implements Iterator<BasicChunk> {
+    @Override
+    protected void updateChunks(Camera view) {
 
-            @Override
-            public boolean hasNext() {
-                return iteratorCount<chunkIds.size();
-            }
-
-            @Override
-            public BasicChunk next() {
-                if (iteratorCount<chunkIds.size()) {
-                    BasicChunk chunk = chunks.get(chunkIds.get(iteratorCount));
-                    iteratorCount++;
-                    return chunk;
-                } else {
-                    return null;
-                }
-            }
-
-            @Override
-            public void remove() {
-
-            }
     }
+//
+//    private class MockIterator implements Iterator<BasicChunk> {
+//
+//            @Override
+//            public boolean hasNext() {
+//                return iteratorCount<chunks.size();
+//            }
+//
+//            @Override
+//            public BasicChunk next() {
+//                if (iteratorCount<chunks.size()) {
+//                    BasicChunk chunk = chunks.(iteratorCount);
+//                    iteratorCount++;
+//                    return chunk;
+//                } else {
+//                    return null;
+//                }
+//            }
+//
+//            @Override
+//            public void remove() {
+//
+//            }
+//    }
 
 
 
 
 //    public static BasicChunk getBasicChunk(int row, int col, int topLeftX, int topLeftY) {
 //        BasicChunk chunk = new BasicChunk();
-//        chunk.setData(getBufferChunk(row, col, topLeftX, topLeftY));
+//        chunk.setData(getChunkData(row, col, topLeftX, topLeftY));
 //        chunk.setAttributeLocations(new int[] {0,1});
 //        return chunk;
 //
 //    }
 
 
-    public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getBufferChunk
+    public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getChunkData
             (int row, int col, int topLeftX, int topLeftY) {
         BasicChunkData<List<Float>,List<Byte>,List<Integer>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
         List<Integer> values = new ArrayList<Integer>();

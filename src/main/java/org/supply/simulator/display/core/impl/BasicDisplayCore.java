@@ -5,6 +5,8 @@ import org.supply.simulator.executor.RepeatingScheduleInformation;
 import org.supply.simulator.logging.HasLogger;
 
 /**
+ * Basic implementaion of DisplayCore. Implements RepeatableTask interface.
+ *
  * Created by Alex on 6/29/2014.
  */
 public class BasicDisplayCore extends HasLogger implements DisplayCore{

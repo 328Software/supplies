@@ -1,15 +1,11 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.supply.simulator.display.supplyrenderable.HasSize;
-
-import java.nio.Buffer;
-
 /**
  * Object that contains all the raw chunk data from the database
  *
  * Created by Alex on 6/17/2014.
  */
-public interface ChunkData<V, C, I> extends HasSize {
+public interface ChunkData<V, C, I> {
 
     /**
      * Returns positions buffer data.
@@ -52,4 +48,30 @@ public interface ChunkData<V, C, I> extends HasSize {
      * @param buf
      */
     void setIndices(I buf);
+
+    /**
+     *  Returns rows.
+     *
+     * @return
+     */
+    int getRows();
+
+    /**
+     *  Returns columns;
+     *
+     * @return
+     */
+    int getColumns();
+
+    /**
+     * Sets rows;
+     *
+     */
+    void setRows(int rows);
+
+    /**
+     * Sets columns
+     *
+     */
+    void setColumns(int columns);
 }

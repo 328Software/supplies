@@ -10,9 +10,9 @@ import java.util.ArrayList;
  *
  * Created by Alex on 6/20/2014.
  */
-public abstract class HasRenderableInfoAbstract extends HasLogger implements HasRenderableInfo {
+public abstract class AbstractSupplyRenderable extends HasLogger implements SupplyRenderable {
 
-    private static ArrayList<Integer> indicesBufferIdArray;
+    //private static ArrayList<Integer> indicesBufferIdArray;
 
     protected int rows;
     protected int columns;
@@ -29,11 +29,6 @@ public abstract class HasRenderableInfoAbstract extends HasLogger implements Has
     @Override
     public void setEntityBufferId(int entityBufferId) {
         this.entityBufferId = entityBufferId;
-    }
-
-    @Override
-    public void setAttributeLocations(int[] locations) {
-        this.locations = locations;
     }
 
     @Override
@@ -85,6 +80,16 @@ public abstract class HasRenderableInfoAbstract extends HasLogger implements Has
     }
 
     @Override
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    @Override
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    @Override
     public int getRows() {
         return this.rows;
     }
@@ -95,13 +100,8 @@ public abstract class HasRenderableInfoAbstract extends HasLogger implements Has
     }
 
     @Override
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    @Override
-    public void setColumns(int columns) {
-        this.columns = columns;
+    public void setAttributeLocations(int[] locations) {
+        this.locations = locations;
     }
 
     @Override

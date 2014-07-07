@@ -1,11 +1,9 @@
 package org.supply.simulator.display.manager.chunk.impl;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.lwjgl.util.Renderable;
 import org.supply.simulator.display.manager.chunk.Chunk;
-import org.supply.simulator.display.supplyrenderable.HasRenderableInfo;
-import org.supply.simulator.display.supplyrenderable.HasRenderableInfoAbstract;
+import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -15,8 +13,8 @@ import java.nio.IntBuffer;
  * Created by Alex on 6/17/2014.
  */
 public class BasicChunk
-        extends    HasRenderableInfoAbstract
-        implements Chunk, Renderable, HasRenderableInfo {
+        extends AbstractSupplyRenderable
+        implements Chunk, SupplyRenderable {
 
     public static final int INDICES_PER_VERTEX = 6;
 

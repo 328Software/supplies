@@ -1,6 +1,5 @@
 package org.supply.simulator.display.shader.impl;
 
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.shader.ShaderEngine;
@@ -13,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * Basic implementation of the ShaderEngine interface.
+ *
  * Created by Alex on 6/28/2014.
  */
 public class BasicShaderEngine extends HasLogger implements ShaderEngine {
@@ -51,23 +52,6 @@ public class BasicShaderEngine extends HasLogger implements ShaderEngine {
             case FRAGMENT: this.fragmentShader[ShaderProgramType.PLAY.value()] = playVertexShader;
                 break;
         }
-
-
-    }
-
-    @Override
-    public int getProjectionMatrixLocation(ShaderProgramType type) {
-        return projectionMatrixLocation[type.value()];
-    }
-
-    @Override
-    public int getViewMatrixLocation(ShaderProgramType type) {
-        return viewMatrixLocation[type.value()];
-    }
-
-    @Override
-    public int getModelMatrixLocation(ShaderProgramType type) {
-        return modelMatrixLocation[type.value()];
     }
 
     @Override
@@ -164,5 +148,20 @@ public class BasicShaderEngine extends HasLogger implements ShaderEngine {
         }
 
         return shaderID;
+    }
+
+    @Override
+    public int getProjectionMatrixLocation(ShaderProgramType type) {
+        return projectionMatrixLocation[type.value()];
+    }
+
+    @Override
+    public int getViewMatrixLocation(ShaderProgramType type) {
+        return viewMatrixLocation[type.value()];
+    }
+
+    @Override
+    public int getModelMatrixLocation(ShaderProgramType type) {
+        return modelMatrixLocation[type.value()];
     }
 }

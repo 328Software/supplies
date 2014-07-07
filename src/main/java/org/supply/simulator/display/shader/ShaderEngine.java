@@ -1,9 +1,34 @@
 package org.supply.simulator.display.shader;
 
 /**
+ * The shader engine manages shaders for the rest of the display application. It is created by DisplayCore and is
+ * passed to and used by Window objects.
+ *
  * Created by Alex on 6/26/2014.
  */
 public interface ShaderEngine {
+
+    /**
+     * Sets current shader program to the specified type
+     *
+     * @param type shader program type
+     */
+    void useProgram(ShaderProgramType type);
+
+    /**
+     * Creates a shader program of the specified type.
+     *
+     * @param type shader program type
+     */
+    void createProgram(ShaderProgramType type);
+
+
+    /**
+     * Deletes the shader program of the specified type.
+     *
+     * @param type shader program type
+     */
+    void deleteProgram(ShaderProgramType type);
 
     /**
      * Sets the file names for the play program type shaders.
@@ -41,26 +66,4 @@ public interface ShaderEngine {
      * @return
      */
     int getModelMatrixLocation (ShaderProgramType type);
-
-    /**
-     * Sets current shader program to the specified type
-     *
-     * @param type shader program type
-     */
-    void useProgram(ShaderProgramType type);
-
-    /**
-     * Creates a shader program of the specified type.
-     *
-     * @param type shader program type
-     */
-    void createProgram(ShaderProgramType type);
-
-
-    /**
-     * Deletes the shader program of the specified type.
-     *
-     * @param type shader program type
-     */
-    void deleteProgram(ShaderProgramType type);
 }

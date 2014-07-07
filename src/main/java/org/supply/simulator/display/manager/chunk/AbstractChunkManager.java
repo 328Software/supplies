@@ -84,11 +84,6 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
     }
 
     @Override
-    public Iterator<V> iterator() {
-        return null;
-    }
-
-    @Override
     public Object[] toArray() {
     return chunks.values().toArray();
     }
@@ -97,6 +92,36 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
     public <T> T[] toArray(T[] a) {
         a = (T[])chunks.values().toArray();
         return a;
+    }
+
+    @Override
+    public void clear() {
+        for (K id:chunkIds) {
+            chunks.get(id).destroy();
+            chunks.remove(id);
+        }
+        chunkIds.clear();
+    }
+
+    /**
+     * Abstract method to get chunk objects from the database.
+     *
+     * @param chunkId chunk Id
+     * @return chunk object from db
+     */
+    protected abstract V getChunk(K chunkId);
+
+    /**
+     * (Private) method that uses the current camera to determine the chunks that are currently in view.
+     *
+     * @param view the Camera view
+     * @return an ArrayList containing the ids of the viewable chunks
+     */
+    protected abstract ArrayList<K> getViewableChunks(Camera view);
+
+    @Override
+    public Iterator<V> iterator() {
+        return null;
     }
 
     @Override
@@ -129,30 +154,6 @@ public abstract class AbstractChunkManager<K,V extends Chunk>
         return false;
     }
 
-    @Override
-    public void clear() {
-        for (K id:chunkIds) {
-            chunks.get(id).destroy();
-            chunks.remove(id);
-        }
-        chunkIds.clear();
-    }
-
-    /**
-     * Abstract method to get chunk objects from the database.
-     *
-     * @param chunkId chunk Id
-     * @return chunk object from db
-     */
-    protected abstract V getChunk(K chunkId);
-
-    /**
-     * (Private) method that uses the current camera to determine the chunks that are currently in view.
-     *
-     * @param view the Camera view
-     * @return an ArrayList containing the ids of the viewable chunks
-     */
-    protected abstract ArrayList<K> getViewableChunks(Camera view);
 
 }
 

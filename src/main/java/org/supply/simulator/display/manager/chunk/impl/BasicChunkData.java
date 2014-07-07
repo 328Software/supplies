@@ -2,18 +2,19 @@ package org.supply.simulator.display.manager.chunk.impl;
 
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.ChunkData;
-import org.supply.simulator.display.supplyrenderable.HasSize;
-import org.supply.simulator.display.supplyrenderable.HasSizeAbstract;
 
 
 /**
+ *
  * Created by Alex on 6/17/2014.
  */
 public class BasicChunkData<V,C,I>
-        extends HasSizeAbstract
-        implements ChunkData<V,C,I>, HasSize, HasId<Long> {
+        implements ChunkData<V,C,I>, HasId<Long> {
 
     private long id;
+
+    private int rows;
+    private int columns;
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -76,5 +77,25 @@ public class BasicChunkData<V,C,I>
     @Override
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public int getRows() {
+        return rows;
+    }
+
+    @Override
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    @Override
+    public int getColumns() {
+        return columns;
+    }
+
+    @Override
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 }

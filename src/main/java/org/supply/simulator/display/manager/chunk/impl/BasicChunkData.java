@@ -40,7 +40,7 @@ public class BasicChunkData<V,C,I>
 
     private V positions;
     private C colors;
-    private I indices;
+  //  private I indices;
 
 
     @Override
@@ -54,11 +54,6 @@ public class BasicChunkData<V,C,I>
     }
 
     @Override
-    public I getIndices() {
-        return this.indices;
-    }
-
-    @Override
     public void setPositions(V buf) {
         positions = buf;
     }
@@ -66,11 +61,6 @@ public class BasicChunkData<V,C,I>
     @Override
     public void setColors(C buf) {
         colors = buf;
-    }
-
-    @Override
-    public void setIndices(I buf) {
-        indices = buf;
     }
 
     public void setId(long id) {

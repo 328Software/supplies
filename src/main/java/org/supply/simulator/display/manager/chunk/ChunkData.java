@@ -22,13 +22,6 @@ public interface ChunkData<V, C, I> {
     C getColors();
 
     /**
-     * Returns indices buffer data.
-     *
-     * @return indices buffer data
-     */
-    I getIndices();
-
-    /**
      * Sets positions buffer data.
      *
      * @param buf
@@ -41,13 +34,6 @@ public interface ChunkData<V, C, I> {
      * @param buf colors buffer data
      */
     void setColors(C buf);
-
-    /**
-     * Sets indices buffer data.
-     *
-     * @param buf indices buffer data.
-     */
-    void setIndices(I buf);
 
     /**
      *  Returns rows.

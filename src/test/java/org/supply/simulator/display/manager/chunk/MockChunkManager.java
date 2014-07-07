@@ -2,6 +2,7 @@ package org.supply.simulator.display.manager.chunk;
 
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
 
     private int chunkRows = 5;
     private int chunkColumns = 5;
-    private int totalChunkRows = 2;
-    private int totalChunkColumns = 2;
+    private int totalChunkRows = 4;
+    private int totalChunkColumns = 4;
 
     private boolean isFirst;
 
@@ -23,6 +24,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
         super();
         isFirst = true;
         chunkCollection = new ArrayList<BasicChunk>();
+        indexManager = new BasicChunkIndexManager();
 
     }
 
@@ -104,7 +106,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
 
         basicDataOut.setColors(colors);
         basicDataOut.setPositions(positions);
-        basicDataOut.setIndices(values);
+    
         basicDataOut.setColumns(col);
         basicDataOut.setRows(row);
 

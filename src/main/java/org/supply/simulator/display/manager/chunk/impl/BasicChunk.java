@@ -4,13 +4,13 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkIndexManager;
 import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,6 +27,8 @@ public class BasicChunk
     private boolean isBuilt;
     private boolean isDestroyed;
 
+    private ChunkIndexManager indexManager;
+
     private BasicChunkData<List<Float>,List<Byte>,List<Integer>> data;
 
     public BasicChunk () {
@@ -40,19 +42,30 @@ public class BasicChunk
         columns = data.getColumns();
 
 
-        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(data.getIndices().size());
-        for(Integer i: data.getIndices()) {
-            indicesBuffer.put(i);
+        if (!indexManager.isIndicesBufferIdStored(rows,columns)) {
+
+            List<Integer> indicesBufferData = indexManager.createIndicesBufferData(rows, columns);
+
+            IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
+            for(Integer i: indicesBufferData) {
+                indicesBuffer.put(i);
+            }
+
+            indicesBuffer.flip();
+
+            indicesBufferId = GL15.glGenBuffers();
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+            GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+
+            indexManager.storeIndicesBufferId(rows,columns,indicesBufferId);
+        } else {
+            indicesBufferId = indexManager.getIndicesBufferId(rows,columns);
         }
 
-        indicesBuffer.flip();
 
 
-        //TODO THE BIG QUESTION: do we reuse indicesBufferIds?
-        indicesBufferId = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+
 
         vertexAttributesId = GL30.glGenVertexArrays();
 
@@ -164,5 +177,10 @@ public class BasicChunk
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public void setIndexManager(ChunkIndexManager indexManager) {
+        this.indexManager = indexManager;
     }
 }

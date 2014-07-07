@@ -29,7 +29,7 @@ public class BasicChunkDataTest extends HasLogger {
 
     @Test
     public void checkSetters () {
-        if (data.getColors()==null||data.getPositions()==null||data.getIndices()==null) {
+        if (data.getColors()==null||data.getPositions()==null) {
             logger.error("Chunk data null");
 //           System.exit(-1);
         }

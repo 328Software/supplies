@@ -9,5 +9,7 @@ import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
  */
 public interface Chunk extends SupplyRenderable {
 
+    public void setIndexManager(ChunkIndexManager indexManager);
+
 
 }

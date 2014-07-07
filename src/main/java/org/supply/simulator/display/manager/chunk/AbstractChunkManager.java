@@ -14,6 +14,8 @@ public abstract class AbstractChunkManager<V extends Chunk>
 
     protected Collection<V> chunkCollection;
 
+    protected ChunkIndexManager indexManager;
+
     @Override
     public void update(Camera view) {
 
@@ -30,6 +32,7 @@ public abstract class AbstractChunkManager<V extends Chunk>
 
         for (V chunk: chunkCollection) {
             if (!chunk.isBuilt()) {
+                chunk.setIndexManager(indexManager);
                 chunk.build();
             }
         }
@@ -108,6 +111,11 @@ public abstract class AbstractChunkManager<V extends Chunk>
         return false;
     }
 
+    /**
+     * Updates the chunk collection to chunks that are in view
+     *
+     * @param view the current camera view
+     */
     protected abstract void updateChunks(Camera view);
 
 

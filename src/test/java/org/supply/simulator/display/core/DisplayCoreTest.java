@@ -47,7 +47,7 @@ public class DisplayCoreTest {
 
 
     public static void build(String title) {
-        logger.info("START DISPLAY");
+        logger.info("START DISPLAY: "+title);
         setupOpenGL(title);
     }
 

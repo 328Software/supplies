@@ -103,42 +103,42 @@ public class OpenGLDebugger  {
 
 
     private static void printFloatBuffer(int rows, int columns, ByteBuffer buf, int stride) {
-        for (int i=0; i<rows;i++) {
-            for (int j=0; j<columns;j++) {
-                //logger.trace("{ ");
-                logger.printf(Level.TRACE,"{ ");
-                for (int k = 0; k<stride;k++) {
-                    logger.printf(Level.TRACE,buf.getFloat()+" ");
-                }
-                logger.printf(Level.TRACE,"}");
-            }
-            logger.printf(Level.TRACE,"\r\n");
-        }
+//        for (int i=0; i<rows;i++) {
+//            for (int j=0; j<columns;j++) {
+//                //logger.trace("{ ");
+//                logger.printf(Level.TRACE,"%s","{ ");
+//                for (int k = 0; k<stride;k++) {
+//                  //  logger.printf(Level.TRACE,"%f%s",buf.getFloat()+" ");
+//                }
+//                logger.printf(Level.TRACE,"%s","}");
+//            }
+//            logger.printf(Level.TRACE,"\r\n");
+//        }
     }
 
     private static void printByteBuffer(int rows, int columns, ByteBuffer buf, int stride) {
-        for (int i=0; i<rows;i++) {
-            for (int j=0; j<columns;j++) {
-                logger.printf(Level.TRACE,"{ ");
-                for (int k = 0; k<stride;k++) {
-                    logger.trace(buf.get() + " ");
-                }
-                logger.printf(Level.TRACE,"}");
-            }
-            logger.printf(Level.TRACE,"\r\n");
-        }
+//        for (int i=0; i<rows;i++) {
+//            for (int j=0; j<columns;j++) {
+//                logger.printf(Level.TRACE,"%s","{ ");
+//                for (int k = 0; k<stride;k++) {
+//                   // logger.printf(Level.TRACE,"%c%s",buf.get() + " ");
+//                }
+//                logger.printf(Level.TRACE,"%s","}");
+//            }
+//            logger.printf(Level.TRACE,"\r\n");
+//        }
     }
 
     private static void printIntBuffer(int rows, int columns, ByteBuffer buf, int stride) {
-        for (int i=0; i<rows;i++) {
-            for (int j=0; j<columns;j++) {
-                logger.printf(Level.TRACE,"{ ");
-                for (int k = 0; k<stride;k++) {
-                    logger.printf(Level.TRACE,buf.getInt() + " ");
-                }
-                logger.printf(Level.TRACE,"}");
-            }
-            logger.printf(Level.TRACE,"\r\n");
-        }
+//        for (int i=0; i<rows;i++) {
+//            for (int j=0; j<columns;j++) {
+//                logger.printf(Level.TRACE,"%s","{ ");
+//                for (int k = 0; k<stride;k++) {
+//                //    logger.printf(Level.TRACE,"%i%s",buf.getInt() + " ");
+//                }
+//                logger.printf(Level.TRACE,"%s","}");
+//            }
+//            logger.printf(Level.TRACE,"\r\n");
+//        }
     }
 }

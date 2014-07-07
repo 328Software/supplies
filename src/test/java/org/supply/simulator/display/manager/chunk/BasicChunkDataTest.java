@@ -25,7 +25,7 @@ public class BasicChunkDataTest extends HasLogger {
     @Before
     public void createData() {
 
-        data = MockChunkManager.getData(rows,columns);
+        data = MockChunkManager.getBufferChunk(rows, columns, 0, 0);
         logger.info("Created chunk data");
     }
 

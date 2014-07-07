@@ -53,6 +53,7 @@ public interface ShaderEngine {
     /**
      * Gets the view matrix location for the given program type.
      * Must be called after the program is created.
+     *
      * @param type shader program type
      * @return view matrix location
      */

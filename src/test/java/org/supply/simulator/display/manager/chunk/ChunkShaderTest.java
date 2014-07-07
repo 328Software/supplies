@@ -56,36 +56,6 @@ public class ChunkShaderTest {
         shaderEngine.setPlayShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT);
 
         shaderEngine.createProgram(ShaderProgramType.PLAY);
-       // setupShaders();
-
-//        camera = new MockCamera();
-//        camera.setProjectionMatrixLocation(projectionMatrixLocation);
-//        camera.setModelMatrixLocation(viewMatrixLocation);
-//        camera.setViewMatrixLocation(modelMatrixLocation);
-                //        projectionMatrix = new Matrix4f();
-                //        float fieldOfView = 60f;
-                //
-                //        float aspectRatio = (float)columns / (float)rows;
-                //        float near_plane = 0.1f;
-                //        float far_plane = 100f;
-                //
-                //        float y_scale = (float)(1f / Math.tan((fieldOfView / 2f)* (float)(PI / 180d)));
-                //        float x_scale = y_scale / aspectRatio;
-                //        float frustum_length = far_plane - near_plane;
-                //
-                //        projectionMatrix.m00 = x_scale;
-                //        projectionMatrix.m11 = y_scale;
-                //        projectionMatrix.m22 = -((far_plane + near_plane) / frustum_length);
-                //        projectionMatrix.m23 = -1;
-                //        projectionMatrix.m32 = -((2 * near_plane * far_plane) / frustum_length);
-                //        projectionMatrix.m33 = 0;
-                //
-                //        matrix44Buffer = BufferUtils.createFloatBuffer(16);
-                //        modelPos = new Vector3f(0, 0, 0);
-                //        modelAngle = new Vector3f(0, 0, 0);
-                //        modelScale = new Vector3f(1, 1, 1);
-                //        cameraPos = new Vector3f(0, 0, -1);
-                //        cameraAngle = new Vector3f(0, 0, 0);
 
         camera = new NewCamera();
         camera.setRows(rows);
@@ -96,7 +66,7 @@ public class ChunkShaderTest {
         camera.build();
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getData(rows,columns));
+        chunk.setData(MockChunkManager.getBufferChunk(rows, columns, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
         chunk.build();
         OpenGLDebugger.printChunkBuffers(chunk);
@@ -217,15 +187,6 @@ public class ChunkShaderTest {
         }
 
         public void render() {
-
-//            projectionMatrix.store(matrix44Buffer); matrix44Buffer.flip();
-//            GL20.glUniformMatrix4(shaderEngine.getProjectionMatrixLocation(ShaderProgramType.PLAY), false, matrix44Buffer);
-//            //   GL20.glUniformMatrix4(projectionMatrixLocation, false, matrix44Buffer);
-//            viewMatrix.store(matrix44Buffer); matrix44Buffer.flip();
-//            GL20.glUniformMatrix4(shaderEngine.getViewMatrixLocation(ShaderProgramType.PLAY), false, matrix44Buffer);
-//            //  GL20.glUniformMatrix4(viewMatrixLocation, false, matrix44Buffer);
-//            modelMatrix.store(matrix44Buffer); matrix44Buffer.flip();
-//            GL20.glUniformMatrix4(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY), false, matrix44Buffer);
 
             projectionMatrix.store(matrix44Buffer); matrix44Buffer.flip();
             GL20.glUniformMatrix4(this.projectionMatrixLocation, false, matrix44Buffer);

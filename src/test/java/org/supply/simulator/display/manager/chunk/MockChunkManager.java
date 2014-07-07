@@ -3,33 +3,47 @@ package org.supply.simulator.display.manager.chunk;
 import org.lwjgl.BufferUtils;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkId;
 import org.supply.simulator.display.window.Camera;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Integer,BasicChunk> {
+public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<BasicChunkId,BasicChunk> {
+
+    private int chunkRows = 5;
+    private int chunkColumns = 5;
+    private int totalChunkRows = 2;
+    private int totalChunkColumns = 2;
 
     public MockChunkManager () {
         super();
     }
 
     @Override
-    protected BasicChunk getChunk(Integer chunkId) {
-        return getChunk(1000,1000);//dummy test data;
+    protected BasicChunk getChunk(BasicChunkId chunkId) {
+        return getBasicChunk(chunkRows, chunkColumns, 0, 0);//dummy test data;
     }
 
     @Override
-    protected ArrayList<Integer> getViewableChunks(Camera view) {
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1);
+    protected ArrayList<BasicChunkId> getViewableChunks(Camera view) {
+        ArrayList<BasicChunkId> list = new ArrayList<>();
+        BasicChunkId id = new BasicChunkId();
+        for (int i =0; i < totalChunkRows; i=i+chunkRows) {
+            for (int j =0; j < totalChunkColumns; j=j+chunkColumns) {
+                id.setTopLeftRow(i);
+                id.setTopLeftColumn(j);
+                list.add(id);
+            }
+        }
         return list;
 
 
@@ -69,30 +83,15 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<In
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public static BasicChunk getChunk(int row, int col) {
+    public static BasicChunk getBasicChunk(int row, int col, int topLeftX, int topLeftY) {
         BasicChunk chunk = new BasicChunk();
-        chunk.setData(getData(row,col));
+        chunk.setData(getBufferChunk(row, col, topLeftX, topLeftY));
         chunk.setAttributeLocations(new int[] {0,1});
         return chunk;
-
     }
 
-
-
-
-    public static BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> getData (int row, int col) {
+    public static BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> getBufferChunk
+            (int row, int col, int topLeftX, int topLeftY) {
         BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> basicDataOut = new BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer>();
         List<Integer> values = new ArrayList<Integer>();
 
@@ -105,8 +104,8 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<In
         verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
                 BasicChunkData.COLOR_BYTES);
 
-        for(int i = 0; i < row; i++) {
-            for(int j = 0; j < col; j++) {
+        for(int i = topLeftX; i < +row+topLeftX; i++) {
+            for(int j = topLeftY; j < col+topLeftY; j++) {
 
                 int offset = (i* col +j)*4;
 

@@ -10,21 +10,21 @@ public interface ChunkData<V, C, I> {
     /**
      * Returns positions buffer data.
      *
-     * @return
+     * @return positions buffer data
      */
     V getPositions();
 
     /**
      * Returns colors buffer data.
      *
-     * @return
+     * @return colors buffer data
      */
     C getColors();
 
     /**
      * Returns indices buffer data.
      *
-     * @return
+     * @return indices buffer data
      */
     I getIndices();
 
@@ -38,40 +38,42 @@ public interface ChunkData<V, C, I> {
     /**
      * Sets colors buffer data.
      *
-     * @param buf
+     * @param buf colors buffer data
      */
     void setColors(C buf);
 
     /**
      * Sets indices buffer data.
      *
-     * @param buf
+     * @param buf indices buffer data.
      */
     void setIndices(I buf);
 
     /**
      *  Returns rows.
      *
-     * @return
+     * @return rows
      */
     int getRows();
 
     /**
      *  Returns columns;
      *
-     * @return
+     * @return columns
      */
     int getColumns();
 
     /**
-     * Sets rows;
+     * Sets rows
      *
+     * @param rows rows int
      */
     void setRows(int rows);
 
     /**
      * Sets columns
      *
+     * @param columns columns int
      */
     void setColumns(int columns);
 }

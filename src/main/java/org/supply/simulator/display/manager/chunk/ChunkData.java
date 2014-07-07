@@ -76,4 +76,29 @@ public interface ChunkData<V, C, I> {
      * @param columns columns int
      */
     void setColumns(int columns);
+
+
+    /**
+     *
+     * @return
+     */
+    int getIndexRows();
+
+    /**
+     *
+     * @param indexRows
+     */
+    void setIndexRows(int indexRows);
+
+    /**
+     *
+     * @return
+     */
+    int getIndexColumns();
+
+    /**
+     *
+     * @param indexColumns
+     */
+    void setIndexColumns(int indexColumns);
 }

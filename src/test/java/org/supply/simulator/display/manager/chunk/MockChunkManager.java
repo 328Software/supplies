@@ -17,35 +17,50 @@ import java.util.List;
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<BasicChunkId,BasicChunk> {
+public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<K,BasicChunk> {
 
     private int chunkRows = 5;
     private int chunkColumns = 5;
     private int totalChunkRows = 2;
     private int totalChunkColumns = 2;
 
+    private int counterRows = 0;
+    private int counterColumns = 0;
+
     public MockChunkManager () {
         super();
     }
 
     @Override
-    protected BasicChunk getChunk(BasicChunkId chunkId) {
-        return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
+    protected BasicChunk getChunk(K chunkId) {
+
+      //  return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
+        BasicChunk chunk = new BasicChunk();
+
+
+        chunk.setData(getBufferChunk(chunkRows, chunkRows,0,0));
+        chunk.setAttributeLocations(new int[] {0,1});
+
+//        if (counter < totalChunkRows) {
+//
+//        } else if (counter < totalChunkRows) {
+//
+//        }
+
+        return chunk;
     }
 
     @Override
-    protected ArrayList<BasicChunkId> getViewableChunks(Camera view) {
-        ArrayList<BasicChunkId> list = new ArrayList<>();
+    protected ArrayList<K> getViewableChunks(Camera view) {
+        ArrayList<K> list = new ArrayList<>();
+        //list.add();
 
-        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
-            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
-                BasicChunkId id = new BasicChunkId();
-                id.setTopLeftRow(i);
-                id.setTopLeftColumn(j);
-                list.add(id);
-            }
-        }
-        return list;
+//        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
+//            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
+//                list.add(id);
+//            }
+//        }
+        return new ArrayList<>(4);
 
 
     }
@@ -84,16 +99,18 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Ba
 
 
 
-    public static BasicChunk getBasicChunk(int row, int col, int topLeftX, int topLeftY) {
-        BasicChunk chunk = new BasicChunk();
-        chunk.setData(getBufferChunk(row, col, topLeftX, topLeftY));
-        chunk.setAttributeLocations(new int[] {0,1});
-        return chunk;
-    }
+//    public static BasicChunk getBasicChunk(int row, int col, int topLeftX, int topLeftY) {
+//        BasicChunk chunk = new BasicChunk();
+//        chunk.setData(getBufferChunk(row, col, topLeftX, topLeftY));
+//        chunk.setAttributeLocations(new int[] {0,1});
+//        return chunk;
+//
+//    }
 
-    public static BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> getBufferChunk
+
+    public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getBufferChunk
             (int row, int col, int topLeftX, int topLeftY) {
-        BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> basicDataOut = new BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>>();
+        BasicChunkData<List<Float>,List<Byte>,List<Integer>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
         List<Integer> values = new ArrayList<Integer>();
 
 //        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *

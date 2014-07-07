@@ -10,6 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Alex on 6/17/2014.
@@ -20,17 +21,22 @@ public class BasicChunk
 
     public static final int INDICES_PER_VERTEX = 6;
 
+    private int rowIndex;
+    private int columnIndex;
+
     private boolean isBuilt;
     private boolean isDestroyed;
 
-    private BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> data;
+    private BasicChunkData<List<Float>,List<Byte>,List<Integer>> data;
 
     public BasicChunk () {
+        rowIndex = 0;
+        columnIndex = 0;
         isBuilt =false;
         isDestroyed=true;
     }
 
-    public void setData(BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> data) {
+    public void setData(BasicChunkData<List<Float>,List<Byte>,List<Integer>> data) {
         this.data=data;
     }
 
@@ -52,7 +58,7 @@ public class BasicChunk
         //TODO THE BIG QUESTION: do we reuse indicesBufferIds?
         indicesBufferId = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer,GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         vertexAttributesId = GL30.glGenVertexArrays();
@@ -147,5 +153,25 @@ public class BasicChunk
         GL20.glDisableVertexAttribArray(locations[1]);
         GL30.glBindVertexArray(0);
 
+    }
+
+    @Override
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
+    @Override
+    public void setRowIndex(int rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    @Override
+    public int getColumnIndex() {
+        return columnIndex;
+    }
+
+    @Override
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
     }
 }

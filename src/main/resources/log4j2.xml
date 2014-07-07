@@ -7,6 +7,9 @@
         <File name="info" fileName="logs/simulator.info.log" append="true">
             <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
         </File>
+	<File name="display" fileName="logs/simulator.display.log" append="true">
+            <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
+        </File>
     </Appenders>
 
     <Loggers>
@@ -14,6 +17,10 @@
             <AppenderRef ref="console"/>
         </Root>
 
+	<logger name="org.supply.simulator.display" level="trace" additivity="true">
+            <AppenderRef ref="display"/>
+        </logger>
+		
         <logger name="org.supply.simulator.core" level="debug" additivity="true">
             <AppenderRef ref="info"/>
         </logger>

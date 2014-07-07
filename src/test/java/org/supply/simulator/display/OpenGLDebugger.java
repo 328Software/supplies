@@ -1,4 +1,5 @@
 package org.supply.simulator.display;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
@@ -104,39 +105,40 @@ public class OpenGLDebugger  {
     private static void printFloatBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                logger.trace("{ ");
+                //logger.trace("{ ");
+                logger.printf(Level.TRACE,"{ ");
                 for (int k = 0; k<stride;k++) {
-                    logger.trace(buf.getFloat()+" ");
+                    logger.printf(Level.TRACE,buf.getFloat()+" ");
                 }
-                logger.trace("}");
+                logger.printf(Level.TRACE,"}");
             }
-            logger.trace("\r\n");
+            logger.printf(Level.TRACE,"\r\n");
         }
     }
 
     private static void printByteBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                logger.trace("{ ");
+                logger.printf(Level.TRACE,"{ ");
                 for (int k = 0; k<stride;k++) {
                     logger.trace(buf.get() + " ");
                 }
-                logger.trace("}");
+                logger.printf(Level.TRACE,"}");
             }
-            logger.trace("\r\n");
+            logger.printf(Level.TRACE,"\r\n");
         }
     }
 
     private static void printIntBuffer(int rows, int columns, ByteBuffer buf, int stride) {
         for (int i=0; i<rows;i++) {
             for (int j=0; j<columns;j++) {
-                logger.trace("{ ");
+                logger.printf(Level.TRACE,"{ ");
                 for (int k = 0; k<stride;k++) {
-                    logger.trace(buf.getInt() + " ");
+                    logger.printf(Level.TRACE,buf.getInt() + " ");
                 }
-                logger.trace("}");
+                logger.printf(Level.TRACE,"}");
             }
-            logger.trace("\r\n");
+            logger.printf(Level.TRACE,"\r\n");
         }
     }
 }

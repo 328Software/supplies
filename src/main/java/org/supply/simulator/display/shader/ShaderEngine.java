@@ -46,7 +46,7 @@ public interface ShaderEngine {
      * Must be called after the program is created.
      *
      * @param type shader program type
-     * @return
+     * @return projection matrix location
      */
     int getProjectionMatrixLocation (ShaderProgramType type);
 
@@ -54,7 +54,7 @@ public interface ShaderEngine {
      * Gets the view matrix location for the given program type.
      * Must be called after the program is created.
      * @param type shader program type
-     * @return
+     * @return view matrix location
      */
     int getViewMatrixLocation (ShaderProgramType type);
 
@@ -63,7 +63,7 @@ public interface ShaderEngine {
      * Must be called after the program is created.
      *
      * @param type shader program type
-     * @return
+     * @return model matrix location
      */
     int getModelMatrixLocation (ShaderProgramType type);
 }

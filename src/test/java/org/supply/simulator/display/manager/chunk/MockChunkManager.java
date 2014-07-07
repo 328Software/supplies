@@ -5,7 +5,6 @@ import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,113 +17,29 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
     private int totalChunkRows = 2;
     private int totalChunkColumns = 2;
 
-    private int counterRows = 0;
-    private int counterColumns = 0;
+    private boolean isFirst;
 
     public MockChunkManager () {
         super();
-        chunks = new ArrayList<BasicChunk>();
+        isFirst = true;
+        chunkCollection = new ArrayList<BasicChunk>();
 
-    }
-
-    @Override
-    public void update(Camera view) {
-
-
-        for (int i=0;i<totalChunkRows;i++) {
-            for (int j=0;j<totalChunkColumns;j++) {
-                //getViewableChunks
-
-            }
-        }
-    }
-
-//    @Override
-//    protected BasicChunk getChunk(K chunkId) {
-//
-//      //  return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
-//        BasicChunk chunk = new BasicChunk();
-//
-//
-//        chunk.setData(getChunkData(chunkRows, chunkRows, counterRows * chunkRows, counterColumns * chunkColumns));
-//        chunk.setAttributeLocations(new int[] {0,1});
-//        counterColumns++;
-//
-//        if (counterColumns > totalChunkColumns) {
-//            counterColumns = 0;
-//            counterRows++;
-//
-//        }
-//
-//
-//        if (counterRows > totalChunkRows) {
-//            counterRows=0;
-//        }
-//
-//        return chunk;
-//    }
-
-//    @Override
-//    protected ArrayList<K> getViewableChunks(Camera view) {
-//        ArrayList<K> list = new ArrayList<>();
-//        //list.add();
-//
-////        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
-////            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
-////                list.add(id);
-////            }
-////        }
-//        return new ArrayList<>(4);
-//
-//
-//    }
-
-
-    @Override
-    public Iterator<BasicChunk> iterator() {
-
-        return chunks.iterator();
     }
 
     @Override
     protected void updateChunks(Camera view) {
-
+        if (isFirst) {
+            isFirst=false;
+            for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
+                for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
+                    BasicChunk chunk = new BasicChunk();
+                    chunk.setAttributeLocations(new int[]{0,1});
+                    chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
+                    chunkCollection.add(chunk);
+                }
+            }
+        }
     }
-//
-//    private class MockIterator implements Iterator<BasicChunk> {
-//
-//            @Override
-//            public boolean hasNext() {
-//                return iteratorCount<chunks.size();
-//            }
-//
-//            @Override
-//            public BasicChunk next() {
-//                if (iteratorCount<chunks.size()) {
-//                    BasicChunk chunk = chunks.(iteratorCount);
-//                    iteratorCount++;
-//                    return chunk;
-//                } else {
-//                    return null;
-//                }
-//            }
-//
-//            @Override
-//            public void remove() {
-//
-//            }
-//    }
-
-
-
-
-//    public static BasicChunk getBasicChunk(int row, int col, int topLeftX, int topLeftY) {
-//        BasicChunk chunk = new BasicChunk();
-//        chunk.setData(getChunkData(row, col, topLeftX, topLeftY));
-//        chunk.setAttributeLocations(new int[] {0,1});
-//        return chunk;
-//
-//    }
 
 
     public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getChunkData
@@ -132,23 +47,12 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
         BasicChunkData<List<Float>,List<Byte>,List<Integer>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
         List<Integer> values = new ArrayList<Integer>();
 
-//        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
-//                BasicChunkData.POSITION_BYTES);
-
-
-//        FloatBuffer verticesFloatBuffer = verticesByteBuffer.asFloatBuffer();
-
-//        verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
-//                BasicChunkData.COLOR_BYTES);
-
         List<Float> positions = new ArrayList<Float>();
-//        List<Integer> indices = new ArrayList<Integer>();
         List<Byte> colors = new ArrayList<Byte>();
 
         for(int i = topLeftX; i < +row+topLeftX; i++) {
             for(int j = topLeftY; j < col+topLeftY; j++) {
 
-   //             int offset = (i* col +j)*4;
                 int offset = ((i-topLeftX)* col +(j-topLeftY))*4;
 
                 values.add(offset);
@@ -186,30 +90,16 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
 
                 for (int k = 0; k < vertices.length; k++) {
                     // Add position, color and texture floats to the buffer
-//                    verticesFloatBuffer.put(vertices[k].getElements().getPositionData());
                     for(Float f: vertices[k].getElements().getPositionData()) {
                         positions.add(f);
                     }
                     for(Byte b: vertices[k].getElements().getColorData())  {
                         colors.add(b);
                     }
-//                    verticesByteBuffer.put(vertices[k].getElements().getColorData());
                 }
             }
         }
-//        verticesFloatBuffer.flip();
-//        verticesByteBuffer.flip();
 
-//        int[] indices = new int[values.size()];
-
-//        for(int i = 0; i < values.size();i++) {
-//            indices.add()
-//            indices[i] = values.get(i);
-//        }
-
-//        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
-//        indicesBuffer.put(indices);
-//        indicesBuffer.flip();
 
         basicDataOut.setColors(colors);
         basicDataOut.setPositions(positions);

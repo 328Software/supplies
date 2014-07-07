@@ -69,7 +69,7 @@ public class BasicChunkManagerTest {
             // Set shader program type to CHUNK
             shaderEngine.useProgram(ShaderProgramType.PLAY);
 
-            // Update chunks with new camera position
+            // Update chunkCollection with new camera position
             manager.update(camera);
             Iterator<BasicChunk> it = manager.iterator();
             while (it.hasNext())

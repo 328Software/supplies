@@ -62,7 +62,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
         // Set shader program type to CHUNK
         shaderEngine.useProgram(ShaderProgramType.PLAY);
 
-        // Update chunks with new camera position
+        // Update chunkCollection with new camera position
         chunkManager.update(camera);
         Iterator<BasicChunk> it = chunkManager.iterator();
         while (it.hasNext())
@@ -100,7 +100,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     public void setCamera(Camera camera) {this.camera = camera;}
 
     /**
-     * Sets the manager object for chunks
+     * Sets the manager object for chunkCollection
      *
      * @param manager
      */

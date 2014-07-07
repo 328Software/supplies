@@ -13,11 +13,11 @@ public class BasicChunkData<V,C,I>
 
     private long id;
 
-    private int rows;
-    private int columns;
+    protected Integer rows;
+    protected Integer columns;
 
-    private Integer rowIndex;
-    private Integer columnIndex;
+    protected Integer rowIndex;
+    protected Integer columnIndex;
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -83,22 +83,22 @@ public class BasicChunkData<V,C,I>
     }
 
     @Override
-    public int getRows() {
+    public Integer getRows() {
         return rows;
     }
 
     @Override
-    public void setRows(int rows) {
+    public void setRows(Integer rows) {
         this.rows = rows;
     }
 
     @Override
-    public int getColumns() {
+    public Integer getColumns() {
         return columns;
     }
 
     @Override
-    public void setColumns(int columns) {
+    public void setColumns(Integer columns) {
         this.columns = columns;
     }
 

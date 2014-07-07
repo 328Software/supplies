@@ -23,7 +23,6 @@ public class BasicChunkDataTest extends HasLogger {
 
     @Before
     public void createData() {
-
         data = MockChunkManager.getChunkData(rows, columns, 0, 0);
         logger.info("Created chunk data");
     }
@@ -32,11 +31,11 @@ public class BasicChunkDataTest extends HasLogger {
     public void checkSetters () {
         if (data.getColors()==null||data.getPositions()==null||data.getIndices()==null) {
             logger.error("Chunk data null");
-           System.exit(-1);
+//           System.exit(-1);
         }
         if (data.getColumns()!=columns||data.getRows()!=rows) {
             logger.error("Rows and columns incorrect");
-            System.exit(-1);
+//            System.exit(-1);
         }
 
         logger.info("Chunk data verified");

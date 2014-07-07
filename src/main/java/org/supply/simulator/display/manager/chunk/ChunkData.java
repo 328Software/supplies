@@ -54,28 +54,28 @@ public interface ChunkData<V, C, I> {
      *
      * @return rows
      */
-    int getRows();
+    Integer getRows();
 
     /**
      *  Returns columns;
      *
      * @return columns
      */
-    int getColumns();
+    Integer getColumns();
 
     /**
      * Sets rows
      *
      * @param rows rows int
      */
-    void setRows(int rows);
+    void setRows(Integer rows);
 
     /**
      * Sets columns
      *
      * @param columns columns int
      */
-    void setColumns(int columns);
+    void setColumns(Integer columns);
 
     /**
      * Sets the columnIndex of the coordinates of the chunk

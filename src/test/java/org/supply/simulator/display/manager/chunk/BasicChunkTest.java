@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.logging.HasLogger;
 
 /**
@@ -17,9 +18,11 @@ public class BasicChunkTest extends HasLogger {
     @Before
     public void createFixture () {
         DisplayCoreTest.build("BasicChunkTest");
+
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getChunkData(100, 100, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
+        chunk.setIndexManager(new BasicChunkIndexManager());
         chunk.build();
 
         if (chunk.isBuilt()==false) {

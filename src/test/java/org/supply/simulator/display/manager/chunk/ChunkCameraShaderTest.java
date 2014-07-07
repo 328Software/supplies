@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 import org.supply.simulator.display.OpenGLDebugger;
 import org.supply.simulator.display.core.DisplayCoreTest;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.display.shader.ShaderProgramType;
 import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
@@ -64,6 +65,7 @@ public class ChunkCameraShaderTest {
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getChunkData(rows, columns, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
+        chunk.setIndexManager(new BasicChunkIndexManager());
         chunk.build();
         OpenGLDebugger.printChunkBuffers(chunk);
 

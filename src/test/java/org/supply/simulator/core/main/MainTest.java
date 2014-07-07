@@ -10,7 +10,7 @@ public class MainTest {
     public void testMain() {
         try {
             System.out.println("could it be?");
-            //Main.main(new String[0]);
+            Main.main(new String[0]);
             System.out.println("magic");
         } catch (Exception e) {
             System.out.println("no waay");

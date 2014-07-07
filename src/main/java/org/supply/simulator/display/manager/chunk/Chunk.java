@@ -9,32 +9,5 @@ import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
  */
 public interface Chunk extends SupplyRenderable {
 
-    /**
-     * Sets the columnIndex of the coordinates of the chunk
-     *
-     * @param columnIndex the top left corner column
-     */
-    public void setColumnIndex(int columnIndex);
-
-    /**
-     * Sets the rowIndex of the coordinates of the chunk
-     *
-     * @param rowIndex the top left corner row
-     */
-    public void setRowIndex(int rowIndex);
-
-    /**
-     * gets the columnIndex of the coordinates of the chunk
-     *
-     * @return the top left corner column
-     */
-    public int getColumnIndex();
-
-    /**
-     * gets the rowIndex of the coordinates of the chunk
-     *
-     * @return the top left corner row
-     */
-    public int getRowIndex();
 
 }

@@ -5,9 +5,6 @@ import org.junit.Test;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.logging.HasLogger;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.Collection;
 
 /**
@@ -26,7 +23,7 @@ public class BasicChunkDataTest extends HasLogger {
     @Before
     public void createData() {
 
-        data = MockChunkManager.getBufferChunk(rows, columns, 0, 0);
+        data = MockChunkManager.getChunkData(rows, columns, 0, 0);
         logger.info("Created chunk data");
     }
 

@@ -21,17 +21,12 @@ public class BasicChunk
 
     public static final int INDICES_PER_VERTEX = 6;
 
-    private int rowIndex;
-    private int columnIndex;
-
     private boolean isBuilt;
     private boolean isDestroyed;
 
     private BasicChunkData<List<Float>,List<Byte>,List<Integer>> data;
 
     public BasicChunk () {
-        rowIndex = 0;
-        columnIndex = 0;
         isBuilt =false;
         isDestroyed=true;
     }
@@ -155,23 +150,4 @@ public class BasicChunk
 
     }
 
-    @Override
-    public int getRowIndex() {
-        return rowIndex;
-    }
-
-    @Override
-    public void setRowIndex(int rowIndex) {
-        this.rowIndex = rowIndex;
-    }
-
-    @Override
-    public int getColumnIndex() {
-        return columnIndex;
-    }
-
-    @Override
-    public void setColumnIndex(int columnIndex) {
-        this.columnIndex = columnIndex;
-    }
 }

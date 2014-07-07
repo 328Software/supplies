@@ -18,7 +18,7 @@ public class BasicChunkTest extends HasLogger {
     public void createFixture () {
         DisplayCoreTest.build("BasicChunkTest");
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getBufferChunk(100, 100, 0, 0));
+        chunk.setData(MockChunkManager.getChunkData(100, 100, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
         chunk.build();
 

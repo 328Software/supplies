@@ -103,22 +103,22 @@ public class BasicChunkData<V,C,I>
     }
 
     @Override
-    public int getIndexRows() {
+    public int getRowIndex() {
         return indexRows;
     }
 
     @Override
-    public void setIndexRows(int indexRows) {
+    public void setRowIndex(int indexRows) {
         this.indexRows = indexRows;
     }
 
     @Override
-    public int getIndexColumns() {
+    public int getColumnIndex() {
         return indexColumns;
     }
 
     @Override
-    public void setIndexColumns(int indexColumns) {
+    public void setColumnIndex(int indexColumns) {
         this.indexColumns = indexColumns;
     }
 }

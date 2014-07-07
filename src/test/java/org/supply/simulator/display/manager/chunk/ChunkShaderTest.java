@@ -66,7 +66,7 @@ public class ChunkShaderTest {
         camera.build();
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getBufferChunk(rows, columns, 0, 0));
+        chunk.setData(MockChunkManager.getChunkData(rows, columns, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
         chunk.build();
         OpenGLDebugger.printChunkBuffers(chunk);

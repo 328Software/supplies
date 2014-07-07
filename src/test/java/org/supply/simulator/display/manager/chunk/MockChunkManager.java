@@ -30,15 +30,16 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Ba
 
     @Override
     protected BasicChunk getChunk(BasicChunkId chunkId) {
-        return getBasicChunk(chunkRows, chunkColumns, 0, 0);//dummy test data;
+        return getBasicChunk(chunkRows, chunkColumns, chunkId.getTopLeftRow(), chunkId.getTopLeftColumn());//dummy test data;
     }
 
     @Override
     protected ArrayList<BasicChunkId> getViewableChunks(Camera view) {
         ArrayList<BasicChunkId> list = new ArrayList<>();
-        BasicChunkId id = new BasicChunkId();
-        for (int i =0; i < totalChunkRows; i=i+chunkRows) {
-            for (int j =0; j < totalChunkColumns; j=j+chunkColumns) {
+
+        for (int i =0; i < totalChunkRows*chunkRows; i=i+chunkRows) {
+            for (int j =0; j < totalChunkColumns*chunkColumns; j=j+chunkColumns) {
+                BasicChunkId id = new BasicChunkId();
                 id.setTopLeftRow(i);
                 id.setTopLeftColumn(j);
                 list.add(id);
@@ -111,7 +112,8 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Ba
         for(int i = topLeftX; i < +row+topLeftX; i++) {
             for(int j = topLeftY; j < col+topLeftY; j++) {
 
-                int offset = (i* col +j)*4;
+   //             int offset = (i* col +j)*4;
+                int offset = ((i-topLeftX)* col +(j-topLeftY))*4;
 
                 values.add(offset);
                 values.add(offset+1);

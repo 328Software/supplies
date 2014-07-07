@@ -90,19 +90,23 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Ba
         return chunk;
     }
 
-    public static BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> getBufferChunk
+    public static BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> getBufferChunk
             (int row, int col, int topLeftX, int topLeftY) {
-        BasicChunkData<FloatBuffer, ByteBuffer,IntBuffer> basicDataOut = new BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer>();
+        BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> basicDataOut = new BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>>();
         List<Integer> values = new ArrayList<Integer>();
 
-        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
-                BasicChunkData.POSITION_BYTES);
+//        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
+//                BasicChunkData.POSITION_BYTES);
 
 
-        FloatBuffer verticesFloatBuffer = verticesByteBuffer.asFloatBuffer();
+//        FloatBuffer verticesFloatBuffer = verticesByteBuffer.asFloatBuffer();
 
-        verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
-                BasicChunkData.COLOR_BYTES);
+//        verticesByteBuffer = BufferUtils.createByteBuffer(4 * row * col *
+//                BasicChunkData.COLOR_BYTES);
+
+        List<Float> positions = new ArrayList<Float>();
+//        List<Integer> indices = new ArrayList<Integer>();
+        List<Byte> colors = new ArrayList<Byte>();
 
         for(int i = topLeftX; i < +row+topLeftX; i++) {
             for(int j = topLeftY; j < col+topLeftY; j++) {
@@ -144,27 +148,34 @@ public class MockChunkManager<K,V extends Chunk> extends AbstractChunkManager<Ba
 
                 for (int k = 0; k < vertices.length; k++) {
                     // Add position, color and texture floats to the buffer
-                    verticesFloatBuffer.put(vertices[k].getElements().getPositionData());
-                    verticesByteBuffer.put(vertices[k].getElements().getColorData());
+//                    verticesFloatBuffer.put(vertices[k].getElements().getPositionData());
+                    for(Float f: vertices[k].getElements().getPositionData()) {
+                        positions.add(f);
+                    }
+                    for(Byte b: vertices[k].getElements().getColorData())  {
+                        colors.add(b);
+                    }
+//                    verticesByteBuffer.put(vertices[k].getElements().getColorData());
                 }
             }
         }
-        verticesFloatBuffer.flip();
-        verticesByteBuffer.flip();
+//        verticesFloatBuffer.flip();
+//        verticesByteBuffer.flip();
 
-        int[] indices = new int[values.size()];
+//        int[] indices = new int[values.size()];
 
-        for(int i = 0; i < indices.length;i++) {
-            indices[i] = values.get(i);
-        }
+//        for(int i = 0; i < values.size();i++) {
+//            indices.add()
+//            indices[i] = values.get(i);
+//        }
 
-        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
-        indicesBuffer.put(indices);
-        indicesBuffer.flip();
+//        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
+//        indicesBuffer.put(indices);
+//        indicesBuffer.flip();
 
-        basicDataOut.setColors(verticesByteBuffer);
-        basicDataOut.setPositions(verticesFloatBuffer);
-        basicDataOut.setIndices(indicesBuffer);
+        basicDataOut.setColors(colors);
+        basicDataOut.setPositions(positions);
+        basicDataOut.setIndices(values);
         basicDataOut.setColumns(col);
         basicDataOut.setRows(row);
 

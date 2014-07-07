@@ -8,12 +8,13 @@ import org.supply.simulator.logging.HasLogger;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Collection;
 
 /**
  * Created by Alex on 6/29/2014.
  */
 public class BasicChunkDataTest extends HasLogger {
-    private BasicChunkData<FloatBuffer, ByteBuffer, IntBuffer> data;
+    private BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> data;
     private int rows;
     private int columns;
 

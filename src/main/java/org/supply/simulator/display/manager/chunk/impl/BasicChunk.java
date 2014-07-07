@@ -1,5 +1,6 @@
 package org.supply.simulator.display.manager.chunk.impl;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
@@ -8,6 +9,7 @@ import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Collection;
 
 /**
  * Created by Alex on 6/17/2014.
@@ -21,16 +23,15 @@ public class BasicChunk
     private boolean isBuilt;
     private boolean isDestroyed;
 
-    private BasicChunkData<FloatBuffer,ByteBuffer,IntBuffer> data;
+    private BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> data;
 
     public BasicChunk () {
         isBuilt =false;
         isDestroyed=true;
     }
 
-    public void setData(BasicChunkData<FloatBuffer,ByteBuffer,IntBuffer> data) {
+    public void setData(BasicChunkData<Collection<Float>,Collection<Byte>,Collection<Integer>> data) {
         this.data=data;
-
     }
 
 
@@ -39,10 +40,19 @@ public class BasicChunk
         rows = data.getRows();
         columns = data.getColumns();
 
+
+        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(data.getIndices().size());
+        for(Integer i: data.getIndices()) {
+            indicesBuffer.put(i);
+        }
+
+        indicesBuffer.flip();
+
+
         //TODO THE BIG QUESTION: do we reuse indicesBufferIds?
         indicesBufferId = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, data.getIndices(),GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer,GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         vertexAttributesId = GL30.glGenVertexArrays();
@@ -53,15 +63,28 @@ public class BasicChunk
         positionsArrayId = GL15.glGenBuffers();
         colorsArrayId = GL15.glGenBuffers();
 
+        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(data.getPositions().size());
+        for(Float f: data.getPositions()) {
+            verticesFloatBuffer.put(f);
+        }
+        verticesFloatBuffer.flip();
+
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getPositions(), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STATIC_DRAW);
+
 
         GL20.glVertexAttribPointer(locations[0], data.POSITION_COUNT, GL11.GL_FLOAT,
                 false, data.POSITION_BYTES, data.POSITION_BYTE_OFFSET);
 
 
+        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(data.getColors().size());
+        for(Byte b: data.getColors()) {
+            verticesByteBuffer.put(b);
+        }
+        verticesByteBuffer.flip();
+
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorsArrayId);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data.getColors(), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesByteBuffer, GL15.GL_STATIC_DRAW);
 
         GL20.glVertexAttribPointer(locations[1], data.COLOR_COUNT, GL11.GL_UNSIGNED_BYTE,
                 true, data.COLOR_BYTES, 0);

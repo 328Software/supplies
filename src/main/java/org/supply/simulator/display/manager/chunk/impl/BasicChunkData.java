@@ -35,8 +35,8 @@ public class BasicChunkData<V,C,I>
     public static final int COLOR_BYTE_OFFSET = POSITION_BYTE_OFFSET + POSITION_COUNT;
     public static final int TEXTURE_BYTE_OFFSET = COLOR_BYTE_OFFSET + COLOR_COUNT;
 
-    private C colors;
     private V positions;
+    private C colors;
     private I indices;
 
 

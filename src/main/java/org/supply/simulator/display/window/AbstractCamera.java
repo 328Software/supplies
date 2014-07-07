@@ -125,7 +125,7 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
 
     @Override
     public void render() {
-        getNewData();
+        update();
 
         //TODO Optimization: check if camera has changed before doing the math here
 
@@ -183,7 +183,7 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
     }
 
 
-    protected abstract void getNewData();
+    protected abstract void update();
 
 
     //*****Setters

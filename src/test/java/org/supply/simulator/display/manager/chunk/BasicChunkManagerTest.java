@@ -63,7 +63,6 @@ public class BasicChunkManagerTest {
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
 
             // Clear bit
-            //TODO What does this do?
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
             // Set shader program type to CHUNK

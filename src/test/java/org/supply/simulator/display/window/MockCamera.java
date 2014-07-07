@@ -27,7 +27,7 @@ public class MockCamera extends AbstractCamera{
     }
 
     @Override
-    protected void getNewData() {
+    protected void update() {
         refreshInput();
     }
 

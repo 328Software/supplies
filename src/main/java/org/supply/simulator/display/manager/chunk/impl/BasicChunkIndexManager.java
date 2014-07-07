@@ -51,8 +51,8 @@ public class BasicChunkIndexManager implements ChunkIndexManager {
     }
 
     private class RowColPair {
-        public Integer rows;
-        public Integer columns;
+        private Integer rows;
+        private Integer columns;
 
         public RowColPair (int rows, int columns) {
             this.rows = rows;

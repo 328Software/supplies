@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<BasicChunk> {
 
-    private int chunkRows = 5;
-    private int chunkColumns = 5;
-    private int totalChunkRows = 4;
-    private int totalChunkColumns = 4;
+    private int chunkRows = 50;
+    private int chunkColumns = 50;
+    private int totalChunkRows = 10;
+    private int totalChunkColumns = 100;
 
     private boolean isFirst;
 
@@ -47,7 +47,6 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
     public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getChunkData
             (int row, int col, int topLeftX, int topLeftY) {
         BasicChunkData<List<Float>,List<Byte>,List<Integer>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
-        List<Integer> values = new ArrayList<Integer>();
 
         List<Float> positions = new ArrayList<Float>();
         List<Byte> colors = new ArrayList<Byte>();
@@ -55,19 +54,8 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
         for(int i = topLeftX; i < +row+topLeftX; i++) {
             for(int j = topLeftY; j < col+topLeftY; j++) {
 
-                int offset = ((i-topLeftX)* col +(j-topLeftY))*4;
-
-                values.add(offset);
-                values.add(offset+1);
-                values.add(offset+2);
-                values.add(offset+2);
-                values.add(offset+3);
-                values.add(offset);
-
 //                byte blackInt = (i%2|j%2)==0||(i%2&j%2)==1?(byte)0:(byte)((i*columns+j)/256);
                 byte blackInt = (i%2|j%2)==0||(i%2&j%2)==1?(byte)0:(byte)-1;
-
-
 
                 float x =-0.5f + 0.1f*i,y=0.5f-0.1f*j,z=-(.1f*(i+j)),length=0.1f;
 

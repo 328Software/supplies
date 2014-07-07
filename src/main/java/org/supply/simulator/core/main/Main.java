@@ -70,7 +70,7 @@ public class Main extends HasLogger {
 
                     data.setColors(colors);
                     data.setPositions(positions);
-                    data.setIndices(indices);
+                    //data.setIndices(indices);
 
 //                    BasicChunk chunk = new BasicChunk();
 //                    chunk.setData(data);

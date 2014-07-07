@@ -8,11 +8,35 @@ import java.util.List;
  */
 public interface ChunkIndexManager {
 
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @return
+     */
     public List<Integer> createIndicesBufferData(int rows, int columns);
 
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @return
+     */
     public boolean isIndicesBufferIdStored (int rows, int columns);
 
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @param indicesBufferId
+     */
     public void storeIndicesBufferId(int rows, int columns, int indicesBufferId);
 
+    /**
+     *
+     * @param rows
+     * @param columns
+     * @return
+     */
     public int getIndicesBufferId(int rows, int columns);
 }

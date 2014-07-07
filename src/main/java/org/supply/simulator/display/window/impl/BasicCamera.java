@@ -14,7 +14,7 @@ public class BasicCamera extends AbstractCamera {
     }
 
     @Override
-    protected void getNewData() {
+    protected void update() {
 
     }
 }

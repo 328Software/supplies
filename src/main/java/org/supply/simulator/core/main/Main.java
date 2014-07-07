@@ -5,11 +5,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.apache.logging.log4j.LogManager;
 import org.supply.simulator.logging.HasLogger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,14 +52,55 @@ public class Main extends HasLogger {
                 Long count = null;
                 try {
 //                    count = (Long) sessionFactory.openSession().createQuery("select count(*) from org.supply.simulator.display.manager.chunk.impl.BasicChunkData").uniqueResult();
-                    BasicChunkData<String,String,Integer> data = new BasicChunkData<String,String,Integer>();
-                    data.setColors("red");
-                    data.setPositions("right");
-                    data.setIndices(1000000);
+//                    BasicChunkData<String,String,Integer> data = new BasicChunkData<String,String,Integer>();
+                    BasicChunkData<List<Float>,List<Byte>,List<Integer>> data = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
+                    List<Byte> colors = new ArrayList<Byte>();
+                    List<Float> positions = new ArrayList<Float>();
+                    List<Integer> indices = new ArrayList<Integer>();
+
+                    colors.add((byte)11);
+                    colors.add((byte)12);
+
+                    positions.add(1.2f);
+                    positions.add(2.5f);
+
+                    indices.add(1);
+                    indices.add(2);
+
+
+                    data.setColors(colors);
+                    data.setPositions(positions);
+                    data.setIndices(indices);
+
+//                    BasicChunk chunk = new BasicChunk();
+//                    chunk.setData(data);
+////                    data.setColors("red");
+////                    data.setPositions("right");
+////                    data.setIndices(1000000);
+//
+//                    Session session = sessionFactory.openSession();
+//                    Transaction tx = session.beginTransaction();
+//                    session.saveOrUpdate(chunk);
+//                    session.flush();
+////                    session.getTransaction().
+//                    tx.commit();
+//
+//                    session.close();
+
+
+
+                    BasicChunk chunk;
+//                    chunk.setData(data);
+//                    data.setColors("red");
+//                    data.setPositions("right");
+//                    data.setIndices(1000000);
 
                     Session session = sessionFactory.openSession();
                     Transaction tx = session.beginTransaction();
-                    session.saveOrUpdate(data);
+                    chunk = (BasicChunk)session.createQuery("from org.supply.simulator.display.manager.chunk.impl.BasicChunk where id = 1").uniqueResult();
+                    logger.info(chunk);
+                    logger.info(chunk.getData());
+                    logger.info(chunk.getData().getColors());
                     session.flush();
 //                    session.getTransaction().
                     tx.commit();

@@ -82,27 +82,27 @@ public interface ChunkData<V, C, I> {
      *
      * @param columnIndex the top left corner column
      */
-    public void setColumnIndex(int columnIndex);
+    public void setColumnIndex(Integer columnIndex);
 
     /**
      * Sets the rowIndex of the coordinates of the chunk
      *
      * @param rowIndex the top left corner row
      */
-    public void setRowIndex(int rowIndex);
+    public void setRowIndex(Integer rowIndex);
 
     /**
      * gets the columnIndex of the coordinates of the chunk
      *
      * @return the top left corner column
      */
-    public int getColumnIndex();
+    public Integer getColumnIndex();
 
     /**
      * gets the rowIndex of the coordinates of the chunk
      *
      * @return the top left corner row
      */
-    public int getRowIndex();
+    public Integer getRowIndex();
 
 }

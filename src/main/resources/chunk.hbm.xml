@@ -4,15 +4,40 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" table="CHUNK">
+    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" table="chunk_data">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <property name="colors" column="colors" type="string"/>
-        <property name="positions" column="positions" type="string"/>
-        <property name="indices" column="indices" type="int"/>
+        <property name="rowIndex" column="row_index" type="int"/>
+        <property name="columnIndex" column="column_index" type="int"/>
+
+        <list name="colors">
+            <key column="chunk_data_id"/>
+            <list-index column="idx"/>
+            <element type="byte"/>
+        </list>
+        <list name="positions">
+            <key column="chunk_data_id"/>
+            <list-index column="idx"/>
+            <element type="float"/>
+        </list>
+        <list name="indices">
+            <key column="chunk_data_id"/>
+            <list-index column="idx"/>
+            <element type="int"/>
+        </list>
+    </class>
+
+    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunk" table="chunk">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <one-to-one name="data" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" cascade="save-update"/>
     </class>
 </hibernate-mapping>

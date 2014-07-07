@@ -2,6 +2,7 @@ package org.supply.simulator.display.manager.chunk.impl;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
@@ -17,7 +18,9 @@ import java.util.List;
  */
 public class BasicChunk
         extends AbstractSupplyRenderable
-        implements Chunk, SupplyRenderable {
+        implements Chunk, SupplyRenderable, HasId<Long> {
+
+    protected Long id;
 
     public static final int INDICES_PER_VERTEX = 6;
 
@@ -30,11 +33,6 @@ public class BasicChunk
         isBuilt =false;
         isDestroyed=true;
     }
-
-    public void setData(BasicChunkData<List<Float>,List<Byte>,List<Integer>> data) {
-        this.data=data;
-    }
-
 
     @Override
     public void build() {
@@ -150,4 +148,21 @@ public class BasicChunk
 
     }
 
+
+    public void setData(BasicChunkData<List<Float>,List<Byte>,List<Integer>> data) {
+        this.data=data;
+    }
+
+    public BasicChunkData<List<Float>, List<Byte>, List<Integer>> getData() {
+        return data;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

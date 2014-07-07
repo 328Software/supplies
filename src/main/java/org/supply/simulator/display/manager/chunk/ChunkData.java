@@ -5,7 +5,7 @@ package org.supply.simulator.display.manager.chunk;
  *
  * Created by Alex on 6/17/2014.
  */
-public interface ChunkData<V, C, I> {
+public interface ChunkData<V, C> {
 
     /**
      * Returns positions buffer data.

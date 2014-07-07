@@ -8,8 +8,8 @@ import org.supply.simulator.display.manager.chunk.ChunkData;
  *
  * Created by Alex on 6/17/2014.
  */
-public class BasicChunkData<V,C,I>
-        implements ChunkData<V,C,I>, HasId<Long> {
+public class BasicChunkData<V,C>
+        implements ChunkData<V,C>, HasId<Long> {
 
     private long id;
 

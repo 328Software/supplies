@@ -29,7 +29,7 @@ public class BasicChunk
 
     private ChunkIndexManager indexManager;
 
-    private BasicChunkData<List<Float>,List<Byte>,List<Integer>> data;
+    private BasicChunkData<List<Float>,List<Byte>> data;
 
     public BasicChunk () {
         isBuilt =false;
@@ -162,11 +162,11 @@ public class BasicChunk
     }
 
 
-    public void setData(BasicChunkData<List<Float>,List<Byte>,List<Integer>> data) {
+    public void setData(BasicChunkData<List<Float>,List<Byte>> data) {
         this.data=data;
     }
 
-    public BasicChunkData<List<Float>, List<Byte>, List<Integer>> getData() {
+    public BasicChunkData<List<Float>, List<Byte>> getData() {
         return data;
     }
 

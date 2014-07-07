@@ -53,7 +53,7 @@ public class Main extends HasLogger {
                 try {
 //                    count = (Long) sessionFactory.openSession().createQuery("select count(*) from org.supply.simulator.display.manager.chunk.impl.BasicChunkData").uniqueResult();
 //                    BasicChunkData<String,String,Integer> data = new BasicChunkData<String,String,Integer>();
-                    BasicChunkData<List<Float>,List<Byte>,List<Integer>> data = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
+                    BasicChunkData<List<Float>,List<Byte>> data = new BasicChunkData<List<Float>,List<Byte>>();
                     List<Byte> colors = new ArrayList<Byte>();
                     List<Float> positions = new ArrayList<Float>();
                     List<Integer> indices = new ArrayList<Integer>();

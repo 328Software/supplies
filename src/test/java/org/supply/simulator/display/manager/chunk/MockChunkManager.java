@@ -15,8 +15,8 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
 
     private int chunkRows = 50;
     private int chunkColumns = 50;
-    private int totalChunkRows = 10;
-    private int totalChunkColumns = 100;
+    private int totalChunkRows = 5;
+    private int totalChunkColumns = 5;
 
     private boolean isFirst;
 
@@ -44,9 +44,9 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
     }
 
 
-    public static BasicChunkData<List<Float>,List<Byte>,List<Integer>> getChunkData
+    public static BasicChunkData<List<Float>,List<Byte>> getChunkData
             (int row, int col, int topLeftX, int topLeftY) {
-        BasicChunkData<List<Float>,List<Byte>,List<Integer>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>,List<Integer>>();
+        BasicChunkData<List<Float>,List<Byte>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>>();
 
         List<Float> positions = new ArrayList<Float>();
         List<Byte> colors = new ArrayList<Byte>();

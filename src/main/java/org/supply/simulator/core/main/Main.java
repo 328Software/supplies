@@ -100,8 +100,8 @@ public class Main extends HasLogger {
                     Transaction tx = session.beginTransaction();
                     chunk = (BasicChunk)session.createQuery("from org.supply.simulator.display.manager.chunk.impl.BasicChunk where id = 1").uniqueResult();
                     logger.info(chunk);
-                    logger.info(chunk.getData());
-                    logger.info(chunk.getData().getColors());
+                    logger.info(chunk.getChunkData());
+                    logger.info(chunk.getChunkData().getColors());
                     session.flush();
 //                    session.getTransaction().
                     tx.commit();

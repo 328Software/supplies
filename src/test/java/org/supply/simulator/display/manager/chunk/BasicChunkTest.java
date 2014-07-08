@@ -20,7 +20,7 @@ public class BasicChunkTest extends HasLogger {
         DisplayCoreTest.build("BasicChunkTest");
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getChunkData(100, 100, 0, 0));
+        chunk.setChunkData(MockChunkManager.getChunkData(100, 100, 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
         chunk.setIndexManager(new BasicChunkIndexManager());
         chunk.build();

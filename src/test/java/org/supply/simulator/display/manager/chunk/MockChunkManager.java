@@ -37,7 +37,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
                 for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
                     BasicChunk chunk = new BasicChunk();
                     chunk.setAttributeLocations(new int[]{0,1});
-                    chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
+                    chunk.setChunkData(getChunkData(chunkRows,chunkColumns,i,j));
                     chunkCollection.add(chunk);
                 }
             }

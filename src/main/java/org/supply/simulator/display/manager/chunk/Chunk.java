@@ -17,7 +17,27 @@ public interface Chunk extends SupplyRenderable/*, Entity<
         Long
         >, HasId<Long>*/ {
 
+    /**
+     *
+     * @param indexManager
+     */
     public void setIndexManager(ChunkIndexManager indexManager);
+
+    /**
+     * Sets the chunk data. Will be pushed to OpenGl Buffers on build().
+     *
+     * @param data chunk data object
+     */
+    public void setChunkData(ChunkData data);
+
+    /**
+     * Gets the chunk data.
+     *
+     * @return chunk data object
+     */
+    public ChunkData getChunkData();
+
+
 
 
 }

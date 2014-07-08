@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkData;
 import org.supply.simulator.display.manager.chunk.ChunkIndexManager;
 import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
@@ -29,7 +30,7 @@ public class BasicChunk
 
     private ChunkIndexManager indexManager;
 
-    private BasicChunkData<List<Float>,List<Byte>> data;
+    private ChunkData<List<Float>,List<Byte>> data;
 
     public BasicChunk () {
         isBuilt =false;
@@ -161,7 +162,8 @@ public class BasicChunk
         return id;
     }
 
-    public BasicChunkData<List<Float>, List<Byte>> getData() {
+    @Override
+    public ChunkData<List<Float>, List<Byte>> getChunkData() {
         return data;
     }
 
@@ -170,7 +172,8 @@ public class BasicChunk
         this.indexManager = indexManager;
     }
 
-    public void setData(BasicChunkData<List<Float>,List<Byte>> data) {
+    @Override
+    public void setChunkData(ChunkData data) {
         this.data=data;
     }
 

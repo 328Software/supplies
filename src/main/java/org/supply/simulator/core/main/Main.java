@@ -57,67 +57,9 @@ public class Main extends HasLogger {
 
                 Long count = null;
                 try {
-//                    count = (Long) sessionFactory.openSession().createQuery("select count(*) from org.supply.simulator.display.manager.chunk.impl.BasicChunkData").uniqueResult();
-//                    BasicChunkData<String,String,Integer> data = new BasicChunkData<String,String,Integer>();
-                    BasicChunkData<List<Float>,List<Byte>> data = new FloatPositionByteColorChunkData();
-                    List<Byte> colors = new ArrayList<Byte>();
-                    List<Float> positions = new ArrayList<Float>();
-//                    List<Integer> indices = new ArrayList<Integer>();
 
-                    colors.add((byte)11);
-                    colors.add((byte)12);
-
-                    positions.add(1.2f);
-                    positions.add(2.5f);
-
-//                    indices.add(1);
-//                    indices.add(2);
-
-
-                    data.setColors(colors);
-                    data.setPositions(positions);
-                    //data.setIndices(indices);
-
-//                    BasicChunk chunk = new BasicChunk();
-//                    chunk.setData(data);
-////                    data.setColors("red");
-////                    data.setPositions("right");
-////                    data.setIndices(1000000);
-//
-//                    Session session = sessionFactory.openSession();
-//                    Transaction tx = session.beginTransaction();
-//                    session.saveOrUpdate(chunk);
-//                    session.flush();
-////                    session.getTransaction().
-//                    tx.commit();
-//
-//                    session.close();
-
-
-//                    BasicChunkManager<BasicChunk> manager = new BasicChunkManager<BasicChunk>();
-//                    manager.setChunkDAO(chunkDAO);
                     manager.update(null);
 
-//                    BasicChunk chunk;
-//                    chunk.setData(data);
-//                    data.setColors("red");
-//                    data.setPositions("right");
-//                    data.setIndices(1000000);
-
-//                    Session session = sessionFactory.getCurrentSession();
-//                    Transaction tx = session.beginTransaction();
-//                    chunk = (BasicChunk)session.createQuery("from org.supply.simulator.display.manager.chunk.impl.BasicChunk where id = 1").uniqueResult();
-//                    BasicChunk chunk = (BasicChunk)chunkDAO.findOneByRowIndexColumnIndexRowsColumns(1,1,10,10);
-//                    logger.info(chunk);
-//                    logger.info(chunk.getData());
-//                    logger.info(chunk.getData().getColors());
-
-
-//                    session.flush();
-//                    session.getTransaction().
-//                    tx.commit();
-
-//                    session.close();
                 } catch (Exception e) {
                     logger.info(e);
                     e.printStackTrace();

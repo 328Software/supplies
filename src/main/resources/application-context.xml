@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 
     <import resource="application-persistence.xml"/>
+    <import resource="application-dao.xml"/>
 
     <!--used to set all of the objects on main for the application start-->
-    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName"/>
+    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName">
+        <property name="manager" ref="basicChunkManager"/>
+    </bean>
 
     <bean id="taskManager" class="org.supply.simulator.executor.impl.basic.BasicTaskManager">
         <property name="executor" ref="executor"/>
@@ -22,4 +32,6 @@
     <bean id="executor" class="java.util.concurrent.ScheduledThreadPoolExecutor">
         <constructor-arg index="0" value="10"/>
     </bean>
+
+    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkManager" autowire="byName"/>
 </beans>

@@ -6,6 +6,8 @@ import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
+import java.util.List;
+
 /**
  * A SupplyRenderable object to represent a chunk of the ground.
  *
@@ -28,14 +30,14 @@ public interface Chunk extends SupplyRenderable/*, Entity<
      *
      * @param data chunk data object
      */
-    public void setChunkData(ChunkData data);
+    public void setData(ChunkData<List<Float>, List<Byte>> data);
 
     /**
      * Gets the chunk data.
      *
      * @return chunk data object
      */
-    public ChunkData getChunkData();
+    public ChunkData<List<Float>, List<Byte>> getData();
 
 
 

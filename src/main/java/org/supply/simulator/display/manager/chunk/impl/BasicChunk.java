@@ -163,7 +163,7 @@ public class BasicChunk
     }
 
     @Override
-    public ChunkData<List<Float>, List<Byte>> getChunkData() {
+    public ChunkData<List<Float>, List<Byte>> getData() {
         return data;
     }
 
@@ -173,7 +173,7 @@ public class BasicChunk
     }
 
     @Override
-    public void setChunkData(ChunkData data) {
+    public void setData(ChunkData<List<Float>, List<Byte>> data) {
         this.data=data;
     }
 

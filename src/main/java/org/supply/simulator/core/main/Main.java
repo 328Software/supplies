@@ -5,8 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.supply.simulator.core.dao.chunk.ChunkDAO;
+import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.FloatPositionByteColorChunkData;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
@@ -29,6 +33,7 @@ public class Main extends HasLogger {
     private static DispatchService dispatchService;
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
+    private static ChunkManager<BasicChunk> manager;
 
     static { //load everything
         new ClassPathXmlApplicationContext("/application-context.xml");
@@ -89,26 +94,33 @@ public class Main extends HasLogger {
 //                    session.close();
 
 
+//                    BasicChunkManager<BasicChunk> manager = new BasicChunkManager<BasicChunk>();
+//                    manager.setChunkDAO(chunkDAO);
+                    manager.update(null);
 
-                    BasicChunk chunk;
+//                    BasicChunk chunk;
 //                    chunk.setData(data);
 //                    data.setColors("red");
 //                    data.setPositions("right");
 //                    data.setIndices(1000000);
 
-                    Session session = sessionFactory.openSession();
-                    Transaction tx = session.beginTransaction();
-                    chunk = (BasicChunk)session.createQuery("from org.supply.simulator.display.manager.chunk.impl.BasicChunk where id = 1").uniqueResult();
-                    logger.info(chunk);
-                    logger.info(chunk.getChunkData());
-                    logger.info(chunk.getChunkData().getColors());
-                    session.flush();
-//                    session.getTransaction().
-                    tx.commit();
+//                    Session session = sessionFactory.getCurrentSession();
+//                    Transaction tx = session.beginTransaction();
+//                    chunk = (BasicChunk)session.createQuery("from org.supply.simulator.display.manager.chunk.impl.BasicChunk where id = 1").uniqueResult();
+//                    BasicChunk chunk = (BasicChunk)chunkDAO.findOneByRowIndexColumnIndexRowsColumns(1,1,10,10);
+//                    logger.info(chunk);
+//                    logger.info(chunk.getData());
+//                    logger.info(chunk.getData().getColors());
 
-                    session.close();
+
+//                    session.flush();
+//                    session.getTransaction().
+//                    tx.commit();
+
+//                    session.close();
                 } catch (Exception e) {
                     logger.info(e);
+                    e.printStackTrace();
                 }
 //                logger.info(count);
 //            }
@@ -138,5 +150,9 @@ public class Main extends HasLogger {
     @Override
     public Logger getLogger() {
         return logger;
+    }
+
+    public static void setManager(ChunkManager<BasicChunk> manager) {
+        Main.manager = manager;
     }
 }

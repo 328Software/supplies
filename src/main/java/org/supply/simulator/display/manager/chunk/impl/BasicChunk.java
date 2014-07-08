@@ -41,7 +41,6 @@ public class BasicChunk
         rows = data.getRows();
         columns = data.getColumns();
 
-
         if (!indexManager.isIndicesBufferIdStored(rows,columns)) {
 
             List<Integer> indicesBufferData = indexManager.createIndicesBufferData(rows, columns);
@@ -64,13 +63,9 @@ public class BasicChunk
         }
 
 
-
-
-
         vertexAttributesId = GL30.glGenVertexArrays();
 
         GL30.glBindVertexArray(vertexAttributesId);
-
 
         positionsArrayId = GL15.glGenBuffers();
         colorsArrayId = GL15.glGenBuffers();
@@ -85,8 +80,8 @@ public class BasicChunk
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STATIC_DRAW);
 
 
-        GL20.glVertexAttribPointer(locations[0], data.POSITION_COUNT, GL11.GL_FLOAT,
-                false, data.POSITION_BYTES, data.POSITION_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[0], BasicChunkData.POSITION_COUNT, GL11.GL_FLOAT,
+                false, BasicChunkData.POSITION_BYTES, BasicChunkData.POSITION_BYTE_OFFSET);
 
 
         ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(data.getColors().size());
@@ -98,19 +93,14 @@ public class BasicChunk
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorsArrayId);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesByteBuffer, GL15.GL_STATIC_DRAW);
 
-        GL20.glVertexAttribPointer(locations[1], data.COLOR_COUNT, GL11.GL_UNSIGNED_BYTE,
-                true, data.COLOR_BYTES, 0);
+        GL20.glVertexAttribPointer(locations[1], BasicChunkData.COLOR_COUNT, GL11.GL_UNSIGNED_BYTE,
+                true, BasicChunkData.COLOR_BYTES, 0);
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
         GL30.glBindVertexArray(0);
         data=null;
         isBuilt =true;
-    }
-
-    @Override
-    public boolean isBuilt() {
-        return isBuilt;
     }
 
     @Override
@@ -137,11 +127,6 @@ public class BasicChunk
     }
 
     @Override
-    public boolean isDestroyed() {
-        return isDestroyed;
-    }
-
-    @Override
     public void render() {
 
         GL30.glBindVertexArray(vertexAttributesId);
@@ -161,13 +146,14 @@ public class BasicChunk
 
     }
 
-
-    public void setData(BasicChunkData<List<Float>,List<Byte>> data) {
-        this.data=data;
+    @Override
+    public boolean isBuilt() {
+        return isBuilt;
     }
 
-    public BasicChunkData<List<Float>, List<Byte>> getData() {
-        return data;
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 
     @Override
@@ -175,12 +161,20 @@ public class BasicChunk
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public BasicChunkData<List<Float>, List<Byte>> getData() {
+        return data;
     }
 
     @Override
     public void setIndexManager(ChunkIndexManager indexManager) {
         this.indexManager = indexManager;
+    }
+
+    public void setData(BasicChunkData<List<Float>,List<Byte>> data) {
+        this.data=data;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

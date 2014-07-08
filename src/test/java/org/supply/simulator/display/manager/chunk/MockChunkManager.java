@@ -3,6 +3,7 @@ package org.supply.simulator.display.manager.chunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
+import org.supply.simulator.display.manager.chunk.impl.FloatPositionByteColorChunkData;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Basi
 
     public static BasicChunkData<List<Float>,List<Byte>> getChunkData
             (int row, int col, int topLeftX, int topLeftY) {
-        BasicChunkData<List<Float>,List<Byte>> basicDataOut = new BasicChunkData<List<Float>,List<Byte>>();
+        BasicChunkData<List<Float>,List<Byte>> basicDataOut = new FloatPositionByteColorChunkData();
 
         List<Float> positions = new ArrayList<Float>();
         List<Byte> colors = new ArrayList<Byte>();

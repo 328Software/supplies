@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.FloatPositionByteColorChunkData;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.apache.logging.log4j.LogManager;
@@ -53,10 +54,10 @@ public class Main extends HasLogger {
                 try {
 //                    count = (Long) sessionFactory.openSession().createQuery("select count(*) from org.supply.simulator.display.manager.chunk.impl.BasicChunkData").uniqueResult();
 //                    BasicChunkData<String,String,Integer> data = new BasicChunkData<String,String,Integer>();
-                    BasicChunkData<List<Float>,List<Byte>> data = new BasicChunkData<List<Float>,List<Byte>>();
+                    BasicChunkData<List<Float>,List<Byte>> data = new FloatPositionByteColorChunkData();
                     List<Byte> colors = new ArrayList<Byte>();
                     List<Float> positions = new ArrayList<Float>();
-                    List<Integer> indices = new ArrayList<Integer>();
+//                    List<Integer> indices = new ArrayList<Integer>();
 
                     colors.add((byte)11);
                     colors.add((byte)12);
@@ -64,8 +65,8 @@ public class Main extends HasLogger {
                     positions.add(1.2f);
                     positions.add(2.5f);
 
-                    indices.add(1);
-                    indices.add(2);
+//                    indices.add(1);
+//                    indices.add(2);
 
 
                     data.setColors(colors);

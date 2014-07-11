@@ -3,7 +3,7 @@ package org.supply.simulator.display.shader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.logging.HasLogger;
 
@@ -16,7 +16,7 @@ public class BasicShaderEngineTest extends HasLogger {
     private ShaderEngine engine;
     @Before
     public void createFixture () {
-        DisplayCoreTest.build("BasicShaderEngineTest");
+        MockDisplayCore.build("BasicShaderEngineTest");
         logger.info("START BasicShaderEngineTest");
 
         engine = new BasicShaderEngine();
@@ -49,7 +49,7 @@ public class BasicShaderEngineTest extends HasLogger {
     @After
     public void destroyObject() {
 
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
     }
 
 }

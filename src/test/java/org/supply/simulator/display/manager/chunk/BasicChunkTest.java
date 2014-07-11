@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.display.OpenGLDebugger;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.logging.HasLogger;
@@ -17,7 +17,7 @@ public class BasicChunkTest extends HasLogger {
     private BasicChunk chunk;
     @Before
     public void createFixture () {
-        DisplayCoreTest.build("BasicChunkTest");
+        MockDisplayCore.build("BasicChunkTest");
 
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getChunkData(100, 100, 0, 0));
@@ -54,6 +54,6 @@ public class BasicChunkTest extends HasLogger {
             System.exit(-1);
         }
         logger.info("Chunk destroyed successfully");
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
     }
 }

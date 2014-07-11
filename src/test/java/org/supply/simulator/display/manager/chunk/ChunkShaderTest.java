@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.OpenGLDebugger;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.display.shader.ShaderProgramType;
@@ -50,7 +50,7 @@ public class ChunkShaderTest {
     public void create() {
         columns=100;
         rows=100;
-        DisplayCoreTest.build("ChunkShaderTest");
+        MockDisplayCore.build("ChunkShaderTest");
 
         shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
@@ -97,7 +97,7 @@ public class ChunkShaderTest {
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
 
 
-            DisplayCoreTest.render();
+            MockDisplayCore.render();
         }
 
     }
@@ -110,7 +110,7 @@ public class ChunkShaderTest {
 
 
         chunk.destroy();
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
 
     }
 

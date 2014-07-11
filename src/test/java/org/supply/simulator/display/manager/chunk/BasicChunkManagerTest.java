@@ -4,16 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkManager;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
 import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.MockCamera;
-import org.supply.simulator.display.window.impl.BasicPlayWindow;
 
 import java.util.Iterator;
 
@@ -29,7 +27,7 @@ public class BasicChunkManagerTest {
 
     @Before
     public void create() {
-        DisplayCoreTest.build("BasicChunkManagerTest");
+        MockDisplayCore.build("BasicChunkManagerTest");
 
         shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
@@ -80,12 +78,12 @@ public class BasicChunkManagerTest {
 //        }
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
 
-            DisplayCoreTest.render();
+            MockDisplayCore.render();
         }
 
         manager.clear();
         shaderEngine.useProgram(ShaderProgramType.CLEAR);
         shaderEngine.deleteProgram(ShaderProgramType.PLAY);
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
     }
 }

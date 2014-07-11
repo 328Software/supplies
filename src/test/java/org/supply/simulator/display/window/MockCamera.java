@@ -3,7 +3,6 @@ package org.supply.simulator.display.window;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.window.impl.BasicCamera;
 
 /**
  * Created by Alex on 7/2/2014.
@@ -16,6 +15,9 @@ public class MockCamera extends AbstractCamera{
 
     private final float scaleDelta = 0.1f;
 
+    private int oldX;
+    private int oldY;
+
     public MockCamera() {
         super();
         Keyboard.enableRepeatEvents(true);
@@ -24,12 +26,16 @@ public class MockCamera extends AbstractCamera{
         this.setModelScale(new Vector3f(1, 1, 1));
         this.setCameraPos(new Vector3f(0, 0, -1));
         this.setCameraAngle(new Vector3f(0, 0, 0));
+        oldX =0;
+        oldY =0;
     }
 
     @Override
     protected void update() {
         refreshInput();
     }
+
+
 
     public void refreshInput() {
         Mouse.poll();
@@ -79,5 +85,26 @@ public class MockCamera extends AbstractCamera{
                     break;
             }
         }
+
+        if (Mouse.isButtonDown(0)) {
+            int newX = Mouse.getX();
+            if(newX> oldX) {
+                this.rotateLeft(rotationDelta);
+            } else if(newX < oldX) {
+                this.rotateRight(rotationDelta);
+            }
+            oldX = newX;
+
+
+            int newY = Mouse.getY();
+            if(newY> oldY) {
+                this.rotateUp(rotationDelta);
+            } else if(newY < oldY) {
+                this.rotateDown(rotationDelta);
+            }
+            oldY = newY;
+        }
+
+
     }
 }

@@ -6,57 +6,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
-import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.window.Camera;
-import org.supply.simulator.display.window.impl.BasicCamera;
 
 /**
  * Created by Alex on 6/29/2014.
  */
-public class DisplayCoreTest {
+public class MockDisplayCore {
 
-    protected static Logger logger = LogManager.getLogger(DisplayCoreTest.class);
-
-    private static final boolean doInteractiveTest = false;
+    protected static Logger logger = LogManager.getLogger(MockDisplayCore.class);
 
     // Setup variables
-    private static String WINDOW_TITLE;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
 
-    @Before
-    public void createFixture() {
-        WINDOW_TITLE = "Supply Simulator: You suck";
-        build(WINDOW_TITLE);
-    }
-
-    @Test
-    public void TestDisplayCore() {
-        render();
-    }
-
-
-    @After
-    public void destroyFixture() {
-        destroy();
-    }
-
-
     public static void build(String title) {
         logger.info("START DISPLAY: "+title);
-        setupOpenGL(title);
-    }
-
-    public static void destroy() {
-        logger.info("STOP DISPLAY");
-        destroyOpenGl();
-    }
-
-    private static void setupOpenGL(String title) {
         // Setup an OpenGL context with API version 3.2
         try {
             PixelFormat pixelFormat = new PixelFormat();
@@ -78,15 +43,17 @@ public class DisplayCoreTest {
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
     }
 
-    private static void destroyOpenGl() {
+    public static void destroy() {
+        logger.info("STOP DISPLAY");
         Display.destroy();
     }
 
-    public static void render() {
 
+    public static void render() {
         Display.sync(60);
 
         Display.update();
+
     }
 
 }

@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.supply.simulator.display.OpenGLDebugger;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.display.shader.ShaderProgramType;
@@ -44,7 +44,7 @@ public class ChunkCameraShaderTest {
     public void create() {
         columns=100;
         rows=100;
-        DisplayCoreTest.build("ChunkCameraShaderTest");
+        MockDisplayCore.build("ChunkCameraShaderTest");
 
         shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
@@ -93,7 +93,7 @@ public class ChunkCameraShaderTest {
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
 
 
-            DisplayCoreTest.render();
+            MockDisplayCore.render();
         }
 
     }
@@ -106,7 +106,7 @@ public class ChunkCameraShaderTest {
 
 
         chunk.destroy();
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
 
     }
 

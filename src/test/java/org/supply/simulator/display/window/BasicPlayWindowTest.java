@@ -1,10 +1,9 @@
 package org.supply.simulator.display.window;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.supply.simulator.display.core.DisplayCoreTest;
+import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.MockChunkManager;
 import org.supply.simulator.display.shader.ShaderType;
 import org.supply.simulator.display.shader.impl.BasicShaderEngine;
@@ -19,7 +18,7 @@ public class BasicPlayWindowTest {
 
     @Before
     public void create() {
-        DisplayCoreTest.build("BasicPlayWindowTest");
+        MockDisplayCore.build("BasicPlayWindowTest");
 
         BasicShaderEngine shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
@@ -39,10 +38,10 @@ public class BasicPlayWindowTest {
         while (!Display.isCloseRequested()) {
             window.render();
 
-            DisplayCoreTest.render();
+            MockDisplayCore.render();
         }
 
         window.destroy();
-        DisplayCoreTest.destroy();
+        MockDisplayCore.destroy();
     }
 }

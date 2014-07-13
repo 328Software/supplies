@@ -82,6 +82,10 @@
             <!--<conf name="test" mapped="default"/>-->
         </dependency>
 
+        <dependency org="org.l33tlabs.twl" name="pngdecoder" rev="1.0">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+        </dependency>
 
         <dependency org="org.hibernate" name="hibernate-core" rev="4.3.5.Final">
             <conf name="default" mapped="default"/>

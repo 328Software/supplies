@@ -21,11 +21,11 @@ public class MockCamera extends AbstractCamera{
     public MockCamera() {
         super();
         Keyboard.enableRepeatEvents(true);
-        this.setModelPos(new Vector3f(0, 0, 0));
-        this.setModelAngle(new Vector3f(0, 0, 0));
-        this.setModelScale(new Vector3f(1, 1, 1));
-        this.setCameraPos(new Vector3f(0, 0, -1));
-        this.setCameraAngle(new Vector3f(0, 0, 0));
+        super.setModelPos(new Vector3f(0, 0, -.5f));
+        super.setModelAngle(new Vector3f(0, 0, 0));
+        super.setModelScale(new Vector3f(1, 1, 1));
+        super.setCameraPos(new Vector3f(0, 0, -1));
+        super.setCameraAngle(new Vector3f(0, 0, 0));
         oldX =0;
         oldY =0;
     }
@@ -38,7 +38,7 @@ public class MockCamera extends AbstractCamera{
 
 
     public void refreshInput() {
-        Mouse.poll();
+
         while(Keyboard.next()/*||Mouse.next()|| Mouse.isInsideWindow()*/) {
             // Only listen to events where the key was pressed (down event)
             if (!Keyboard.getEventKeyState()) continue;
@@ -86,6 +86,12 @@ public class MockCamera extends AbstractCamera{
             }
         }
 
+//        //if (Mouse.isButtonDown(0)) {
+//            cameraAngle.x += Mouse.getDY()*rotationDelta;
+//            cameraAngle.y += Mouse.getDX()*rotationDelta;
+//       // }
+
+        Mouse.poll();
         if (Mouse.isButtonDown(0)) {
             int newX = Mouse.getX();
             if(newX> oldX) {

@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alex on 6/29/2014.
+ * Created by Alex on 7/13/2014.
  */
-public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chunk> {
-
+public class TexturedChunkManager <V extends Chunk> extends AbstractChunkManager<Chunk> {
     private int chunkRows = 50;
     private int chunkColumns = 50;
     private int totalChunkRows = 5;
@@ -23,7 +22,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chun
 
     private boolean isFirst;
 
-    public MockChunkManager () {
+    public TexturedChunkManager () {
         super();
         isFirst = true;
         chunkCollection = new ArrayList<Chunk>();
@@ -37,7 +36,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chun
             isFirst=false;
             for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
                 for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
-                    BasicChunk chunk = new BasicChunk();
+                    TexturedChunk chunk = new TexturedChunk();
                     chunk.setAttributeLocations(new int[]{0,1,2});
                     chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
                     chunkCollection.add(chunk);
@@ -97,7 +96,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chun
 
         basicDataOut.setColors(colors);
         basicDataOut.setPositions(positions);
-    
+
         basicDataOut.setColumns(col);
         basicDataOut.setRows(row);
 
@@ -110,6 +109,5 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chun
         this.totalChunkRows = totalChunkRows;
         this.totalChunkColumns = totalChunkColumns;
     }
-
 
 }

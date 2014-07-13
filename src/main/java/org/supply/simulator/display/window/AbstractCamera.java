@@ -109,11 +109,11 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
         projectionMatrix.m33 = 0;
 
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
-        modelPos    =    new Vector3f(0, 0, 0);
-        modelAngle  =    new Vector3f(0, 0, 0);
-        modelScale  =    new Vector3f(1, 1, 1);
-        cameraPos   =    new Vector3f(0, 0,-1);
-        cameraAngle =    new Vector3f(0, 0, 0);
+//        modelPos    =    new Vector3f(0, 0, 0);
+//        modelAngle  =    new Vector3f(0, 0, 0);
+//        modelScale  =    new Vector3f(1, 1, 1);
+//        cameraPos   =    new Vector3f(0, 0,-1);
+//        cameraAngle =    new Vector3f(0, 0, 0);
 
         isBuilt= true;
     }

@@ -90,6 +90,9 @@ public class BasicShaderEngine extends HasLogger implements ShaderEngine {
         // Color information will be attribute 1
         GL20.glBindAttribLocation(programIds[type.value()], 1, "in_Color");
 
+        //TODO ADDED FOR TEXTURE
+        GL20.glBindAttribLocation(programIds[type.value()], 2, "in_TextureCoord");
+
         if (geometryShader[type.value()]!=null) {
 
         }

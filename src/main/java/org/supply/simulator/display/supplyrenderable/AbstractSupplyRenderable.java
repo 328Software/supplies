@@ -115,23 +115,26 @@ public abstract class AbstractSupplyRenderable extends HasLogger implements Supp
      *
      * @param className
      */
-    public void printOpenGLError(String className) {
+    public String printOpenGLError(String className) {
+        String errorString = "";
         switch(GL11.glGetError()) {
-            case GL11.GL_NO_ERROR: //logger.info("OpenGl error in "+className+": GL_NO_ERROR");
+            case GL11.GL_NO_ERROR: //errorString="GL_NO_ERROR";
                 break;
-            case GL11.GL_INVALID_ENUM:      logger.error("OpenGl error in "+className+": GL_INVALID_ENUM");
+            case GL11.GL_INVALID_ENUM:      errorString="GL_INVALID_ENUM";
                 break;
-            case GL11.GL_INVALID_VALUE:     logger.error("OpenGl error in "+className+": GL_INVALID_VALUE");
+            case GL11.GL_INVALID_VALUE:     errorString="GL_INVALID_VALUE";
                 break;
-            case GL11.GL_INVALID_OPERATION: logger.error("OpenGl error in "+className+": GL_INVALID_OPERATION");
+            case GL11.GL_INVALID_OPERATION: errorString="GL_INVALID_OPERATION";
                 break;
-            case GL11.GL_OUT_OF_MEMORY:     logger.error("OpenGl error in "+className+": GL_OUT_OF_MEMORY");
+            case GL11.GL_OUT_OF_MEMORY:     errorString="GL_OUT_OF_MEMORY";
                 break;
-            case GL11.GL_STACK_UNDERFLOW:   logger.error("OpenGl error in "+className+": GL_STACK_UNDERFLOW");
+            case GL11.GL_STACK_UNDERFLOW:   errorString="GL_STACK_UNDERFLOW";
                 break;
-            case GL11.GL_STACK_OVERFLOW:    logger.error("OpenGl error in "+className+": GL_STACK_OVERFLOW");
+            case GL11.GL_STACK_OVERFLOW:    errorString="GL_STACK_OVERFLOW";
                 break;
         }
+        logger.error("OpenGl error in "+className+": "+errorString);
+        return errorString;
     }
 
 

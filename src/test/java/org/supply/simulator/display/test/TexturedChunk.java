@@ -1,8 +1,11 @@
-package org.supply.simulator.display.manager.chunk;
+package org.supply.simulator.display.test;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.HasId;
+import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkData;
+import org.supply.simulator.display.manager.chunk.ChunkIndexManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
@@ -10,6 +13,7 @@ import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +46,8 @@ public class TexturedChunk
 
         if (!indexManager.isIndicesBufferIdStored(rows,columns)) {
 
-            List<Integer> indicesBufferData = indexManager.createIndicesBufferData(rows, columns);
+            List<Integer> indicesBufferData = indexManager.createIndicesBufferData(2, 2);
+
 
             IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
             for(Integer i: indicesBufferData) {

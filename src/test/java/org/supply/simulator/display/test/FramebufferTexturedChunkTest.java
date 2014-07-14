@@ -1,15 +1,10 @@
-package org.supply.simulator.display;
+package org.supply.simulator.display.test;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.display.core.MockDisplayCore;
-import org.supply.simulator.display.manager.chunk.ChunkManager;
-import org.supply.simulator.display.manager.chunk.MockChunkManager;
-import org.supply.simulator.display.manager.chunk.TexturedChunk;
-import org.supply.simulator.display.manager.chunk.TexturedChunkManager;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.shader.ShaderProgramType;
 import org.supply.simulator.display.shader.ShaderType;
@@ -25,7 +20,7 @@ import java.util.Iterator;
 /**
  * Created by Alex on 6/28/2014.
  */
-public class OtherBuffersTest {
+public class FramebufferTexturedChunkTest {
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -45,7 +40,7 @@ public class OtherBuffersTest {
 
     @Before
     public void create() {
-        MockDisplayCore.build("OtherBuffersTest");
+        MockDisplayCore.build("FramebufferTexturedChunkTest");
 
         shaderEngine = new BasicShaderEngine();
         shaderEngine.setPlayShaderFile("shaders/vertexWithTexture.glsl", ShaderType.VERTEX);
@@ -54,7 +49,7 @@ public class OtherBuffersTest {
         camera = new MockCamera();
 
         manager = new TexturedChunkManager();
-        manager.setChunkSizes(textureWidth,textureHeight,1,1);
+        manager.setChunkSizes(20,20,1,1);
 
 
         shaderEngine.createProgram(ShaderProgramType.PLAY);
@@ -89,13 +84,13 @@ public class OtherBuffersTest {
             // Clear shader program type
             shaderEngine.useProgram(ShaderProgramType.CLEAR);
 
-            EXTFramebufferObject.glBindFramebufferEXT( EXTFramebufferObject.GL_FRAMEBUFFER_EXT,0);
+            EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 
             // Clear bit
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-            // Set shader program type to CHUNK
+            // Set shader program type t o CHUNK
             shaderEngine.useProgram(ShaderProgramType.PLAY);
 
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -132,7 +127,8 @@ public class OtherBuffersTest {
         //create texture
         textureId = 0;
         try {
-            textureId = loadPNGTexture("textures/alexsface.png", GL13.GL_TEXTURE0);
+            textureId = loadPNGTexture2D("textures/alexsface.png", GL13.GL_TEXTURE0);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,7 +151,7 @@ public class OtherBuffersTest {
                 ,EXTFramebufferObject.GL_RENDERBUFFER_EXT
                 , depthBufferId);
 
-        //EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT,0);
+
 
         if(EXTFramebufferObject.glCheckFramebufferStatusEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT)
                 ==EXTFramebufferObject.GL_FRAMEBUFFER_COMPLETE_EXT) {
@@ -165,7 +161,7 @@ public class OtherBuffersTest {
         }
     }
 
-    private int loadPNGTexture(String filename, int textureUnit) throws Exception {
+    private int loadPNGTexture2D(String filename, int textureUnit) throws Exception {
         ByteBuffer buf = null;
         int tWidth = 0;
         int tHeight = 0;
@@ -220,4 +216,6 @@ public class OtherBuffersTest {
 
         return texId;
     }
+
+
 }

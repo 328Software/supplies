@@ -1,7 +1,5 @@
 package org.supply.simulator.display.window;
 
-import org.lwjgl.util.Renderable;
-import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.shader.ShaderEngine;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 

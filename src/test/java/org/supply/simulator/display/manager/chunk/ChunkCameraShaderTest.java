@@ -55,8 +55,8 @@ public class ChunkCameraShaderTest {
 
 
         camera = new MockCamera();
-        camera.setRows(rows);
-        camera.setColumns(columns);
+//        camera.setRows(rows);
+//        camera.setColumns(columns);
         camera.setProjectionMatrixLocation(shaderEngine.getProjectionMatrixLocation(ShaderProgramType.PLAY));
         camera.setViewMatrixLocation(shaderEngine.getViewMatrixLocation(ShaderProgramType.PLAY));
         camera.setModelMatrixLocation(shaderEngine.getModelMatrixLocation(ShaderProgramType.PLAY));

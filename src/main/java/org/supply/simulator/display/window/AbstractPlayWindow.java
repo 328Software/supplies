@@ -18,10 +18,10 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
 
     protected Manager<BasicChunk> chunkManager;
 
-    private Camera camera;
+    protected Camera camera;
 
-    private boolean isBuilt;
-    private boolean isDestroyed;
+    protected boolean isBuilt;
+    protected boolean isDestroyed;
 
     public AbstractPlayWindow() {
         isBuilt = false;

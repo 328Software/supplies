@@ -1,6 +1,5 @@
 package org.supply.simulator.display.window;
 
-import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 

@@ -6,8 +6,8 @@ import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.ChunkData;
 import org.supply.simulator.display.manager.chunk.ChunkIndexManager;
-import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
-import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
+import org.supply.simulator.display.supplyrenderable.AbstractChunkSupplyRenderable;
+import org.supply.simulator.display.supplyrenderable.ChunkSupplyRenderable;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -18,8 +18,8 @@ import java.util.List;
  * Created by Alex on 6/17/2014.
  */
 public class BasicChunk
-        extends AbstractSupplyRenderable
-        implements Chunk, SupplyRenderable, HasId<Long> {
+        extends AbstractChunkSupplyRenderable
+        implements Chunk, ChunkSupplyRenderable, HasId<Long> {
 
     protected Long id;
 

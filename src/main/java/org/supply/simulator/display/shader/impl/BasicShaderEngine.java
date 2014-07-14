@@ -44,12 +44,22 @@ public class BasicShaderEngine extends HasLogger implements ShaderEngine {
 
     }
 
-    @Override
-    public void setPlayShaderFile(String playVertexShader, ShaderType type) {
-        switch(type) {
-            case VERTEX: this.vertexShader[ShaderProgramType.PLAY.value()] = playVertexShader;
+    public void setShaderFile(String fileName, ShaderType sType, ShaderProgramType pType) {
+        switch(sType) {
+            case VERTEX: this.vertexShader[pType.value()] = fileName;
                 break;
-            case FRAGMENT: this.fragmentShader[ShaderProgramType.PLAY.value()] = playVertexShader;
+            case FRAGMENT: this.fragmentShader[pType.value()] = fileName;
+                break;
+        }
+
+    }
+
+    @Override
+    public void setPlayShaderFile(String fileName, ShaderType type) {
+        switch(type) {
+            case VERTEX: this.vertexShader[ShaderProgramType.PLAY.value()] = fileName;
+                break;
+            case FRAGMENT: this.fragmentShader[ShaderProgramType.PLAY.value()] = fileName;
                 break;
         }
     }

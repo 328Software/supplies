@@ -1,10 +1,9 @@
-package org.supply.simulator.display.shader;
+package org.supply.simulator.display.assetengine.shader;
 
 /**
  * Created by Alex on 6/27/2014.
  */
 public enum ShaderProgramType {
-    CLEAR(0),
     PLAY(1),
     MENU(2);
 

@@ -1,4 +1,4 @@
-package org.supply.simulator.display.shader;
+package org.supply.simulator.display.assetengine.shader;
 
 import org.lwjgl.opengl.GL20;
 

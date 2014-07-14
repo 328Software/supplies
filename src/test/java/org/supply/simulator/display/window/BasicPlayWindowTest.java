@@ -3,10 +3,11 @@ package org.supply.simulator.display.window;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.MockChunkManager;
-import org.supply.simulator.display.shader.ShaderType;
-import org.supply.simulator.display.shader.impl.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderType;
+import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.window.impl.BasicPlayWindow;
 
 /**
@@ -21,8 +22,8 @@ public class BasicPlayWindowTest {
         MockDisplayCore.build("BasicPlayWindowTest");
 
         BasicShaderEngine shaderEngine = new BasicShaderEngine();
-        shaderEngine.setPlayShaderFile("shaders/vertex.glsl", ShaderType.VERTEX);
-        shaderEngine.setPlayShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT);
+        shaderEngine.setShaderFile("shaders/vertex.glsl", ShaderType.VERTEX, ShaderProgramType.PLAY);
+        shaderEngine.setShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT, ShaderProgramType.PLAY);
 
         window = new BasicPlayWindow();
         window.setShaderEngine(shaderEngine);

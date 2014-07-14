@@ -1,6 +1,6 @@
 package org.supply.simulator.display.window;
 
-import org.supply.simulator.display.shader.ShaderEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
 
 /**

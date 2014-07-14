@@ -1,8 +1,6 @@
 package org.supply.simulator.display.window;
 
 
-import org.supply.simulator.display.shader.ShaderEngine;
-
 /**
  * Abstract implementation for the Main display window.
  *

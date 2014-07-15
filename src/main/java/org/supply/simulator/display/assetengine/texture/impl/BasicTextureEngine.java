@@ -4,17 +4,45 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 7/13/2014.
  */
-public class BasicTextureEngine implements TextureEngine {
+public class BasicTextureEngine<K,V extends TextureHandle> implements TextureEngine<K,TextureHandle> {
 
+   // private HashMap<K,String> fileNames;
+    private HashMap<K,TextureHandle> textureDataMap;
+
+    public BasicTextureEngine() {
+       // fileNames = new HashMap<>();
+        textureDataMap = new HashMap<>();
+    }
+
+
+//    @Override
+//    public void set(K key, String fileName) {
+//        TextureData data = new BasicTextureData();
+//        try {
+//            data.setTextureId(loadPNGTexture2D(fileName,GL13.GL_TEXTURE0));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        textureDataMap.put(key,data);
+//    }
+
+    @Override
+    public TextureHandle get(K key) {
+        return textureDataMap.get(key);
+    }
 
 
     private int loadPNGTexture2D(String filename, int textureUnit) throws Exception {
@@ -72,4 +100,5 @@ public class BasicTextureEngine implements TextureEngine {
 
         return texId;
     }
+
 }

@@ -4,6 +4,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
@@ -17,11 +20,13 @@ import java.util.List;
  * Created by Brandon on 7/8/2014.
  */
 public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> implements ChunkManager<BasicChunk> {
-    private int chunkRows = 25;
-    private int chunkColumns = 25;
+    private final ChunkType chunkType = ChunkType.MEDIUM_T;
+    private int chunkRows = chunkType.rows();
+    private int chunkColumns = chunkType.columns();
     private int totalChunkRows = 20;
     private int totalChunkColumns = 20;
 
+    protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
 
     private ChunkDAO chunkDAO;
     private SessionFactory sessionFactory;
@@ -31,13 +36,14 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
         super();
         isFirst = true;
         chunkCollection = new ArrayList<BasicChunk>();
-        indexManager = new BasicChunkIndexManager();
+        indexManager = new BasicChunkIndexEngine();
+        indexManager.set(chunkType,null);
 
     }
 
 
 
-    @Override
+    @Override /*@Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)*/
     protected void updateChunks(Camera view) {
         if (isFirst) {
             isFirst=false;
@@ -46,6 +52,7 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
                 for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
                     BasicChunk chunk = new BasicChunk();
                     chunk.setAttributeLocations(new int[]{0,1});
+                    chunk.setChunkIndexEngine(indexManager);
                     chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
 
                     logger.info("creating chunk " + (count++));

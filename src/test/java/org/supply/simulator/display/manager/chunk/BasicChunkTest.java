@@ -4,15 +4,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.display.OpenGLDebugger;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created by Alex on 6/28/2014.
  */
 public class BasicChunkTest extends HasLogger {
+    private final ChunkType chunkType = ChunkType.MEDIUM_T;
 
     private BasicChunk chunk;
     @Before
@@ -20,9 +23,11 @@ public class BasicChunkTest extends HasLogger {
         MockDisplayCore.build("BasicChunkTest");
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getChunkData(100, 100, 0, 0));
+        chunk.setData(MockChunkManager.getChunkData(chunkType.rows(), chunkType.columns(), 0, 0));
         chunk.setAttributeLocations(new int[] {0,1});
-        chunk.setIndexManager(new BasicChunkIndexManager());
+        MockChunkIndexEngine<ChunkType,BasicChunkIndexHandle> chunkIndexEngine= new MockChunkIndexEngine<>();
+        chunkIndexEngine.set(chunkType,null);
+        chunk.setChunkIndexEngine(chunkIndexEngine);
         chunk.build();
 
         if (chunk.isBuilt()==false) {

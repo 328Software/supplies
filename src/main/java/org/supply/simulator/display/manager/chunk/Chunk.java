@@ -1,5 +1,6 @@
 package org.supply.simulator.display.manager.chunk;
 
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.supplyrenderable.ChunkSupplyRenderable;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface Chunk<D extends ChunkData> extends ChunkSupplyRenderable/*, Ent
      *
      * @param indexManager
      */
-    public void setIndexManager(ChunkIndexManager indexManager);
+    public void setChunkIndexEngine(ChunkIndexEngine indexManager);
 
     /**
      * Sets the chunk data. Will be pushed to OpenGl Buffers on build().

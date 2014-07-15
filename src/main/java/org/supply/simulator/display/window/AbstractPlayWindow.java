@@ -2,7 +2,7 @@ package org.supply.simulator.display.window;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.ShaderData;
+import org.supply.simulator.display.assetengine.shader.ShaderHandle;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
@@ -16,7 +16,7 @@ import java.util.Iterator;
  */
 public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implements Window {
 
-    protected ShaderEngine<ShaderProgramType,ShaderData> shaderEngine;
+    protected ShaderEngine<ShaderProgramType,ShaderHandle> shaderEngine;
 
     protected Manager<BasicChunk> chunkManager;
 

@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
@@ -23,16 +25,16 @@ public class BasicChunkManagerTest {
 
     private ChunkManager manager;
     private Camera camera;
-    private ShaderEngine shaderEngine;
+    private MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
 
 
     @Before
     public void create() {
         MockDisplayCore.build("BasicChunkManagerTest");
 
-        shaderEngine = new BasicShaderEngine();
-        shaderEngine.setShaderFile("shaders/vertex.glsl", ShaderType.VERTEX, ShaderProgramType.PLAY);
-        shaderEngine.setShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT, ShaderProgramType.PLAY);
+        shaderEngine = new MockShaderEngine();
+        shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
+        shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
 
         camera = new MockCamera();
 

@@ -3,15 +3,16 @@ package org.supply.simulator.display.manager.chunk.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.HasId;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.ChunkData;
-import org.supply.simulator.display.manager.chunk.ChunkIndexManager;
 import org.supply.simulator.display.supplyrenderable.AbstractChunkSupplyRenderable;
 import org.supply.simulator.display.supplyrenderable.ChunkSupplyRenderable;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class BasicChunk
     private boolean isBuilt;
     private boolean isDestroyed;
 
-    private ChunkIndexManager indexManager;
+    private ChunkIndexEngine<ChunkType,ChunkIndexHandle> chunkIndexEngine;
 
     private ChunkData<float[], byte[]> data;
 
@@ -42,26 +43,28 @@ public class BasicChunk
         rows = data.getRows();
         columns = data.getColumns();
 
-        if (!indexManager.isIndicesBufferIdStored(rows,columns)) {
+        indicesBufferId = chunkIndexEngine.get(ChunkType.MEDIUM_T).getIndicesId();
 
-            List<Integer> indicesBufferData = indexManager.createIndicesBufferData(rows, columns);
-
-            IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
-            for(Integer i: indicesBufferData) {
-                indicesBuffer.put(i);
-            }
-
-            indicesBuffer.flip();
-
-            indicesBufferId = GL15.glGenBuffers();
-            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-            GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
-            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
-
-            indexManager.storeIndicesBufferId(rows,columns,indicesBufferId);
-        } else {
-            indicesBufferId = indexManager.getIndicesBufferId(rows,columns);
-        }
+//        if (!chunkIndexEngine.isIndicesBufferIdStored(rows,columns)) {
+//
+//            List<Integer> indicesBufferData = chunkIndexEngine.createIndicesBufferData(rows, columns);
+//
+//            IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
+//            for(Integer i: indicesBufferData) {
+//                indicesBuffer.put(i);
+//            }
+//
+//            indicesBuffer.flip();
+//
+//            indicesBufferId = GL15.glGenBuffers();
+//            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+//            GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
+//            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+//
+//            chunkIndexEngine.storeIndicesBufferId(rows,columns,indicesBufferId);
+//        } else {
+//            indicesBufferId = chunkIndexEngine.getIndicesBufferId(rows,columns);
+//        }
 
 
         vertexAttributesId = GL30.glGenVertexArrays();
@@ -168,8 +171,8 @@ public class BasicChunk
     }
 
     @Override
-    public void setIndexManager(ChunkIndexManager indexManager) {
-        this.indexManager = indexManager;
+    public void setChunkIndexEngine(ChunkIndexEngine chunkIndexEngine) {
+        this.chunkIndexEngine = chunkIndexEngine;
     }
 
     @Override

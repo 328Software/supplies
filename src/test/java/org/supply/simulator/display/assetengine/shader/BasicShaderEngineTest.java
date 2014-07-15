@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.logging.HasLogger;
@@ -14,15 +15,15 @@ import org.supply.simulator.logging.HasLogger;
  */
 public class BasicShaderEngineTest extends HasLogger {
 
-    private ShaderEngine engine;
+    private MockShaderEngine<ShaderProgramType,BasicShaderHandle> engine;
     @Before
     public void createFixture () {
         MockDisplayCore.build("BasicShaderEngineTest");
         logger.info("START BasicShaderEngineTest");
 
-        engine = new BasicShaderEngine();
-        engine.setShaderFile("shaders/vertex.glsl", ShaderType.VERTEX, ShaderProgramType.PLAY);
-        engine.setShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT, ShaderProgramType.PLAY);
+        engine = new MockShaderEngine<>();
+        engine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
+        engine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
 
     }
 

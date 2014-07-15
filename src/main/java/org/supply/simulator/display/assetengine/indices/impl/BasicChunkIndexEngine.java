@@ -1,0 +1,65 @@
+package org.supply.simulator.display.assetengine.indices.impl;
+
+import org.supply.simulator.display.assetengine.indices.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Alex on 7/7/2014.
+ */
+public class BasicChunkIndexEngine<K, V extends ChunkIndexHandle>
+        extends AbstractChunkIndexEngine<K, ChunkIndexHandle>
+        implements ChunkIndexEngine<K,ChunkIndexHandle> {
+
+    public BasicChunkIndexEngine() {
+        super();
+    }
+
+    @Override
+    protected ChunkIndexData getIndicesBufferData() {
+        ChunkIndexData<List<Integer>> data = new BasicChunkIndexData<>();
+
+        data.setData(createTriangleIndicesData(ChunkType.MEDIUM_T.rows(), ChunkType.MEDIUM_T.columns()));
+//        switch (key.glRenderType()) {
+//            case GL11.GL_TRIANGLES:indicesBufferData = this.createTriangleIndicesData(key.rows(), key.columns());
+//                break;
+//            case GL11.GL_QUADS://indicesBufferData = this.createQuadIndicesData(key.rows(), key.columns());
+//                break;
+//
+//        }
+
+        return data;
+    }
+
+
+
+
+    private List<Integer> createTriangleIndicesData(int rows, int columns) {
+        List<Integer> values = new ArrayList<Integer>();
+
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < columns; j++) {
+                int offset = (i* columns +j)*4;
+                values.add(offset);
+                values.add(offset+1);
+                values.add(offset+2);
+                values.add(offset+2);
+                values.add(offset+3);
+                values.add(offset);
+            }
+        }
+        return values;
+    }
+
+    public void set(K key, String fileName) {
+        ChunkIndexHandle data = new BasicChunkIndexHandle();
+
+        if (fileName==null) {
+            data.setIndicesId(-1);
+            bufferIdMap.put(key,data);
+        } else {
+            //read indices data file???
+        }
+    }
+}

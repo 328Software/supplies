@@ -2,6 +2,7 @@ package org.supply.simulator.display.manager.chunk;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.logging.HasLogger;
 
@@ -16,13 +17,13 @@ public abstract class AbstractChunkManager<V extends Chunk>
 
     protected Collection<V> chunkCollection;
 
-    protected ChunkIndexManager indexManager;
+    protected ChunkIndexEngine indexManager;
 
-    @Override @Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)
+    @Override
     public void update(Camera view) {
 
-        logger.trace("***UPDATE CHUNKS");
-        logger.trace("<<<<<<<<<<<<PRINT_CAMERA");
+//        logger.trace("***UPDATE CHUNKS");
+//       logger.trace("<<<<<<<<<<<<PRINT_CAMERA");
 //        logger.trace("Camera angle: " + view.getCameraAngle());
 //        logger.trace("Camera pos:   " + view.getCameraPos());
 //        logger.trace("Model pos:    " + view.getModelPos());
@@ -34,7 +35,6 @@ public abstract class AbstractChunkManager<V extends Chunk>
 
         for (V chunk: chunkCollection) {
             if (!chunk.isBuilt()) {
-                chunk.setIndexManager(indexManager);
                 chunk.build();
             }
         }

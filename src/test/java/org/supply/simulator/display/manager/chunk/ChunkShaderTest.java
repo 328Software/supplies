@@ -9,13 +9,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.OpenGLDebugger;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
+import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkIndexManager;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.ShaderType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 
 
 import java.nio.FloatBuffer;
@@ -25,10 +26,10 @@ import java.nio.FloatBuffer;
  */
 public class ChunkShaderTest {
 
-
+    private final ChunkType chunkType = ChunkType.MEDIUM_T;
 
 //    MockCamera camera;
-    BasicShaderEngine shaderEngine;
+MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
     BasicChunk chunk;
     NewCamera camera;
 
@@ -41,36 +42,29 @@ public class ChunkShaderTest {
 //    private Matrix4f viewMatrix;
 //    private Matrix4f modelMatrix;
 //    private FloatBuffer matrix44Buffer;
-
-    private int columns;
-    private int rows;
-
-
     @Before
     public void create() {
-        columns=100;
-        rows=100;
         MockDisplayCore.build("ChunkShaderTest");
 
-        shaderEngine = new BasicShaderEngine();
-        shaderEngine.setShaderFile("shaders/vertex.glsl", ShaderType.VERTEX, ShaderProgramType.PLAY);
-        shaderEngine.setShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT, ShaderProgramType.PLAY);
+        shaderEngine = new MockShaderEngine();
+        shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
+        shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
 
 
         camera = new NewCamera();
-        camera.setRows(rows);
-        camera.setColumns(columns);
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
         camera.build();
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getChunkData(rows, columns, 0, 0));
-        chunk.setAttributeLocations(new int[] {0,1});
-        chunk.setIndexManager(new BasicChunkIndexManager());
+        chunk.setData(MockChunkManager.getChunkData(chunkType.rows(), chunkType.columns(), 0, 0));
+        chunk.setAttributeLocations(new int[] {0,1,2});
+        MockChunkIndexEngine<ChunkType,BasicChunkIndexHandle> chunkIndexEngine= new MockChunkIndexEngine();
+        chunkIndexEngine.set(chunkType, null);
+        chunk.setChunkIndexEngine(chunkIndexEngine);
         chunk.build();
-        OpenGLDebugger.printChunkBuffers(chunk);
+       // OpenGLDebugger.printChunkBuffers(chunk);
 
     }
 
@@ -139,7 +133,7 @@ public class ChunkShaderTest {
             projectionMatrix = new Matrix4f();
             float fieldOfView = 60f;
 
-            float aspectRatio = (float)this.columns / (float)this.rows;
+            float aspectRatio = (float)600 / (float)800;
             float near_plane = 0.1f;
             float far_plane = 100f;
 

@@ -5,9 +5,6 @@ import org.junit.Test;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.logging.HasLogger;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Created by Alex on 6/29/2014.
  */

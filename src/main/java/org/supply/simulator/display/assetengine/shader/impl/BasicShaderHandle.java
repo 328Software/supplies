@@ -1,12 +1,11 @@
 package org.supply.simulator.display.assetengine.shader.impl;
 
-import org.supply.simulator.display.assetengine.shader.ShaderData;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
+import org.supply.simulator.display.assetengine.shader.ShaderHandle;
 
 /**
  * Created by Alex on 7/13/2014.
  */
-public class BasicShaderData implements ShaderData{
+public class BasicShaderHandle implements ShaderHandle {
 
     private int projectionMatrixLocation;
     private int viewMatrixLocation;

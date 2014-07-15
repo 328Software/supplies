@@ -6,7 +6,6 @@ import java.util.Map;
  * Created by Alex on 7/13/2014.
  */
 public interface AssetEngine<K,V> {
-
     /**
      *
      * @param key

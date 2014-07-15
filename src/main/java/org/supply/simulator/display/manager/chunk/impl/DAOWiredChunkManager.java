@@ -3,6 +3,9 @@ package org.supply.simulator.display.manager.chunk.impl;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.window.Camera;
@@ -16,13 +19,17 @@ import java.util.List;
  */
 public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunk> {
 
-    private int chunkRows = 128;
-    private int chunkColumns = 128;
+    private final ChunkType chunkType = ChunkType.LARGE_T;
+
+    private int chunkRows = chunkType.rows();
+    private int chunkColumns = chunkType.columns();
     private int totalChunkRows = 10;
     private int totalChunkColumns = 10;
 
     private ChunkDAO chunkDAO;
 
+
+    protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
 
     private boolean isFirst;
 
@@ -30,7 +37,8 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunk> {
         super();
         isFirst = true;
         chunkCollection = new ArrayList<BasicChunk>();
-        indexManager = new BasicChunkIndexManager();
+        indexManager = new BasicChunkIndexEngine();
+        indexManager.set(chunkType,null);
 
     }
 
@@ -44,6 +52,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunk> {
             logger.info("Did build in " + (System.currentTimeMillis()-timeStart) + " ms");
             for(Chunk chunk: chunks) {
                 chunk.setAttributeLocations(new int[]{0,1});
+                chunk.setChunkIndexEngine(indexManager);
                 chunkCollection.add((BasicChunk)chunk);
             }
         }

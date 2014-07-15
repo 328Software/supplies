@@ -4,8 +4,8 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <typedef class="org.supply.simulator.core.dao.ChunkColorArrayType" name="chunkColor"/>
-    <typedef class="org.supply.simulator.core.dao.ChunkPositionArrayType" name="chunkPosition"/>
+    <typedef class="org.supply.simulator.core.dao.ChunkColorType" name="chunkColor"/>
+    <typedef class="org.supply.simulator.core.dao.ChunkPositionType" name="chunkPosition"/>
 
     <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" table="chunk_data">
         <meta attribute="class-description">

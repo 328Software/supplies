@@ -7,15 +7,18 @@ import org.hibernate.type.BlobType;
 import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  * Created by Brandon on 7/14/2014.
  */
-public class ChunkColorArrayType implements UserType {
+public class ChunkPositionType implements UserType {
     @Override
     public int[] sqlTypes() {
         return new int[] {
@@ -25,7 +28,7 @@ public class ChunkColorArrayType implements UserType {
 
     @Override
     public Class returnedClass() {
-        return byte[].class;
+        return float[].class;
     }
 
     @Override
@@ -48,7 +51,9 @@ public class ChunkColorArrayType implements UserType {
         assert strings.length == 1;
         Blob blob = ((Blob)BlobType.INSTANCE.get(resultSet, strings[0], sessionImplementor));
         if(blob != null) {
-            return blob.getBytes(1,(int)blob.length());
+            byte[] bytes = blob.getBytes(1,(int)blob.length());
+            blob.free();
+            return bytesToFloats(bytes);
         }
         return null;
     }
@@ -58,15 +63,39 @@ public class ChunkColorArrayType implements UserType {
         if(o == null) {
             BlobType.INSTANCE.set(preparedStatement, null,i,sessionImplementor);
         } else {
-            BlobType.INSTANCE.set(preparedStatement, NonContextualLobCreator.INSTANCE.createBlob((byte[])o),i,sessionImplementor);
+            float[] floats = (float[])o;
+            BlobType.INSTANCE.set(preparedStatement, NonContextualLobCreator.INSTANCE.createBlob(floatsToBytes(floats)),i,sessionImplementor);
+
         }
+    }
+
+    protected float[] bytesToFloats(byte[] bytes) {
+        //todo this is probably pretty inefficient wrt memory
+        float[] floats = new float[bytes.length/4];
+        for(int i = 0,j=i; i < bytes.length; i+=4,j++) {
+            byte[] floatBytes = new byte[4];
+            floatBytes[0] = bytes[i];
+            floatBytes[1] = bytes[i+1];
+            floatBytes[2] = bytes[i+2];
+            floatBytes[3] = bytes[i+3];
+            floats[j] = ByteBuffer.wrap(floatBytes).order(ByteOrder.BIG_ENDIAN).getFloat();
+        }
+        return floats;
+    }
+
+    protected byte[] floatsToBytes(float[] floats) {
+        ByteBuffer b = ByteBuffer.allocate(floats.length*4);
+        for(float f: floats) {
+            b.putFloat(f);
+        }
+        return b.array();
     }
 
     @Override
     public Object deepCopy(Object o) throws HibernateException {
-        byte[] oBytes = (byte[])o, bytes = new byte[oBytes.length];
-        System.arraycopy(oBytes, 0, bytes, 0, oBytes.length);
-        return bytes;
+        float[] oFloats = (float[])o, floats = new float[oFloats.length];
+        System.arraycopy(oFloats, 0, floats, 0, oFloats.length);
+        return floats;
     }
 
     @Override
@@ -76,7 +105,7 @@ public class ChunkColorArrayType implements UserType {
 
     @Override
     public Serializable disassemble(Object o) throws HibernateException {
-        return (byte[])deepCopy(o);
+        return (float[])deepCopy(o);
     }
 
     @Override

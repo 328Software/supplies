@@ -15,7 +15,7 @@ import java.sql.SQLException;
 /**
  * Created by Brandon on 7/14/2014.
  */
-public class ChunkColorType  extends AbstractArrayUserType implements UserType {
+public class ChunkColorType extends AbstractArrayUserType implements UserType {
 
     @Override
     public Class returnedClass() {

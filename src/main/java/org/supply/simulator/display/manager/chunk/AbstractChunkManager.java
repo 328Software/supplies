@@ -1,5 +1,7 @@
 package org.supply.simulator.display.manager.chunk;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.logging.HasLogger;
 
@@ -16,17 +18,17 @@ public abstract class AbstractChunkManager<V extends Chunk>
 
     protected ChunkIndexManager indexManager;
 
-    @Override
+    @Override @Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)
     public void update(Camera view) {
 
         logger.trace("***UPDATE CHUNKS");
         logger.trace("<<<<<<<<<<<<PRINT_CAMERA");
-        logger.trace("Camera angle: " + view.getCameraAngle());
-        logger.trace("Camera pos:   " + view.getCameraPos());
-        logger.trace("Model pos:    " + view.getModelPos());
-        logger.trace("Model angle:  " + view.getModelAngle());
-        logger.trace("Model scale:  " + view.getModelScale());
-        logger.trace(">>>>>>>>>>>>");
+//        logger.trace("Camera angle: " + view.getCameraAngle());
+//        logger.trace("Camera pos:   " + view.getCameraPos());
+//        logger.trace("Model pos:    " + view.getModelPos());
+//        logger.trace("Model angle:  " + view.getModelAngle());
+//        logger.trace("Model scale:  " + view.getModelScale());
+//        logger.trace(">>>>>>>>>>>>");
 
         updateChunks(view);
 

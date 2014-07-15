@@ -9,7 +9,7 @@ import java.util.List;
  *
  * Created by Alex on 6/17/2014.
  */
-public interface Chunk extends ChunkSupplyRenderable/*, Entity<
+public interface Chunk<D extends ChunkData> extends ChunkSupplyRenderable/*, Entity<
         EntityAttribute<Long>,
         EntityStatistic<Object,Long>,
         Long
@@ -26,14 +26,14 @@ public interface Chunk extends ChunkSupplyRenderable/*, Entity<
      *
      * @param data chunk data object
      */
-    public void setData(ChunkData<List<Float>, List<Byte>> data);
+    public void setData(D data);
 
     /**
      * Gets the chunk data.
      *
      * @return chunk data object
      */
-    public ChunkData<List<Float>, List<Byte>> getData();
+    public D getData();
 
 
 

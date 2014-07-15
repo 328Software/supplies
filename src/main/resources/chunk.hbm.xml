@@ -4,6 +4,9 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
+    <typedef class="org.supply.simulator.core.dao.ChunkColorArrayType" name="chunkColor"/>
+    <typedef class="org.supply.simulator.core.dao.ChunkPositionArrayType" name="chunkPosition"/>
+
     <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" table="chunk_data">
         <meta attribute="class-description">
             This class contains the employee detail.
@@ -16,16 +19,8 @@
         <property name="rowIndex" column="row_index" type="int"/>
         <property name="columnIndex" column="column_index" type="int"/>
 
-        <list name="colors">
-            <key column="chunk_data_id"/>
-            <list-index column="idx"/>
-            <element type="byte"/>
-        </list>
-        <list name="positions">
-            <key column="chunk_data_id"/>
-            <list-index column="idx"/>
-            <element type="float"/>
-        </list>
+        <property name="colors" column="colors" type="chunkColor" length="36000"/>
+        <property name="positions" column="positions" type="chunkPosition" length="36000"/>
     </class>
 
     <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunk" table="chunk">

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class BasicChunk
         extends AbstractChunkSupplyRenderable
-        implements Chunk, ChunkSupplyRenderable, HasId<Long> {
+        implements Chunk<ChunkData<float[], byte[]>>, ChunkSupplyRenderable, HasId<Long> {
 
     protected Long id;
 
@@ -30,7 +30,7 @@ public class BasicChunk
 
     private ChunkIndexManager indexManager;
 
-    private ChunkData<List<Float>,List<Byte>> data;
+    private ChunkData<float[], byte[]> data;
 
     public BasicChunk () {
         isBuilt =false;
@@ -71,10 +71,10 @@ public class BasicChunk
         positionsArrayId = GL15.glGenBuffers();
         colorsArrayId = GL15.glGenBuffers();
 
-        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(data.getPositions().size());
-        for(Float f: data.getPositions()) {
-            verticesFloatBuffer.put(f);
-        }
+        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(data.getPositions().length);
+//        for(Float f: data.getPositions()) {
+            verticesFloatBuffer.put(data.getPositions());
+//        }
         verticesFloatBuffer.flip();
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
@@ -85,10 +85,10 @@ public class BasicChunk
                 false, BasicChunkData.POSITION_BYTES, BasicChunkData.POSITION_BYTE_OFFSET);
 
 
-        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(data.getColors().size());
-        for(Byte b: data.getColors()) {
-            verticesByteBuffer.put(b);
-        }
+        ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(data.getColors().length);
+//        for(Byte b: data.getColors()) {
+            verticesByteBuffer.put(data.getColors());
+//        }
         verticesByteBuffer.flip();
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorsArrayId);
@@ -163,7 +163,7 @@ public class BasicChunk
     }
 
     @Override
-    public ChunkData<List<Float>, List<Byte>> getData() {
+    public ChunkData<float[], byte[]> getData() {
         return data;
     }
 
@@ -173,8 +173,8 @@ public class BasicChunk
     }
 
     @Override
-    public void setData(ChunkData<List<Float>, List<Byte>> data) {
-        this.data=data;
+    public void setData(ChunkData<float[], byte[]> data) {
+        this.data = data;
     }
 
     public void setId(Long id) {

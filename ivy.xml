@@ -64,6 +64,18 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
+        <dependency org="org.springframework" name="spring-aspects" rev="4.0.5.RELEASE">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+        <dependency org="org.springframework" name="spring-instrument" rev="4.0.5.RELEASE">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
         <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.0">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
@@ -80,6 +92,12 @@
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <!--<conf name="test" mapped="default"/>-->
+        </dependency>
+
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.4.1.1">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
         </dependency>
 
         <dependency org="org.l33tlabs.twl" name="pngdecoder" rev="1.0">

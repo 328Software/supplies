@@ -15,6 +15,7 @@ public class AbstractDAO {
 
     protected SessionFactory sessionFactory;
 
+
     protected Object createQueryAndReturnOne(String queryString, Object... parameters) {
         return createQueryAndAddParameters(queryString,parameters).uniqueResult();
     }

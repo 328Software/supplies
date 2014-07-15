@@ -45,28 +45,6 @@ public class BasicChunk
 
         indicesBufferId = chunkIndexEngine.get(ChunkType.MEDIUM_T).getIndicesId();
 
-//        if (!chunkIndexEngine.isIndicesBufferIdStored(rows,columns)) {
-//
-//            List<Integer> indicesBufferData = chunkIndexEngine.createIndicesBufferData(rows, columns);
-//
-//            IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
-//            for(Integer i: indicesBufferData) {
-//                indicesBuffer.put(i);
-//            }
-//
-//            indicesBuffer.flip();
-//
-//            indicesBufferId = GL15.glGenBuffers();
-//            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-//            GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
-//            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
-//
-//            chunkIndexEngine.storeIndicesBufferId(rows,columns,indicesBufferId);
-//        } else {
-//            indicesBufferId = chunkIndexEngine.getIndicesBufferId(rows,columns);
-//        }
-
-
         vertexAttributesId = GL30.glGenVertexArrays();
 
         GL30.glBindVertexArray(vertexAttributesId);

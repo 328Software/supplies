@@ -9,6 +9,10 @@ import org.lwjgl.opengl.GL20;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.core.MockDisplayCore;
@@ -41,7 +45,7 @@ public class DAOChunkManagerTest {
 
     @Before
     public void create() {
-        MockDisplayCore.build("BasicChunkManagerTest");
+        MockDisplayCore.build("DAOChunkManagerTest");
 
         shaderEngine = new MockShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
@@ -49,7 +53,8 @@ public class DAOChunkManagerTest {
 
         camera = new MockCamera();
 
-
+//        chunkIndexEngine= new MockChunkIndexEngine<>();
+//        chunkIndexEngine.set();
 
 //        BasicDataSource source = new BasicDataSource();
 //        source.setUsername("root");

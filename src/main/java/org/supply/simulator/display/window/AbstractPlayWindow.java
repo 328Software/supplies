@@ -3,6 +3,8 @@ package org.supply.simulator.display.window;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.shader.ShaderHandle;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
@@ -17,6 +19,8 @@ import java.util.Iterator;
 public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implements Window {
 
     protected ShaderEngine<ShaderProgramType,ShaderHandle> shaderEngine;
+
+    protected TextureEngine<String,TextureHandle> textureEngine;
 
     protected Manager<BasicChunk> chunkManager;
 
@@ -122,6 +126,11 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     @Override
     public void setShaderEngine(ShaderEngine shaderEngine) {
         this.shaderEngine = shaderEngine;
+    }
+
+    @Override
+    public void setTextureEngine(TextureEngine textureEngine) {
+        this.textureEngine = textureEngine;
     }
 
 }

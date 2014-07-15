@@ -4,6 +4,8 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
+import org.supply.simulator.display.assetengine.texture.AbstractTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureData;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 
@@ -15,35 +17,26 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/13/2014.
  */
-public class BasicTextureEngine<K,V extends TextureHandle> implements TextureEngine<K,TextureHandle> {
-
-   // private HashMap<K,String> fileNames;
-    private HashMap<K,TextureHandle> textureDataMap;
+public class BasicTextureEngine<K,V extends TextureHandle>
+        extends AbstractTextureEngine<K,TextureHandle>
+        implements TextureEngine<K,TextureHandle> {
 
     public BasicTextureEngine() {
-       // fileNames = new HashMap<>();
-        textureDataMap = new HashMap<>();
+        super();
     }
 
 
-//    @Override
-//    public void set(K key, String fileName) {
-//        TextureData data = new BasicTextureData();
-//        try {
-//            data.setTextureId(loadPNGTexture2D(fileName,GL13.GL_TEXTURE0));
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        textureDataMap.put(key,data);
-//    }
+    public void set(K key, String fileName) {
+        TextureHandle handle = new BasicTextureHandle();
+        try {
+            handle.setTextureId(loadPNGTexture2D(fileName, GL13.GL_TEXTURE0));
 
-    @Override
-    public TextureHandle get(K key) {
-        return textureDataMap.get(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        textureDataMap.put(key,handle);
     }
-
 
     private int loadPNGTexture2D(String filename, int textureUnit) throws Exception {
         ByteBuffer buf = null;

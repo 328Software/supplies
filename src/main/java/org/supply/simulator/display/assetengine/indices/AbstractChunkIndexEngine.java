@@ -31,6 +31,7 @@ public abstract class AbstractChunkIndexEngine<K,V extends ChunkIndexHandle>
             logger.error("Unknown chunk type", key);
 
         } else if (bufferIdMap.get(key).getIndicesId()==-1) {
+
             List<Integer> indicesBufferData=getIndicesBufferData().getData();
 
             int indicesBufferId = -1;

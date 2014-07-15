@@ -33,4 +33,7 @@
         <constructor-arg index="0" value="10"/>
     </bean>
 
+    <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager" autowire="byName"/>-->
+    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName"/>
+
 </beans>

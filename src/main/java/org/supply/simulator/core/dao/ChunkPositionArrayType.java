@@ -61,7 +61,6 @@ public class ChunkPositionArrayType implements UserType {
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
         if(o == null) {
-            System.out.println("o is null");
             BlobType.INSTANCE.set(preparedStatement, null,i,sessionImplementor);
         } else {
             float[] floats = (float[])o;

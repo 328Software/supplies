@@ -8,6 +8,7 @@ import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,8 +38,11 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunk> {
     protected void updateChunks(Camera view) {
         if (isFirst) {
             isFirst=false;
-
-            for(Chunk chunk: chunkDAO.findAll()) {
+            long timeStart = System.currentTimeMillis();
+            logger.info("Doing");
+            Collection<Chunk> chunks = chunkDAO.findAll();
+            logger.info("Did build in " + (System.currentTimeMillis()-timeStart) + " ms");
+            for(Chunk chunk: chunks) {
                 chunk.setAttributeLocations(new int[]{0,1});
                 chunkCollection.add((BasicChunk)chunk);
             }

@@ -15,6 +15,16 @@
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 
+    <context:load-time-weaver aspectj-weaving="on"/>
+
+    <tx:annotation-driven mode="aspectj" proxy-target-class="true"/>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <qualifier value="chunk"/>
+    </bean>
+
     <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">-->
     <!--<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>-->
     <!--<property name="url" value="jdbc:hsqldb:file:E:/hsqldb/test/test;shutdown=true;hsqldb.write_delay=false"/>-->
@@ -44,18 +54,4 @@
             </props>
         </property>
     </bean>
-
-    <context:load-time-weaver aspectj-weaving="on"/>
-
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-        <qualifier value="chunk"/>
-    </bean>
-
-    <tx:annotation-driven mode="aspectj" proxy-target-class="true"/>
-
-    <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager" autowire="byName"/>-->
-    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName"/>
-
 </beans>

@@ -17,10 +17,10 @@ import java.util.List;
  * Created by Brandon on 7/8/2014.
  */
 public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> implements ChunkManager<BasicChunk> {
-    private int chunkRows = 5;
-    private int chunkColumns = 5;
-    private int totalChunkRows = 10;
-    private int totalChunkColumns = 10;
+    private int chunkRows = 25;
+    private int chunkColumns = 25;
+    private int totalChunkRows = 20;
+    private int totalChunkColumns = 20;
 
 
     private ChunkDAO chunkDAO;
@@ -114,8 +114,8 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
                     colors[index+3] = cols[3];
                     index +=4;
 //                    }
-                    System.out.println(Arrays.toString(positions));
-                    System.out.println(Arrays.toString(colors));
+//                    System.out.println(Arrays.toString(positions));
+//                    System.out.println(Arrays.toString(colors));
                 }
             }
         }

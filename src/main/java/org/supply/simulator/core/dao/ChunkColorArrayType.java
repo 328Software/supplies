@@ -56,11 +56,9 @@ public class ChunkColorArrayType implements UserType {
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
         if(o == null) {
-            System.out.println("o is null");
             BlobType.INSTANCE.set(preparedStatement, null,i,sessionImplementor);
         } else {
             BlobType.INSTANCE.set(preparedStatement, NonContextualLobCreator.INSTANCE.createBlob((byte[])o),i,sessionImplementor);
-
         }
     }
 

@@ -71,7 +71,7 @@ public class Main extends HasLogger {
                     window.setChunkManager(manager);
 
                     window.build();
-                    manager.update(null);
+//                    manager.update(null);
 
                     while (!Display.isCloseRequested()) {
                         window.render();

@@ -14,13 +14,8 @@
      http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean class="org.supply.simulator.display.manager.chunk.DAOChunkManagerTest">
-        <property name="manager" ref="basicChunkManager"/>
-    </bean>
 
-    <context:load-time-weaver aspectj-weaving="on"/>
 
-    <tx:annotation-driven mode="aspectj" proxy-target-class="true"/>
 
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">

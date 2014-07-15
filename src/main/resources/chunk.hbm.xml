@@ -19,8 +19,8 @@
         <property name="rowIndex" column="row_index" type="int"/>
         <property name="columnIndex" column="column_index" type="int"/>
 
-        <property name="colors" column="colors" type="chunkColor" length="10000"/>
-        <property name="positions" column="positions" type="chunkPosition" length="40000"/>
+        <property name="colors" column="colors" type="chunkColor" length="40000"/>
+        <property name="positions" column="positions" type="chunkPosition" length="160000"/>
     </class>
 
     <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunk" table="chunk">

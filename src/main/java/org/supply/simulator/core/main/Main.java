@@ -1,24 +1,16 @@
 package org.supply.simulator.core.main;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.lwjgl.opengl.Display;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.ShaderType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.core.impl.BasicDisplayCore;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.window.impl.BasicPlayWindow;
-import org.supply.simulator.display.window.impl.MockCamera;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
-import org.apache.logging.log4j.LogManager;
 import org.supply.simulator.logging.HasLogger;
 
-import java.util.ArrayList;
-import java.util.List;
+//import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,30 +49,32 @@ public class Main extends HasLogger {
 
                 Long count = null;
                 try {
-                    BasicPlayWindow window;
-
-                    BasicDisplayCore.build("YOU SUCK");
-
-                    BasicShaderEngine shaderEngine = new BasicShaderEngine();
-                    shaderEngine.setShaderFile("shaders/vertex.glsl", ShaderType.VERTEX, ShaderProgramType.PLAY);
-                    shaderEngine.setShaderFile("shaders/fragments.glsl", ShaderType.FRAGMENT, ShaderProgramType.PLAY);
-
-                    window = new BasicPlayWindow();
-                    window.setShaderEngine(shaderEngine);
-                    window.setCamera(new MockCamera());
-                    window.setChunkManager(manager);
-
-                    window.build();
-//                    manager.update(null);
-
-                    while (!Display.isCloseRequested()) {
-                        window.render();
-
-                        BasicDisplayCore.render();
-                    }
-
-                    window.destroy();
-                    BasicDisplayCore.destroy();
+//                    BasicPlayWindow window;
+//
+//                    BasicDisplayCore.build("YOU SUCK");
+//
+//                    MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine = new MockShaderEngine<ShaderProgramType,BasicShaderHandle>();
+//
+//                    shaderEngine.set(ShaderProgramType.PLAY, "shaders/vertex.glsl");
+//                    shaderEngine.set(ShaderProgramType.PLAY, "shaders/fragments.glsl");
+//
+//
+//                    window = new BasicPlayWindow();
+//                    window.setShaderEngine(shaderEngine);
+//                    window.setCamera(new MockCamera());
+//                    window.setChunkManager(manager);
+//
+//                    window.build();
+                    manager.update(null);
+//
+//                    while (!Display.isCloseRequested()) {
+//                        window.render();
+//
+//                        BasicDisplayCore.render();
+//                    }
+//
+//                    window.destroy();
+//                    BasicDisplayCore.destroy();
 
                 } catch (Exception e) {
                     logger.info(e);

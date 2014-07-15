@@ -25,6 +25,7 @@ public abstract class AbstractArrayUserType implements UserType {
         return o.equals(o2);
     }
 
+    @Override
     public int hashCode(Object o) throws HibernateException {
         return o.hashCode();
     }

@@ -9,6 +9,7 @@ import org.hibernate.usertype.UserType;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,16 +49,15 @@ public class ChunkPositionType extends AbstractArrayUserType implements UserType
         }
     }
 
-    protected float[] bytesToFloats(byte[] bytes) {
-        //todo this is probably pretty inefficient wrt memory
+    protected float[] bytesToFloats(final byte[] bytes) {
         float[] floats = new float[bytes.length/4];
-        for(int i = 0,j=i; i < bytes.length; i+=4,j++) {
-            byte[] floatBytes = new byte[4];
-            floatBytes[0] = bytes[i];
-            floatBytes[1] = bytes[i+1];
-            floatBytes[2] = bytes[i+2];
-            floatBytes[3] = bytes[i+3];
-            floats[j] = ByteBuffer.wrap(floatBytes).order(ByteOrder.BIG_ENDIAN).getFloat();
+        for(int i = 0,j=0; i < floats.length; i++,j+=4) {
+            floats[i] = Float.intBitsToFloat(makeInt(
+                    bytes[j],
+                    bytes[j+1],
+                    bytes[j+2],
+                    bytes[j+3]
+            ));
         }
         return floats;
     }
@@ -80,5 +80,12 @@ public class ChunkPositionType extends AbstractArrayUserType implements UserType
     @Override
     public Serializable disassemble(Object o) throws HibernateException {
         return (float[])deepCopy(o);
+    }
+
+    static private int makeInt(byte b3, byte b2, byte b1, byte b0) {
+        return (((b3       ) << 24) |
+                ((b2 & 0xff) << 16) |
+                ((b1 & 0xff) <<  8) |
+                ((b0 & 0xff)      ));
     }
 }

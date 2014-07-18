@@ -41,6 +41,7 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
                     BasicChunk chunk = new BasicChunk();
                     chunk.setAttributeLocations(new int[]{0,1,2});
                     chunk.setData(getChunkData(chunkRows, chunkColumns, i, j));
+                    chunk.setChunkType(type);
                     ChunkRenderable renderable = chunk.build();
                     chunks.add(renderable);
                 }

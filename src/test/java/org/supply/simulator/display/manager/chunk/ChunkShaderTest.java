@@ -53,7 +53,7 @@ MockShaderEngine shaderEngine;
         chunkType = new BasicChunkType();
         chunkType.setColumns(30);
         chunkType.setRows(20);
-
+        core = new MockDisplayCore();
 
         core.build("ChunkShaderTest");
 
@@ -71,6 +71,8 @@ MockShaderEngine shaderEngine;
         chunk = new BasicChunk();
         chunk.setData(MockChunkManager.getChunkData(chunkType.getRows(), chunkType.getColumns(), 0, 0));
         chunk.setAttributeLocations(new int[] {0,1,2});
+        chunk.setChunkType(chunkType);
+
         MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();;
         renderable=chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));

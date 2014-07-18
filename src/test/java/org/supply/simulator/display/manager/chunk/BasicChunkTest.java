@@ -21,20 +21,21 @@ public class BasicChunkTest extends HasLogger {
     private BasicChunk chunk;
     @Before
     public void createFixture () {
+        core = new MockDisplayCore();
         core.build("BasicChunkTest");
+        chunkType = new BasicChunkType();
         chunkType.setRows(20);
         chunkType.setColumns(20);
 
         chunk = new BasicChunk();
         chunk.setChunkType(chunkType);
         chunk.setData(getChunkData(chunkType.getRows(), chunkType.getColumns(), 0, 0));
-        chunk.setAttributeLocations(new int[] {0,1});
-        MockChunkIndexEngine<ChunkType> chunkIndexEngine= new MockChunkIndexEngine<>();
-
+        chunk.setAttributeLocations(new int[] {0,1,2});
+        MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();
         renderable = chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
 
-        OpenGLDebugger.printChunkBuffers(chunk);
+        //OpenGLDebugger.printChunkBuffers(chunk);
 
         logger.info("Chunk built successfully");
         logger.info("OPENGL BUFFERS:");

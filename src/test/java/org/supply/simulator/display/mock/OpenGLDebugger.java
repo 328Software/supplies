@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 
 
@@ -17,14 +18,14 @@ public class OpenGLDebugger  {
 
     protected static Logger logger = LogManager.getLogger(OpenGLDebugger.class);
 
-    public static void printChunkBuffers(Chunk chunk) {
+    public static void printChunkBuffers(ChunkRenderable chunk) {
 
-        GL30.glBindVertexArray(chunk.getVertexAttributesId());
-
-
-        printColorBuffer(chunk.getColorsArrayId(),chunk.getRows(),chunk.getColumns());
-        printPositionsBuffer(chunk.getPositionsArrayId(),chunk.getRows(),chunk.getColumns());
-        printIndicesBuffer(chunk.getIndicesBufferId(),chunk.getRows(),chunk.getColumns());
+//        GL30.glBindVertexArray(chunk.getVertexAttributesId());
+//
+//
+//        printColorBuffer(chunk.getColorsArrayId(),chunk.getRows(),chunk.getColumns());
+//        printPositionsBuffer(chunk.getPositionsArrayId(),chunk.getRows(),chunk.getColumns());
+//        printIndicesBuffer(chunk.getIndicesBufferId(),chunk.getRows(),chunk.getColumns());
 
 
 

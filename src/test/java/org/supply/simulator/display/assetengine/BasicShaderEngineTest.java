@@ -31,7 +31,6 @@ public class BasicShaderEngineTest extends HasLogger {
     @Test
     public void TestPlayShader () {
         logger.info("    TEST createPlayShader");
-        //engine.createProgram(ShaderProgramType.PLAY);
         if (engine.get(ShaderProgramType.PLAY).getModelMatrixLocation()!=0
                 ||engine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation()!=1
                 ||engine.get(ShaderProgramType.PLAY).getViewMatrixLocation()!=2) {

@@ -15,17 +15,17 @@ import java.util.List;
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockChunkIndexEngine<K extends ChunkType> extends HasLogger implements ChunkIndexEngine<K>{
+public class MockChunkIndexEngine extends HasLogger implements ChunkIndexEngine<ChunkType>{
 
     private static final int INDICES_PER_VERTEX = 6;
 
-    protected HashMap<K,Integer> bufferIdMap;
+    protected HashMap<ChunkType,Integer> bufferIdMap;
 
     public MockChunkIndexEngine() {
         bufferIdMap = new HashMap<>();
     }
 
-    public Integer get(K key) {
+    public Integer get(ChunkType key) {
 
         if (!bufferIdMap.containsKey(key)) {
 

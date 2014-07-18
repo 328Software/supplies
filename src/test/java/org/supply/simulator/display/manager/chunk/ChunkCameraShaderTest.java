@@ -27,6 +27,7 @@ public class ChunkCameraShaderTest {
 
     @Before
     public void create() {
+        core = new MockDisplayCore();
         chunkType = new BasicChunkType();
         chunkType.setColumns(20);
         chunkType.setRows(20);
@@ -49,11 +50,13 @@ public class ChunkCameraShaderTest {
 
         chunk = new BasicChunk();
         chunk.setData(getChunkData(chunkType.getRows(), chunkType.getColumns(), 0, 0));
-        chunk.setAttributeLocations(new int[] {0,1});
+        chunk.setAttributeLocations(new int[] {0,1,2});
+        chunk.setChunkType(chunkType);
+
         MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();
         renderable=chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
-        OpenGLDebugger.printChunkBuffers(chunk);
+        //OpenGLDebugger.printChunkBuffers(chunk);
 
     }
 

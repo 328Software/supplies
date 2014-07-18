@@ -22,7 +22,6 @@ public abstract class AbstractChunkManager<V extends ChunkRenderable>
     public void update(Camera view) {
 
         ////////////ADD CHUNKS
-        //get chunks that NEED TO BE RENDERED
         Collection<V> renderables = getChunksToAdd(view);
 
         for (V chunkRenderable: renderables) {
@@ -126,6 +125,18 @@ public abstract class AbstractChunkManager<V extends ChunkRenderable>
      * @param view the current camera view
      */
     protected abstract Collection<V> getChunksToAdd(Camera view);
+//    {
+//        chunks = new Collection<V>()
+//
+//        //TODO GET CHUNKS FROM DOA
+//        for (Chunk chunk: chunksFromDOA) {
+//            chunk.setAttributeLocations(new int[]{0,1,2});
+//            V renderable = chunk.build();
+//            chunks.add(renderable);
+//        }
+//
+//        return chunks;
+//    }
 
     protected abstract Collection<V> getChunksToRemove(Camera view);
 

@@ -6,14 +6,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
-import org.supply.simulator.display.mock.MockShaderEngine;
+import org.supply.simulator.display.mock.*;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.window.Camera;
-import org.supply.simulator.display.mock.MockCamera;
 
 import java.util.Iterator;
 
@@ -30,6 +27,7 @@ public class BasicChunkManagerTest {
 
     @Before
     public void create() {
+        core = new MockDisplayCore();
         core.build("BasicChunkManagerTest");
 
         shaderEngine = new MockShaderEngine();
@@ -38,7 +36,8 @@ public class BasicChunkManagerTest {
 
         camera = new MockCamera();
 
-         manager = new MockChunkManager();
+        manager = new MockChunkManager();
+        manager.setIndexEngine(new MockChunkIndexEngine());
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());

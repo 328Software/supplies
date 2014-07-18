@@ -2,11 +2,13 @@ package org.supply.simulator.display.window;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderHandle;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.ChunkRenderable;
+import org.supply.simulator.display.manager.chunk.ChunkType;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
@@ -25,12 +27,15 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
 
     protected TextureEngine<String> textureEngine;
 
+    private ChunkIndexEngine<ChunkType> indexEngine;
+
     protected Manager<ChunkRenderable> chunkManager;
 
     protected Camera camera;
 
     protected boolean isBuilt;
     protected boolean isDestroyed;
+
 
     public AbstractPlayWindow() {
         isBuilt = false;
@@ -136,5 +141,6 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     public void setTextureEngine(TextureEngine textureEngine) {
         this.textureEngine = textureEngine;
     }
+
 
 }

@@ -65,6 +65,7 @@ public class BasicChunk
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
         chunkRenderable.setChunkType(chunkType);
+        chunkRenderable.setAttributeLocations(locations);
         chunkRenderable.setColorsArrayId(colorsArrayId);
         chunkRenderable.setPositionsArrayId(positionsArrayId);
         chunkRenderable.setVertexAttributesId(vertexAttributesId);

@@ -4,8 +4,8 @@ package org.supply.simulator.display.assetengine.shader;
  * Created by Alex on 6/27/2014.
  */
 public enum ShaderProgramType {
-    PLAY(1,"shaders/fragments.glsl","shaders/vertex.glsl"),
-    MENU(2,"shaders/fragmentsWithTexture.glsl","shaders/vertexWithTexture.glsl");
+    PLAY(1,"shaders/vertex.glsl","shaders/fragments.glsl"),
+    MENU(2,"shaders/vertexWithTexture.glsl","shaders/fragmentsWithTexture.glsl");
 
 
     private final int value;

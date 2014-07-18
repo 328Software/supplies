@@ -35,6 +35,7 @@ public class DAOChunkManagerTest {
 
     @Before
     public void create() {
+        core = new MockDisplayCore();
         core.build("DAOChunkManagerTest");
 
         shaderEngine = new MockShaderEngine();
@@ -62,38 +63,38 @@ public class DAOChunkManagerTest {
 
     @Test
     public void render() {
-        while (!Display.isCloseRequested()) {
-            //camera.update();
-
-
-            // Set shader program type to VIEW
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-
-            camera.render();
-
-            // Clear shader program type
-            GL20.glUseProgram(0);
-
-            // Clear bit
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
-            // Set shader program type to CHUNK
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-
-            // Update visibleChunks with new camera position
-            manager.update(camera);
-            Iterator<BasicChunk> it = manager.iterator();
-            while (it.hasNext())
-            {
-               // it.next().render();
-            }
-//        for (BasicChunk chunk: chunkManager.toArray(new BasicChunk[chunkManager.size()])) {
-//            chunk.render();
+//        while (!Display.isCloseRequested()) {
+//            //camera.update();
+//
+//
+//            // Set shader program type to VIEW
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//
+//            camera.render();
+//
+//            // Clear shader program type
+//            GL20.glUseProgram(0);
+//
+//            // Clear bit
+//            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+//
+//            // Set shader program type to CHUNK
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//
+//            // Update visibleChunks with new camera position
+//            manager.update(camera);
+//            Iterator<BasicChunk> it = manager.iterator();
+//            while (it.hasNext())
+//            {
+//               // it.next().render();
+//            }
+////        for (BasicChunk chunk: chunkManager.toArray(new BasicChunk[chunkManager.size()])) {
+////            chunk.render();
+////        }
+//            GL20.glUseProgram(0);
+//
+//            core.render();
 //        }
-            GL20.glUseProgram(0);
-
-            core.render();
-        }
 
         manager.clear();
         GL20.glUseProgram(0);

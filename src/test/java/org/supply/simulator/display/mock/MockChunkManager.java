@@ -1,8 +1,10 @@
-package org.supply.simulator.display.manager.chunk;
+package org.supply.simulator.display.mock;
 
 import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
+import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
+import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
 import org.supply.simulator.display.manager.chunk.impl.FloatArrayPositionByteArrayColorChunkData;
@@ -16,14 +18,14 @@ import java.util.List;
  * Created by Alex on 6/29/2014.
  */
 public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chunk> {
-    private final ChunkType chunkType = ChunkType.MEDIUM_T;
-
-    private int chunkRows = chunkType.rows();
-    private int chunkColumns = chunkType.columns();
+//    private final ChunkType chunkType = ChunkType.MEDIUM_T;
+//
+//    private int chunkRows = chunkType.rows();
+//    private int chunkColumns = chunkType.columns();
     private int totalChunkRows = 5;
     private int totalChunkColumns = 5;
 
-    protected MockChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
+    protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
 
     private boolean isFirst;
 
@@ -56,7 +58,7 @@ public class MockChunkManager<V extends Chunk> extends AbstractChunkManager<Chun
             (int row, int col, int topLeftX, int topLeftY) {
         BasicChunkData<float[], byte[]> basicDataOut = new FloatArrayPositionByteArrayColorChunkData();
 
-        float[] positions = new float[row*col*VertexData.positionElementCount*4];
+        float[] positions = new float[row*col* VertexData.positionElementCount*4];
         byte[] colors = new byte[row*col*VertexData.colorElementCount*4];
 
         int index = 0;

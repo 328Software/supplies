@@ -1,7 +1,7 @@
 package org.supply.simulator.display.window;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 
 /**
  * Displays representation of the camera. Is SupplyRenderable. Also contains a lot of methods to control camera.

@@ -5,7 +5,7 @@ package org.supply.simulator.display.assetengine.indices;
  */
 public interface ChunkIndexHandle {
 
-   public Integer getIndicesId ();
+   public Integer getIndicesBufferIdentifier ();
 
-   public void setIndicesId(Integer indicesId);
+   public void setIndicesBufferIdentifier(Integer indicesBufferIdentifier);
 }

@@ -2,7 +2,7 @@ package org.supply.simulator.display.window;
 
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 
 /**
  * Interface for a game window.

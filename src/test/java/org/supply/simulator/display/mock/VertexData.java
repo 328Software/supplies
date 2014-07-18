@@ -1,4 +1,4 @@
-package org.supply.simulator.display.manager.chunk;
+package org.supply.simulator.display.mock;
 
 /**
  * Created by Alex on 6/29/2014.

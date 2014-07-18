@@ -1,5 +1,7 @@
 package org.supply.simulator.display.manager.chunk;
 
+import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
+
 /**
  * Object that contains all the raw chunk data from the database
  *
@@ -36,34 +38,6 @@ public interface ChunkData<V, C> {
     void setColors(C buf);
 
     /**
-     *  Returns rows.
-     *
-     * @return rows
-     */
-    Integer getRows();
-
-    /**
-     *  Returns columns;
-     *
-     * @return columns
-     */
-    Integer getColumns();
-
-    /**
-     * Sets rows
-     *
-     * @param rows rows int
-     */
-    void setRows(Integer rows);
-
-    /**
-     * Sets columns
-     *
-     * @param columns columns int
-     */
-    void setColumns(Integer columns);
-
-    /**
      * Sets the columnIndex of the coordinates of the chunk
      *
      * @param columnIndex the top left corner column
@@ -90,5 +64,7 @@ public interface ChunkData<V, C> {
      * @return the top left corner row
      */
     public Integer getRowIndex();
+
+
 
 }

@@ -3,12 +3,13 @@ package org.supply.simulator.display.manager.chunk;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.supply.simulator.display.OpenGLDebugger;
+import org.supply.simulator.display.mock.OpenGLDebugger;
 import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.mock.MockChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
-import org.supply.simulator.display.core.MockDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.logging.HasLogger;
 
 /**

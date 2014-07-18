@@ -4,8 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.supplyrenderable.AbstractChunkSupplyRenderable;
-import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
 
 import java.nio.FloatBuffer;
 

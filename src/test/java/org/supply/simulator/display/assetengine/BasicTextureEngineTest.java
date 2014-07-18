@@ -1,21 +1,14 @@
-package org.supply.simulator.display.assetengine.texture;
+package org.supply.simulator.display.assetengine;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
+import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureHandle;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.core.MockDisplayCore;
 import org.supply.simulator.display.window.Camera;
-import org.supply.simulator.display.window.MockCamera;
 import org.supply.simulator.logging.HasLogger;
 
 /**

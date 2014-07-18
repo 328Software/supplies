@@ -5,16 +5,14 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.core.MockDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.ShaderType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
+import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.window.Camera;
-import org.supply.simulator.display.window.MockCamera;
+import org.supply.simulator.display.mock.MockCamera;
 
 import java.util.Iterator;
 

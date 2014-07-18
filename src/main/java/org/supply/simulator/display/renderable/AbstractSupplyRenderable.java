@@ -1,4 +1,4 @@
-package org.supply.simulator.display.supplyrenderable;
+package org.supply.simulator.display.renderable;
 
 import org.lwjgl.opengl.GL11;
 import org.supply.simulator.logging.HasLogger;

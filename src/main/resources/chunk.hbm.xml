@@ -14,8 +14,6 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <property name="rows" column="rows" type="int"/>
-        <property name="columns" column="columns" type="int"/>
         <property name="rowIndex" column="row_index" type="int"/>
         <property name="columnIndex" column="column_index" type="int"/>
 
@@ -31,5 +29,17 @@
             <generator class="native"/>
         </id>
         <one-to-one name="data" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" cascade="save-update"/>
+    </class>
+
+    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkType" table="chunk_type">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="rows" column="rows" type="int"/>
+        <property name="columns" column="columns" type="int"/>
+        <property name="indicesBufferId" column="indices_buffer_id" type="int"/>
     </class>
 </hibernate-mapping>

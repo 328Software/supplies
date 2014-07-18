@@ -5,7 +5,7 @@ import org.supply.simulator.display.assetengine.shader.ShaderHandle;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
-import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
 
 /**
  * Created by Alex on 7/15/2014.

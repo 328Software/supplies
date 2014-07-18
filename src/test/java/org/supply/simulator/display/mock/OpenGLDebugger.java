@@ -1,4 +1,4 @@
-package org.supply.simulator.display;
+package org.supply.simulator.display.mock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunk> {
 
-    private final ChunkType chunkType = ChunkType.MEDIUM_T;
+//    private final ChunkType chunkType = ChunkType.MEDIUM_T;
 
     private int chunkRows = chunkType.rows();
     private int chunkColumns = chunkType.columns();

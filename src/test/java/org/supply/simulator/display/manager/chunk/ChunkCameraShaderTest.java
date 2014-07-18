@@ -6,16 +6,17 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.OpenGLDebugger;
+import org.supply.simulator.display.mock.OpenGLDebugger;
 import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.mock.MockChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
-import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.core.MockDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.window.MockCamera;
+import org.supply.simulator.display.mock.MockChunkManager;
+import org.supply.simulator.display.mock.MockCamera;
 
 /**
  * Created by Alex on 7/3/2014.

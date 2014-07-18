@@ -9,7 +9,7 @@ import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.supplyrenderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
 
 import java.util.Iterator;
 

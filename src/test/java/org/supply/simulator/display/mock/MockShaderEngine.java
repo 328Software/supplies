@@ -1,7 +1,8 @@
-package org.supply.simulator.display.assetengine.shader;
+package org.supply.simulator.display.mock;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.assetengine.shader.*;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 
 import java.io.BufferedReader;

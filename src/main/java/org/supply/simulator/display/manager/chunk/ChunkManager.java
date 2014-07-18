@@ -1,11 +1,15 @@
 package org.supply.simulator.display.manager.chunk;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.manager.Manager;
+import org.supply.simulator.display.renderable.ChunkRenderable;
 
 /**
  * Holds and manages all the of chunk SupplyRenderable objects
  *
  * Created by Alex on 6/17/2014.
  */
-public interface ChunkManager<V extends Chunk> extends Manager<V> {
+public interface ChunkManager<V extends ChunkRenderable> extends Manager<V> {
 
+
+    public void setIndexEngine(ChunkIndexEngine engine);
 }

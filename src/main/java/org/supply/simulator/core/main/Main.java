@@ -10,7 +10,7 @@ import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.supply.simulator.logging.HasLogger;
 
-//import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+//import org.supply.simulator.display.mock.MockShaderEngine;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,6 +1,6 @@
 package org.supply.simulator.display.manager;
 
-import org.supply.simulator.display.supplyrenderable.SupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.Collection;

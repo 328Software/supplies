@@ -1,6 +1,10 @@
 package org.supply.simulator.display.assetengine.indices.impl;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.supply.simulator.core.dao.chunk.ChunkTypeDAO;
 import org.supply.simulator.display.assetengine.indices.*;
+import org.supply.simulator.display.manager.chunk.ChunkType;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,26 +12,31 @@ import java.util.List;
 /**
  * Created by Alex on 7/7/2014.
  */
-public class BasicChunkIndexEngine<K, V extends ChunkIndexHandle>
-        extends AbstractChunkIndexEngine<K, ChunkIndexHandle>
-        implements ChunkIndexEngine<K,ChunkIndexHandle> {
+public class BasicChunkIndexEngine
+        extends AbstractChunkIndexEngine<ChunkType>
+        implements ChunkIndexEngine<ChunkType>, InitializingBean {
+
+    ChunkTypeDAO chunkTypeDAO;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        for(ChunkType chunkType: chunkTypeDAO.findAll()) {
+            List<Integer> indicesBufferData = getIndicesBufferData(chunkType).getData();
+            chunkType.setIndicesBufferId(createBufferForIndices(indicesBufferData));
+        }
+    }
 
     public BasicChunkIndexEngine() {
         super();
     }
 
     @Override
-    protected ChunkIndexData getIndicesBufferData() {
+    protected ChunkIndexData<List<Integer>> getIndicesBufferData(ChunkType key) {
         ChunkIndexData<List<Integer>> data = new BasicChunkIndexData<>();
 
-        data.setData(createTriangleIndicesData(ChunkType.MEDIUM_T.rows(), ChunkType.MEDIUM_T.columns()));
-//        switch (key.glRenderType()) {
-//            case GL11.GL_TRIANGLES:indicesBufferData = this.createTriangleIndicesData(key.rows(), key.columns());
-//                break;
-//            case GL11.GL_QUADS://indicesBufferData = this.createQuadIndicesData(key.rows(), key.columns());
-//                break;
-//
-//        }
+
+        data.setData(createTriangleIndicesData(key.getRows(), key.getColumns()));
+
 
         return data;
     }
@@ -52,14 +61,27 @@ public class BasicChunkIndexEngine<K, V extends ChunkIndexHandle>
         return values;
     }
 
-    public void set(K key, String fileName) {
-        ChunkIndexHandle data = new BasicChunkIndexHandle();
-
-        if (fileName==null) {
-            data.setIndicesId(-1);
-            bufferIdMap.put(key,data);
-        } else {
-            //read indices data file???
+    public class RowColPair {
+        public int getRow() {
+            return row;
         }
+
+        public void setRow(int row) {
+            this.row = row;
+        }
+
+        private int row;
+
+        public int getCol() {
+            return col;
+        }
+
+        public void setCol(int col) {
+            this.col = col;
+        }
+
+        private int col;
+
+
     }
 }

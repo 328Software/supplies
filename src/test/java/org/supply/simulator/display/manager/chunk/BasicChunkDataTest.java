@@ -3,6 +3,7 @@ package org.supply.simulator.display.manager.chunk;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.logging.HasLogger;
 
 /**

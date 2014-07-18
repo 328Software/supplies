@@ -1,29 +1,18 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
-import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.core.MockDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.ShaderType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
 import org.supply.simulator.display.window.Camera;
-import org.supply.simulator.display.window.MockCamera;
+import org.supply.simulator.display.mock.MockCamera;
 
 import java.util.Iterator;
 

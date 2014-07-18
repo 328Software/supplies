@@ -2,6 +2,7 @@ package org.supply.simulator.display.manager.chunk.impl;
 
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.manager.chunk.ChunkData;
+import org.supply.simulator.display.manager.chunk.ChunkType;
 
 
 /**
@@ -13,8 +14,8 @@ public class BasicChunkData<V,C>
 
     private long id;
 
-    protected Integer rows;
-    protected Integer columns;
+//    protected Integer rows;
+//    protected Integer columns;
 
     protected Integer rowIndex;
     protected Integer columnIndex;
@@ -75,26 +76,6 @@ public class BasicChunkData<V,C>
     }
 
     @Override
-    public Integer getRows() {
-        return rows;
-    }
-
-    @Override
-    public void setRows(Integer rows) {
-        this.rows = rows;
-    }
-
-    @Override
-    public Integer getColumns() {
-        return columns;
-    }
-
-    @Override
-    public void setColumns(Integer columns) {
-        this.columns = columns;
-    }
-
-    @Override
     public Integer getRowIndex() {
         return rowIndex;
     }
@@ -113,4 +94,5 @@ public class BasicChunkData<V,C>
     public void setColumnIndex(Integer indexColumns) {
         this.columnIndex = indexColumns;
     }
+
 }

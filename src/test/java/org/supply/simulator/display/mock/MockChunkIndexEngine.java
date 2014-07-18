@@ -1,6 +1,10 @@
-package org.supply.simulator.display.assetengine.indices;
+package org.supply.simulator.display.mock;
 
 import org.lwjgl.opengl.GL11;
+import org.supply.simulator.display.assetengine.indices.AbstractChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexData;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
+import org.supply.simulator.display.assetengine.indices.ChunkType;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexData;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 
@@ -10,7 +14,7 @@ import java.util.List;
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockChunkIndexEngine<K,V extends ChunkIndexHandle> extends AbstractChunkIndexEngine<K,ChunkIndexHandle>{
+public class MockChunkIndexEngine<K,V extends ChunkIndexHandle> extends AbstractChunkIndexEngine<K,ChunkIndexHandle> {
 
     @Override
     protected ChunkIndexData getIndicesBufferData() {

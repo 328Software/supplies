@@ -10,13 +10,14 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.MockChunkIndexEngine;
+import org.supply.simulator.display.mock.MockChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
-import org.supply.simulator.display.assetengine.shader.MockShaderEngine;
+import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.core.MockDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
+import org.supply.simulator.display.mock.MockChunkManager;
 
 
 import java.nio.FloatBuffer;

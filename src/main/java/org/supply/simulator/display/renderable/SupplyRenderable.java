@@ -1,23 +1,12 @@
-package org.supply.simulator.display.supplyrenderable;
+package org.supply.simulator.display.renderable;
 
 import org.lwjgl.util.Renderable;
+import org.supply.simulator.display.buildable.SupplyBuildable;
 
 /**
  * Created by Alex on 7/13/2014.
  */
 public interface SupplyRenderable extends Renderable{
-    /**
-     * Prepares object to be rendered. Called once before rendering begins.
-     *
-     */
-    public void build();
-
-    /**
-     * Checks if this object has been built yet.
-     *
-     * @return false until build() has been called successfully
-     */
-    public boolean isBuilt();
 
     /**
      * Deletes all information this object stored in OpenGl buffers. Can be called once after the build() method has

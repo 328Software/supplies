@@ -17,9 +17,9 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/13/2014.
  */
-public class BasicTextureEngine<K,V extends TextureHandle>
-        extends AbstractTextureEngine<K,TextureHandle>
-        implements TextureEngine<K,TextureHandle> {
+public class BasicTextureEngine<K>
+        extends AbstractTextureEngine<K>
+        implements TextureEngine<K> {
 
     public BasicTextureEngine() {
         super();

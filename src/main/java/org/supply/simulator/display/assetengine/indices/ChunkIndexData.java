@@ -7,7 +7,11 @@ import java.util.List;
  */
 public interface ChunkIndexData<V> {
 
-    void setData(List<Integer> data);
+    void setData(V data);
 
     public V getData();
+//
+//    void setData(int[] data);
+//
+//    public int[] getData();
 }

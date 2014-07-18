@@ -6,10 +6,13 @@ import org.supply.simulator.display.assetengine.shader.ShaderHandle;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.manager.Manager;
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 
 import java.util.Iterator;
 
@@ -18,11 +21,11 @@ import java.util.Iterator;
  */
 public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implements Window {
 
-    protected ShaderEngine<ShaderProgramType,ShaderHandle> shaderEngine;
+    protected ShaderEngine<ShaderProgramType> shaderEngine;
 
-    protected TextureEngine<String,TextureHandle> textureEngine;
+    protected TextureEngine<String> textureEngine;
 
-    protected Manager<BasicChunk> chunkManager;
+    protected Manager<ChunkRenderable> chunkManager;
 
     protected Camera camera;
 
@@ -35,7 +38,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     }
 
     @Override
-    public void build() {
+    public SupplyRenderable build() {
         //shaderEngine.createProgram(ShaderProgramType.PLAY);
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
@@ -44,6 +47,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
         camera.build();
 
         isBuilt = true;
+        return this;
     }
 
     @Override
@@ -68,9 +72,9 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
         // Set shader program type to CHUNK
         GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
-        // Update chunkCollection with new camera position
+        // Update visibleChunks with new camera position
         chunkManager.update(camera);
-        Iterator<BasicChunk> it = chunkManager.iterator();
+        Iterator<ChunkRenderable> it = chunkManager.iterator();
         while (it.hasNext())
         {
             it.next().render();
@@ -106,7 +110,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     public void setCamera(Camera camera) {this.camera = camera;}
 
     /**
-     * Sets the manager object for chunkCollection
+     * Sets the manager object for visibleChunks
      *
      * @param manager
      */

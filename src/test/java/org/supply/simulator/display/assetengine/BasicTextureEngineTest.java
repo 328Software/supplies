@@ -15,13 +15,13 @@ import org.supply.simulator.logging.HasLogger;
  * Created by Alex on 7/14/2014.
  */
 public class BasicTextureEngineTest extends HasLogger {
-    private BasicTextureEngine<Integer,BasicTextureHandle> engine;
+    private BasicTextureEngine engine;
 
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
     private Camera camera;
-    private MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
+    private MockShaderEngine shaderEngine;
 
     //Texture variables
     private int textureId;

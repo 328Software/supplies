@@ -1,8 +1,6 @@
 package org.supply.simulator.display.manager.chunk;
 
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
-import org.supply.simulator.display.renderable.ChunkRenderable;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.logging.HasLogger;
 
@@ -15,108 +13,111 @@ public abstract class AbstractChunkManager<V extends ChunkRenderable>
         extends HasLogger
         implements ChunkManager<V> {
 
-    protected Collection<V> chunkCollection;
+    protected Collection<V> visibleChunks;
+
 
     protected ChunkIndexEngine<ChunkType> indexEngine;
 
     @Override
     public void update(Camera view) {
 
-//        logger.trace("***UPDATE CHUNKS");
-//       logger.trace("<<<<<<<<<<<<PRINT_CAMERA");
-//        logger.trace("Camera angle: " + view.getCameraAngle());
-//        logger.trace("Camera pos:   " + view.getCameraPos());
-//        logger.trace("Model pos:    " + view.getModelPos());
-//        logger.trace("Model angle:  " + view.getModelAngle());
-//        logger.trace("Model scale:  " + view.getModelScale());
-//        logger.trace(">>>>>>>>>>>>");
-
+        ////////////ADD CHUNKS
         //get chunks that NEED TO BE RENDERED
-        Collection<V> renderables = updateChunks(view);
+        Collection<V> renderables = getChunksToAdd(view);
 
-        for (V chunk: renderables) {
-            chunk.render();
+        for (V chunkRenderable: renderables) {
+            chunkRenderable.setIndicesBufferId(indexEngine.get(chunkRenderable.getChunkType()));
         }
 
-        //todo - is this our list of already rendered stuff to reference later for destroy()?
-        chunkCollection.addAll(renderables);
+        addAll(renderables);
+        ////////////
 
 
-        //DESTROY ANY CHUNKS
-        //todo - determine when to destroy chunks
+        ////////////REMOVE CHUNKS
         //todo - what mechanism signals what chunks should be destroyed? the camera? can it take a chunk and tell return whether or not it is in frame? whose responsibility is it?
+        renderables = getChunksToRemove(view);
+
+        for (V chunkRenderable: renderables) {
+            chunkRenderable.destroy();
+        }
+
+        removeAll(renderables);
+        ////////////
+
+
 
     }
+
 
 
 
     @Override
     public int size() {
-        return chunkCollection.size();
+        return visibleChunks.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return chunkCollection.isEmpty();
+        return visibleChunks.isEmpty();
     }
 
     @Override
     public boolean contains(Object o) {
-        return chunkCollection.contains(o);
+        return visibleChunks.contains(o);
     }
 
     @Override
     public Object[] toArray() {
-    return chunkCollection.toArray();
+    return visibleChunks.toArray();
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        a = (T[]) chunkCollection.toArray();
+        a = (T[]) visibleChunks.toArray();
         return a;
     }
 
     @Override
     public void clear() {
-        for (V chunk: chunkCollection) {
+        for (V chunk: visibleChunks) {
             chunk.destroy();
         }
-        chunkCollection.clear();
+        visibleChunks.clear();
     }
 
     @Override
     public Iterator<V> iterator() {
-        return chunkCollection.iterator();
+        return visibleChunks.iterator();
     }
 
     @Override
     public boolean add(V v) {
-        return false;
+        return visibleChunks.add(v);
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        return visibleChunks.remove(o);
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        return visibleChunks.containsAll(c);
     }
 
     @Override
     public boolean addAll(Collection<? extends V> c) {
-        return false;
+        return visibleChunks.addAll(c);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        return visibleChunks.removeAll(c);
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        return visibleChunks.retainAll(c);
     }
 
     /**
@@ -124,7 +125,9 @@ public abstract class AbstractChunkManager<V extends ChunkRenderable>
      *
      * @param view the current camera view
      */
-    protected abstract Collection<V> updateChunks(Camera view);
+    protected abstract Collection<V> getChunksToAdd(Camera view);
+
+    protected abstract Collection<V> getChunksToRemove(Camera view);
 
     @Override
     public void setIndexEngine(ChunkIndexEngine indexEngine) {

@@ -26,11 +26,6 @@ public class BasicChunkType implements ChunkType, HasId<Long> {
         return columns;
     }
 
-    @Override
-    public Integer getIndicesBufferId() {
-        return indicesBufferId;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -41,10 +36,5 @@ public class BasicChunkType implements ChunkType, HasId<Long> {
 
     public void setColumns(Integer columns) {
         this.columns = columns;
-    }
-
-    @Override
-    public void setIndicesBufferId(Integer indicesBufferId) {
-        this.indicesBufferId = indicesBufferId;
     }
 }

@@ -9,9 +9,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkType;
 import org.supply.simulator.display.mock.MockChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -27,12 +27,17 @@ import java.nio.FloatBuffer;
  */
 public class ChunkShaderTest {
 
-    private final ChunkType chunkType = ChunkType.MEDIUM_T;
 
 //    MockCamera camera;
-MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
+MockShaderEngine shaderEngine;
     BasicChunk chunk;
     NewCamera camera;
+
+    MockDisplayCore core;
+
+    BasicChunkRenderable renderable;
+
+    private BasicChunkType chunkType;
 
 //    private Vector3f modelPos;
 //    private Vector3f modelAngle;
@@ -45,7 +50,12 @@ MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
 //    private FloatBuffer matrix44Buffer;
     @Before
     public void create() {
-        MockDisplayCore.build("ChunkShaderTest");
+        chunkType = new BasicChunkType();
+        chunkType.setColumns(30);
+        chunkType.setRows(20);
+
+
+        core.build("ChunkShaderTest");
 
         shaderEngine = new MockShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
@@ -59,12 +69,12 @@ MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
         camera.build();
 
         chunk = new BasicChunk();
-        chunk.setData(MockChunkManager.getChunkData(chunkType.rows(), chunkType.columns(), 0, 0));
+        chunk.setData(MockChunkManager.getChunkData(chunkType.getRows(), chunkType.getColumns(), 0, 0));
         chunk.setAttributeLocations(new int[] {0,1,2});
-        MockChunkIndexEngine<ChunkType,BasicChunkIndexHandle> chunkIndexEngine= new MockChunkIndexEngine();
-        chunkIndexEngine.set(chunkType, null);
-        chunk.setChunkIndexEngine(chunkIndexEngine);
-        chunk.build();
+        MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();;
+        renderable=chunk.build();
+        renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
+
        // OpenGLDebugger.printChunkBuffers(chunk);
 
     }
@@ -86,12 +96,12 @@ MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-            chunk.render();
+            renderable.render();
 
             GL20.glUseProgram(0);
 
 
-            MockDisplayCore.render();
+            core.render();
         }
 
     }
@@ -103,8 +113,8 @@ MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
         GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
 
-        chunk.destroy();
-        MockDisplayCore.destroy();
+        renderable.destroy();
+        core.destroy();
 
     }
 

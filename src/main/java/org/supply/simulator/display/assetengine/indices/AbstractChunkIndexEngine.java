@@ -3,7 +3,6 @@ package org.supply.simulator.display.assetengine.indices;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.manager.chunk.ChunkType;
 import org.supply.simulator.logging.HasLogger;
 
@@ -28,26 +27,23 @@ public abstract class AbstractChunkIndexEngine<K extends ChunkType>
 
     @Override
     public Integer get(K key) {
-//        ChunkIndexHandle handle;
 
-
-        /*
         if (!bufferIdMap.containsKey(key)) {
-            List<Integer> indicesBufferData = getIndicesBufferData(key).getData();
+            ChunkIndexData<IntBuffer> indicesBufferData = getIndicesBufferData(key);
             bufferIdMap.put(key,createBufferForIndices(indicesBufferData));
         }
-*/
-        return key.getIndicesBufferId(); //todo - ??
+        return bufferIdMap.get(key);
     }
 
-    protected Integer createBufferForIndices(Collection<Integer> indicesBufferData) {
+    protected Integer createBufferForIndices(ChunkIndexData<IntBuffer> indicesBufferData) {
         int indicesBufferId;
 
-        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.size());
-        for(Integer i: indicesBufferData) {
-            indicesBuffer.put(i);
-        }
+//        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indicesBufferData.length);
+//        for(Integer i: indicesBufferData) {
+//            indicesBuffer.put(i);
+//        }
 
+        IntBuffer indicesBuffer = indicesBufferData.getData();
         indicesBuffer.flip();
 
         indicesBufferId = GL15.glGenBuffers();
@@ -57,6 +53,5 @@ public abstract class AbstractChunkIndexEngine<K extends ChunkType>
         return indicesBufferId;
     }
 
-    //TODO Remove List and make generic
-    protected abstract ChunkIndexData<List<Integer>> getIndicesBufferData(K key);
+    protected abstract ChunkIndexData getIndicesBufferData(K key);
 }

@@ -7,9 +7,9 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/14/2014.
  */
-public abstract class AbstractShaderEngine<K,V extends ShaderHandle>
+public abstract class AbstractShaderEngine<K>
         extends HasLogger
-        implements ShaderEngine<K,ShaderHandle> {
+        implements ShaderEngine<K> {
 
     protected HashMap<K,ShaderHandle> shaderMap;
 

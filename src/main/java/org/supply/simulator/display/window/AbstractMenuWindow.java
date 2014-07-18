@@ -6,22 +6,23 @@ import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 
 /**
  * Created by Alex on 7/15/2014.
  */
 public class AbstractMenuWindow extends AbstractSupplyRenderable implements Window {
 
-    protected ShaderEngine<ShaderProgramType,ShaderHandle> shaderEngine;
+    protected ShaderEngine<ShaderProgramType> shaderEngine;
 
-    protected TextureEngine<String,TextureHandle> textureEngine;
+    protected TextureEngine<String> textureEngine;
 
 
 
 
     @Override
-    public void build() {
-
+    public SupplyRenderable build() {
+        return this;
     }
 
     @Override

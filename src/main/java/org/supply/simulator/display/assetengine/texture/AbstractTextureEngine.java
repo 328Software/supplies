@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/15/2014.
  */
-public abstract class AbstractTextureEngine<K,V extends TextureHandle> extends HasLogger implements TextureEngine<K,V> {
+public abstract class AbstractTextureEngine<K> extends HasLogger implements TextureEngine<K> {
 
     protected HashMap<K,TextureHandle> textureDataMap;
 

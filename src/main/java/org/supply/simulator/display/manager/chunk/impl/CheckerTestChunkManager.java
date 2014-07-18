@@ -4,9 +4,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.display.assetengine.indices.ChunkType;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
@@ -14,19 +11,20 @@ import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Brandon on 7/8/2014.
  */
-public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> implements ChunkManager<BasicChunk> {
-    private final ChunkType chunkType = ChunkType.MEDIUM_T;
-    private int chunkRows = chunkType.rows();
-    private int chunkColumns = chunkType.columns();
+public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRenderable> implements ChunkManager<BasicChunkRenderable> {
+   // private final ChunkType chunkType = ChunkType.MEDIUM_T;
+    private int chunkRows = 1;//chunkType.rows();
+    private int chunkColumns =1;// chunkType.columns();
     private int totalChunkRows = 20;
     private int totalChunkColumns = 20;
 
-    protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
+   // protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
 
     private ChunkDAO chunkDAO;
     private SessionFactory sessionFactory;
@@ -35,16 +33,16 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
     public CheckerTestChunkManager () {
         super();
         isFirst = true;
-        chunkCollection = new ArrayList<BasicChunk>();
-        indexManager = new BasicChunkIndexEngine();
-        indexManager.set(chunkType,null);
+        //visibleChunks = new ArrayList<BasicChunk>();
+      //  indexManager = new BasicChunkIndexEngine();
+        //indexManager.set(chunkType,null);
 
     }
 
 
 
     @Override /*@Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)*/
-    protected void updateChunks(Camera view) {
+    protected java.util.Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
         if (isFirst) {
             isFirst=false;
             int count = 0;
@@ -52,16 +50,22 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
                 for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
                     BasicChunk chunk = new BasicChunk();
                     chunk.setAttributeLocations(new int[]{0,1});
-                    chunk.setChunkIndexEngine(indexManager);
+                 //   chunk.setChunkIndexEngine(indexManager);
                     chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
 
                     logger.info("creating chunk " + (count++));
 //                    sessionFactory.getCurrentSession().flush();
-//                    chunkCollection.add(chunk);
+//                    visibleChunks.add(chunk);
                     storeChunk(chunk);
                 }
             }
         }
+        return null;
+    }
+
+    @Override
+    protected Collection<BasicChunkRenderable> getChunksToRemove(Camera view) {
+        return null;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -130,9 +134,6 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunk> im
 
         basicDataOut.setColors(colors);
         basicDataOut.setPositions(positions);
-
-        basicDataOut.setColumns(col);
-        basicDataOut.setRows(row);
 
         return basicDataOut;
     }

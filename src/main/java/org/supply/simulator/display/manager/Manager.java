@@ -13,7 +13,7 @@ import java.util.Collection;
 public interface Manager<V extends SupplyRenderable> extends Collection<V> {
 
     /**
-     * Updates the chunkCollection using the current camera view.
+     * Updates the visibleChunks using the current camera view.
      *
      *
      * @param view the Camera view

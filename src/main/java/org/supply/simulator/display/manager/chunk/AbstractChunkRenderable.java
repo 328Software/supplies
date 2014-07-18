@@ -1,6 +1,8 @@
-package org.supply.simulator.display.renderable;
+package org.supply.simulator.display.manager.chunk;
 
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.ChunkType;
+import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
 
 /**
  * Abstract class to implements all the getters/setters of HasRenderableInfo. It also adds some utility methods.
@@ -15,16 +17,16 @@ public abstract class AbstractChunkRenderable extends AbstractSupplyRenderable i
 //    protected int columns;
 
     protected int vertexAttributesId;
+
     protected int indicesBufferId;
     protected int colorsArrayId;
     protected int positionsArrayId;
-
     protected ChunkType chunkType;
-
 
     public void setChunkType(ChunkType chunkType) {
         this.chunkType = chunkType;
     }
+
 
     public void setVertexAttributesId(int vertexAttributesId) {
         this.vertexAttributesId = vertexAttributesId;
@@ -34,10 +36,25 @@ public abstract class AbstractChunkRenderable extends AbstractSupplyRenderable i
         this.indicesBufferId = indicesBufferId;
     }
 
-
     public void setColorsArrayId(int colorsArrayId) {
         this.colorsArrayId = colorsArrayId;
 
+    }
+
+    public int getVertexAttributesId() {
+        return vertexAttributesId;
+    }
+
+    public int getIndicesBufferId() {
+        return indicesBufferId;
+    }
+
+    public int getColorsArrayId() {
+        return colorsArrayId;
+    }
+
+    public int getPositionsArrayId() {
+        return positionsArrayId;
     }
 
 
@@ -51,28 +68,6 @@ public abstract class AbstractChunkRenderable extends AbstractSupplyRenderable i
         return chunkType;
     }
 
-
-
-
-
-//    @Override
-//        this.rows = rows;
-//    }
-//
-//    @Override
-//    public void setColumns(int columns) {
-//        this.columns = columns;
-//    }
-
-//    @Override
-//    public int getRows() {
-//        return this.rows;
-//    }
-//
-//    @Override
-//    public int getColumns() {
-//        return this.columns;
-//    }
 
 
 

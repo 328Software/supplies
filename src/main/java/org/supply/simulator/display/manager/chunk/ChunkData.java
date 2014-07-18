@@ -1,7 +1,5 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
-
 /**
  * Object that contains all the raw chunk data from the database
  *

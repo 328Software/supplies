@@ -26,7 +26,8 @@ public class DAOChunkManagerTest {
     //    private ;
     private static ChunkManager manager;
     private Camera camera;
-    private MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
+    private MockShaderEngine shaderEngine;
+    private MockDisplayCore core;
 
 //    public BasicChunkManagerTest() {
 //
@@ -34,7 +35,7 @@ public class DAOChunkManagerTest {
 
     @Before
     public void create() {
-        MockDisplayCore.build("DAOChunkManagerTest");
+        core.build("DAOChunkManagerTest");
 
         shaderEngine = new MockShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
@@ -79,25 +80,25 @@ public class DAOChunkManagerTest {
             // Set shader program type to CHUNK
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
-            // Update chunkCollection with new camera position
+            // Update visibleChunks with new camera position
             manager.update(camera);
             Iterator<BasicChunk> it = manager.iterator();
             while (it.hasNext())
             {
-                it.next().render();
+               // it.next().render();
             }
 //        for (BasicChunk chunk: chunkManager.toArray(new BasicChunk[chunkManager.size()])) {
 //            chunk.render();
 //        }
             GL20.glUseProgram(0);
 
-            MockDisplayCore.render();
+            core.render();
         }
 
         manager.clear();
         GL20.glUseProgram(0);
         GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-        MockDisplayCore.destroy();
+        core.destroy();
     }
 
 

@@ -1,6 +1,7 @@
 package org.supply.simulator.display.window;
 
 import org.lwjgl.util.vector.Vector3f;
+import org.supply.simulator.display.buildable.SupplyBuildable;
 import org.supply.simulator.display.renderable.SupplyRenderable;
 
 /**
@@ -8,7 +9,7 @@ import org.supply.simulator.display.renderable.SupplyRenderable;
  *
  * Created by Alex on 6/17/2014.
  */
-public interface Camera extends SupplyRenderable {
+public interface Camera extends SupplyRenderable, SupplyBuildable {
 
     /**
      * Compares this to another camera object

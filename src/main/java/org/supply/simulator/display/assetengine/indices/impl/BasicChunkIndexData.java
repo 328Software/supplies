@@ -2,21 +2,23 @@ package org.supply.simulator.display.assetengine.indices.impl;
 
 import org.supply.simulator.display.assetengine.indices.ChunkIndexData;
 
+import java.nio.Buffer;
+import java.nio.IntBuffer;
 import java.util.List;
 
 /**
  * Created by Alex on 7/14/2014.
  */
-public class BasicChunkIndexData<V extends List<Integer>> implements ChunkIndexData<List<Integer>> {
-    private List<Integer> data;
+public class BasicChunkIndexData<V extends Buffer> implements ChunkIndexData<IntBuffer> {
+    private IntBuffer data;
 
     @Override
-    public void setData(List<Integer> data) {
+    public void setData(IntBuffer data) {
         this.data = data;
     }
 
     @Override
-    public List<Integer> getData() {
+    public IntBuffer getData() {
         return data;
     }
 }

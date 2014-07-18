@@ -2,19 +2,21 @@ package org.supply.simulator.display.mock;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.*;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
+
+import org.supply.simulator.display.assetengine.shader.ShaderEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderHandle;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
+import org.supply.simulator.logging.HasLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockShaderEngine<K extends ShaderProgramType, V extends ShaderHandle>
-        extends AbstractShaderEngine<ShaderProgramType,ShaderHandle>
-        implements ShaderEngine<ShaderProgramType,ShaderHandle> {
+public class MockShaderEngine extends HasLogger implements ShaderEngine<ShaderProgramType> {
 
     private String[] vertexShader;
     private String[] tessellationShader;
@@ -22,8 +24,10 @@ public class MockShaderEngine<K extends ShaderProgramType, V extends ShaderHandl
     private String[] fragmentShader;
     private String[] computeShader;
 
-    public MockShaderEngine () {
+    protected HashMap<ShaderProgramType,SimpleShaderHandle> shaderMap;
 
+    public MockShaderEngine () {
+        shaderMap = new HashMap<>(ShaderProgramType.COUNT);
         vertexShader = new String [ShaderProgramType.COUNT];
         tessellationShader= new String [ShaderProgramType.COUNT];
         geometryShader= new String [ShaderProgramType.COUNT];
@@ -33,7 +37,14 @@ public class MockShaderEngine<K extends ShaderProgramType, V extends ShaderHandl
 
     }
 
-    @Override
+    public ShaderHandle get(ShaderProgramType key) {
+        if (!shaderMap.containsKey(key)) {
+            createProgram(key);
+
+        }
+        return shaderMap.get(key);
+    }
+
     protected void createProgram(ShaderProgramType type) {
 
         int vertexId = -1;
@@ -84,16 +95,13 @@ public class MockShaderEngine<K extends ShaderProgramType, V extends ShaderHandl
         GL20.glLinkProgram(programId);
         GL20.glValidateProgram(programId);
 
-        BasicShaderHandle data = new BasicShaderHandle();
+        SimpleShaderHandle data = new SimpleShaderHandle();
         data.setProjectionMatrixLocation(GL20.glGetUniformLocation(programId,"projectionMatrix"));
         data.setViewMatrixLocation(GL20.glGetUniformLocation(programId, "viewMatrix"));
         data.setModelMatrixLocation(GL20.glGetUniformLocation(programId, "modelMatrix"));
         data.setProgramId(programId);
 
         shaderMap.put(type,data);
-//        projectionMatrixLocation = GL20.glGetUniformLocation(programId,"projectionMatrix");
-//        viewMatrixLocation[type.value()]       = GL20.glGetUniformLocation(programId, "viewMatrix");
-//        modelMatrixLocation[type.value()]      = GL20.glGetUniformLocation(programId, "modelMatrix");
 
     }
 
@@ -130,10 +138,55 @@ public class MockShaderEngine<K extends ShaderProgramType, V extends ShaderHandl
     }
 
     public void set(ShaderProgramType pType, String fileName) {
-        if(fileName.contains(ShaderType.VERTEX.toString())) {
+        if(fileName.contains("vertex")) {
             this.vertexShader[pType.value()] = fileName;
-        } else if(fileName.contains(ShaderType.FRAGMENT.toString())){
+        } else if(fileName.contains("fragment")){
             this.fragmentShader[pType.value()] = fileName;
+        }
+    }
+
+
+
+    public class SimpleShaderHandle implements ShaderHandle{
+
+        private int projectionMatrixLocation;
+        private int viewMatrixLocation;
+        private int modelMatrixLocation;
+
+        private int programId;
+
+        public void setModelMatrixLocation(int modelMatrixLocation) {
+            this.modelMatrixLocation = modelMatrixLocation;
+        }
+
+        public void setProjectionMatrixLocation(int projectionMatrixLocation) {
+            this.projectionMatrixLocation = projectionMatrixLocation;
+        }
+
+        public void setViewMatrixLocation(int viewMatrixLocation) {
+            this.viewMatrixLocation = viewMatrixLocation;
+        }
+
+        public void setProgramId(int programId) {
+            this.programId = programId;
+        }
+
+
+
+        public int getProjectionMatrixLocation() {
+            return projectionMatrixLocation;
+        }
+
+        public int getViewMatrixLocation() {
+            return viewMatrixLocation;
+        }
+
+        public int getModelMatrixLocation() {
+            return modelMatrixLocation;
+        }
+
+        public int getProgramId() {
+            return programId;
         }
     }
 }

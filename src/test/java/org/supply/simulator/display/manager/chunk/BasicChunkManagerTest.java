@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.mock.MockShaderEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -23,12 +24,13 @@ public class BasicChunkManagerTest {
 
     private ChunkManager manager;
     private Camera camera;
-    private MockShaderEngine<ShaderProgramType,BasicShaderHandle> shaderEngine;
+    private MockShaderEngine shaderEngine;
+    private MockDisplayCore core;
 
 
     @Before
     public void create() {
-        MockDisplayCore.build("BasicChunkManagerTest");
+        core.build("BasicChunkManagerTest");
 
         shaderEngine = new MockShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
@@ -66,24 +68,22 @@ public class BasicChunkManagerTest {
             // Set shader program type to CHUNK
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
-            // Update chunkCollection with new camera position
+            // Update visibleChunks with new camera position
             manager.update(camera);
-            Iterator<BasicChunk> it = manager.iterator();
+            Iterator<BasicChunkRenderable> it = manager.iterator();
             while (it.hasNext())
             {
                 it.next().render();
             }
-//        for (BasicChunk chunk: chunkManager.toArray(new BasicChunk[chunkManager.size()])) {
-//            chunk.render();
-//        }
+
             GL20.glUseProgram(0);
 
-            MockDisplayCore.render();
+            core.render();
         }
 
         manager.clear();
         GL20.glUseProgram(0);
         GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-        MockDisplayCore.destroy();
+        core.destroy();
     }
 }

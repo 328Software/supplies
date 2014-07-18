@@ -8,7 +8,7 @@ import org.supply.simulator.display.assetengine.AssetEngine;
  *
  * Created by Alex on 6/26/2014.
  */
-public interface ShaderEngine<K,V extends ShaderHandle>  extends AssetEngine<K,ShaderHandle> {
+public interface ShaderEngine<K>  extends AssetEngine<K,ShaderHandle> {
     @Override
     public ShaderHandle get (K type);
 }

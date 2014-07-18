@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.renderable.SupplyRenderable;
 
 import java.nio.FloatBuffer;
 
@@ -14,8 +15,6 @@ import java.nio.FloatBuffer;
 public abstract class AbstractCamera extends AbstractSupplyRenderable implements Camera {
 
     private static final double PI = 3.14159265358979323846;
-
-    private boolean isBuilt;
 
     protected Vector3f modelPos;
     protected Vector3f modelAngle;
@@ -32,10 +31,6 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
     protected int projectionMatrixLocation;
     protected int modelMatrixLocation;
     protected int viewMatrixLocation;
-
-    public AbstractCamera () {
-        isBuilt = false;
-    }
 
     //***** Movement Methods
     public void moveNorth(float posDelta) {
@@ -88,7 +83,7 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
     //***** Movement Methods
 
     @Override
-    public void build () {
+    public SupplyRenderable build () {
 
 
         projectionMatrix = new Matrix4f();
@@ -115,13 +110,9 @@ public abstract class AbstractCamera extends AbstractSupplyRenderable implements
 //        cameraPos   =    new Vector3f(0, 0,-1);
 //        cameraAngle =    new Vector3f(0, 0, 0);
 
-        isBuilt= true;
+        return this;
     }
 
-    @Override
-    public boolean isBuilt() {
-        return isBuilt;
-    }
 
     @Override
     public void render() {

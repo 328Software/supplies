@@ -2,6 +2,7 @@ package org.supply.simulator.display.window;
 
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.buildable.SupplyBuildable;
 import org.supply.simulator.display.renderable.SupplyRenderable;
 
 /**
@@ -9,7 +10,7 @@ import org.supply.simulator.display.renderable.SupplyRenderable;
  *
  * Created by Alex on 6/17/2014.
  */
-public interface Window extends SupplyRenderable {
+public interface Window extends SupplyRenderable, SupplyBuildable {
 
     /**
      * Sets the shader engine this window will use.
@@ -24,5 +25,7 @@ public interface Window extends SupplyRenderable {
      * @param textureEngine the texture engine
      */
     public void setTextureEngine(TextureEngine textureEngine);
+
+    public boolean isBuilt();
 
 }

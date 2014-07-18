@@ -1,7 +1,6 @@
 package org.supply.simulator.display.manager.chunk;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderable.ChunkRenderable;
 
 /**
  * Holds and manages all the of chunk SupplyRenderable objects

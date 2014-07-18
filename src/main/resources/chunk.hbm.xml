@@ -40,6 +40,5 @@
         </id>
         <property name="rows" column="rows" type="int"/>
         <property name="columns" column="columns" type="int"/>
-        <property name="indicesBufferId" column="indices_buffer_id" type="int"/>
     </class>
 </hibernate-mapping>

@@ -1,67 +1,91 @@
 package org.supply.simulator.display.mock;
 
-import org.lwjgl.opengl.GL11;
-import org.supply.simulator.display.assetengine.indices.AbstractChunkIndexEngine;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL15;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexData;
-import org.supply.simulator.display.assetengine.indices.ChunkIndexHandle;
-import org.supply.simulator.display.assetengine.indices.ChunkType;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexData;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexHandle;
+import org.supply.simulator.display.manager.chunk.ChunkType;
+import org.supply.simulator.logging.HasLogger;
 
-import java.util.ArrayList;
+import java.nio.IntBuffer;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockChunkIndexEngine<K,V extends ChunkIndexHandle> extends AbstractChunkIndexEngine<K,ChunkIndexHandle> {
+public class MockChunkIndexEngine<K extends ChunkType> extends HasLogger implements ChunkIndexEngine<K>{
 
-    @Override
-    protected ChunkIndexData getIndicesBufferData() {
-        ChunkIndexData<List<Integer>> data = new BasicChunkIndexData<>();
+    private static final int INDICES_PER_VERTEX = 6;
 
-        data.setData(createTriangleIndicesData(ChunkType.MEDIUM_T.rows(), ChunkType.MEDIUM_T.columns()));
-//        switch (key.glRenderType()) {
-//            case GL11.GL_TRIANGLES:indicesBufferData = this.createTriangleIndicesData(key.rows(), key.columns());
-//                break;
-//            case GL11.GL_QUADS://indicesBufferData = this.createQuadIndicesData(key.rows(), key.columns());
-//                break;
-//
-//        }
+    protected HashMap<K,Integer> bufferIdMap;
+
+    public MockChunkIndexEngine() {
+        bufferIdMap = new HashMap<>();
+    }
+
+    public Integer get(K key) {
+
+        if (!bufferIdMap.containsKey(key)) {
+
+
+
+            IntBuffer indicesBuffer = BufferUtils.createIntBuffer(INDICES_PER_VERTEX * key.getRows() * key.getColumns());
+            for (int i = 0; i < key.getRows(); i++) {
+                for (int j = 0; j < key.getColumns(); j++) {
+                    int offset = (i * key.getColumns() + j) * 4;
+
+                    indicesBuffer.put(offset);
+                    indicesBuffer.put(offset + 1);
+                    indicesBuffer.put(offset + 2);
+                    indicesBuffer.put(offset + 2);
+                    indicesBuffer.put(offset + 3);
+                    indicesBuffer.put(offset);
+                }
+
+            }
+
+
+            bufferIdMap.put(key,createBufferForIndices(indicesBuffer));
+        }
+        return bufferIdMap.get(key);
+    }
+
+    private Integer createBufferForIndices(IntBuffer indicesBuffer) {
+        int indicesBufferId;
+        indicesBuffer.flip();
+
+        indicesBufferId = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        return indicesBufferId;
+    }
+
+
+    private ChunkIndexData getIndicesBufferData(ChunkType key) {
+        ChunkIndexData data = new BasicChunkIndexData();
+        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(INDICES_PER_VERTEX * key.getRows() * key.getColumns());
+        for (int i = 0; i < key.getRows(); i++) {
+            for (int j = 0; j < key.getColumns(); j++) {
+                int offset = (i * key.getColumns() + j) * 4;
+
+                indicesBuffer.put(offset);
+                indicesBuffer.put(offset + 1);
+                indicesBuffer.put(offset + 2);
+                indicesBuffer.put(offset + 2);
+                indicesBuffer.put(offset + 3);
+                indicesBuffer.put(offset);
+            }
+        }
+
+        data.setData(indicesBuffer);
+
 
         return data;
     }
 
-
-
-
-    private List<Integer> createTriangleIndicesData(int rows, int columns) {
-        List<Integer> values = new ArrayList<Integer>();
-
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < columns; j++) {
-                int offset = (i* columns +j)*4;
-                values.add(offset);
-                values.add(offset+1);
-                values.add(offset+2);
-                values.add(offset+2);
-                values.add(offset+3);
-                values.add(offset);
-            }
-        }
-        return values;
-    }
-
-    public void set(K key, String fileName) {
-        ChunkIndexHandle data = new BasicChunkIndexHandle();
-
-        if (fileName==null) {
-            data.setIndicesId(-1);
-            bufferIdMap.put(key,data);
-        } else {
-            //read indices data file???
-        }
-    }
 
 
 }

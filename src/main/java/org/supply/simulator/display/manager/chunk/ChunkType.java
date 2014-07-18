@@ -5,8 +5,6 @@ package org.supply.simulator.display.manager.chunk;
  */
 public interface ChunkType{
 
-    Integer getIndicesBufferId();
-    void setIndicesBufferId(Integer id);
     Integer getRows();
     Integer getColumns();
 }

@@ -1,34 +1,32 @@
-package org.supply.simulator.display.manager.chunk.impl;
+package org.supply.simulator.display.mock;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.*;
-import org.supply.simulator.data.HasId;
-import org.supply.simulator.display.buildable.AbstractChunkBuildable;
-import org.supply.simulator.display.buildable.SupplyBuildable;
-import org.supply.simulator.display.manager.chunk.Chunk;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import org.supply.simulator.display.manager.chunk.ChunkData;
-import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.ChunkType;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderable.SupplyRenderable;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 /**
- * Created by Alex on 6/17/2014.
+ * Created by Alex on 7/18/2014.
  */
-public class BasicChunk
-        extends AbstractChunkBuildable
-        implements Chunk<ChunkData<float[], byte[]>>, SupplyBuildable, HasId<Long> {
+public class MockChunk {
 
-    protected Long id;
+    ChunkData<float[], byte[]> data;
 
-    protected ChunkType chunkType;
+    ChunkType chunkType;
 
-    private ChunkData<float[], byte[]> data;
+    private int[] locations = new int[]{0,1,3};
 
-    @Override
-    public BasicChunkRenderable build() {
+    public void build() {
+
 
         BasicChunkRenderable chunkRenderable = new BasicChunkRenderable();
 
@@ -72,34 +70,25 @@ public class BasicChunk
 
         GL30.glBindVertexArray(0);
 
-        return chunkRenderable;
     }
 
+    public class MockChunkType {
+        Integer rows, columns, indicesBufferId;
 
-    @Override
-    public Long getId() {
-        return id;
+        public Integer getRows() {
+            return rows;
+        }
+
+        public Integer getColumns() {
+            return columns;
+        }
+
+        public void setRows(Integer rows) {
+            this.rows = rows;
+        }
+
+        public void setColumns(Integer columns) {
+            this.columns = columns;
+        }
     }
-
-
-    @Override
-    public ChunkData<float[], byte[]> getData() {
-        return data;
-    }
-
-
-    @Override
-    public void setData(ChunkData<float[], byte[]> data) {
-        this.data = data;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setChunkType(ChunkType chunkType) {
-        this.chunkType = chunkType;
-    }
-
-
 }

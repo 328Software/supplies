@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.supply.simulator.logging.HasLogger;
@@ -25,7 +26,7 @@ public class Main extends HasLogger {
     private static DispatchService dispatchService;
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
-    private static ChunkManager<BasicChunk> manager;
+    private static ChunkManager<BasicChunkRenderable> manager;
 
     static { //load everything
         new ClassPathXmlApplicationContext("/application-context.xml");
@@ -110,7 +111,7 @@ public class Main extends HasLogger {
         return logger;
     }
 
-    public static void setManager(ChunkManager<BasicChunk> manager) {
+    public static void setManager(ChunkManager<BasicChunkRenderable> manager) {
         Main.manager = manager;
     }
 }

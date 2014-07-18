@@ -1,4 +1,4 @@
-package org.supply.simulator.display.renderable;
+package org.supply.simulator.display.manager.chunk;
 
 import org.lwjgl.util.Renderable;
 import org.supply.simulator.data.HasId;

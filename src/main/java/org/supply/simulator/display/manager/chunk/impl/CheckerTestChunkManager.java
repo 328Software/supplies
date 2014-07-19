@@ -7,6 +7,7 @@ import org.supply.simulator.core.dao.chunk.ChunkDAO;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.Chunk;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -18,13 +19,10 @@ import java.util.List;
  * Created by Brandon on 7/8/2014.
  */
 public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRenderable> implements ChunkManager<BasicChunkRenderable> {
-   // private final ChunkType chunkType = ChunkType.MEDIUM_T;
     private int chunkRows = 1;//chunkType.rows();
     private int chunkColumns =1;// chunkType.columns();
     private int totalChunkRows = 20;
     private int totalChunkColumns = 20;
-
-   // protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
 
     private ChunkDAO chunkDAO;
     private SessionFactory sessionFactory;
@@ -33,9 +31,7 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
     public CheckerTestChunkManager () {
         super();
         isFirst = true;
-        //visibleChunks = new ArrayList<BasicChunk>();
-      //  indexManager = new BasicChunkIndexEngine();
-        //indexManager.set(chunkType,null);
+        visibleChunks = new ArrayList<BasicChunkRenderable>();
 
     }
 
@@ -49,13 +45,13 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
             for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
                 for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
                     BasicChunk chunk = new BasicChunk();
-                    chunk.setAttributeLocations(new int[]{0,1});
-                 //   chunk.setChunkIndexEngine(indexManager);
+                    chunk.setAttributeLocations(new int[]{0,1,2});
                     chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
+                    BasicChunkRenderable renderable = chunk.build();
 
                     logger.info("creating chunk " + (count++));
 //                    sessionFactory.getCurrentSession().flush();
-//                    visibleChunks.add(chunk);
+                    visibleChunks.add(renderable);
                     storeChunk(chunk);
                 }
             }

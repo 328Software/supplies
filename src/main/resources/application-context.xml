@@ -37,7 +37,25 @@
     </bean>
 
     <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager" autowire="byName"/>-->
-    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName"/>
+     <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName"/>-->
+    <bean id="basicDisplayCore" class="org.supply.simulator.display.core.impl.BasicDisplayCore" autowire="byName">
+        <property name="window" ref="basicWindow"/>
+    </bean>
+
+    <bean id="basicWindow" class="org.supply.simulator.display.window.impl.BasicPlayWindow" autowire="byName">
+        <property name="chunkManager" ref="basicChunkManager"/>
+        <property name="shaderEngine" ref="basicShaderEngine"/>
+        <property name="textureEngine" ref="basicTextureEngine"/>
+    </bean>
+
+
+    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName">
+        <property name="indexEngine" ref="basicChunkIndexEngine"/>
+    </bean>
+
+    <bean id="basicChunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine" autowire="byName"/>
+    <bean id="basicShaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine" autowire="byName"/>
+    <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine" autowire="byName"/>
 
 
     <bean class="org.supply.simulator.display.manager.chunk.DAOChunkManagerTest">

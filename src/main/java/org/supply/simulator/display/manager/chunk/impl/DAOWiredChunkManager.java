@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.Chunk;
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -15,8 +16,6 @@ import java.util.Collection;
  */
 public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRenderable> {
 
-//    private final ChunkType chunkType = ChunkType.MEDIUM_T;
-
     private int chunkRows = 50;//chunkType.rows();
     private int chunkColumns = 50;//chunkType.columns();
     private int totalChunkRows = 10;
@@ -24,22 +23,18 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
 
     private ChunkDAO chunkDAO;
 
-
-    //protected BasicChunkIndexEngine<ChunkType,BasicChunkIndexHandle> indexManager;
-
     private boolean isFirst;
 
     public DAOWiredChunkManager () {
         super();
         isFirst = true;
         visibleChunks = new ArrayList<BasicChunkRenderable>();
-       // indexManager = new BasicChunkIndexEngine();
-//        indexManager.set(chunkType,null);
 
     }
 
     @Override @Transactional(propagation = Propagation.REQUIRED)
     protected Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
+        ArrayList<ChunkRenderable> chunkRenderables = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
             long timeStart = System.currentTimeMillis();
@@ -47,9 +42,9 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
             Collection<Chunk> chunks = chunkDAO.findAll();
             logger.info("Did build in " + (System.currentTimeMillis()-timeStart) + " ms");
             for(Chunk chunk: chunks) {
-                chunk.setAttributeLocations(new int[]{0,1});
-//                chunk.setChunkIndexEngine(indexManager);
-               // visibleChunks.add((BasicChunk)chunk);
+                chunk.setAttributeLocations(new int[]{0,1,2});
+                ChunkRenderable chunkRenderable = chunk.build();
+                visibleChunks.add((BasicChunkRenderable)chunkRenderable);
             }
         }
         return null;

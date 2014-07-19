@@ -1,61 +1,81 @@
 package org.supply.simulator.display.core.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.supply.simulator.display.core.AbstractBasicDisplayCore;
 import org.supply.simulator.display.core.DisplayCore;
+import org.supply.simulator.display.window.Window;
 import org.supply.simulator.executor.RepeatingScheduleInformation;
-import org.supply.simulator.logging.HasLogger;
+
+import java.util.ArrayList;
 
 /**
- * Basic implementaion of DisplayCore. Implements RepeatableTask interface.
- *
- * Created by Alex on 6/29/2014.
+ * Created by Alex on 7/19/2014.
  */
-public class BasicDisplayCore {
+public class BasicDisplayCore extends AbstractBasicDisplayCore implements DisplayCore {
 
-    protected static Logger logger = LogManager.getLogger(BasicDisplayCore.class);
+   // private ArrayList<Window> windowList;
+    private Window window;
 
-    // Setup variables
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    public BasicDisplayCore() {
+        super();
+      //  windowList = new ArrayList<>();
+        titleString = "BASICCORE";
+        WIDTH = 800;
+        HEIGHT = 600;
+    }
 
+    @Override
+    public RepeatingScheduleInformation getScheduleInformation() {
+        //TODO: fill this out
+        return null;
+    }
 
-    public static void build(String title) {
-        logger.info("START DISPLAY: "+title);
-        // Setup an OpenGL context with API version 3.2
-        try {
-            PixelFormat pixelFormat = new PixelFormat();
-            ContextAttribs contextAtrributes = new ContextAttribs(3, 2)
-                    .withForwardCompatible(true)
-                    .withProfileCore(true);
+    @Override
+    public long getTimeLastStarted() {
+        //TODO: fill this out
+        return 0;
+    }
 
-            Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-            Display.setTitle(title);
-            Display.create(pixelFormat, contextAtrributes);
+    @Override
+    public long getTimeLastCompleted() {
+        //TODO: fill this out
+        return 0;
+    }
 
-            GL11.glViewport(0, 0, WIDTH, HEIGHT);
-        } catch (LWJGLException e) {
-            logger.error(e);
+    @Override
+    public void run() {
+        build(titleString);
+
+        while (!Display.isCloseRequested()) {
+            this.render();
         }
-
-        GL11.glClearColor(130f / 255f, 208f / 255f, 157f / 255f, 0f);
-
-        GL11.glViewport(0, 0, WIDTH, HEIGHT);
+        this.destroy();
     }
 
-    public static void destroy() {
-        logger.info("STOP DISPLAY");
-        Display.destroy();
+    @Override
+    protected void render() {
+//        for (Window window:windowList) {
+//            window.render();
+//        }
+        window.render();
+        super.render();
     }
 
+    @Override
+    protected void destroy() {
+    //    for (Window window:windowList) {
+            window.destroy();
+//        }
+//        windowList.clear();
+        super.destroy();
+    }
+//
+//    public void setWindowList(ArrayList<Window> windowList) {
+//        this.windowList =windowList;
+//    }
 
-    public static void render() {
-        Display.sync(60);
-
-        Display.update();
-
+    public void setWindow(Window window) {
+        this.window = window;
     }
 
 }

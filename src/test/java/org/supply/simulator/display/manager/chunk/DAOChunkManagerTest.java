@@ -2,13 +2,20 @@ package org.supply.simulator.display.manager.chunk;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
+import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
+import org.supply.simulator.display.simple.SimpleChunkIndexEngine;
 import org.supply.simulator.display.simple.SimpleDisplayCore;
 import org.supply.simulator.display.simple.SimpleShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.simple.SimpleCamera;
 import org.supply.simulator.display.window.Camera;
+
+import java.util.Iterator;
 
 /**
  * Created by Alex on 6/28/2014.
@@ -19,7 +26,7 @@ public class DAOChunkManagerTest {
     }
     //    private ;
     private static ChunkManager manager;
-    private Camera camera;
+    private SimpleCamera camera;
     private SimpleShaderEngine shaderEngine;
     private SimpleDisplayCore core;
 
@@ -38,8 +45,8 @@ public class DAOChunkManagerTest {
 
         camera = new SimpleCamera();
 
-//        chunkIndexEngine= new MockChunkIndexEngine<>();
-//        chunkIndexEngine.set();
+        manager = new DAOWiredChunkManager();
+        manager.setIndexEngine(new SimpleChunkIndexEngine());
 
 //        BasicDataSource source = new BasicDataSource();
 //        source.setUsername("root");
@@ -57,38 +64,35 @@ public class DAOChunkManagerTest {
 
     @Test
     public void render() {
-//        while (!Display.isCloseRequested()) {
-//            //camera.update();
-//
-//
-//            // Set shader program type to VIEW
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-//
-//            camera.render();
-//
-//            // Clear shader program type
-//            GL20.glUseProgram(0);
-//
-//            // Clear bit
-//            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//
-//            // Set shader program type to CHUNK
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-//
-//            // Update visibleChunks with new camera position
-//            manager.update(camera);
-//            Iterator<BasicChunk> it = manager.iterator();
-//            while (it.hasNext())
-//            {
-//               // it.next().render();
-//            }
-////        for (BasicChunk chunk: chunkManager.toArray(new BasicChunk[chunkManager.size()])) {
-////            chunk.render();
-////        }
-//            GL20.glUseProgram(0);
-//
-//            core.render();
-//        }
+        while (!Display.isCloseRequested()) {
+            //camera.update();
+
+
+            // Set shader program type to VIEW
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+
+            camera.render();
+
+            // Clear shader program type
+            GL20.glUseProgram(0);
+
+            // Clear bit
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+
+            // Set shader program type to CHUNK
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+
+            // Update visibleChunks with new camera position
+            manager.update(camera);
+            Iterator<BasicChunkRenderable> it = manager.iterator();
+            while (it.hasNext()) {
+                it.next().render();
+            }
+
+            GL20.glUseProgram(0);
+
+            core.render();
+        }
 
         manager.clear();
         GL20.glUseProgram(0);

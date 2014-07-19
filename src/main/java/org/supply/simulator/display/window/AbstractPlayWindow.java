@@ -27,8 +27,6 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
 
     protected TextureEngine<String> textureEngine;
 
-    private ChunkIndexEngine<ChunkType> indexEngine;
-
     protected Manager<ChunkRenderable> chunkManager;
 
     protected Camera camera;

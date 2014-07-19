@@ -1,23 +1,21 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.supply.simulator.display.buildable.SupplyBuildable;
 import org.supply.simulator.display.manager.chunk.ChunkData;
 import org.supply.simulator.display.manager.chunk.ChunkType;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
-import org.supply.simulator.display.renderable.SupplyRenderable;
-
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 /**
  * Created by Alex on 7/18/2014.
  */
-public class MockChunk {
+public class SimpleChunk implements SupplyBuildable {
 
     ChunkData<float[], byte[]> data;
 
@@ -25,10 +23,13 @@ public class MockChunk {
 
     private int[] locations = new int[]{0,1,3};
 
-    public void build() {
 
 
-        BasicChunkRenderable chunkRenderable = new BasicChunkRenderable();
+    @Override
+    public SimpleChunkRenderable build() {
+
+
+        SimpleChunkRenderable chunkRenderable = new SimpleChunkRenderable();
 
         int vertexAttributesId = GL30.glGenVertexArrays();
 
@@ -63,6 +64,7 @@ public class MockChunk {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 
         chunkRenderable.setChunkType(chunkType);
+        chunkRenderable.setAttributeLocations(locations);
         chunkRenderable.setColorsArrayId(colorsArrayId);
         chunkRenderable.setPositionsArrayId(positionsArrayId);
         chunkRenderable.setVertexAttributesId(vertexAttributesId);
@@ -70,25 +72,32 @@ public class MockChunk {
 
         GL30.glBindVertexArray(0);
 
+        return chunkRenderable;
     }
 
-    public class MockChunkType {
-        Integer rows, columns, indicesBufferId;
-
-        public Integer getRows() {
-            return rows;
-        }
-
-        public Integer getColumns() {
-            return columns;
-        }
-
-        public void setRows(Integer rows) {
-            this.rows = rows;
-        }
-
-        public void setColumns(Integer columns) {
-            this.columns = columns;
-        }
+    @Override
+    public void setAttributeLocations(int[] locations) {
+        this.locations = locations;
     }
+
+    @Override
+    public int[] getAttributeLocations() {
+        return locations;
+    }
+
+    public ChunkData<float[], byte[]> getData() {
+        return data;
+    }
+
+    public void setData(ChunkData<float[], byte[]> data) {
+        this.data = data;
+    }
+
+    public ChunkType getChunkType() {
+        return chunkType;
+    }
+    public void setChunkType(ChunkType chunkType) {
+        this.chunkType = chunkType;
+    }
+
 }

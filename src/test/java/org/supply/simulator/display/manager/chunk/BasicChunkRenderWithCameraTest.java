@@ -7,40 +7,40 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.manager.chunk.impl.*;
-import org.supply.simulator.display.mock.*;
+import org.supply.simulator.display.simple.*;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 
 /**
  * Created by Alex on 7/3/2014.
  */
-public class ChunkCameraShaderTest {
+public class BasicChunkRenderWithCameraTest {
 
     private BasicChunkType chunkType;
 
 
 //    MockCamera camera;
-    MockShaderEngine shaderEngine;
+    SimpleShaderEngine shaderEngine;
     BasicChunk chunk;
-    MockCamera camera;
-    MockDisplayCore core;
+    SimpleCamera camera;
+    SimpleDisplayCore core;
     BasicChunkRenderable renderable;
 
     @Before
     public void create() {
-        core = new MockDisplayCore();
+        core = new SimpleDisplayCore();
         chunkType = new BasicChunkType();
         chunkType.setColumns(20);
         chunkType.setRows(20);
-        core.build("ChunkCameraShaderTest");
+        core.build("BasicChunkRenderWithCameraTest");
 
-        shaderEngine = new MockShaderEngine();
+        shaderEngine = new SimpleShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
 
 
 
 
-        camera = new MockCamera();
+        camera = new SimpleCamera();
 //        camera.setRows(rows);
 //        camera.setColumns(columns);
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
@@ -53,7 +53,7 @@ public class ChunkCameraShaderTest {
         chunk.setAttributeLocations(new int[] {0,1,2});
         chunk.setChunkType(chunkType);
 
-        MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();
+        SimpleChunkIndexEngine chunkIndexEngine= new SimpleChunkIndexEngine();
         renderable=chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
         //OpenGLDebugger.printChunkBuffers(chunk);

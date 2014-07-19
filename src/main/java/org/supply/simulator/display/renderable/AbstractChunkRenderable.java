@@ -1,4 +1,4 @@
-package org.supply.simulator.display.manager.chunk;
+package org.supply.simulator.display.renderable;
 
 import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.ChunkType;

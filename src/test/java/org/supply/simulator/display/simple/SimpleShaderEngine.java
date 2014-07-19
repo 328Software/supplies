@@ -1,4 +1,4 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockShaderEngine extends HasLogger implements ShaderEngine<ShaderProgramType> {
+public class SimpleShaderEngine extends HasLogger implements ShaderEngine<ShaderProgramType> {
 
     private String[] vertexShader;
     private String[] tessellationShader;
@@ -26,7 +26,7 @@ public class MockShaderEngine extends HasLogger implements ShaderEngine<ShaderPr
 
     protected HashMap<ShaderProgramType,SimpleShaderHandle> shaderMap;
 
-    public MockShaderEngine () {
+    public SimpleShaderEngine() {
         shaderMap = new HashMap<>(ShaderProgramType.COUNT);
         vertexShader = new String [ShaderProgramType.COUNT];
         tessellationShader= new String [ShaderProgramType.COUNT];

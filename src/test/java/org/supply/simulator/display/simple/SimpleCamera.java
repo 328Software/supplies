@@ -1,4 +1,4 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -8,7 +8,7 @@ import org.supply.simulator.display.window.AbstractCamera;
 /**
  * Created by Alex on 7/2/2014.
  */
-public class MockCamera extends AbstractCamera {
+public class SimpleCamera extends AbstractCamera {
     private final float rotationDelta = 0.02f;
     private final float rotationDelta2 = 3f;
     private final float posDelta = 0.02f;
@@ -19,7 +19,7 @@ public class MockCamera extends AbstractCamera {
     private int oldX;
     private int oldY;
 
-    public MockCamera() {
+    public SimpleCamera() {
         super();
         Keyboard.enableRepeatEvents(true);
         super.setModelPos(new Vector3f(0, 0, -.5f));

@@ -3,10 +3,7 @@ package org.supply.simulator.display.assetengine;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.supply.simulator.display.mock.MockShaderEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureHandle;
+import org.supply.simulator.display.simple.SimpleShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.logging.HasLogger;
@@ -21,7 +18,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private static final int HEIGHT = 600;
 
     private Camera camera;
-    private MockShaderEngine shaderEngine;
+    private SimpleShaderEngine shaderEngine;
 
     //Texture variables
     private int textureId;

@@ -11,7 +11,7 @@ import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.supply.simulator.logging.HasLogger;
 
-//import org.supply.simulator.display.mock.MockShaderEngine;
+//import org.supply.simulator.display.simple.MockShaderEngine;
 
 /**
  * Created with IntelliJ IDEA.

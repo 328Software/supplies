@@ -11,10 +11,9 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkType;
-import org.supply.simulator.display.mock.MockChunkIndexEngine;
-import org.supply.simulator.display.mock.MockShaderEngine;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
-import org.supply.simulator.display.mock.MockDisplayCore;
+import org.supply.simulator.display.simple.SimpleChunkIndexEngine;
+import org.supply.simulator.display.simple.SimpleDisplayCore;
+import org.supply.simulator.display.simple.SimpleShaderEngine;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.mock.MockChunkManager;
@@ -25,15 +24,15 @@ import java.nio.FloatBuffer;
 /**
  * Created by Alex on 7/3/2014.
  */
-public class ChunkShaderTest {
+public class BasicChunkRenderTest {
 
 
 //    MockCamera camera;
-MockShaderEngine shaderEngine;
+SimpleShaderEngine shaderEngine;
     BasicChunk chunk;
     NewCamera camera;
 
-    MockDisplayCore core;
+    SimpleDisplayCore core;
 
     BasicChunkRenderable renderable;
 
@@ -53,11 +52,11 @@ MockShaderEngine shaderEngine;
         chunkType = new BasicChunkType();
         chunkType.setColumns(30);
         chunkType.setRows(20);
-        core = new MockDisplayCore();
+        core = new SimpleDisplayCore();
 
-        core.build("ChunkShaderTest");
+        core.build("BasicChunkRenderTest");
 
-        shaderEngine = new MockShaderEngine();
+        shaderEngine = new SimpleShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
 
@@ -73,7 +72,7 @@ MockShaderEngine shaderEngine;
         chunk.setAttributeLocations(new int[] {0,1,2});
         chunk.setChunkType(chunkType);
 
-        MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();;
+        SimpleChunkIndexEngine chunkIndexEngine= new SimpleChunkIndexEngine();;
         renderable=chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
 

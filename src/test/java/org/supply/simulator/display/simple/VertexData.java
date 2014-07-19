@@ -1,4 +1,4 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
 /**
  * Created by Alex on 6/29/2014.

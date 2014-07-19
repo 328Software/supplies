@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.mock.MockShaderEngine;
+import org.supply.simulator.display.simple.SimpleDisplayCore;
 import org.supply.simulator.logging.HasLogger;
 
 
@@ -16,11 +15,11 @@ import org.supply.simulator.logging.HasLogger;
  */
 public class BasicShaderEngineTest extends HasLogger {
 
-    private MockDisplayCore core;
+    private SimpleDisplayCore core;
     private BasicShaderEngine engine;
     @Before
     public void createFixture () {
-        core = new MockDisplayCore();
+        core = new SimpleDisplayCore();
         core.build("BasicShaderEngineTest");
         logger.info("START BasicShaderEngineTest");
 

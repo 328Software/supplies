@@ -4,16 +4,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.display.manager.chunk.impl.*;
-import org.supply.simulator.display.mock.*;
+import org.supply.simulator.display.simple.*;
 import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created by Alex on 6/28/2014.
  */
-public class BasicChunkTest extends HasLogger {
+public class BasicChunkBuildTest extends HasLogger {
     private BasicChunkType chunkType;
     
-    private MockDisplayCore core;
+    private SimpleDisplayCore core;
 
     BasicChunkRenderable renderable;
 
@@ -21,8 +21,8 @@ public class BasicChunkTest extends HasLogger {
     private BasicChunk chunk;
     @Before
     public void createFixture () {
-        core = new MockDisplayCore();
-        core.build("BasicChunkTest");
+        core = new SimpleDisplayCore();
+        core.build("BasicChunkBuildTest");
         chunkType = new BasicChunkType();
         chunkType.setRows(20);
         chunkType.setColumns(20);
@@ -31,7 +31,7 @@ public class BasicChunkTest extends HasLogger {
         chunk.setChunkType(chunkType);
         chunk.setData(getChunkData(chunkType.getRows(), chunkType.getColumns(), 0, 0));
         chunk.setAttributeLocations(new int[] {0,1,2});
-        MockChunkIndexEngine chunkIndexEngine= new MockChunkIndexEngine();
+        SimpleChunkIndexEngine chunkIndexEngine= new SimpleChunkIndexEngine();
         renderable = chunk.build();
         renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()));
 

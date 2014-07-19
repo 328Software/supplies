@@ -1,7 +1,7 @@
 package org.supply.simulator.display.manager.chunk.impl;
 
 import org.lwjgl.opengl.*;
-import org.supply.simulator.display.manager.chunk.AbstractChunkRenderable;
+import org.supply.simulator.display.renderable.AbstractChunkRenderable;
 import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 
 /**

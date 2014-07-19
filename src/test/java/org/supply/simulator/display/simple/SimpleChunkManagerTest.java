@@ -1,24 +1,23 @@
-package org.supply.simulator.display.manager.chunk;
+package org.supply.simulator.display.simple;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
+import org.supply.simulator.display.manager.chunk.ChunkManager;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.mock.MockChunkManager;
-import org.supply.simulator.display.simple.*;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.Iterator;
 
 /**
- * Created by Alex on 6/28/2014.
+ * Created by Alex on 7/19/2014.
  */
-public class BasicChunkManagerTest {
-
-    private ChunkManager manager;
+public class SimpleChunkManagerTest {
+    private SimpleChunkManager manager;
     private SimpleCamera camera;
     private SimpleShaderEngine shaderEngine;
     private SimpleDisplayCore core;
@@ -27,7 +26,7 @@ public class BasicChunkManagerTest {
     @Before
     public void create() {
         core = new SimpleDisplayCore();
-        core.build("BasicChunkManagerTest");
+        core.build("SimpleChunkManagerTest");
 
         shaderEngine = new SimpleShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
@@ -35,7 +34,7 @@ public class BasicChunkManagerTest {
 
         camera = new SimpleCamera();
 
-        manager = new MockChunkManager();
+        manager = new SimpleChunkManager();
         manager.setIndexEngine(new SimpleChunkIndexEngine());
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
@@ -68,7 +67,7 @@ public class BasicChunkManagerTest {
 
             // Update visibleChunks with new camera position
             manager.update(camera);
-            Iterator<BasicChunkRenderable> it = manager.iterator();
+            Iterator<SimpleChunkRenderable> it = manager.iterator();
             while (it.hasNext())
             {
                 it.next().render();

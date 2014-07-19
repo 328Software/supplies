@@ -1,7 +1,5 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.logging.HasLogger;
@@ -9,7 +7,7 @@ import org.supply.simulator.logging.HasLogger;
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockDisplayCore extends HasLogger {
+public class SimpleDisplayCore extends HasLogger {
 
     // Setup variables
     private static final int WIDTH = 800;

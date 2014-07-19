@@ -1,4 +1,4 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
@@ -10,18 +10,17 @@ import org.supply.simulator.logging.HasLogger;
 
 import java.nio.IntBuffer;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Alex on 7/14/2014.
  */
-public class MockChunkIndexEngine extends HasLogger implements ChunkIndexEngine<ChunkType>{
+public class SimpleChunkIndexEngine extends HasLogger implements ChunkIndexEngine<ChunkType>{
 
     private static final int INDICES_PER_VERTEX = 6;
 
     protected HashMap<ChunkType,Integer> bufferIdMap;
 
-    public MockChunkIndexEngine() {
+    public SimpleChunkIndexEngine() {
         bufferIdMap = new HashMap<>();
     }
 

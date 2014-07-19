@@ -1,35 +1,150 @@
-package org.supply.simulator.display.mock;
+package org.supply.simulator.display.simple;
 
-import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
-import org.supply.simulator.display.manager.chunk.ChunkRenderable;
-import org.supply.simulator.display.manager.chunk.impl.*;
-import org.supply.simulator.display.simple.VertexData;
+import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
+import org.supply.simulator.display.manager.chunk.ChunkManager;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkData;
+import org.supply.simulator.display.manager.chunk.impl.BasicChunkType;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
- * Created by Alex on 6/29/2014.
+ * Created by Alex on 7/19/2014.
  */
-public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
-
+public class SimpleChunkManager implements ChunkManager<SimpleChunkRenderable> {
     private int chunkRows = 20;
     private int chunkColumns = 20;
     private int totalChunkRows = 5;
     private int totalChunkColumns = 5;
 
+
     private boolean isFirst;
 
-    public MockChunkManager () {
-        super();
-        isFirst = true;
-        visibleChunks = new ArrayList<ChunkRenderable>();
+    protected Collection<SimpleChunkRenderable> visibleChunks;
+
+
+    protected SimpleChunkIndexEngine indexEngine;
+
+    @Override
+    public void update(Camera view) {
+
+        ////////////ADD CHUNKS
+        Collection<SimpleChunkRenderable> renderables = getChunksToAdd(view);
+
+        for (SimpleChunkRenderable chunkRenderable: renderables) {
+            chunkRenderable.setIndicesBufferId(indexEngine.get(chunkRenderable.getChunkType()));
+        }
+
+        addAll(renderables);
+        ////////////
+
+
+        ////////////REMOVE CHUNKS
+        //todo - what mechanism signals what chunks should be destroyed? the camera? can it take a chunk and tell return whether or not it is in frame? whose responsibility is it?
+        renderables = getChunksToRemove(view);
+
+        for (SimpleChunkRenderable chunkRenderable: renderables) {
+            chunkRenderable.destroy();
+        }
+
+        removeAll(renderables);
+        ////////////
+
+
+
+    }
+
+
+
+
+    @Override
+    public int size() {
+        return visibleChunks.size();
     }
 
     @Override
-    protected Collection<ChunkRenderable> getChunksToAdd(Camera view) {
-        ArrayList<ChunkRenderable> chunks = new ArrayList<>();
+    public boolean isEmpty() {
+        return visibleChunks.isEmpty();
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return visibleChunks.contains(o);
+    }
+
+    @Override
+    public Object[] toArray() {
+        return visibleChunks.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        a = (T[]) visibleChunks.toArray();
+        return a;
+    }
+
+    @Override
+    public void clear() {
+        for (SimpleChunkRenderable chunk: visibleChunks) {
+            chunk.destroy();
+        }
+        visibleChunks.clear();
+    }
+
+    @Override
+    public Iterator<SimpleChunkRenderable> iterator() {
+        return visibleChunks.iterator();
+    }
+
+    @Override
+    public boolean add(SimpleChunkRenderable v) {
+        return visibleChunks.add(v);
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return visibleChunks.remove(o);
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return visibleChunks.containsAll(c);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends SimpleChunkRenderable> c) {
+        return visibleChunks.addAll(c);
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return visibleChunks.removeAll(c);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return visibleChunks.retainAll(c);
+    }
+
+    @Override
+    public void setIndexEngine(ChunkIndexEngine indexEngine) {
+        this.indexEngine = (SimpleChunkIndexEngine)indexEngine;
+    }
+
+
+
+
+    public SimpleChunkManager () {
+        super();
+        isFirst = true;
+        visibleChunks = new ArrayList<SimpleChunkRenderable>();
+    }
+
+
+    protected Collection<SimpleChunkRenderable> getChunksToAdd(Camera view) {
+        ArrayList<SimpleChunkRenderable> chunks = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
 
@@ -38,11 +153,11 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
                     BasicChunkType type = new BasicChunkType();
                     type.setColumns(chunkColumns);
                     type.setRows(chunkRows);
-                    BasicChunk chunk = new BasicChunk();
+                    SimpleChunk chunk = new SimpleChunk();
                     chunk.setAttributeLocations(new int[]{0,1,2});
                     chunk.setData(getChunkData(chunkRows, chunkColumns, i, j));
                     chunk.setChunkType(type);
-                    ChunkRenderable renderable = chunk.build();
+                    SimpleChunkRenderable renderable = chunk.build();
                     chunks.add(renderable);
                 }
             }
@@ -50,14 +165,14 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
         return chunks;
     }
 
-    @Override
-    protected Collection<ChunkRenderable> getChunksToRemove(Camera view) {
-        return new ArrayList<ChunkRenderable>();
+
+    protected Collection<SimpleChunkRenderable> getChunksToRemove(Camera view) {
+        return new ArrayList<SimpleChunkRenderable>();
     }
 
     public static BasicChunkData<float[], byte[]> getChunkData
             (int row, int col, int topLeftX, int topLeftY) {
-        BasicChunkData<float[], byte[]> basicDataOut = new FloatArrayPositionByteArrayColorChunkData();
+        BasicChunkData<float[], byte[]> basicDataOut = new BasicChunkData<float[], byte[]>();
 
         float[] positions = new float[row*col* VertexData.positionElementCount*4];
         byte[] colors = new byte[row*col*VertexData.colorElementCount*4];
@@ -138,6 +253,5 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
     public void setTotalChunkColumns(int totalChunkColumns) {
         this.totalChunkColumns = totalChunkColumns;
     }
-
 
 }

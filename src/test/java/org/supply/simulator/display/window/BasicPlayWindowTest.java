@@ -4,13 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.manager.chunk.ChunkManager;
-import org.supply.simulator.display.mock.*;
+import org.supply.simulator.display.mock.MockChunkManager;
+import org.supply.simulator.display.simple.*;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderHandle;
 import org.supply.simulator.display.window.impl.BasicPlayWindow;
 
 /**
@@ -19,24 +17,28 @@ import org.supply.simulator.display.window.impl.BasicPlayWindow;
 public class BasicPlayWindowTest {
 
     private BasicPlayWindow window;
-    private MockDisplayCore core;
+    private SimpleDisplayCore core;
+    private SimpleShaderEngine shaderEngine;
+    private SimpleTextureEngine textureEngine;
+    private SimpleChunkIndexEngine indexEngine;
+    private SimpleChunkManager chunkManager;
 
     @Before
     public void create() {
-        core = new MockDisplayCore();
+        core = new SimpleDisplayCore();
         core.build("BasicPlayWindowTest");
 
-        MockShaderEngine shaderEngine = new MockShaderEngine();
+        shaderEngine = new SimpleShaderEngine();
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
         shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
-        TextureEngine textureEngine = new MockTextureEngine();
-        ChunkIndexEngine indexEngine = new MockChunkIndexEngine();
-        ChunkManager chunkManager = new MockChunkManager();
+        textureEngine = new SimpleTextureEngine();
+        indexEngine = new SimpleChunkIndexEngine();
+        chunkManager = new SimpleChunkManager();
         chunkManager.setIndexEngine(indexEngine);
         window = new BasicPlayWindow();
         window.setShaderEngine(shaderEngine);
         window.setTextureEngine(textureEngine);
-        window.setCamera(new MockCamera());
+        window.setCamera(new SimpleCamera());
         window.setChunkManager(chunkManager);
 
         window.build();

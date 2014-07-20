@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/15/2014.
  */
-public abstract class AbstractTextureEngine<K> extends HasLogger implements TextureEngine<K> {
+public abstract class AbstractTextureEngine<K extends TextureType> extends HasLogger implements TextureEngine<K> {
 
     protected HashMap<K,TextureHandle> textureDataMap;
 
@@ -19,11 +19,13 @@ public abstract class AbstractTextureEngine<K> extends HasLogger implements Text
     public TextureHandle get(K key) {
 
         if (!textureDataMap.containsKey(key)) {
-            logger.error("texture not found", key.toString());
+            createTexture(key);
         }
 
         return textureDataMap.get(key);
     }
+
+    protected abstract void createTexture(K key);
 
 
 }

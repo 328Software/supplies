@@ -17,24 +17,22 @@ import java.util.HashMap;
 /**
  * Created by Alex on 7/13/2014.
  */
-public class BasicTextureEngine<K>
-        extends AbstractTextureEngine<K>
-        implements TextureEngine<K> {
+public class BasicTextureEngine
+        extends AbstractTextureEngine<BasicTextureType>
+        implements TextureEngine<BasicTextureType> {
 
     public BasicTextureEngine() {
         super();
     }
 
-
-    public void set(K key, String fileName) {
+    @Override
+    protected void createTexture(BasicTextureType key) {
         TextureHandle handle = new BasicTextureHandle();
         try {
-            handle.setTextureId(loadPNGTexture2D(fileName, GL13.GL_TEXTURE0));
-
+            handle.setTextureId(loadPNGTexture2D(key.getFileName(), GL13.GL_TEXTURE0));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         textureDataMap.put(key,handle);
     }
 

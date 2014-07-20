@@ -36,30 +36,30 @@ public class DAOChunkManagerTest {
 
 //    @Before
     public void create() {
-        core = new SimpleDisplayCore();
-        core.build("DAOChunkManagerTest");
-
-        shaderEngine = new SimpleShaderEngine();
-        shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
-        shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
-
-        camera = new SimpleCamera();
-
-        manager = new DAOWiredChunkManager();
-        manager.setIndexEngine(new SimpleChunkIndexEngine());
-
-//        BasicDataSource source = new BasicDataSource();
-//        source.setUsername("root");
-//        source.setUsername("password");
-//        source.setUrl("jdbc:mysql://localhost:3306/test");
-//        source.setDriverClassName("com.mysql.jdbc.Driver");
-
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
-
-
-        camera.build();
+//        core = new SimpleDisplayCore();
+//        core.build("DAOChunkManagerTest");
+//
+//        shaderEngine = new SimpleShaderEngine();
+//        shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
+//        shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
+//
+//        camera = new SimpleCamera();
+//
+//        manager = new DAOWiredChunkManager();
+//        manager.setIndexEngine(new SimpleChunkIndexEngine());
+//
+////        BasicDataSource source = new BasicDataSource();
+////        source.setUsername("root");
+////        source.setUsername("password");
+////        source.setUrl("jdbc:mysql://localhost:3306/test");
+////        source.setDriverClassName("com.mysql.jdbc.Driver");
+//
+//        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
+//        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
+//        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+//
+//
+//        camera.build();
     }
 
     @Test
@@ -69,40 +69,40 @@ public class DAOChunkManagerTest {
 
 //    @Test
     public void render() {
-        while (!Display.isCloseRequested()) {
-            //camera.update();
+//        while (!Display.isCloseRequested()) {
+//            //camera.update();
+//
+//
+//            // Set shader program type to VIEW
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//
+//            camera.render();
+//
+//            // Clear shader program type
+//            GL20.glUseProgram(0);
+//
+//            // Clear bit
+//            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+//
+//            // Set shader program type to CHUNK
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//
+//            // Update visibleChunks with new camera position
+//            manager.update(camera);
+//            Iterator<BasicChunkRenderable> it = manager.iterator();
+//            while (it.hasNext()) {
+//                it.next().render();
+//            }
+//
+//            GL20.glUseProgram(0);
+//
+//            core.render();
+//        }
 
-
-            // Set shader program type to VIEW
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-
-            camera.render();
-
-            // Clear shader program type
-            GL20.glUseProgram(0);
-
-            // Clear bit
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
-            // Set shader program type to CHUNK
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-
-            // Update visibleChunks with new camera position
-            manager.update(camera);
-            Iterator<BasicChunkRenderable> it = manager.iterator();
-            while (it.hasNext()) {
-                it.next().render();
-            }
-
-            GL20.glUseProgram(0);
-
-            core.render();
-        }
-
-        manager.clear();
-        GL20.glUseProgram(0);
-        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-        core.destroy();
+//        manager.clear();
+//        GL20.glUseProgram(0);
+//        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//        core.destroy();
     }
 
 

@@ -8,7 +8,7 @@ import org.supply.simulator.display.manager.chunk.ChunkType;
  */
 public class BasicChunkType implements ChunkType, HasId<Long> {
     Long id;
-    Integer rows, columns, indicesBufferId;
+    Integer rows, columns;
 
 
     @Override

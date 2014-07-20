@@ -5,6 +5,7 @@ import org.supply.simulator.display.core.AbstractBasicDisplayCore;
 import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.display.window.Window;
 import org.supply.simulator.executor.RepeatingScheduleInformation;
+import org.supply.simulator.executor.impl.basic.BasicRepeatingScheduleInformation;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,11 @@ public class BasicDisplayCore extends AbstractBasicDisplayCore implements Displa
     @Override
     public RepeatingScheduleInformation getScheduleInformation() {
         //TODO: fill this out
-        return null;
+        BasicRepeatingScheduleInformation scheduleInformation = new BasicRepeatingScheduleInformation();
+        scheduleInformation.setNumberOfExecutions(1);
+        scheduleInformation.setMaxDurationMillis(0);
+//        scheduleInformation.setNumberOfExecutions(1);
+        return scheduleInformation;
     }
 
     @Override
@@ -50,6 +55,12 @@ public class BasicDisplayCore extends AbstractBasicDisplayCore implements Displa
             this.render();
         }
         this.destroy();
+    }
+
+    @Override
+    protected void build(String titleString) {
+        window.build();
+        super.build(titleString);
     }
 
     @Override

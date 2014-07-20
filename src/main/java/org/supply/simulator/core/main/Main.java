@@ -36,6 +36,7 @@ public class Main extends HasLogger {
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
     private static ChunkManager manager;
+    private static BasicDisplayCore displayCore;
 
     static { //load everything
         new ClassPathXmlApplicationContext("/application-context.xml");
@@ -58,24 +59,30 @@ public class Main extends HasLogger {
 
         //TODO wire all this up with spring
         ///////
-        BasicDisplayCore displayCore = new BasicDisplayCore();
-            BasicPlayWindow playWindow = new BasicPlayWindow();
-                BasicShaderEngine shaderEngine = new BasicShaderEngine();
-                BasicTextureEngine textureEngine = new BasicTextureEngine();
-                DAOWiredChunkManager chunkManager = new DAOWiredChunkManager();
-                    BasicChunkIndexEngine indexEngine = new BasicChunkIndexEngine();
-
-
-        chunkManager.setIndexEngine(indexEngine);
-        //chunkManager.setChunkDAO();
-
-        playWindow.setChunkManager(chunkManager);
-        playWindow.setShaderEngine(shaderEngine);
-        playWindow.setTextureEngine(textureEngine);
-        displayCore.setWindow(playWindow);
+//        BasicDisplayCore displayCore = new BasicDisplayCore();
+//        BasicPlayWindow playWindow = new BasicPlayWindow();
+//        BasicShaderEngine shaderEngine = new BasicShaderEngine();
+//        BasicTextureEngine textureEngine = new BasicTextureEngine();
+//        DAOWiredChunkManager chunkManager = new DAOWiredChunkManager();
+//        BasicChunkIndexEngine indexEngine = new BasicChunkIndexEngine();
+//
+//
+//        chunkManager.setIndexEngine(indexEngine);
+//        //chunkManager.setChunkDAO();
+//
+//        playWindow.setChunkManager(chunkManager);
+//        playWindow.setShaderEngine(shaderEngine);
+//        playWindow.setTextureEngine(textureEngine);
+//        displayCore.setWindow(playWindow);
         /////
 
-        taskManager.execute(displayCore);
+        displayCore.run();
+//        taskManager.schedule(displayCore);
+//        dispatchService.
+//        dispatchService.addTask(displayCore);
+//        while(taskManager.getAllScheduledTasks().size()>0) {
+//            Thread.yield();
+//        }
 
 
 //        taskManager.execute(new Runnable() {
@@ -149,5 +156,9 @@ public class Main extends HasLogger {
 
     public static void setManager(ChunkManager<BasicChunkRenderable> manager) {
         Main.manager = manager;
+    }
+
+    public void setDisplayCore(BasicDisplayCore displayCore) {
+        Main.displayCore = displayCore;
     }
 }

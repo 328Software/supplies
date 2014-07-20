@@ -12,15 +12,15 @@
       http://www.springframework.org/schema/context
      http://www.springframework.org/schema/context/spring-context-3.0.xsd
      http://www.springframework.org/schema/aop
-     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-autowire="byName">
 
 
     <import resource="application-persistence.xml"/>
     <import resource="application-dao.xml"/>
 
     <!--used to set all of the objects on main for the application start-->
-    <bean id="main" class="org.supply.simulator.core.main.Main" autowire="byName">
-        <property name="manager" ref="basicChunkManager"/>
+    <bean id="main" class="org.supply.simulator.core.main.Main">
+        <property name="manager" ref="chunkManager"/>
     </bean>
 
     <bean id="taskManager" class="org.supply.simulator.executor.impl.basic.BasicTaskManager">
@@ -36,31 +36,35 @@
         <constructor-arg index="0" value="10"/>
     </bean>
 
-    <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager" autowire="byName"/>-->
-     <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName"/>-->
-    <bean id="basicDisplayCore" class="org.supply.simulator.display.core.impl.BasicDisplayCore" autowire="byName">
-        <property name="window" ref="basicWindow"/>
+    <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager"/>-->
+     <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager"/>-->
+    <bean id="displayCore" class="org.supply.simulator.display.core.impl.BasicDisplayCore">
+        <!--<property name="window" ref="basicWindow"/>-->
     </bean>
 
-    <bean id="basicWindow" class="org.supply.simulator.display.window.impl.BasicPlayWindow" autowire="byName">
-        <property name="chunkManager" ref="basicChunkManager"/>
-        <property name="shaderEngine" ref="basicShaderEngine"/>
-        <property name="textureEngine" ref="basicTextureEngine"/>
+    <bean id="window" class="org.supply.simulator.display.window.impl.BasicPlayWindow">
+        <!--<property name="chunkManager" ref="basicChunkManager"/>-->
+        <!--<property name="shaderEngine" ref="basicShaderEngine"/>-->
+        <!--<property name="textureEngine" ref="basicTextureEngine"/>-->
     </bean>
 
 
-    <bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager" autowire="byName">
-        <property name="indexEngine" ref="basicChunkIndexEngine"/>
+    <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager">
+        <!--<property name="indexEngine" ref="basicChunkIndexEngine"/>-->
     </bean>
 
-    <bean id="basicChunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine" autowire="byName"/>
-    <bean id="basicShaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine" autowire="byName"/>
-    <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine" autowire="byName"/>
+    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
+
+    <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
+
+    <bean id="textureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>
+
+    <bean id="camera" class="org.supply.simulator.display.window.impl.BasicCamera"/>
 
 
-    <bean class="org.supply.simulator.display.manager.chunk.DAOChunkManagerTest">
-        <property name="manager" ref="basicChunkManager"/>
-    </bean>
+    <!--<bean class="org.supply.simulator.display.manager.chunk.DAOChunkManagerTest">-->
+        <!--<property name="manager" ref="basicChunkManager"/>-->
+    <!--</bean>-->
 
     <import resource="application-aspect.xml"/>
 

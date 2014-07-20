@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.supply.simulator.display.core.AbstractBasicDisplayCore;
 import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.display.window.Window;
+import org.supply.simulator.executor.RepeatableTask;
 import org.supply.simulator.executor.RepeatingScheduleInformation;
 import org.supply.simulator.executor.impl.basic.BasicRepeatingScheduleInformation;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Alex on 7/19/2014.
  */
-public class BasicDisplayCore extends AbstractBasicDisplayCore implements DisplayCore {
+public class BasicDisplayCore extends AbstractBasicDisplayCore implements DisplayCore,RepeatableTask {
 
    // private ArrayList<Window> windowList;
     private Window window;

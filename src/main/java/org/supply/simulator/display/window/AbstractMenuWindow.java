@@ -15,7 +15,7 @@ public class AbstractMenuWindow extends AbstractSupplyRenderable implements Wind
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
-    protected TextureEngine<String> textureEngine;
+    protected TextureEngine textureEngine;
 
 
 

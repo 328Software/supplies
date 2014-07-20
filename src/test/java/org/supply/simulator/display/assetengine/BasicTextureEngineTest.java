@@ -35,7 +35,7 @@ public class BasicTextureEngineTest extends HasLogger {
 //
 //        if (engine.get(0).getTextureId()!=1) {
 //            logger.error("texture id wrong");
-//            System.exit(-1);
+//
 //        }
 //        logger.info("Successfully created texture");
 //

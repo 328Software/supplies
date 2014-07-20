@@ -1,33 +1,29 @@
-package org.supply.simulator.display.window;
+package org.supply.simulator.display.simple;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderHandle;
-import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.assetengine.texture.TextureHandle;
-import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.manager.chunk.ChunkRenderable;
-import org.supply.simulator.display.manager.chunk.ChunkType;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
-import org.supply.simulator.display.renderable.AbstractSupplyRenderable;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.manager.Manager;
+import org.supply.simulator.display.manager.chunk.ChunkManager;
+import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.renderable.SupplyRenderable;
+import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.Window;
 
 import java.util.Iterator;
 
 /**
- * Created by Alex on 6/29/2014.
+ * Created by Alex on 7/20/2014.
  */
-public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implements Window {
+public class SimplePlayWindow implements Window {
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
     protected TextureEngine textureEngine;
 
-    protected Manager<ChunkRenderable> chunkManager;
+    protected ChunkManager chunkManager;
 
     protected Camera camera;
 
@@ -35,9 +31,15 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     protected boolean isDestroyed;
 
 
-    public AbstractPlayWindow() {
+    public SimplePlayWindow() {
         isBuilt = false;
         isDestroyed = false;
+        shaderEngine = new SimpleShaderEngine();
+        textureEngine = new SimpleTextureEngine();
+        chunkManager = new SimpleChunkManager();
+        chunkManager.setIndexEngine(new SimpleChunkIndexEngine());
+        camera = new SimpleCamera();
+
     }
 
     @Override
@@ -105,6 +107,16 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
         return isDestroyed;
     }
 
+    @Override
+    public void setAttributeLocations(int[] locations) {
+
+    }
+
+    @Override
+    public int[] getAttributeLocations() {
+        return new int[0];
+    }
+
     /**
      * Sets the camera object
      *
@@ -117,7 +129,7 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
      *
      * @param manager
      */
-    public void setChunkManager(Manager manager) {
+    public void setChunkManager(ChunkManager manager) {
         chunkManager = manager;
     }
 
@@ -139,6 +151,5 @@ public abstract class AbstractPlayWindow extends AbstractSupplyRenderable implem
     public void setTextureEngine(TextureEngine textureEngine) {
         this.textureEngine = textureEngine;
     }
-
 
 }

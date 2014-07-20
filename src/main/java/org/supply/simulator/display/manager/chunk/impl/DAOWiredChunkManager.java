@@ -34,7 +34,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
 
     @Override @Transactional(propagation = Propagation.REQUIRED)
     protected Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
-        ArrayList<ChunkRenderable> chunkRenderables = new ArrayList<>();
+        ArrayList<BasicChunkRenderable> chunkRenderables = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
             long timeStart = System.currentTimeMillis();
@@ -44,10 +44,10 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
             for(Chunk chunk: chunks) {
                 chunk.setAttributeLocations(new int[]{0,1,2});
                 ChunkRenderable chunkRenderable = chunk.build();
-                visibleChunks.add((BasicChunkRenderable)chunkRenderable);
+                chunkRenderables.add((BasicChunkRenderable)chunkRenderable);
             }
         }
-        return null;
+        return chunkRenderables;
     }
 
     @Override

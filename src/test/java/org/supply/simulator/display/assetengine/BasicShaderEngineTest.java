@@ -34,7 +34,7 @@ public class BasicShaderEngineTest extends HasLogger {
                 ||engine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation()!=1
                 ||engine.get(ShaderProgramType.PLAY).getViewMatrixLocation()!=2) {
             logger.error("View matrix location wrong");
-            System.exit(-1);
+
         }
         logger.info("Successfully created shader program");
 

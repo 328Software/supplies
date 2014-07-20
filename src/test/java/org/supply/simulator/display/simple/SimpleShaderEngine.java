@@ -34,6 +34,9 @@ public class SimpleShaderEngine extends HasLogger implements ShaderEngine<Shader
         fragmentShader= new String [ShaderProgramType.COUNT];
         computeShader= new String [ShaderProgramType.COUNT];
 
+        set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
+        set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
+
 
     }
 
@@ -55,14 +58,14 @@ public class SimpleShaderEngine extends HasLogger implements ShaderEngine<Shader
             vertexId = loadShader(vertexShader[type.value()], GL20.GL_VERTEX_SHADER);
         } else {
             logger.error("Failed to load vertex shader");
-            System.exit(-1);
+
         }
 
         if (fragmentShader[type.value()]!=null) {
             fragmentId=loadShader(fragmentShader[type.value()], GL20.GL_FRAGMENT_SHADER);
         } else {
             logger.error("Failed to load fragment shader");
-            System.exit(-1);
+
         }
 
         programId = GL20.glCreateProgram();

@@ -59,8 +59,9 @@ public class BasicDisplayCore extends AbstractBasicDisplayCore implements Displa
 
     @Override
     protected void build(String titleString) {
-        window.build();
         super.build(titleString);
+        window.build();
+
     }
 
     @Override

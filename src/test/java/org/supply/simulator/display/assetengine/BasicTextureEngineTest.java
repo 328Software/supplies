@@ -39,27 +39,27 @@ public class BasicTextureEngineTest extends HasLogger {
     private static final int textureHeight = 500;
     @Before
     public void createFixture () {
-        core = new SimpleDisplayCore();
-        core.build("BasicTextureEngineTest");
-        shaderEngine = new SimpleShaderEngine();
-        camera = new SimpleCamera();
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getViewMatrixLocation());
-        camera.build();
-
-
-
-        textureEngine = new BasicTextureEngine();
-
-        BasicTextureType textureType = new BasicTextureType();
-        textureType.setFileName("textures/alexsface.png");
-
-        textureHandle = textureEngine.get(textureType);
-
-        List<Float> positions = new ArrayList<Float>();
-
-
+//        core = new SimpleDisplayCore();
+//        core.build("BasicTextureEngineTest");
+//        shaderEngine = new SimpleShaderEngine();
+//        camera = new SimpleCamera();
+//        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getProjectionMatrixLocation());
+//        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getModelMatrixLocation());
+//        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getViewMatrixLocation());
+//        camera.build();
+//
+//
+//
+//        textureEngine = new BasicTextureEngine();
+//
+//        BasicTextureType textureType = new BasicTextureType();
+//        textureType.setFileName("textures/alexsface.png");
+//
+//        textureHandle = textureEngine.get(textureType);
+//
+//        List<Float> positions = new ArrayList<Float>();
+//
+//
 
 
 
@@ -107,44 +107,44 @@ public class BasicTextureEngineTest extends HasLogger {
     @Test
     public void TestPlayTexture () {
 
-        while (!Display.isCloseRequested()) {
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-
-            GL11.glViewport(0, 0, WIDTH, HEIGHT);
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-
-            // Set shader program type to VIEW
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
-
-            camera.render();
-
-            // Clear shader program type
-            GL20.glUseProgram(0);
-
-            // Clear bit
-
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-            // Set shader program type t o CHUNK
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
-
-
-            drawTexture();
-
-
-
-
-            GL20.glUseProgram(0);
-
-
-
-            core.render();
-        }
-
-        GL20.glUseProgram(0);
-        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
-        core.destroy();
+//        while (!Display.isCloseRequested()) {
+//            GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+//
+//            GL11.glViewport(0, 0, WIDTH, HEIGHT);
+//            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+//
+//
+//            // Set shader program type to VIEW
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+//
+//            camera.render();
+//
+//            // Clear shader program type
+//            GL20.glUseProgram(0);
+//
+//            // Clear bit
+//
+//            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+//
+//            // Set shader program type t o CHUNK
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+//
+//
+//            drawTexture();
+//
+//
+//
+//
+//            GL20.glUseProgram(0);
+//
+//
+//
+//            core.render();
+//        }
+//
+//        GL20.glUseProgram(0);
+//        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+//        core.destroy();
 
     }
 

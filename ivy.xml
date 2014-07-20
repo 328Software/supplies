@@ -135,6 +135,12 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
+        <dependency org="org.supply.simulator" name="display" rev="0.1">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
 
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.31">
             <conf name="default" mapped="default"/>

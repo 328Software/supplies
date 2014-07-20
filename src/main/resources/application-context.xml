@@ -17,6 +17,7 @@
 
     <import resource="application-persistence.xml"/>
     <import resource="application-dao.xml"/>
+    <import resource="application-display.xml"/>
 
     <!--used to set all of the objects on main for the application start-->
     <bean id="main" class="org.supply.simulator.core.main.Main">
@@ -35,36 +36,6 @@
     <bean id="executor" class="java.util.concurrent.ScheduledThreadPoolExecutor">
         <constructor-arg index="0" value="10"/>
     </bean>
-
-    <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager"/>-->
-     <!--<bean id="basicChunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager"/>-->
-    <bean id="displayCore" class="org.supply.simulator.display.core.impl.BasicDisplayCore">
-        <!--<property name="window" ref="basicWindow"/>-->
-    </bean>
-
-    <bean id="window" class="org.supply.simulator.display.window.impl.BasicPlayWindow">
-        <!--<property name="chunkManager" ref="basicChunkManager"/>-->
-        <!--<property name="shaderEngine" ref="basicShaderEngine"/>-->
-        <!--<property name="textureEngine" ref="basicTextureEngine"/>-->
-    </bean>
-
-
-    <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager">
-        <!--<property name="indexEngine" ref="basicChunkIndexEngine"/>-->
-    </bean>
-
-    <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
-
-    <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
-
-    <bean id="textureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>
-
-    <bean id="camera" class="org.supply.simulator.display.window.impl.BasicCamera"/>
-
-
-    <!--<bean class="org.supply.simulator.display.manager.chunk.DAOChunkManagerTest">-->
-        <!--<property name="manager" ref="basicChunkManager"/>-->
-    <!--</bean>-->
 
     <import resource="application-aspect.xml"/>
 

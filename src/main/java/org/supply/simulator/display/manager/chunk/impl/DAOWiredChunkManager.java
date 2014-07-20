@@ -32,7 +32,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
 
     }
 
-    @Override @Transactional(propagation = Propagation.REQUIRED)
+    @Override @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     protected Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
         ArrayList<BasicChunkRenderable> chunkRenderables = new ArrayList<>();
         if (isFirst) {

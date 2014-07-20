@@ -9,11 +9,12 @@ public class MainTest {
     @Test
     public void testMain() {
         try {
-            System.out.println("could it be?");
+            System.out.println("start of main test");
             Main.main(new String[0]);
-            System.out.println("magic");
+            System.out.println("end of main test");
         } catch (Exception e) {
-            System.out.println("no waay");
+            e.printStackTrace();
+            System.out.println("failure in main test");
         }
     }
 }

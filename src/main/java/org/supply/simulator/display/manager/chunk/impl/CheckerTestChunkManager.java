@@ -64,7 +64,7 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
 
     @Override
     protected Collection<BasicChunkRenderable> getChunksToRemove(Camera view) {
-        return null;
+        return new ArrayList<BasicChunkRenderable>();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

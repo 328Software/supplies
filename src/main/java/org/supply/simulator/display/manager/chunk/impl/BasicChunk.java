@@ -88,6 +88,9 @@ public class BasicChunk
         return data;
     }
 
+    public ChunkType getChunkType() {
+        return chunkType;
+    }
 
     @Override
     public void setData(ChunkData<float[], byte[]> data) {

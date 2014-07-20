@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping>
+<hibernate-mapping default-cascade="save-update">
     <typedef class="org.supply.simulator.core.dao.usertype.ChunkColorType" name="chunkColor"/>
     <typedef class="org.supply.simulator.core.dao.usertype.ChunkPositionType" name="chunkPosition"/>
 
@@ -29,9 +29,10 @@
             <generator class="native"/>
         </id>
         <one-to-one name="data" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" cascade="save-update"/>
+        <many-to-one name="chunkType" column="chunk_type_id" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkType" cascade="save-update"/>
     </class>
 
-    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkType" table="chunk_type">
+    <class name="org.supply.simulator.display.manager.chunk.impl.BasicChunkType" table="chunk_type" lazy="false">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>

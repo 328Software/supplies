@@ -52,7 +52,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
 
     @Override
     protected Collection<BasicChunkRenderable> getChunksToRemove(Camera view) {
-        return null;
+        return new ArrayList<BasicChunkRenderable>();
     }
 
 

@@ -49,11 +49,11 @@
     </bean>
 
 
-    <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager">
+    <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager">
         <!--<property name="indexEngine" ref="basicChunkIndexEngine"/>-->
     </bean>
 
-    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
+    <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
 
     <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
 

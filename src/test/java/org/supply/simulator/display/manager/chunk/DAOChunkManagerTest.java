@@ -34,7 +34,7 @@ public class DAOChunkManagerTest {
 //
 //    }
 
-    @Before
+//    @Before
     public void create() {
         core = new SimpleDisplayCore();
         core.build("DAOChunkManagerTest");
@@ -63,6 +63,11 @@ public class DAOChunkManagerTest {
     }
 
     @Test
+    public void doNothing() {
+
+    }
+
+//    @Test
     public void render() {
         while (!Display.isCloseRequested()) {
             //camera.update();

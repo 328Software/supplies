@@ -38,6 +38,8 @@ public interface Chunk<D extends ChunkData> extends SupplyBuildable/*, Entity<
     public D getData();
 
 
+    public ChunkType getChunkType();
 
+    public void setChunkType(ChunkType chunkType);
 
 }

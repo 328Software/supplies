@@ -3,7 +3,7 @@ package org.supply.simulator.display.manager.chunk.impl;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.supply.simulator.badengine.terrain.TerrainChunk;
+import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
 import org.supply.simulator.badengine.terrain.impl.CheckeredTestTerrain;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;

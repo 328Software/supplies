@@ -8,11 +8,7 @@ import org.lwjgl.opengl.GL20;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
-import org.supply.simulator.display.simple.SimpleChunkIndexEngine;
-import org.supply.simulator.display.simple.SimpleDisplayCore;
-import org.supply.simulator.display.simple.SimpleShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.simple.SimpleCamera;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.Iterator;
@@ -26,9 +22,9 @@ public class DAOChunkManagerTest {
     }
     //    private ;
     private static ChunkManager manager;
-    private SimpleCamera camera;
-    private SimpleShaderEngine shaderEngine;
-    private SimpleDisplayCore core;
+//    private SimpleCamera camera;
+//    private SimpleShaderEngine shaderEngine;
+//    private SimpleDisplayCore core;
 
 //    public BasicChunkManagerTest() {
 //

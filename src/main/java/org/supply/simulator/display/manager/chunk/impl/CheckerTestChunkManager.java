@@ -19,8 +19,8 @@ import java.util.List;
  * Created by Brandon on 7/8/2014.
  */
 public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRenderable> implements ChunkManager<BasicChunkRenderable> {
-    private int chunkRows = 20;//chunkType.rows();
-    private int chunkColumns =20;// chunkType.columns();
+    private int chunkRows = 32;//chunkType.rows();
+    private int chunkColumns =32;// chunkType.columns();
     private int totalChunkRows = 25;
     private int totalChunkColumns = 25;
 

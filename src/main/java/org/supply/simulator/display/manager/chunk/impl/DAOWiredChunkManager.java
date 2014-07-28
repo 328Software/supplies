@@ -33,7 +33,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
     }
 
     @Override @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    protected Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
+    protected Collection<BasicChunkRenderable> getRenderablesToAdd(Camera view) {
         ArrayList<BasicChunkRenderable> chunkRenderables = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
@@ -51,13 +51,11 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
     }
 
     @Override
-    protected Collection<BasicChunkRenderable> getChunksToRemove(Camera view) {
+    protected Collection<BasicChunkRenderable> getRenderablesToRemove(Camera view) {
         return new ArrayList<BasicChunkRenderable>();
     }
-
 
     public void setChunkDAO(ChunkDAO chunkDAO) {
         this.chunkDAO = chunkDAO;
     }
-
 }

@@ -27,7 +27,7 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
     }
 
     @Override
-    protected Collection<ChunkRenderable> getChunksToAdd(Camera view) {
+    protected Collection<ChunkRenderable> getRenderablesToAdd(Camera view) {
         ArrayList<ChunkRenderable> chunks = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
@@ -50,7 +50,7 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
     }
 
     @Override
-    protected Collection<ChunkRenderable> getChunksToRemove(Camera view) {
+    protected Collection<ChunkRenderable> getRenderablesToRemove(Camera view) {
         return new ArrayList<ChunkRenderable>();
     }
 

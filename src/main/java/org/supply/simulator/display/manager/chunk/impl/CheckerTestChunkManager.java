@@ -34,11 +34,19 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
         visibleRenderables = new ArrayList<BasicChunkRenderable>();
 
     }
+//
+//    @Override
+//    protected Collection<BasicChunkRenderable> getRenderablesToAdd(Camera camera) {
+//        return null;
+//    }
 
-
+    @Override
+    protected Collection<BasicChunkRenderable> getRenderablesToRemove(Camera camera) {
+        return new ArrayList<BasicChunkRenderable>();
+    }
 
     @Override /*@Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)*/
-    protected java.util.Collection<BasicChunkRenderable> getChunksToAdd(Camera view) {
+    protected java.util.Collection<BasicChunkRenderable> getRenderablesToAdd(Camera view) {
         Collection<BasicChunkRenderable> newChunks = new ArrayList<BasicChunkRenderable>();
         if (isFirst) {
             isFirst=false;
@@ -71,11 +79,6 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
             }
         }
         return newChunks;
-    }
-
-    @Override
-    protected Collection<BasicChunkRenderable> getChunksToRemove(Camera view) {
-        return new ArrayList<BasicChunkRenderable>();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

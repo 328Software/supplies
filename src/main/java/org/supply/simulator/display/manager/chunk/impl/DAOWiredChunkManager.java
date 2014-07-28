@@ -28,7 +28,7 @@ public class DAOWiredChunkManager  extends AbstractChunkManager<BasicChunkRender
     public DAOWiredChunkManager () {
         super();
         isFirst = true;
-        visibleChunks = new ArrayList<BasicChunkRenderable>();
+        visibleRenderables = new ArrayList<BasicChunkRenderable>();
 
     }
 

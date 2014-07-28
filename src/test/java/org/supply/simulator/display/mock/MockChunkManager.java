@@ -3,7 +3,6 @@ package org.supply.simulator.display.mock;
 import org.supply.simulator.display.manager.chunk.AbstractChunkManager;
 import org.supply.simulator.display.manager.chunk.ChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.*;
-import org.supply.simulator.display.simple.VertexData;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class MockChunkManager extends AbstractChunkManager<ChunkRenderable> {
     public MockChunkManager () {
         super();
         isFirst = true;
-        visibleChunks = new ArrayList<ChunkRenderable>();
+        visibleRenderables = new ArrayList<ChunkRenderable>();
     }
 
     @Override

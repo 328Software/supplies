@@ -31,7 +31,7 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
     public CheckerTestChunkManager () {
         super();
         isFirst = true;
-        visibleChunks = new ArrayList<BasicChunkRenderable>();
+        visibleRenderables = new ArrayList<BasicChunkRenderable>();
 
     }
 

@@ -21,6 +21,8 @@
     <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager"/>
     <!--<bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager"/>-->
 
+    <bean id="entityManager" class="org.supply.simulator.display.manager.enyity.impl.BasicEntityManager"/>
+
     <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
 
     <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
@@ -29,8 +31,12 @@
 
     <bean id="camera" class="org.supply.simulator.display.window.impl.BasicCamera"/>
 
-    <bean id="chunkRenderer" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkManagerWrapper">
+    <bean id="chunkRenderer" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderer">
         <property name="manager" ref="chunkManager"/>
+    </bean>
+
+    <bean id="entityRenderer" class="org.supply.simulator.display.manager.entity.impl.BasicEntityRenderer">
+        <property name="manager" ref="entityManager"/>
     </bean>
 
 </beans>

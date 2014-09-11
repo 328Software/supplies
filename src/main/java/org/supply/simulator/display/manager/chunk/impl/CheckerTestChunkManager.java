@@ -7,7 +7,14 @@ import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
 import org.supply.simulator.badengine.terrain.impl.CheckeredTestTerrain;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.display.manager.chunk.*;
+import org.supply.simulator.data.attribute.entity.impl.ChunkType;
+import org.supply.simulator.data.entity.impl.Chunk;
+import org.supply.simulator.data.statistic.entity.impl.ChunkColors;
+import org.supply.simulator.data.statistic.entity.impl.ChunkPositions;
+import org.supply.simulator.display.manager.AbstractManager;
+import org.supply.simulator.display.manager.Manager;
+import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
+import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -18,7 +25,7 @@ import java.util.List;
 /**
  * Created by Brandon on 7/8/2014.
  */
-public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRenderable> implements ChunkManager<BasicChunkRenderable> {
+public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer> implements Manager<BasicChunkRenderer> {
     private int chunkRows = 32;//chunkType.rows();
     private int chunkColumns =32;// chunkType.columns();
     private int totalChunkRows = 25;
@@ -51,7 +58,7 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
         if (isFirst) {
             isFirst=false;
             int count = 0;
-            BasicChunkType type = new BasicChunkType();
+            ChunkType type = new ChunkType();
             type.setColumns(chunkColumns);
             type.setRows(chunkRows);
             SimpleTerrainGenerator generator = new SimpleTerrainGenerator();
@@ -61,17 +68,17 @@ public class CheckerTestChunkManager extends AbstractChunkManager<BasicChunkRend
 //            for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
 //                for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
                 logger.info("creating chunk " + (count++));
-                BasicChunk chunk = new BasicChunk();
-                BasicChunkData<float[],byte[]> data = new BasicChunkData<float[],byte[]>();
-                data.setColors(terrainChunk.getColors());
-                data.setPositions(terrainChunk.getPositions());
-                chunk.setData(data);
+                Chunk chunk = new Chunk();
+                ChunkPositions positions = new ChunkPositions();
+                ChunkColors colors = new ChunkColors();
+                positions.setValue(terrainChunk.getPositions());
+                colors.setValue(terrainChunk.getColors());
                 chunk.setChunkType(type);
-                chunk.setAttributeLocations(new int[]{0, 1, 2});
-//                    chunk.setData(getChunkData(chunkRows,chunkColumns,i,j));
-                BasicChunkRenderable renderable = chunk.build();
+                chunk.setChunkColors(colors);
+                chunk.setChunkPositions(positions);
 
-//                    sessionFactory.getCurrentSession().flush();
+                BasicChunkRenderable renderable = new BasicChunkRenderable();
+                renderable.setEntity(chunk);
                 newChunks.add(renderable);
                 storeChunk(chunk);
 //                }

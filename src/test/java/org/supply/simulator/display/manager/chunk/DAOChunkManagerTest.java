@@ -6,7 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
+
 import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.window.Camera;
@@ -21,7 +21,7 @@ public class DAOChunkManagerTest {
         new ClassPathXmlApplicationContext("/application-context.xml");
     }
     //    private ;
-    private static ChunkManager manager;
+//    private static ChunkManager manager;
 //    private SimpleCamera camera;
 //    private SimpleShaderEngine shaderEngine;
 //    private SimpleDisplayCore core;
@@ -102,7 +102,7 @@ public class DAOChunkManagerTest {
     }
 
 
-    public void setManager(ChunkManager manager) {
-        DAOChunkManagerTest.manager = manager;
-    }
+//    public void setManager(ChunkManager manager) {
+//        DAOChunkManagerTest.manager = manager;
+//    }
 }

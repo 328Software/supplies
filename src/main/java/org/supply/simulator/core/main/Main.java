@@ -8,10 +8,9 @@ import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngi
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.core.impl.BasicDisplayCore;
-import org.supply.simulator.display.manager.chunk.ChunkManager;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunk;
-import org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
+import org.supply.simulator.display.manager.impl.BasicChunkManager;
+import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Window;
 import org.supply.simulator.display.window.impl.BasicPlayWindow;
 import org.supply.simulator.executor.DispatchService;
@@ -20,7 +19,7 @@ import org.supply.simulator.logging.HasLogger;
 
 import java.util.ArrayList;
 
-//import org.supply.simulator.display.simple.MockShaderEngine;
+//import org.supply.simulator.display.extra.MockShaderEngine;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,7 +34,7 @@ public class Main extends HasLogger {
     private static DispatchService dispatchService;
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
-    private static ChunkManager manager;
+    private static BasicChunkManager manager;
     private static BasicDisplayCore displayCore;
 
     static { //load everything
@@ -157,7 +156,7 @@ try {
         return logger;
     }
 
-    public static void setManager(ChunkManager<BasicChunkRenderable> manager) {
+    public static void setManager(BasicChunkManager manager) {
         Main.manager = manager;
     }
 

@@ -38,13 +38,13 @@
         <property name="entityRenderer" ref="menuRenderer"/>
     </bean>
 
-    <bean id="chunkRenderer" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkRenderer"/>
+    <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer"/>
 
-    <bean id="menuRenderer" class="org.supply.simulator.display.manager.chunk.impl.BasicMenuRenderer">
+    <bean id="menuRenderer" class="org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer">
         <property name="textureEngine" ref="menuTextureEngine"/>
     </bean>
 
-    <bean id="unitRenderer" class="org.supply.simulator.display.manager.entity.impl.BasicUnitRenderer">
+    <bean id="unitRenderer" class="org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 

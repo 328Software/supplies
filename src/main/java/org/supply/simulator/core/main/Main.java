@@ -74,11 +74,11 @@ public class Main extends HasLogger {
 //        playWindow.setTextureEngine(textureEngine);
 //        displayCore.setWindow(playWindow);
         /////
-try {
-    displayCore.run();
-} catch (Exception e) {
-    e.printStackTrace();
-}
+        try {
+            displayCore.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        taskManager.schedule(displayCore);
 //        dispatchService.
 //        dispatchService.addTask(displayCore);

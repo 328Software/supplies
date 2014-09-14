@@ -14,10 +14,10 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <property name="rowIndex" column="row_index" type="int"/>
-        <property name="columnIndex" column="column_index" type="int"/>
+        <!--<property name="rowIndex" column="row_index" type="int"/>-->
+        <!--<property name="columnIndex" column="column_index" type="int"/>-->
 
-        <property name="value" column="positions" type="chunkPosition" length="160000"/>
+        <property name="value" column="colors" type="chunkColor" length="40000"/>
     </class>
 
     <class name="org.supply.simulator.data.statistic.entity.impl.ChunkPositions" table="chunk_positions">
@@ -27,10 +27,10 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <property name="rowIndex" column="row_index" type="int"/>
-        <property name="columnIndex" column="column_index" type="int"/>
+        <!--<property name="rowIndex" column="row_index" type="int"/>-->
+        <!--<property name="columnIndex" column="column_index" type="int"/>-->
 
-        <property name="value" column="colors" type="chunkColor" length="40000"/>
+        <property name="value" column="positions" type="chunkPosition" length="160000"/>
     </class>
 
     <class name="org.supply.simulator.data.entity.impl.Chunk" table="chunk">
@@ -40,8 +40,9 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <one-to-one name="data" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkData" cascade="save-update"/>
-        <many-to-one name="chunkType" column="chunk_type_id" class="org.supply.simulator.display.manager.chunk.impl.BasicChunkType" cascade="save-update"/>
+        <many-to-one name="chunkType" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.ChunkType" cascade="save-update"/>
+        <many-to-one name="chunkColors" column="chunk_colors" class="org.supply.simulator.data.statistic.entity.impl.ChunkColors" cascade="save-update"/>
+        <many-to-one name="chunkPositions" column="chunk_positions" class="org.supply.simulator.data.statistic.entity.impl.ChunkPositions" cascade="save-update"/>
     </class>
 
     <class name="org.supply.simulator.data.attribute.entity.impl.ChunkType" table="chunk_type" lazy="false">

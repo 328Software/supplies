@@ -8,6 +8,7 @@ import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngi
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.core.impl.BasicDisplayCore;
+import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
 import org.supply.simulator.display.manager.impl.BasicChunkManager;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
@@ -34,7 +35,7 @@ public class Main extends HasLogger {
     private static DispatchService dispatchService;
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
-    private static BasicChunkManager manager;
+    private static Manager<BasicChunkRenderer> manager;
     private static BasicDisplayCore displayCore;
 
     static { //load everything
@@ -156,7 +157,7 @@ public class Main extends HasLogger {
         return logger;
     }
 
-    public static void setManager(BasicChunkManager manager) {
+    public static void setManager(Manager<BasicChunkRenderer> manager) {
         Main.manager = manager;
     }
 

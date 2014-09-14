@@ -48,7 +48,7 @@
         <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 
-    <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
+    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
 
 
     <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>

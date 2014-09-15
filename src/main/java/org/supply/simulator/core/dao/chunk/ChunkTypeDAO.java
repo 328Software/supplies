@@ -1,7 +1,7 @@
 package org.supply.simulator.core.dao.chunk;
 
 import org.supply.simulator.core.dao.AbstractDAO;
-import org.supply.simulator.data.attribute.entity.impl.ChunkType;
+import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 
 import java.util.Collection;
 
@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public class ChunkTypeDAO extends AbstractDAO {
     @SuppressWarnings("unchecked")
-    public Collection<ChunkType> findAll() {
-        return (Collection<ChunkType>)createQueryAndExecute("from org.supply.simulator.data.attribute.entity.impl.ChunkType;");
+    public Collection<BasicChunkType> findAll() {
+        return (Collection<BasicChunkType>)createQueryAndExecute("from org.supply.simulator.data.attribute.entity.impl.BasicChunkType;");
     }
 }

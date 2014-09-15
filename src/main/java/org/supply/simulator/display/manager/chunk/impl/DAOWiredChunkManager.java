@@ -3,7 +3,7 @@ package org.supply.simulator.display.manager.chunk.impl;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.data.entity.impl.Chunk;
+import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
@@ -40,9 +40,9 @@ public class DAOWiredChunkManager  extends AbstractManager<BasicChunkRenderer> {
             isFirst=false;
             long timeStart = System.currentTimeMillis();
             logger.info("Doing");
-            Collection<Chunk> chunks = chunkDAO.findAll();
+            Collection<BasicChunk> chunks = chunkDAO.findAll();
             logger.info("Did build in " + (System.currentTimeMillis()-timeStart) + " ms");
-            for(Chunk chunk: chunks) {
+            for(BasicChunk chunk: chunks) {
                 BasicChunkRenderable chunkRenderable = new BasicChunkRenderable();
                 chunkRenderable.setEntity(chunk);
                 chunkRenderables.add(chunkRenderable);

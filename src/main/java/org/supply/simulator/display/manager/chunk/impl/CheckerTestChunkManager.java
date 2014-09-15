@@ -4,13 +4,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
-import org.supply.simulator.badengine.terrain.impl.CheckeredTestTerrain;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.data.attribute.entity.impl.ChunkType;
-import org.supply.simulator.data.entity.impl.Chunk;
-import org.supply.simulator.data.statistic.entity.impl.ChunkColors;
-import org.supply.simulator.data.statistic.entity.impl.ChunkPositions;
+import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
+import org.supply.simulator.data.entity.impl.BasicChunk;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
@@ -18,9 +17,7 @@ import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Brandon on 7/8/2014.
@@ -58,7 +55,7 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
         if (isFirst) {
             isFirst=false;
             int count = 0;
-            ChunkType type = new ChunkType();
+            BasicChunkType type = new BasicChunkType();
             type.setColumns(chunkColumns);
             type.setRows(chunkRows);
             SimpleTerrainGenerator generator = new SimpleTerrainGenerator();
@@ -66,9 +63,9 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
             for(TerrainChunk terrainChunk: generator.generate().partition()) {
 
                 logger.info("creating chunk " + (count++));
-                Chunk chunk = new Chunk();
-                ChunkPositions positions = new ChunkPositions();
-                ChunkColors colors = new ChunkColors();
+                BasicChunk chunk = new BasicChunk();
+                BasicChunkPositions positions = new BasicChunkPositions();
+                BasicChunkColors colors = new BasicChunkColors();
                 positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());
                 chunk.setChunkType(type);
@@ -87,7 +84,7 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    protected void storeChunk(Chunk chunk) {
+    protected void storeChunk(BasicChunk chunk) {
         sessionFactory.getCurrentSession().saveOrUpdate(chunk);
     }
 

@@ -1,14 +1,12 @@
 package org.supply.simulator.display.mock;
 
-import org.supply.simulator.data.attribute.entity.impl.ChunkType;
-import org.supply.simulator.data.entity.impl.Chunk;
-import org.supply.simulator.data.statistic.entity.impl.ChunkColors;
-import org.supply.simulator.data.statistic.entity.impl.ChunkPositions;
+import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
+import org.supply.simulator.data.entity.impl.BasicChunk;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
-import org.supply.simulator.display.manager.chunk.impl.*;
 import org.supply.simulator.display.renderable.chunk.ChunkRenderable;
 import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
-import org.supply.simulator.display.renderer.chunk.ChunkRenderer;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
@@ -82,20 +80,20 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
             this.totalChunkColumns = totalChunkColumns;
         }
 
-        public Chunk createChunk(int chunkRows,int chunkColumns, int offsetX, int offsetY) {
-            ChunkType type = new ChunkType();
+        public BasicChunk createChunk(int chunkRows,int chunkColumns, int offsetX, int offsetY) {
+            BasicChunkType type = new BasicChunkType();
             type.setColumns(chunkColumns);
             type.setRows(chunkRows);
 
             DataPair pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-            ChunkPositions positions = new ChunkPositions();
-            ChunkColors colors = new ChunkColors();
+            BasicChunkPositions positions = new BasicChunkPositions();
+            BasicChunkColors colors = new BasicChunkColors();
 
             positions.setValue(pair.positions);
             colors.setValue(pair.colors);
 
 
-            Chunk chunk = new Chunk();
+            BasicChunk chunk = new BasicChunk();
             chunk.setChunkType(type);
             chunk.setChunkPositions(positions);
             chunk.setChunkColors(colors);

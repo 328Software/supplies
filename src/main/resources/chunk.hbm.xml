@@ -7,7 +7,7 @@
     <typedef class="org.supply.simulator.core.dao.usertype.ChunkColorType" name="chunkColor"/>
     <typedef class="org.supply.simulator.core.dao.usertype.ChunkPositionType" name="chunkPosition"/>
 
-    <class name="org.supply.simulator.data.statistic.entity.impl.ChunkColors" table="chunk_colors">
+    <class name="org.supply.simulator.data.statistic.entity.impl.BasicChunkColors" table="chunk_colors">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -20,7 +20,7 @@
         <property name="value" column="colors" type="chunkColor" length="40000"/>
     </class>
 
-    <class name="org.supply.simulator.data.statistic.entity.impl.ChunkPositions" table="chunk_positions">
+    <class name="org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions" table="chunk_positions">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -33,19 +33,19 @@
         <property name="value" column="positions" type="chunkPosition" length="160000"/>
     </class>
 
-    <class name="org.supply.simulator.data.entity.impl.Chunk" table="chunk">
+    <class name="org.supply.simulator.data.entity.impl.BasicChunk" table="chunk">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <many-to-one name="chunkType" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.ChunkType" cascade="save-update"/>
-        <many-to-one name="chunkColors" column="chunk_colors" class="org.supply.simulator.data.statistic.entity.impl.ChunkColors" cascade="save-update"/>
-        <many-to-one name="chunkPositions" column="chunk_positions" class="org.supply.simulator.data.statistic.entity.impl.ChunkPositions" cascade="save-update"/>
+        <many-to-one name="chunkType" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>
+        <many-to-one name="chunkColors" column="chunk_colors" class="org.supply.simulator.data.statistic.entity.impl.BasicChunkColors" cascade="save-update"/>
+        <many-to-one name="chunkPositions" column="chunk_positions" class="org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions" cascade="save-update"/>
     </class>
 
-    <class name="org.supply.simulator.data.attribute.entity.impl.ChunkType" table="chunk_type" lazy="false">
+    <class name="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" table="chunk_type" lazy="false">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>

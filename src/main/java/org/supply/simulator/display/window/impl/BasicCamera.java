@@ -42,7 +42,6 @@ public class BasicCamera extends AbstractCamera {
 
 
     public void refresh() {
-
         while(Keyboard.next()/*||Mouse.next()|| Mouse.isInsideWindow()*/) {
             // Only listen to events where the key was pressed (down event)
             if (!Keyboard.getEventKeyState()) continue;
@@ -61,56 +60,26 @@ public class BasicCamera extends AbstractCamera {
                 case Keyboard.KEY_D:
                     this.moveWest(posDelta);
                     break;
-
-                case Keyboard.KEY_UP:
-                    this.rotateUp(rotationDelta);
-                    break;
-                case Keyboard.KEY_DOWN:
-                    this.rotateDown(rotationDelta);
-                    break;
-                case Keyboard.KEY_RIGHT:
-                    this.rotateRight(rotationDelta);
-                    break;
-                case Keyboard.KEY_LEFT:
-                    this.rotateLeft(rotationDelta);
-                    break;
-
-                case Keyboard.KEY_I:
-                    this.rotateMUp(rotationDelta2);
-                    break;
-                case Keyboard.KEY_K:
-                    this.rotateMDown(rotationDelta2);
-                    break;
-                case Keyboard.KEY_L:
-                    this.rotateMRight(rotationDelta2);
-                    break;
-                case Keyboard.KEY_J:
-                    this.rotateMLeft(rotationDelta2);
-                    break;
             }
         }
 
-//        //if (Mouse.isButtonDown(0)) {
-//            cameraAngle.x += Mouse.getDY()*rotationDelta;
-//            cameraAngle.y += Mouse.getDX()*rotationDelta;
-//       // }
-
         Mouse.poll();
-        if (Mouse.isButtonDown(0)) {
+
+        if (Mouse.isButtonDown(1)) {
             int newX = Mouse.getX();
             if(newX> oldX) {
-                this.rotateLeft(rotationDelta);
+                this.moveEast(posDelta);
             } else if(newX < oldX) {
-                this.rotateRight(rotationDelta);
+                this.moveWest(posDelta);
             }
             oldX = newX;
 
 
             int newY = Mouse.getY();
             if(newY> oldY) {
-                this.rotateUp(rotationDelta);
+                this.moveSouth(posDelta);
             } else if(newY < oldY) {
-                this.rotateDown(rotationDelta);
+                this.moveNorth(posDelta);
             }
             oldY = newY;
         }

@@ -41,7 +41,7 @@
     <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer"/>
 
     <bean id="menuRenderer" class="org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer">
-        <property name="textureEngine" ref="menuTextureEngine"/>
+        <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 
     <bean id="unitRenderer" class="org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer">
@@ -53,7 +53,7 @@
 
     <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>
 
-    <bean id="menuTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.MenuTextureEngine"/>
+    <!--<bean id="menuTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.MenuTextureEngine"/>-->
 
 
 

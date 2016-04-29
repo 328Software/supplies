@@ -1,18 +1,18 @@
-package org.supply.simulator.display.core.impl;
+package org.supply.simulator.display.extra;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.*;
-import org.supply.simulator.display.core.AbstractDisplayCore;
+import org.supply.simulator.logging.HasLogger;
 
 /**
- * Created by Alex on 9/10/2014.
+ * Created by Alex on 6/29/2014.
  */
-public class BasicDisplayCore extends AbstractDisplayCore{
-    public BasicDisplayCore () {
-        super();
-        WIDTH = 800;
-        HEIGHT = 600;
-    }
+public class SimpleDisplayCore extends HasLogger {
+
+    // Setup variables
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
+
 
     public void build(String title) {
         logger.info("START DISPLAY: "+title);
@@ -35,7 +35,6 @@ public class BasicDisplayCore extends AbstractDisplayCore{
         //GL11.glClearColor(130f / 255f, 208f / 255f, 157f / 255f, 0f);
         GL11.glClearColor(0.0f, 0.8f, 1f, 0f);
 
-
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
     }
 
@@ -51,4 +50,5 @@ public class BasicDisplayCore extends AbstractDisplayCore{
         Display.update();
 
     }
+
 }

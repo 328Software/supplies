@@ -135,11 +135,11 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
-        <dependency org="org.supply.simulator" name="display" rev="0.1">
-            <conf name="default" mapped="default"/>
-            <conf name="runtime" mapped="runtime"/>
-            <conf name="test" mapped="default"/>
-        </dependency>
+        <!--<dependency org="org.supply.simulator" name="display" rev="0.1">-->
+            <!--<conf name="default" mapped="default"/>-->
+            <!--<conf name="runtime" mapped="runtime"/>-->
+            <!--<conf name="test" mapped="default"/>-->
+        <!--</dependency>-->
 
         <dependency org="org.supply.simulator" name="badengine" rev="0.2">
             <conf name="default" mapped="default"/>

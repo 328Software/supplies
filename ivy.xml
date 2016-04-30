@@ -76,19 +76,19 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
-        <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.0">
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.9.3">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <!--<conf name="test" mapped="default"/>-->
         </dependency>
 
-        <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.9.0" conf="*">
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.9.3" conf="*">
             <artifact name="lwjgl-platform" e:classifier="natives-linux" conf="linux-native"/>
             <artifact name="lwjgl-platform" e:classifier="natives-windows" conf="windows-native"/>
             <artifact name="lwjgl-platform" e:classifier="natives-osx" conf="osx-native"/>
         </dependency>
 
-        <dependency org="org.lwjgl.lwjgl" name="lwjgl_util" rev="2.9.0">
+        <dependency org="org.lwjgl.lwjgl" name="lwjgl_util" rev="2.9.3">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <!--<conf name="test" mapped="default"/>-->
@@ -159,6 +159,8 @@
             <conf name="runtime" mapped="runtime"/>
             <conf name="test" mapped="default"/>
         </dependency>
+
+        <override org="org.lwjgl.lwjgl" rev="2.9.3"/>
         <!--
                 <dependency org="cglib" name="cglib-nodep" rev="3.1">
                     <conf name="default" mapped="default"/>

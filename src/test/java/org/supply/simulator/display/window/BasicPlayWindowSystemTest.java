@@ -6,8 +6,8 @@ import org.lwjgl.opengl.Display;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.core.impl.BasicDisplayCore;
-import org.supply.simulator.display.manager.impl.BasicMenuManager;
+import org.supply.simulator.display.mock.MockDisplayCore;
+import org.supply.simulator.display.manager.menu.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockUnitManager;
@@ -23,7 +23,7 @@ public class BasicPlayWindowSystemTest {
 
 
     private BasicPlayWindow window;
-    private BasicDisplayCore core;
+    private MockDisplayCore core;
     private MockCamera camera;
 
     private BasicShaderEngine shaderEngine;
@@ -38,9 +38,8 @@ public class BasicPlayWindowSystemTest {
 
     @Before
     public void create() {
-        core = new BasicDisplayCore();
-        core.setTitleString("BasicPlayWindowSystemTest");
-        core.start();
+        core = new MockDisplayCore();
+        core.build("BasicPlayWindowSystemTest");
 
         shaderEngine = new BasicShaderEngine();
 
@@ -53,7 +52,6 @@ public class BasicPlayWindowSystemTest {
 
         chunkManager.setEntityRenderer(chunkRenderer);
 
-
         unitManager = new MockUnitManager();
         unitRenderer = new BasicUnitRenderer();
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
@@ -65,12 +63,6 @@ public class BasicPlayWindowSystemTest {
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
         menuRenderer.setTextureEngine(new BasicTextureEngine());
         menuManager.setEntityRenderer(menuRenderer);
-
-
-
-
-
-
 
         window = new BasicPlayWindow();
 

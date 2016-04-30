@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
-import org.supply.simulator.display.extra.SimpleDisplayCore;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.data.MockChunkType;
 import org.supply.simulator.logging.HasLogger;
 
@@ -17,13 +17,13 @@ public class BasicChunkIndexEngineTest extends HasLogger {
 
     ChunkIndexEngine indexEngine;
 
-    SimpleDisplayCore core;
+    MockDisplayCore core;
     ChunkType type;
 
     @Before
     public void createFixture () {
         indexEngine = new BasicChunkIndexEngine();
-        core = new SimpleDisplayCore();
+        core = new MockDisplayCore();
         core.build("BasicChunkIndexEngineTest");
     }
 

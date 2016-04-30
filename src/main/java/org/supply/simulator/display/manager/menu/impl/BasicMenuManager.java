@@ -1,4 +1,4 @@
-package org.supply.simulator.display.manager.impl;
+package org.supply.simulator.display.manager.menu.impl;
 
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;

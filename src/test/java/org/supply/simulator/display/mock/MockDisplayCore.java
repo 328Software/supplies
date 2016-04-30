@@ -1,4 +1,4 @@
-package org.supply.simulator.display.extra;
+package org.supply.simulator.display.mock;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.*;
@@ -7,11 +7,12 @@ import org.supply.simulator.logging.HasLogger;
 /**
  * Created by Alex on 6/29/2014.
  */
-public class SimpleDisplayCore extends HasLogger {
+public class MockDisplayCore extends HasLogger {
 
     // Setup variables
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+    private String titleString;
 
 
     public void build(String title) {
@@ -51,4 +52,7 @@ public class SimpleDisplayCore extends HasLogger {
 
     }
 
+    public void setTitleString(String titleString) {
+        this.titleString = titleString;
+    }
 }

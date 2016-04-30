@@ -9,8 +9,8 @@ import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.core.impl.BasicDisplayCore;
 import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.data.MockChunkType;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.renderable.chunk.ChunkRenderable;
@@ -32,7 +32,7 @@ public class BasicChunkRendererTest {
     BasicShaderEngine shaderEngine;
     MockCamera  camera;
 
-    BasicDisplayCore core;
+    MockDisplayCore core;
     BasicChunkRenderer renderer;
     DataGenerator dataGenerator;
 
@@ -55,9 +55,7 @@ public class BasicChunkRendererTest {
         chunkType = new MockChunkType();
         chunkType.setColumns(30);
         chunkType.setRows(20);
-        core = new BasicDisplayCore();
-        core.setHeight(600);
-        core.setWidth(800);
+        core = new MockDisplayCore();;
 
         core.build("BasicChunkRendererTest");
 

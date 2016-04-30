@@ -14,57 +14,18 @@ import org.supply.simulator.executor.impl.basic.BasicRepeatingScheduleInformatio
  */
 public class BasicDisplayCore extends AbstractDisplayCore implements DisplayCore,RepeatableTask {
 
-   // private ArrayList<Window> windowList;
-    private Window window;
 
     public BasicDisplayCore() {
         super();
-      //  windowList = new ArrayList<>();
         titleString = "NUBCORE";
         WIDTH = 800;
         HEIGHT = 600;
     }
 
-    @Override
-    public RepeatingScheduleInformation getScheduleInformation() {
-        //TODO: fill this out
-        BasicRepeatingScheduleInformation scheduleInformation = new BasicRepeatingScheduleInformation();
-        scheduleInformation.setNumberOfExecutions(1);
-        scheduleInformation.setMaxDurationMillis(0);
-//        scheduleInformation.setNumberOfExecutions(1);
-        return scheduleInformation;
-    }
 
     @Override
-    public long getTimeLastStarted() {
-        //TODO: fill this out
-        return 0;
-    }
-
-    @Override
-    public long getTimeLastCompleted() {
-        //TODO: fill this out
-        return 0;
-    }
-
-    @Override
-    public void run() {
-        build(titleString);
-        window.start();
-
-        while (!Display.isCloseRequested()) {
-            window.update();
-            this.render();
-        }
-        window.stop();
-        this.destroy();
-    }
-
-
-
-    @Override
-    public void build(String title) {
-        logger.info("START DISPLAY: "+title);
+    public void build() {
+        logger.info("START DISPLAY: "+titleString);
         // Setup an OpenGL context with API version 3.2
         try {
             PixelFormat pixelFormat = new PixelFormat();
@@ -73,7 +34,7 @@ public class BasicDisplayCore extends AbstractDisplayCore implements DisplayCore
                     .withProfileCore(true);
 
             Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-            Display.setTitle(title);
+            Display.setTitle(titleString);
             Display.create(pixelFormat, contextAtrributes);
 
             GL11.glViewport(0, 0, WIDTH, HEIGHT);
@@ -101,17 +62,6 @@ public class BasicDisplayCore extends AbstractDisplayCore implements DisplayCore
 
         Display.update();
 
-    }
-
-
-
-//
-//    public void setWindowList(ArrayList<Window> windowList) {
-//        this.windowList =windowList;
-//    }
-
-    public void setWindow(Window window) {
-        this.window = window;
     }
 
 }

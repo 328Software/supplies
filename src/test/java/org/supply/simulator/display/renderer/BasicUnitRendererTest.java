@@ -8,8 +8,8 @@ import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.core.impl.BasicDisplayCore;
 import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.renderable.unit.UnitRenderable;
 import org.supply.simulator.display.renderable.unit.impl.BasicUnitRenderable;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class BasicUnitRendererTest {
 
 
-    BasicDisplayCore core;
+    MockDisplayCore core;
     BasicShaderEngine shaderEngine;
     BasicTextureEngine textureEngine;
     MockCamera camera;
@@ -41,7 +41,7 @@ public class BasicUnitRendererTest {
 
     @Before
     public void createFixture() {
-        core = new BasicDisplayCore();
+        core = new MockDisplayCore();
 
     }
 
@@ -50,8 +50,7 @@ public class BasicUnitRendererTest {
 
     @Test
     public void BasicUnitRendererTest() {
-        core.setTitleString("BasicUnitRendererTest");
-        startup();
+        startup("BasicUnitRendererTest");
         BasicUnitRenderable entityRenderable = dataGenerator.createUnit(-.5f, .5f, 0, -1f, 1f);
 
         ArrayList<UnitRenderable> list = new ArrayList<>();
@@ -60,7 +59,7 @@ public class BasicUnitRendererTest {
         renderList(list);
 
         unitRenderer.destroyAll();
-        core.stop();
+        core.destroy();
 
     }
 
@@ -68,8 +67,8 @@ public class BasicUnitRendererTest {
 
     @Test
     public void BasicUnitRendererTest2() {
-        core.setTitleString("BasicUnitRendererTest2");
-        startup();
+//        core.setTitleString("BasicUnitRendererTest2");
+        startup("BasicUnitRendererTest2");
 
 
 
@@ -77,12 +76,12 @@ public class BasicUnitRendererTest {
         ArrayList<BasicUnitRenderable> list  = new ArrayList<>();
         for (int i=0;i<6;i++) {
 
-            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .7f, 0, .2f, .2f, "textures/alexsface.png");
+            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .5f, 0, .2f, .2f, "textures/alexsface.png");
             list.add(entityRenderable);
         }
 
         for (int i=0;i<6;i++) {
-
+//
             BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), -.5f, 0, .2f, .2f, "textures/text2.png");
             list.add(entityRenderable);
         }
@@ -91,35 +90,34 @@ public class BasicUnitRendererTest {
 
 
         unitRenderer.destroyAll();
-        core.stop();
+        core.destroy();
     }
 
 
-    @Test
-    public void TextSystemTest() {
-        core.setTitleString("TextSystemTest");
-        startup();
+//    @Test
+//    public void TextSystemTest() {
+//        startup("TextSystemTest");
+//
+//
+//
+//
+//        ArrayList<BasicUnitRenderable> list  = new ArrayList<>();
+//        for (int i=0;i<6;i++) {
+//
+//            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .7f, 0, .2f, .2f, "textures/alexsface.png");
+//            list.add(entityRenderable);
+//        }
+//
+//        renderList(list);
+//
+//
+//        unitRenderer.destroyAll();
+//        core.destroy();
+//    }
 
+    private void startup(String text) {
 
-
-
-        ArrayList<BasicUnitRenderable> list  = new ArrayList<>();
-        for (int i=0;i<6;i++) {
-
-            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .7f, 0, .2f, .2f, "textures/alexsface.png");
-            list.add(entityRenderable);
-        }
-
-        renderList(list);
-
-
-        unitRenderer.destroyAll();
-        core.stop();
-    }
-
-    private void startup() {
-
-        core.start();
+        core.build(text);
         camera = new MockCamera();
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getModelMatrixLocation());

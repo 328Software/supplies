@@ -28,6 +28,7 @@ public class Main extends HasLogger {
     private static SessionFactory sessionFactory;
     private static Manager<BasicChunkRenderer> manager;
     private static BasicDisplayCore displayCore;
+    private static MainMenus mainMenus;
 
     static { //load everything
         new ClassPathXmlApplicationContext("/application-context.xml");
@@ -45,14 +46,20 @@ public class Main extends HasLogger {
         logger.debug("SessionFactory is " + sessionFactory);
 
 
-        try {
-            displayCore.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         logger.debug("Task manager is " + taskManager.getClass().getName());
         logger.info("================================ Done!! ===============================");
+
+        boolean close = false;
+        while(!close) {
+            Options gameOptions = mainMenus.start();
+            Game game = Game.newInstance(gameOptions);
+            mainMenus.destroyMenus();
+            close = game.start();
+        }
+
+
     }
 
     public void setDispatchService(DispatchService dispatchService) {
@@ -83,5 +90,9 @@ public class Main extends HasLogger {
 
     public void setDisplayCore(BasicDisplayCore displayCore) {
         Main.displayCore = displayCore;
+    }
+
+    public static void setMainMenus(MainMenus mainMenus) {
+        Main.mainMenus = mainMenus;
     }
 }

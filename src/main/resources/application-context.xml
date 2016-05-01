@@ -24,6 +24,9 @@
         <property name="manager" ref="chunkManager"/>
     </bean>
 
+    <bean id="mainMenus" class="org.supply.simulator.core.main.MainMenus">
+    </bean>
+
     <bean id="taskManager" class="org.supply.simulator.executor.impl.basic.BasicTaskManager">
         <property name="executor" ref="executor"/>
         <property name="dispatchService" ref="dispatchService"/>

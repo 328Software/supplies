@@ -11,6 +11,9 @@ import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.supply.simulator.logging.HasLogger;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 //import org.supply.simulator.display.extra.MockShaderEngine;
 
 /**
@@ -56,7 +59,7 @@ public class Main extends HasLogger {
             Options gameOptions = mainMenus.start();
             Game game = Game.newInstance(gameOptions);
             mainMenus.destroyMenus();
-            close = game.start();
+            close = isNull(game) || game.start();
         }
 
 

@@ -141,11 +141,11 @@
             <!--<conf name="test" mapped="default"/>-->
         <!--</dependency>-->
 
-        <dependency org="org.supply.simulator" name="badengine" rev="0.2">
+    <!--    <dependency org="org.supply.simulator" name="badengine" rev="0.2">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <conf name="test" mapped="default"/>
-        </dependency>
+        </dependency>-->
 
 
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.31">

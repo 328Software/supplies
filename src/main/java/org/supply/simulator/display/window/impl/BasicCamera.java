@@ -98,10 +98,7 @@ public class BasicCamera extends AbstractCamera {
 
             System.out.println(otherd);
 
-            Vector3f.add(getCameraPos(), new Vector3f(otherd.getX(), -otherd.getY(), 0), getCameraPos());
+            Vector3f.add(getCameraPos(), new Vector3f(otherd.getX()*2, -otherd.getY()*2, 0), getCameraPos());
         }
-
-
     }
-
 }

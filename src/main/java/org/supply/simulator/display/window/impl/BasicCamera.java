@@ -23,9 +23,6 @@ public class BasicCamera extends AbstractCamera {
 
     private final float scaleDelta = 0.1f;
 
-    private int oldX;
-    private int oldY;
-
 
 
     public BasicCamera() {
@@ -36,8 +33,6 @@ public class BasicCamera extends AbstractCamera {
         super.setModelScale(new Vector3f(1, 1, 1));
         super.setCameraPos(new Vector3f(0, 0, -1));
         super.setCameraAngle(new Vector3f(0, 0, 0));
-        oldX =0;
-        oldY =0;
     }
 
     @Override
@@ -80,8 +75,13 @@ public class BasicCamera extends AbstractCamera {
 //        Mouse.poll();
 
         if (Mouse.isButtonDown(1)) {
+
             int newX = Mouse.getDX();
             int newY = Mouse.getDY();
+
+            int dx = 400 - Mouse.getX();
+            int dy = 300 - Mouse.getY();
+
 
             Vector4f other = new Vector4f(newX, newY, 0, 0);
             Vector4f otherd = new Vector4f();
@@ -92,13 +92,24 @@ public class BasicCamera extends AbstractCamera {
             System.out.println("derrr");
 
             System.out.println(orthogonal);
-            System.out.println(otherd);
 
             Matrix4f.transform(orthogonal, other, otherd);
 
             System.out.println(otherd);
 
-            Vector3f.add(getCameraPos(), new Vector3f(otherd.getX()*2, -otherd.getY()*2, 0), getCameraPos());
+
+            Vector4f wowzor = new Vector4f(dx, dy, 0, 0);
+            Vector4f ouwze = new Vector4f(dx, dy, 0, 0);
+            Matrix4f.transform(orthogonal, wowzor, ouwze);
+
+
+//            double distanceFromCenter = Math.sqrt(Math.pow(ouwze.getX(), 2) + Math.pow(ouwze.getY(), 2));
+
+//            float spped = (float) Math.sqrt(Math.pow(distanceFromCenter, 2) + Math.pow(3, 2));
+float spped = 2.3f;
+            System.out.println(spped);
+
+            Vector3f.add(getCameraPos(), new Vector3f(otherd.getX()*spped, -otherd.getY()*spped, 0), getCameraPos());
         }
     }
 }

@@ -1,8 +1,12 @@
 package org.supply.simulator.display.window.impl;
 
+import org.joml.GeometryUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.vector.Matrix;
+import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 import org.supply.simulator.display.window.AbstractCamera;
 
 /**
@@ -22,10 +26,12 @@ public class BasicCamera extends AbstractCamera {
     private int oldX;
     private int oldY;
 
+
+
     public BasicCamera() {
         super();
         Keyboard.enableRepeatEvents(true);
-        super.setModelPos(new Vector3f(0, 0, -.5f));
+        super.setModelPos(new Vector3f(0, 0, -3));
         super.setModelAngle(new Vector3f(0, 0, 0));
         super.setModelScale(new Vector3f(1, 1, 1));
         super.setCameraPos(new Vector3f(0, 0, -1));
@@ -63,25 +69,36 @@ public class BasicCamera extends AbstractCamera {
             }
         }
 
-        Mouse.poll();
+
+
+
+      /*  if(Mouse.getDY() != 0) {
+            Mouse.getX();
+            Mouse.getY();
+        }*/
+
+//        Mouse.poll();
 
         if (Mouse.isButtonDown(1)) {
-            int newX = Mouse.getX();
-            if(newX> oldX) {
-                this.moveEast(posDelta);
-            } else if(newX < oldX) {
-                this.moveWest(posDelta);
-            }
-            oldX = newX;
+            int newX = Mouse.getDX();
+            int newY = Mouse.getDY();
+
+            Vector4f other = new Vector4f(newX, newY, 0, 0);
+            Vector4f otherd = new Vector4f();
+
+            Matrix4f orthogonal = orthogonal(0, 800, 600, 0, 0.1f, 100);
 
 
-            int newY = Mouse.getY();
-            if(newY> oldY) {
-                this.moveSouth(posDelta);
-            } else if(newY < oldY) {
-                this.moveNorth(posDelta);
-            }
-            oldY = newY;
+            System.out.println("derrr");
+
+            System.out.println(orthogonal);
+            System.out.println(otherd);
+
+            Matrix4f.transform(orthogonal, other, otherd);
+
+            System.out.println(otherd);
+
+            Vector3f.add(getCameraPos(), new Vector3f(otherd.getX(), -otherd.getY(), 0), getCameraPos());
         }
 
 

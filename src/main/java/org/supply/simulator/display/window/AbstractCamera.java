@@ -30,6 +30,8 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
     protected int projectionMatrixLocation;
     protected int modelMatrixLocation;
     protected int viewMatrixLocation;
+    private float y_scale;
+    private float x_scale;
 
 
     @Override
@@ -42,8 +44,8 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
         float near_plane = 0.1f;
         float far_plane = 100f;
 
-        float y_scale = (float)(1f / Math.tan((fieldOfView / 2f)* (float)(PI / 180d)));
-        float x_scale = y_scale / aspectRatio;
+        y_scale = (float)(1f / Math.tan((fieldOfView / 2f)* (float)(PI / 180d)));
+        x_scale = y_scale / aspectRatio;
         float frustum_length = far_plane - near_plane;
 
         projectionMatrix.m00 = x_scale;
@@ -54,6 +56,7 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
         projectionMatrix.m33 = 0;
 
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
+
     }
 
 
@@ -166,6 +169,27 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
     }
     //***** Movement Methods
 
+
+    public float getY_scale() {
+        return y_scale;
+    }
+
+    public float getX_scale() {
+        return x_scale;
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    public Matrix4f getViewMatrix() {
+        return viewMatrix;
+    }
+
+    public Matrix4f getModelMatrix() {
+        return modelMatrix;
+    }
+
     protected abstract void refreshInput();
 
 
@@ -239,4 +263,40 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
 
     //*****Getters
 
+
+    public static Matrix4f perspective(float left,float right,float bottom,float top,float near,float far)
+    {
+        Matrix4f matrix = new Matrix4f();
+
+        matrix.setIdentity();
+
+        matrix.m00 = 2*near/(right - left);
+        matrix.m11 = 2*near/(top - bottom);
+        matrix.m22 = -(far +near)/(far - near);
+        matrix.m23 = -1;
+        matrix.m32 = -2*far*near/(far - near);
+        matrix.m20 = (right+left)/(right -left);
+        matrix.m21 = (top + bottom)/(top-bottom);
+        matrix.m33 = 0;
+
+        return matrix;
+    }
+
+// creates a Matrix4f that generates an orthogonal projection
+
+    public static Matrix4f orthogonal(float left,float right,float bottom,float top,float near,float far)
+    {
+        Matrix4f matrix = new Matrix4f();
+
+        matrix.setIdentity();
+
+        matrix.m00 = 2/(right - left);
+        matrix.m11 = 2/(top - bottom);
+        matrix.m22 = -2/(far - near);
+        matrix.m32 = (far+near)/(far - near);
+        matrix.m30 = (right+left)/(right -left);
+        matrix.m31 = (top + bottom)/(top-bottom);
+
+        return matrix;
+    }
 }

@@ -13,7 +13,7 @@ import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer;
+import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
 
 import java.util.ArrayList;
 

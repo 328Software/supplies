@@ -1,11 +1,11 @@
-package org.supply.simulator.display.manager.chunk.impl;
+package org.supply.simulator.display.manager.impl;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
-import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
+import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;

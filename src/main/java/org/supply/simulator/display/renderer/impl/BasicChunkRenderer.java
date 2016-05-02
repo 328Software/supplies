@@ -1,10 +1,12 @@
-package org.supply.simulator.display.renderer.chunk.impl;
+package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
+import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
-import org.supply.simulator.display.renderer.chunk.ChunkRenderer;
+import org.supply.simulator.display.renderer.AbstractRenderer;
+import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -13,7 +15,7 @@ import java.util.Collection;
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkRenderer implements ChunkRenderer {
+public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements EntityRenderer<Chunk> {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -154,7 +156,7 @@ public class BasicChunkRenderer implements ChunkRenderer {
         return locations;
     }
 
-    @Override
+
     public void setChunkIndexEngine(ChunkIndexEngine chunkIndexEngine) {
         this.chunkIndexEngine = (BasicChunkIndexEngine)chunkIndexEngine;
     }

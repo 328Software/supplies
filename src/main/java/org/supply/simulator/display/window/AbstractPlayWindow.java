@@ -5,9 +5,9 @@ import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
-import org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer;
-import org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer;
+import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
+import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
+import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 
 /**
  * Created by Alex on 6/29/2014.

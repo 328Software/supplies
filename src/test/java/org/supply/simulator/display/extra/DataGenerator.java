@@ -50,7 +50,7 @@ public class DataGenerator {
 
     public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicUnit unit = new BasicUnit();
-        unit.setUnitPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ,  length,  width));
+        unit.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ,  length,  width));
 
         UnitType type;
         if (typeMap.containsKey(name)) {

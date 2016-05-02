@@ -1,17 +1,7 @@
 package org.supply.simulator.display.manager.chunk;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.window.Camera;
-
-import java.util.Iterator;
 
 /**
  * Created by Alex on 6/28/2014.

@@ -21,7 +21,7 @@ public interface Entity
         A extends EntityAttribute, //
         S extends EntityStatistic, //
         I                          //
-        > extends HasAttributes<A>, HasStatistics<S>, HasId<I> {
+        > extends HasAttributes<A>, HasStatistics<S>, HasId<I>, Comparable {
 
     public EntityType getType();
 

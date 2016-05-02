@@ -7,13 +7,13 @@ import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngi
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.manager.menu.impl.BasicMenuManager;
+import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockUnitManager;
-import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
-import org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer;
-import org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer;
+import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
+import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
+import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 import org.supply.simulator.display.window.impl.BasicPlayWindow;
 
 /**

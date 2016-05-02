@@ -25,26 +25,26 @@
     <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager">
         <property name="entityRenderer" ref="chunkRenderer"/>
     </bean>
-    <!--<bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.DAOWiredChunkManager">
+    <!--<bean id="chunkManager" class="org.supply.simulator.display.manager.impl.DAOWiredChunkManager">
         <property name="entityRenderer" ref="chunkRenderer"/>
     </bean>
     -->
 
-    <bean id="unitManager" class="org.supply.simulator.display.manager.unit.impl.BasicUnitManager">
+    <bean id="unitManager" class="org.supply.simulator.display.manager.impl.BasicUnitManager">
         <property name="entityRenderer" ref="unitRenderer"/>
     </bean>
 
-    <bean id="menuManager" class="org.supply.simulator.display.manager.menu.impl.BasicMenuManager">
+    <bean id="menuManager" class="org.supply.simulator.display.manager.impl.BasicMenuManager">
         <property name="entityRenderer" ref="menuRenderer"/>
     </bean>
 
-    <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer"/>
+    <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.impl.BasicChunkRenderer"/>
 
-    <bean id="menuRenderer" class="org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer">
+    <bean id="menuRenderer" class="org.supply.simulator.display.renderer.impl.BasicMenuRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 
-    <bean id="unitRenderer" class="org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer">
+    <bean id="unitRenderer" class="org.supply.simulator.display.renderer.impl.BasicUnitRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 

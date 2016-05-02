@@ -14,7 +14,7 @@ import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCamera;
-import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
+import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 
 import java.util.ArrayList;
 

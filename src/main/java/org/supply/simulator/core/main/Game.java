@@ -22,6 +22,7 @@ public class Game {
     }
 
     public boolean start() {
+
         try {
             displayCore.run();
         } catch (Exception e) {

@@ -29,11 +29,11 @@ public class BasicUnit implements Unit {
         this.type = (UnitType) type;
     }
 
-    public UnitPositions getUnitPositions() {
+    public UnitPositions getPositions() {
         return unitPositions;
     }
 
-    public void setUnitPositions(UnitPositions unitPositions) {
+    public void setPositions(UnitPositions unitPositions) {
         this.unitPositions = unitPositions;
     }
 

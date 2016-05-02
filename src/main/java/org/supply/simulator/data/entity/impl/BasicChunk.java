@@ -153,4 +153,9 @@ public class BasicChunk implements Chunk {
     public boolean hasStatistic(Object statisticId) {
         return false;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

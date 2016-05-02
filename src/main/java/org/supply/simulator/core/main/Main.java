@@ -6,13 +6,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.supply.simulator.display.core.impl.BasicDisplayCore;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
+import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.TaskManager;
 import org.supply.simulator.logging.HasLogger;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 //import org.supply.simulator.display.extra.MockShaderEngine;
 

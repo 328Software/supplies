@@ -12,7 +12,7 @@ import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCamera;
-import org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer;
+import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 
 import java.util.ArrayList;
 

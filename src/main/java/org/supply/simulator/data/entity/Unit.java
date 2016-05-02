@@ -9,15 +9,15 @@ import org.supply.simulator.data.statistic.entity.UnitPositions;
 /**
  * Created by Alex on 9/14/2014.
  */
-public interface Unit extends Entity<EntityAttribute,EntityStatistic,Long>, Comparable {
+public interface Unit extends Entity<EntityAttribute,EntityStatistic,Long> {
 
 //    @Override
 //    public UnitType getType();
 //
 //    public void setType(UnitType type);
 
-    public UnitPositions getUnitPositions();
+    public UnitPositions getPositions();
 
-    public void setUnitPositions(UnitPositions unitPositions);
+    public void setPositions(UnitPositions unitPositions);
 
 }

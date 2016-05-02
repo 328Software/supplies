@@ -5,14 +5,14 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.core.impl.BasicDisplayCore;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderable.menu.MenuRenderable;
 import org.supply.simulator.display.renderer.menu.impl.BasicMenuRenderer;
 
 import java.util.ArrayList;
@@ -53,8 +53,8 @@ public class BasicMenuRendererTest {
 
 
 
-        ArrayList<MenuRenderable> list  = new ArrayList<>();
-        MenuRenderable entityRenderable;
+        ArrayList<Menu> list  = new ArrayList<>();
+        BasicMenu entityRenderable;
         int i = 0;
         entityRenderable = dataGenerator.createMenu((float) (-1f + (.1 * i++)), 1f, 0, -.2f, .1f, "Y");
         list.add(entityRenderable);

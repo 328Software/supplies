@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
-import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
@@ -29,13 +28,13 @@ public class DAOWiredChunkManager  extends AbstractManager<BasicChunkRenderer> {
     public DAOWiredChunkManager () {
         super();
         isFirst = true;
-        visibleRenderables = new ArrayList<BasicChunkRenderable>();
+        visibleRenderables = new ArrayList<BasicChunk>();
 
     }
 
     @Override @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    protected Collection<BasicChunkRenderable> getRenderablesToAdd(Camera view) {
-        ArrayList<BasicChunkRenderable> chunkRenderables = new ArrayList<>();
+    protected Collection<BasicChunk> getRenderablesToAdd(Camera view) {
+        ArrayList<BasicChunk> chunkRenderables = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
             long timeStart = System.currentTimeMillis();
@@ -43,17 +42,15 @@ public class DAOWiredChunkManager  extends AbstractManager<BasicChunkRenderer> {
             Collection<BasicChunk> chunks = chunkDAO.findAll();
             logger.info("Did build in " + (System.currentTimeMillis()-timeStart) + " ms");
             for(BasicChunk chunk: chunks) {
-                BasicChunkRenderable chunkRenderable = new BasicChunkRenderable();
-                chunkRenderable.setEntity(chunk);
-                chunkRenderables.add(chunkRenderable);
+                chunkRenderables.add(chunk);
             }
         }
         return chunkRenderables;
     }
 
     @Override
-    protected Collection<BasicChunkRenderable> getRenderablesToRemove(Camera view) {
-        return new ArrayList<BasicChunkRenderable>();
+    protected Collection<BasicChunk> getRenderablesToRemove(Camera view) {
+        return new ArrayList<BasicChunk>();
     }
 
     public void setChunkDAO(ChunkDAO chunkDAO) {

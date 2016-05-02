@@ -3,6 +3,7 @@ package org.supply.simulator.data.entity;
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.data.attribute.HasAttributes;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.statistic.HasStatistics;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 
@@ -21,5 +22,9 @@ public interface Entity
         S extends EntityStatistic, //
         I                          //
         > extends HasAttributes<A>, HasStatistics<S>, HasId<I> {
+
+    public EntityType getType();
+
+    public void setType(EntityType type);
 
 }

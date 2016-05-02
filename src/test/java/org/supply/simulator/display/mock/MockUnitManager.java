@@ -1,5 +1,6 @@
 package org.supply.simulator.display.mock;
 
+import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
@@ -21,8 +22,8 @@ public class MockUnitManager extends AbstractManager implements Manager {
     }
 
     @Override
-    protected Collection getRenderablesToAdd(Camera view) {
-        Collection list = new ArrayList();
+    protected Collection<Unit> getRenderablesToAdd(Camera view) {
+        Collection<Unit> list = new ArrayList();
 
 
         if (isFirst) {

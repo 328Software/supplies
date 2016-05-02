@@ -4,7 +4,7 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
-import org.supply.simulator.data.attribute.entity.TexturedEntityType;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicAtlasType;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureHandle;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 9/14/2014.
  */
-public abstract class AbstractTextureEngine<K extends TexturedEntityType>
+public abstract class AbstractTextureEngine<K extends EntityType>
         extends AbstractAssetEngine<K,TextureHandle>
         implements TextureEngine<K>  {
 
@@ -30,7 +30,9 @@ public abstract class AbstractTextureEngine<K extends TexturedEntityType>
     @Override
     protected TextureHandle createHandle(K key) {
         TextureHandle handle = new BasicTextureHandle();
-        String fileName = getAtlasFileName(key);
+        String fileName = lookupTextureFileName(key);
+
+
         AtlasType atlasType;
         if (atlasMap.containsKey(fileName)) {
             atlasType = atlasMap.get(fileName);
@@ -41,16 +43,14 @@ public abstract class AbstractTextureEngine<K extends TexturedEntityType>
         }
 
         handle.setAtlasType(atlasType);
-        handle.setSubInfo(key.getSubInfo());
+        handle.setSubInfo(lookupTextureSubInfo(key));
 
 
         return handle;
     }
 
-    protected abstract String getAtlasFileName(K key);
-
-
     private int loadPNGTexture2D(String filename, int textureUnit) {
+
         ByteBuffer buf = null;
         int tWidth = 0;
         int tHeight = 0;
@@ -109,9 +109,13 @@ public abstract class AbstractTextureEngine<K extends TexturedEntityType>
 
         if (handle.getAtlasType().count()==0) {
             GL11.glDeleteTextures(handle.getAtlasType().getTextureId());
-            atlasMap.remove(getAtlasFileName(key));
+            atlasMap.remove(lookupTextureFileName(key));
         }
 
     }
+
+    protected abstract String lookupTextureFileName(K key);
+    protected abstract float[] lookupTextureSubInfo(K key);
+
 
 }

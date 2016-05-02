@@ -6,15 +6,14 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
+import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.mock.data.MockChunkType;
 import org.supply.simulator.display.mock.MockCamera;
-import org.supply.simulator.display.renderable.chunk.ChunkRenderable;
-import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 
 import java.util.ArrayList;
@@ -36,9 +35,9 @@ public class BasicChunkRendererTest {
     BasicChunkRenderer renderer;
     DataGenerator dataGenerator;
 
-    ArrayList<ChunkRenderable> chunks;
+    ArrayList<Chunk> chunks;
 
-    private MockChunkType chunkType;
+    private BasicChunkType chunkType;
 
 //    private Vector3f modelPos;
 //    private Vector3f modelAngle;
@@ -52,9 +51,9 @@ public class BasicChunkRendererTest {
     @Before
     public void create() {
         dataGenerator = new DataGenerator();
-        chunkType = new MockChunkType();
-        chunkType.setColumns(30);
-        chunkType.setRows(20);
+//        chunkType = new BasicChunkType();
+//        chunkType.setColumns(30);
+//        chunkType.setRows(20);
         core = new MockDisplayCore();;
 
         core.build("BasicChunkRendererTest");
@@ -74,12 +73,7 @@ public class BasicChunkRendererTest {
         chunks = new ArrayList<>();
         for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
             for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
-
-
-
-                ChunkRenderable renderable = new BasicChunkRenderable();
-                renderable.setEntity(dataGenerator.createChunk(chunkRows, chunkColumns, i, j));
-                chunks.add(renderable);
+                chunks.add(dataGenerator.createChunk(chunkRows, chunkColumns, i, j));
             }
         }
 

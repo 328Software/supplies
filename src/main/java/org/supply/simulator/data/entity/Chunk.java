@@ -10,11 +10,14 @@ import org.supply.simulator.data.statistic.entity.EntityStatistic;
  * Created by Alex on 9/14/2014.
  */
 public interface Chunk extends Entity<EntityAttribute,EntityStatistic,Long> {
-    public ChunkType getChunkType();
 
-    public void setChunkType(ChunkType chunkType);
-
-
+//    @Override
+    //TODO REMOVE THIS AND HIBERNATE BREAKS
+    public ChunkType getType();
+//
+//    public void setType(ChunkType chunkType);
+//
+//
 
     public ChunkColors getChunkColors();
 
@@ -25,5 +28,22 @@ public interface Chunk extends Entity<EntityAttribute,EntityStatistic,Long> {
     public ChunkPositions getChunkPositions();
 
     public void setChunkPositions(ChunkPositions chunkPositions);
+
+
+    public void setVertexAttributesId(int vertexAttributesId);
+
+    public void setIndicesBufferId(int indicesBufferId);
+
+    public void setColorsArrayId(int colorsArrayId);
+
+    public void setPositionsArrayId(int positionsArrayId);
+
+    public int getVertexAttributesId();
+
+    public int getIndicesBufferId();
+
+    public int getColorsArrayId();
+
+    public int getPositionsArrayId();
 
 }

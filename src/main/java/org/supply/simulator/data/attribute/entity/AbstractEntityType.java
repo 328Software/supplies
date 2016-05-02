@@ -1,44 +1,39 @@
-package org.supply.simulator.display.renderable;
+package org.supply.simulator.data.attribute.entity;
 
 import org.lwjgl.opengl.GL11;
-import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.logging.HasLogger;
 
 /**
- * Created by Alex on 7/13/2014.
+ * Created by Alex on 5/1/2016.
  */
-public abstract class AbstractEntityRenderable extends HasLogger implements EntityRenderable {
+public abstract class AbstractEntityType extends HasLogger implements EntityType<Long> {
 
-    protected boolean isDestroyed;
-
-    protected boolean isBuilt;
-
-    protected Entity entity;
+    private TextureHandle textureHandle;
+    private Long id;
 
 
-    public AbstractEntityRenderable() {
-        isDestroyed = false;
-        isBuilt = false;
+    @Override
+    public void setTextureHandle(TextureHandle textureHandle) {
+        this.textureHandle=textureHandle;
     }
 
     @Override
-    public boolean isDestroyed() {
-        return isDestroyed;
+    public TextureHandle getTextureHandle() {
+        return this.textureHandle;
+    }
+
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     @Override
-    public boolean isBuilt() {return isBuilt;}
-
-    @Override
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    /**
-     * Prints OpenGL error types
-     *
-     * @param className
-     */
     public String printOpenGLError(String className) {
         String errorString = "";
         switch(GL11.glGetError()) {
@@ -60,6 +55,4 @@ public abstract class AbstractEntityRenderable extends HasLogger implements Enti
         logger.error("OpenGl error in "+className+": "+errorString);
         return errorString;
     }
-
-
 }

@@ -2,6 +2,7 @@ package org.supply.simulator.data.entity.impl;
 
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Entity;
@@ -22,15 +23,27 @@ public class BasicChunk implements Chunk {
     private ChunkPositions chunkPositions;
     private ChunkType chunkType;
 
+    protected int vertexAttributesId;
+
+    protected int indicesBufferId;
+    protected int colorsArrayId;
+    protected int positionsArrayId;
+
     @Override
-    public ChunkType getChunkType() {
-        return chunkType;
+    public void setType(EntityType type) {
+        this.chunkType = (ChunkType)type;
     }
 
-    public void setChunkType(ChunkType chunkType) {
-        this.chunkType = chunkType;
+
+    //TODO remove this method hibernate breaks
+    public void setType(ChunkType type) {
+        this.chunkType = type;
     }
 
+    //TODO remove this method hibernate breaks
+    public ChunkType getType() {
+        return this.chunkType;
+    }
 
 
     public ChunkColors getChunkColors () {
@@ -51,7 +64,40 @@ public class BasicChunk implements Chunk {
         this.chunkPositions =chunkPositions;
     }
 
+    public void setVertexAttributesId(int vertexAttributesId) {
+        this.vertexAttributesId = vertexAttributesId;
+    }
 
+    public void setIndicesBufferId(int indicesBufferId) {
+        this.indicesBufferId = indicesBufferId;
+    }
+
+    public void setColorsArrayId(int colorsArrayId) {
+        this.colorsArrayId = colorsArrayId;
+
+    }
+
+    public int getVertexAttributesId() {
+        return vertexAttributesId;
+    }
+
+    public int getIndicesBufferId() {
+        return indicesBufferId;
+    }
+
+    public int getColorsArrayId() {
+        return colorsArrayId;
+    }
+
+    public int getPositionsArrayId() {
+        return positionsArrayId;
+    }
+
+
+    public void setPositionsArrayId(int positionsArrayId) {
+        this.positionsArrayId = positionsArrayId;
+
+    }
 
     @Override
     public Long getId() {

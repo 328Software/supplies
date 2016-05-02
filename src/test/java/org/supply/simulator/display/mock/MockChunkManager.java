@@ -1,12 +1,11 @@
 package org.supply.simulator.display.mock;
 
 import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
+import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
 import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
-import org.supply.simulator.display.renderable.chunk.ChunkRenderable;
-import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
@@ -32,19 +31,15 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
         }
 
         @Override
-        protected Collection<ChunkRenderable> getRenderablesToAdd(Camera view) {
-            ArrayList<ChunkRenderable> chunks = new ArrayList<>();
+        protected Collection<Chunk> getRenderablesToAdd(Camera view) {
+            ArrayList<Chunk> chunks = new ArrayList<>();
             if (isFirst) {
                 isFirst=false;
 
                 for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
                     for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
 
-
-
-                        ChunkRenderable renderable = new BasicChunkRenderable();
-                        renderable.setEntity(createChunk(chunkRows, chunkColumns, i, j));
-                        chunks.add(renderable);
+                        chunks.add(createChunk(chunkRows, chunkColumns, i, j));
                     }
                 }
             }
@@ -53,7 +48,7 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
 
 
         @Override
-        protected Collection<ChunkRenderable> getRenderablesToRemove(Camera view) {
+        protected Collection<Chunk> getRenderablesToRemove(Camera view) {
             return new ArrayList<>();
         }
 
@@ -94,7 +89,7 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
 
 
             BasicChunk chunk = new BasicChunk();
-            chunk.setChunkType(type);
+            chunk.setType(type);
             chunk.setChunkPositions(positions);
             chunk.setChunkColors(colors);
 

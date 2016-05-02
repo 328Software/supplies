@@ -3,12 +3,11 @@ package org.supply.simulator.display.window;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.renderable.AbstractEntityRenderable;
 
 /**
  * Created by Alex on 7/15/2014.
  */
-public class AbstractMenuWindow extends AbstractEntityRenderable implements Window {
+public class AbstractMenuWindow implements Window {
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 

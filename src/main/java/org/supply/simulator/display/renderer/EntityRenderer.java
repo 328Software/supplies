@@ -1,13 +1,13 @@
 package org.supply.simulator.display.renderer;
 
-import org.supply.simulator.display.renderable.EntityRenderable;
+import org.supply.simulator.data.entity.Entity;
 
 import java.util.Collection;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public interface EntityRenderer<V extends EntityRenderable>{
+public interface EntityRenderer<V extends Entity>{
 
 
 

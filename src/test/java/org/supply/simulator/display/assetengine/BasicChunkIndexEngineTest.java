@@ -4,10 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.data.attribute.entity.ChunkType;
+import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.mock.data.MockChunkType;
 import org.supply.simulator.logging.HasLogger;
 
 /**
@@ -29,7 +29,7 @@ public class BasicChunkIndexEngineTest extends HasLogger {
 
     @Test
     public void chunkIndexEngineTest () {
-        type= new MockChunkType();
+        type= new BasicChunkType();
         type.setColumns(20);
         type.setRows(20);
 

@@ -8,10 +8,12 @@ import org.supply.simulator.data.statistic.entity.UnitPositions;
 /**
  * Created by Alex on 9/14/2014.
  */
-public interface Menu extends Entity<EntityAttribute,EntityStatistic,Long> {
-    public MenuType getType();
+public interface Menu extends Entity<EntityAttribute,EntityStatistic,Long>, Comparable {
 
-    public void setType(MenuType unitType);
+//    @Override
+//    public MenuType getType();
+
+//    public void setType(MenuType unitType);
 
     public UnitPositions getPositions();
 

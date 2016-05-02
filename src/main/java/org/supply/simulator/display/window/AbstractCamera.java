@@ -4,14 +4,13 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.renderable.AbstractEntityRenderable;
 
 import java.nio.FloatBuffer;
 
 /**
  * Created by Alex on 7/2/2014.
  */
-public abstract class AbstractCamera extends AbstractEntityRenderable implements Camera {
+public abstract class AbstractCamera implements Camera {
 
     private static final double PI = 3.14159265358979323846;
 
@@ -98,11 +97,6 @@ public abstract class AbstractCamera extends AbstractEntityRenderable implements
     @Override
     public void stop() {
 
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return false;
     }
 
     @Override

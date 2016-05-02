@@ -1,6 +1,7 @@
 package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.UnitType;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 import org.supply.simulator.data.statistic.entity.UnitPositions;
@@ -8,10 +9,12 @@ import org.supply.simulator.data.statistic.entity.UnitPositions;
 /**
  * Created by Alex on 9/14/2014.
  */
-public interface Unit extends Entity<EntityAttribute,EntityStatistic,Long> {
+public interface Unit extends Entity<EntityAttribute,EntityStatistic,Long>, Comparable {
 
-    public UnitType getType();
-    public void setType(UnitType unitType);
+//    @Override
+//    public UnitType getType();
+//
+//    public void setType(UnitType type);
 
     public UnitPositions getUnitPositions();
 

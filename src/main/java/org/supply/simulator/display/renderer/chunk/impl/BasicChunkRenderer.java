@@ -1,9 +1,9 @@
 package org.supply.simulator.display.renderer.chunk.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
-import org.supply.simulator.display.renderable.chunk.ChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.ChunkRenderer;
 
 import java.nio.ByteBuffer;
@@ -47,8 +47,8 @@ public class BasicChunkRenderer implements ChunkRenderer {
     private BasicChunkIndexEngine chunkIndexEngine;
 
     @Override
-    public void build(Collection<ChunkRenderable> renderables) {
-        for (ChunkRenderable renderable : renderables) {
+    public void build(Collection<Chunk> renderables) {
+        for (Chunk renderable : renderables) {
 
             int vertexAttributesId = GL30.glGenVertexArrays();
 
@@ -57,8 +57,8 @@ public class BasicChunkRenderer implements ChunkRenderer {
             int positionsArrayId = GL15.glGenBuffers();
             int colorsArrayId = GL15.glGenBuffers();
 
-            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(renderable.getChunkPositions().length);
-            verticesFloatBuffer.put(renderable.getChunkPositions());
+            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(renderable.getChunkPositions().getValue().length);
+            verticesFloatBuffer.put(renderable.getChunkPositions().getValue());
             verticesFloatBuffer.flip();
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
@@ -69,8 +69,8 @@ public class BasicChunkRenderer implements ChunkRenderer {
                     false, POSITION_BYTES, POSITION_BYTE_OFFSET);
 
 
-            ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(renderable.getChunkColors().length);
-            verticesByteBuffer.put(renderable.getChunkColors());
+            ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(renderable.getChunkColors().getValue().length);
+            verticesByteBuffer.put(renderable.getChunkColors().getValue());
 
             verticesByteBuffer.flip();
 
@@ -88,15 +88,15 @@ public class BasicChunkRenderer implements ChunkRenderer {
             renderable.setVertexAttributesId(vertexAttributesId);
             renderable.setPositionsArrayId(positionsArrayId);
             renderable.setColorsArrayId(colorsArrayId);
-            renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getChunkType()).getIndexId());
+            renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getType()).getIndexId());
         }
 
     }
 
     @Override
-    public void render(Collection<ChunkRenderable> renderables) {
+    public void render(Collection<Chunk> renderables) {
 
-        for (ChunkRenderable renderable : renderables) {
+        for (Chunk renderable : renderables) {
             GL30.glBindVertexArray(renderable.getVertexAttributesId());
             GL20.glEnableVertexAttribArray(locations[0]);
             GL20.glEnableVertexAttribArray(locations[1]);
@@ -105,7 +105,7 @@ public class BasicChunkRenderer implements ChunkRenderer {
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, renderable.getIndicesBufferId());
 
             // Draw the vertices
-            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, renderable.getChunkType().getRows() * renderable.getChunkType().getColumns() * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
+            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, renderable.getType().getRows() * renderable.getType().getColumns() * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
             // Put everything back to default (deselect)
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
             GL20.glDisableVertexAttribArray(locations[0]);
@@ -116,8 +116,8 @@ public class BasicChunkRenderer implements ChunkRenderer {
     }
 
     @Override
-    public void destroy(Collection<ChunkRenderable> renderables) {
-        for (ChunkRenderable renderable : renderables) {
+    public void destroy(Collection<Chunk> renderables) {
+        for (Chunk renderable : renderables) {
             GL30.glBindVertexArray(renderable.getVertexAttributesId());
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
@@ -128,7 +128,7 @@ public class BasicChunkRenderer implements ChunkRenderer {
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 //            GL15.glDeleteBuffers(indicesBufferId);
-            chunkIndexEngine.done(renderable.getChunkType());
+            chunkIndexEngine.done(renderable.getType());
 
             GL30.glBindVertexArray(0);
             GL30.glDeleteVertexArrays(renderable.getVertexAttributesId());

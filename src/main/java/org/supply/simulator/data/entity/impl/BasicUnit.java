@@ -1,13 +1,11 @@
 package org.supply.simulator.data.entity.impl;
 
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.UnitType;
-import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
-import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 import org.supply.simulator.data.statistic.entity.UnitPositions;
-import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
 
 import java.util.Iterator;
 
@@ -21,13 +19,14 @@ public class BasicUnit implements Unit {
 
 
 
-
-    public UnitType getType() {
+    @Override
+    public EntityType getType() {
         return type;
     }
 
-    public void setType(UnitType unitType) {
-        type=unitType;
+    @Override
+    public void setType(EntityType type) {
+        this.type = (UnitType) type;
     }
 
     public UnitPositions getUnitPositions() {
@@ -95,5 +94,15 @@ public class BasicUnit implements Unit {
     @Override
     public boolean hasStatistic(Object statisticId) {
         return false;
+    }
+
+    @Override
+    public int compareTo (Object o) {
+        if (this == o) return 0;
+        if (!(o instanceof Unit)) return -1;
+
+        return this.type.getTextureHandle().compareTo(((Unit) o).getType().getTextureHandle());
+
+
     }
 }

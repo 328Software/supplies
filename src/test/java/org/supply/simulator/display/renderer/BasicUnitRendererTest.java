@@ -5,14 +5,13 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCamera;
-import org.supply.simulator.display.renderable.unit.UnitRenderable;
-import org.supply.simulator.display.renderable.unit.impl.BasicUnitRenderable;
 import org.supply.simulator.display.renderer.unit.impl.BasicUnitRenderer;
 
 import java.util.ArrayList;
@@ -51,10 +50,10 @@ public class BasicUnitRendererTest {
     @Test
     public void BasicUnitRendererTest() {
         startup("BasicUnitRendererTest");
-        BasicUnitRenderable entityRenderable = dataGenerator.createUnit(-.5f, .5f, 0, -1f, 1f);
+        BasicUnit unit = dataGenerator.createUnit(-.5f, .5f, 0, -1f, 1f);
 
-        ArrayList<UnitRenderable> list = new ArrayList<>();
-        list.add(entityRenderable);
+        ArrayList<BasicUnit> list = new ArrayList<>();
+        list.add(unit);
 
         renderList(list);
 
@@ -73,16 +72,16 @@ public class BasicUnitRendererTest {
 
 
 
-        ArrayList<BasicUnitRenderable> list  = new ArrayList<>();
+        ArrayList<BasicUnit> list  = new ArrayList<>();
         for (int i=0;i<6;i++) {
 
-            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .5f, 0, .2f, .2f, "textures/alexsface.png");
+            BasicUnit entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), .5f, 0, .2f, .2f, "textures/alexsface.png");
             list.add(entityRenderable);
         }
 
         for (int i=0;i<6;i++) {
 //
-            BasicUnitRenderable entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), -.5f, 0, .2f, .2f, "textures/text2.png");
+            BasicUnit entityRenderable = dataGenerator.createUnit((float) (-.7 + (.2 * i)), -.5f, 0, .2f, .2f, "textures/text2.png");
             list.add(entityRenderable);
         }
 

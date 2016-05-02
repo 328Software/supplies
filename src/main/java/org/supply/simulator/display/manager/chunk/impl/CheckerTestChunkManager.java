@@ -12,7 +12,6 @@ import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
 import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderable.chunk.impl.BasicChunkRenderable;
 import org.supply.simulator.display.renderer.chunk.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
@@ -35,7 +34,7 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
     public CheckerTestChunkManager () {
         super();
         isFirst = true;
-        visibleRenderables = new ArrayList<BasicChunkRenderable>();
+        visibleRenderables = new ArrayList<BasicChunk>();
 
     }
 //
@@ -45,13 +44,13 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
 //    }
 
     @Override
-    protected Collection<BasicChunkRenderable> getRenderablesToRemove(Camera camera) {
-        return new ArrayList<BasicChunkRenderable>();
+    protected Collection<BasicChunk> getRenderablesToRemove(Camera camera) {
+        return new ArrayList<BasicChunk>();
     }
 
     @Override /*@Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)*/
-    protected java.util.Collection<BasicChunkRenderable> getRenderablesToAdd(Camera view) {
-        Collection<BasicChunkRenderable> newChunks = new ArrayList<BasicChunkRenderable>();
+    protected java.util.Collection<BasicChunk> getRenderablesToAdd(Camera view) {
+        Collection<BasicChunk> newChunks = new ArrayList<BasicChunk>();
         if (isFirst) {
             isFirst=false;
             int count = 0;
@@ -68,13 +67,11 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
                 BasicChunkColors colors = new BasicChunkColors();
                 positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());
-                chunk.setChunkType(type);
+                chunk.setType(type);
                 chunk.setChunkColors(colors);
                 chunk.setChunkPositions(positions);
 
-                BasicChunkRenderable renderable = new BasicChunkRenderable();
-                renderable.setEntity(chunk);
-                newChunks.add(renderable);
+                newChunks.add(chunk);
                 storeChunk(chunk);
 //                }
 //            }

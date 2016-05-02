@@ -4,14 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.attribute.entity.UnitType;
+import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.*;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.mock.data.MockTextureType;
-import org.supply.simulator.display.mock.data.MockUnitType;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.ByteBuffer;
@@ -25,7 +25,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private static final int HEIGHT = 600;
 
     private BasicTextureEngine textureEngine;
-    MockUnitType entityType;
+    UnitType entityType;
 
     private MockDisplayCore core;
     private BasicShaderEngine shaderEngine;
@@ -40,7 +40,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private int VAO;
     private int VBOI;
     int indicesCount;
-    MockUnitType unitType;
+    UnitType unitType;
 
     TextureHandle handle;
 
@@ -52,10 +52,8 @@ public class BasicTextureEngineTest extends HasLogger {
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
 
-        unitType = new MockUnitType();
-        MockTextureType ttype = new MockTextureType();
-        ttype.setFileName("textures/rect.png");
-        unitType.setTextureType(ttype);
+        unitType = new BasicUnitType();
+        unitType.setName("textures/rect.png");
         handle = textureEngine.get(unitType);
 
 

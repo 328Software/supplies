@@ -2,10 +2,11 @@ package org.supply.simulator.display.renderer.menu.impl;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.MenuType;
+import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.renderable.menu.MenuRenderable;
 import org.supply.simulator.display.renderer.menu.MenuRenderer;
 
 import java.nio.FloatBuffer;
@@ -54,7 +55,7 @@ public class BasicMenuRenderer implements MenuRenderer {
 
     private int indicesCount;
 
-    protected ArrayList<MenuRenderable> unitList;
+    protected ArrayList<Menu> unitList;
 
     protected int indicesBufferId = -1;
 
@@ -71,14 +72,15 @@ public class BasicMenuRenderer implements MenuRenderer {
 
 
     @Override
-    public void build(Collection<MenuRenderable> renderables) {
-        for (MenuRenderable renderable : renderables) {
-            renderable.setTextureHandle(textureEngine.get(renderable.getMenuType()));
+    public void build(Collection<Menu> renderables) {
+        for (Menu renderable : renderables) {
+
+            renderable.getType().setTextureHandle(textureEngine.get((MenuType)renderable.getType()));
             unitList.add(renderable);
 
-            if (!idMap.containsValue(renderable.getTextureHandle().getAtlasType())) {
+            if (!idMap.containsValue(renderable.getType().getTextureHandle().getAtlasType())) {
                 BufferIds bufferIds = new BufferIds();
-                bufferIds.textureId = renderable.getTextureHandle().getAtlasType().getTextureId();
+                bufferIds.textureId = renderable.getType().getTextureHandle().getAtlasType().getTextureId();
                 //entities.getTextureHandle(renderable.getTextureHandle().getSubAtlasType().getAtlasType()).getTextureId();
                 bufferIds.positionsArrayId = GL15.glGenBuffers();
                 bufferIds.vertexAttributesId  = GL30.glGenVertexArrays();
@@ -98,7 +100,7 @@ public class BasicMenuRenderer implements MenuRenderer {
 
 
 
-                idMap.put(renderable.getTextureHandle().getAtlasType(),bufferIds);
+                idMap.put(renderable.getType().getTextureHandle().getAtlasType(),bufferIds);
                 GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
             }
         }
@@ -111,13 +113,13 @@ public class BasicMenuRenderer implements MenuRenderer {
     }
 
     @Override
-    public void render(Collection<MenuRenderable> renderables) {
+    public void render(Collection<Menu> renderables) {
         if (renderables.size()>0) renderAtlas(unitList,0);
 
     }
 
-    private void renderAtlas(ArrayList<MenuRenderable> renderables, int atlasIndex) {
-        AtlasType    currentAtlas    = unitList.get(atlasIndex).getTextureHandle().getAtlasType();
+    private void renderAtlas(ArrayList<Menu> renderables, int atlasIndex) {
+        AtlasType    currentAtlas    = unitList.get(atlasIndex).getType().getTextureHandle().getAtlasType();
 
         BufferIds bufferIds = idMap.get(currentAtlas);
         GL30.glBindVertexArray(bufferIds.vertexAttributesId);
@@ -142,22 +144,22 @@ public class BasicMenuRenderer implements MenuRenderer {
         FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
         int count = atlasIndex;
         while(count<renderables.size()) {
-            if (!renderables.get(count).getTextureHandle().getAtlasType().equals(currentAtlas)) {
+            if (!renderables.get(count).getType().getTextureHandle().getAtlasType().equals(currentAtlas)) {
                 break;
             }
             //TODO this needs to be done on Entity generation, should be in bad engine?
-            float[] data = renderables.get(count).getUnitPosition();
-            data[8] =(float)renderables.get(count).getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[9] =(float)renderables.get(count).getTextureHandle().getSubInfo()[1]/tHeight; //Y0
+            float[] data = renderables.get(count).getPositions().getValue();
+            data[8] =(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
+            data[9] =(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
 
-            data[18]=(float)renderables.get(count).getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[19]=(float)renderables.get(count).getTextureHandle().getSubInfo()[3]/tHeight; //Y1
+            data[18]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
+            data[19]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
 
-            data[28]=(float)renderables.get(count).getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[29]=(float)renderables.get(count).getTextureHandle().getSubInfo()[3]/tHeight; //Y1
+            data[28]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
+            data[29]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
 
-            data[38]=(float)renderables.get(count).getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[39]=(float)renderables.get(count).getTextureHandle().getSubInfo()[1]/tHeight; //Y0
+            data[38]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
+            data[39]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
             verticesFloatBuffer.put(data);
             count = count +1;
 
@@ -190,17 +192,17 @@ public class BasicMenuRenderer implements MenuRenderer {
 
 
     @Override
-    public void destroy(Collection<MenuRenderable> renderables) {
-        for (MenuRenderable renderable : renderables) {
-            textureEngine.done(renderable.getMenuType());
+    public void destroy(Collection<Menu> renderables) {
+        for (Menu renderable : renderables) {
+            textureEngine.done((MenuType)renderable.getType());
             unitList.remove(renderable);
         }
     }
 
     @Override
     public void destroyAll() {
-        for (MenuRenderable renderable : unitList) {
-            textureEngine.done(renderable.getMenuType());
+        for (Menu renderable : unitList) {
+            textureEngine.done((MenuType)renderable.getType());
         }
         unitList.clear();
     }

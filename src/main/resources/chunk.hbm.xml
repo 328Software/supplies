@@ -40,7 +40,7 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <many-to-one name="chunkType" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>
+        <many-to-one name="type" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>
         <many-to-one name="chunkColors" column="chunk_colors" class="org.supply.simulator.data.statistic.entity.impl.BasicChunkColors" cascade="save-update"/>
         <many-to-one name="chunkPositions" column="chunk_positions" class="org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions" cascade="save-update"/>
     </class>

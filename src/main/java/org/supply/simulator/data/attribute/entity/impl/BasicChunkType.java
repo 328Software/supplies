@@ -1,21 +1,16 @@
 package org.supply.simulator.data.attribute.entity.impl;
 
+import org.supply.simulator.data.attribute.entity.AbstractEntityType;
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityType;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkType implements ChunkType {
+public class BasicChunkType extends AbstractEntityType implements ChunkType {
 
-    Long id;
     Integer rows, columns;
-
-
-    @Override
-    public Long getId() {
-        return id;
-    }
 
     @Override
     public Integer getRows() {
@@ -28,11 +23,6 @@ public class BasicChunkType implements ChunkType {
     }
 
     @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
     public void setRows(Integer rows) {
         this.rows = rows;
     }
@@ -41,4 +31,5 @@ public class BasicChunkType implements ChunkType {
     public void setColumns(Integer columns) {
         this.columns = columns;
     }
+
 }

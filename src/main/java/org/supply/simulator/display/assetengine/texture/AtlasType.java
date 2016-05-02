@@ -14,4 +14,8 @@ public interface AtlasType {
     public void subtract();
 
     public Integer count();
+
+    public void setFileName(String fileName);
+
+    public String getFileName();
 }

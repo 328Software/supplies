@@ -7,7 +7,7 @@ import org.supply.simulator.display.assetengine.texture.AtlasType;
  */
 public class BasicAtlasType implements AtlasType {
 
-//    private String fileName;
+    private String fileName;
     private Integer id;
 
     protected Integer count=0;
@@ -27,15 +27,15 @@ public class BasicAtlasType implements AtlasType {
         return count;
     }
 
-//    @Override
-//    public void setFileName(String fileName) {
-//        this.fileName=fileName;
-//    }
-//
-//    @Override
-//    public String getFileName() {
-//        return this.fileName;
-//    }
+    @Override
+    public void setFileName(String fileName) {
+        this.fileName=fileName;
+    }
+
+    @Override
+    public String getFileName() {
+        return this.fileName;
+    }
 
     @Override
     public Integer getTextureId() {

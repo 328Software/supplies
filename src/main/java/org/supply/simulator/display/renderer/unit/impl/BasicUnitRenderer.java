@@ -3,9 +3,9 @@ package org.supply.simulator.display.renderer.unit.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.attribute.entity.UnitType;
+import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.renderable.unit.UnitRenderable;
 import org.supply.simulator.display.renderer.unit.UnitRenderer;
 import org.supply.simulator.logging.HasLogger;
 
@@ -57,8 +57,8 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
 
     private int indicesCount;
 
-    //    protected PriorityQueue<UnitRenderable> unitQueue;
-    protected ArrayList<UnitRenderable> unitList;
+    //    protected PriorityQueue<Unit> unitQueue;
+    protected ArrayList<Unit> unitList;
 //    protected EntityQueue entities;
 
     protected int indicesBufferId = -1;
@@ -80,14 +80,14 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
 
 
     @Override
-    public void build(Collection<UnitRenderable> renderables) {
-        for (UnitRenderable renderable : renderables) {
-            renderable.setTextureHandle(textureEngine.get(renderable.getUnitType()));
+    public void build(Collection<Unit> renderables) {
+        for (Unit renderable : renderables) {
+            renderable.getType().setTextureHandle(textureEngine.get((UnitType)renderable.getType()));
             unitList.add(renderable);
 
-            if (!idMap.containsValue(renderable.getTextureHandle().getAtlasType())) {
+            if (!idMap.containsValue(renderable.getType().getTextureHandle().getAtlasType())) {
                 BufferIds bufferIds = new BufferIds();
-                bufferIds.textureId = renderable.getTextureHandle().getAtlasType().getTextureId();
+                bufferIds.textureId = renderable.getType().getTextureHandle().getAtlasType().getTextureId();
                 //entities.getTextureHandle(renderable.getTextureHandle().getSubAtlasType().getAtlasType()).getTextureId();
                 bufferIds.positionsArrayId = GL15.glGenBuffers();
                 bufferIds.vertexAttributesId  = GL30.glGenVertexArrays();
@@ -107,7 +107,7 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
 
 
 
-                idMap.put(renderable.getTextureHandle().getAtlasType(),bufferIds);
+                idMap.put(renderable.getType().getTextureHandle().getAtlasType(),bufferIds);
                 GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
             }
         }
@@ -120,13 +120,13 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
     }
 
     @Override
-    public void render(Collection<UnitRenderable> renderables) {
+    public void render(Collection<Unit> renderables) {
         if (renderables.size()>0) renderAtlas(unitList,0);
 
     }
 
-    private void renderAtlas(ArrayList<UnitRenderable> renderables, int atlasIndex) {
-        AtlasType    currentAtlas    = unitList.get(atlasIndex).getTextureHandle().getAtlasType();
+    private void renderAtlas(ArrayList<Unit> renderables, int atlasIndex) {
+        AtlasType    currentAtlas    = unitList.get(atlasIndex).getType().getTextureHandle().getAtlasType();
 
         BufferIds bufferIds = idMap.get(currentAtlas);
         GL30.glBindVertexArray(bufferIds.vertexAttributesId);
@@ -151,22 +151,22 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
         FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
         int count = atlasIndex;
         while(count<renderables.size()) {
-            if (!renderables.get(count).getTextureHandle().getAtlasType().equals(currentAtlas)) {
+            if (!renderables.get(count).getType().getTextureHandle().getAtlasType().equals(currentAtlas)) {
                 break;
             }
             //TODO this needs to be done on Entity generations, should be in bad engine?
-            float[] data = renderables.get(count).getUnitPosition();
-            data[8] =(float)renderables.get(count).getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[9] =(float)renderables.get(count).getTextureHandle().getSubInfo()[1]/tHeight; //Y0
+            float[] data = renderables.get(count).getUnitPositions().getValue();
+            data[8] =(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
+            data[9] =(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
 
-            data[18]=(float)renderables.get(count).getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[19]=(float)renderables.get(count).getTextureHandle().getSubInfo()[3]/tHeight; //Y1
+            data[18]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
+            data[19]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
 
-            data[28]=(float)renderables.get(count).getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[29]=(float)renderables.get(count).getTextureHandle().getSubInfo()[3]/tHeight; //Y1
+            data[28]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
+            data[29]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
 
-            data[38]=(float)renderables.get(count).getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[39]=(float)renderables.get(count).getTextureHandle().getSubInfo()[1]/tHeight; //Y0
+            data[38]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
+            data[39]=(float)renderables.get(count).getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
             verticesFloatBuffer.put(data);
             count = count +1;
 
@@ -198,17 +198,17 @@ public class BasicUnitRenderer extends HasLogger implements UnitRenderer {
 
 
     @Override
-    public void destroy(Collection<UnitRenderable> renderables) {
-        for (UnitRenderable renderable : renderables) {
-            textureEngine.done(renderable.getUnitType());
+    public void destroy(Collection<Unit> renderables) {
+        for (Unit renderable : renderables) {
+            textureEngine.done((UnitType)renderable.getType());
             unitList.remove(renderable);
         }
     }
 
     @Override
     public void destroyAll() {
-        for (UnitRenderable renderable : unitList) {
-            textureEngine.done(renderable.getUnitType());
+        for (Unit renderable : unitList) {
+            textureEngine.done((UnitType)renderable.getType());
         }
         unitList.clear();
     }

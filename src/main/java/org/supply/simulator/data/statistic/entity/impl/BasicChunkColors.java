@@ -1,7 +1,6 @@
 package org.supply.simulator.data.statistic.entity.impl;
 
 import org.supply.simulator.data.statistic.entity.ChunkColors;
-import org.supply.simulator.data.statistic.entity.EntityStatistic;
 
 /**
  * Created by Alex on 9/7/2014.

@@ -3,7 +3,6 @@ package org.supply.simulator.display.renderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.attribute.entity.MenuType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;

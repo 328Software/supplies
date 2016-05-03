@@ -8,7 +8,6 @@ import org.hibernate.usertype.UserType;
 import org.supply.simulator.core.dao.util.ArrayFloatByteTranslator;
 
 import java.io.Serializable;
-import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

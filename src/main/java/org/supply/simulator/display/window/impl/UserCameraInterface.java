@@ -14,8 +14,6 @@ import org.supply.simulator.util.MatrixUtil;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.opengl.GL11.*;
-
 /**
  * Basic implementation of AbstractCamera.
  *
@@ -23,12 +21,8 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class UserCameraInterface {
 
-    private final float rotationDelta = 0.02f;
-    private final float rotationDelta2 = 3f;
-    private final float posDelta = 0.02f;
-    private final float mouseDeltaThresh = 0.000000001f;
+    private static final float WASD_POS_DELTA = 0.02f;
 
-    private final float scaleDelta = 0.1f;
 
 
     CameraImpl camera;
@@ -37,8 +31,6 @@ public class UserCameraInterface {
         super();
 
         Keyboard.enableRepeatEvents(true);
-
-
     }
 
     public void refresh() {
@@ -49,47 +41,39 @@ public class UserCameraInterface {
             switch (Keyboard.getEventKey()) {
 
                 case Keyboard.KEY_W:
-                    camera.moveNorth(posDelta);
+                    camera.moveNorth(WASD_POS_DELTA);
                     break;
                 case Keyboard.KEY_S:
-                    camera.moveSouth(posDelta);
+                    camera.moveSouth(WASD_POS_DELTA);
                     break;
                 case Keyboard.KEY_A:
-                    camera.moveEast(posDelta);
+                    camera.moveEast(WASD_POS_DELTA);
                     break;
                 case Keyboard.KEY_D:
-                    camera.moveWest(posDelta);
+                    camera.moveWest(WASD_POS_DELTA);
                     break;
             }
         }
 
-        if(Mouse.isButtonDown(0)) {
+      /*  if(Mouse.isButtonDown(0)) {
             int dx = Mouse.getX();
             int dy = Mouse.getY();
 
             float[] floats = calcWorldCoordinates(dx, dy);
 
             camera.getCameraPos().set(floats[0], floats[1]);
-        }
+        }*/
 
         if (Mouse.isButtonDown(1)) {
 
-            int newX = Mouse.getDX();
-            int newY = Mouse.getDY();
+            int mouseDeltaX = Mouse.getDX();
+            int mouseDeltaY = Mouse.getDY();
 
-            int dx = Mouse.getX();
-            int dy = Mouse.getY();
+            int newMouseX = Mouse.getX();
+            int newMouseY = Mouse.getY();
 
-            Matrix4f orthogonal = MatrixUtil.orthogonal(0, 800, 600, 0, 0.1f, 100);
-
-            Vector4f other = new Vector4f(newX, newY, 0, 0);
-            Vector4f otherd = new Vector4f();
-
-
-            Matrix4f.transform(orthogonal, other, otherd);
-
-            float[] floats = calcWorldCoordinates(dx  , dy);
-            float[] offset = calcWorldCoordinates(dx+newX  , dy+newY);
+            float[] floats = calcWorldCoordinates(newMouseX, newMouseY);
+            float[] offset = calcWorldCoordinates(newMouseX + mouseDeltaX, newMouseY + mouseDeltaY);
 
             Vector3f.add(camera.getCameraPos(), new Vector3f(offset[0]-floats[0], offset[1]-floats[1], 0), camera.getCameraPos());
         }
@@ -102,19 +86,30 @@ public class UserCameraInterface {
 
         FloatBuffer projection = BufferUtils.createFloatBuffer(16);
         camera.getProjectionMatrix().store(projection); projection.flip();
+
+        //todo might be better to build our own viewport
         IntBuffer viewport = BufferUtils.createIntBuffer(16);
 
         GL11.glGetInteger(GL11.GL_VIEWPORT, viewport);
 
-        FloatBuffer z = BufferUtils.createFloatBuffer(1);
-        glReadPixels(mouseX, mouseY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, z);
-
         FloatBuffer posNear = BufferUtils.createFloatBuffer(3);
 
-        float winz = (100f*(0.1f-1f)/((100f-0.1f)*-1f));
-        GLU.gluUnProject(mouseX, mouseY, winz, model, projection, viewport, posNear);
+        GLU.gluUnProject(mouseX, mouseY, getWinZ(), model, projection, viewport, posNear);
 
         return new float[]{posNear.get(), posNear.get()};
+    }
+
+    private float getWinZ() {
+        float zDelta =  getViewZ() - getModelZ();
+        return camera.getFarPlane()*(camera.getNearPlane()+zDelta)/((camera.getFarPlane()-camera.getNearPlane())*zDelta);
+    }
+
+    private float getModelZ() {
+        return camera.getModelMatrix().m32;
+    }
+
+    private float getViewZ() {
+        return camera.getViewMatrix().m32;
     }
 
     public void setCamera(CameraImpl camera) {

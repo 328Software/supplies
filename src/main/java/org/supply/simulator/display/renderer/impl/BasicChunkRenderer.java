@@ -1,8 +1,8 @@
 package org.supply.simulator.display.renderer.impl;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;

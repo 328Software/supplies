@@ -4,7 +4,6 @@ import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;

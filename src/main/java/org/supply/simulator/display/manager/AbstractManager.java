@@ -1,7 +1,6 @@
 package org.supply.simulator.display.manager;
 
 import org.supply.simulator.display.renderer.EntityRenderer;
-import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.CameraImpl;
 import org.supply.simulator.logging.HasLogger;
 

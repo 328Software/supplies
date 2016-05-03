@@ -4,10 +4,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.display.core.AbstractDisplayCore;
 import org.supply.simulator.display.core.DisplayCore;
-import org.supply.simulator.display.window.Window;
 import org.supply.simulator.executor.RepeatableTask;
-import org.supply.simulator.executor.RepeatingScheduleInformation;
-import org.supply.simulator.executor.impl.basic.BasicRepeatingScheduleInformation;
 
 /**
  * Created by Alex on 7/19/2014.

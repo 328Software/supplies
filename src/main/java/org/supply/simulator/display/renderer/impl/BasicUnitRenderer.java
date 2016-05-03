@@ -1,21 +1,8 @@
 package org.supply.simulator.display.renderer.impl;
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.*;
-import org.supply.simulator.data.attribute.entity.UnitType;
-import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.display.assetengine.texture.AtlasType;
-import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
-
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * Created by Alex on 7/21/2014.

@@ -3,7 +3,6 @@ package org.supply.simulator.display.manager.impl;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
-import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;

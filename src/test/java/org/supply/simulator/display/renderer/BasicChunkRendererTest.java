@@ -12,8 +12,8 @@ import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngi
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.extra.DataGenerator;
-import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCameraImpl;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.CameraImpl;
 

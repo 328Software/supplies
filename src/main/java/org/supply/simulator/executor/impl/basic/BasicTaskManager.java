@@ -1,6 +1,5 @@
 package org.supply.simulator.executor.impl.basic;
 
-import org.supply.simulator.executor.DispatchService;
 import org.supply.simulator.executor.RepeatableTask;
 import org.supply.simulator.executor.TaskManager;
 

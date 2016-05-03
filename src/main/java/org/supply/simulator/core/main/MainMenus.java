@@ -2,8 +2,7 @@ package org.supply.simulator.core.main;
 
 import org.supply.simulator.display.core.impl.BasicDisplayCore;
 
-import static java.util.Objects.nonNull;
-import static org.supply.simulator.core.main.Game.*;
+import static org.supply.simulator.core.main.Game.DISPLAY_CORE_KEY;
 
 /**
  * Created by Brandon on 4/30/2016.

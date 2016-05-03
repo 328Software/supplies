@@ -10,7 +10,7 @@ import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.extra.*;
+import org.supply.simulator.display.extra.TexturedVertex;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.logging.HasLogger;
 

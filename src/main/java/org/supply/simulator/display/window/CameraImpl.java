@@ -7,9 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL20.glUniformMatrix4;
-import static org.lwjgl.util.vector.Matrix4f.rotate;
-import static org.lwjgl.util.vector.Matrix4f.scale;
-import static org.lwjgl.util.vector.Matrix4f.translate;
+import static org.lwjgl.util.vector.Matrix4f.*;
 import static org.supply.simulator.util.MatrixUtil.projection;
 
 /**
@@ -18,6 +16,10 @@ import static org.supply.simulator.util.MatrixUtil.projection;
 public class CameraImpl {
 
     private static final double PI = Math.PI;
+    public static final double PI_OVER_ONE_HUNDRED_EIGHTY = PI / 180d;
+    public static final Vector3f Z_VECTOR = new Vector3f(0, 0, 1);
+    public static final Vector3f Y_VECTOR = new Vector3f(0, 1, 0);
+    public static final Vector3f X_VECTOR = new Vector3f(1, 0, 0);
 
     protected Vector3f modelPos;
     protected Vector3f modelAngle;
@@ -76,11 +78,11 @@ public class CameraImpl {
         scale(modelScale, modelMatrix, modelMatrix);
         translate(modelPos, modelMatrix, modelMatrix);
 
-        rotate(modelAngle.z* (float)(PI / 180d), new Vector3f(0, 0, 1),
+        rotate(modelAngle.z * (float) PI_OVER_ONE_HUNDRED_EIGHTY, Z_VECTOR,
                 modelMatrix, modelMatrix);
-        rotate(modelAngle.y* (float)(PI / 180d), new Vector3f(0, 1, 0),
+        rotate(modelAngle.y * (float)(PI_OVER_ONE_HUNDRED_EIGHTY), Y_VECTOR,
                 modelMatrix, modelMatrix);
-        rotate(modelAngle.x* (float)(PI / 180d), new Vector3f(1, 0, 0),
+        rotate(modelAngle.x * (float)(PI_OVER_ONE_HUNDRED_EIGHTY), X_VECTOR,
                 modelMatrix, modelMatrix);
 
         storeProjectionMatrix();
@@ -197,7 +199,21 @@ public class CameraImpl {
         return this.cameraPos;
     }
 
+    public float getFieldOfView() {
+        return fieldOfView;
+    }
 
+    public float getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public float getNearPlane() {
+        return nearPlane;
+    }
+
+    public float getFarPlane() {
+        return farPlane;
+    }
 
     //*****Setters
     public void setCameraAngle(Vector3f cameraAngle) {

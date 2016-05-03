@@ -7,7 +7,6 @@ import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
 import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;

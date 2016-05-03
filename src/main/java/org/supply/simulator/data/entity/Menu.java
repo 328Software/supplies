@@ -1,7 +1,6 @@
 package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
-import org.supply.simulator.data.attribute.entity.MenuType;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 import org.supply.simulator.data.statistic.entity.UnitPositions;
 

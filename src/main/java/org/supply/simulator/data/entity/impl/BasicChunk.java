@@ -3,14 +3,10 @@ package org.supply.simulator.data.entity.impl;
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.statistic.entity.ChunkColors;
 import org.supply.simulator.data.statistic.entity.ChunkPositions;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 
 import java.util.Iterator;
 

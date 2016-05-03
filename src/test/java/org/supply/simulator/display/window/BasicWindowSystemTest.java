@@ -13,16 +13,16 @@ import org.supply.simulator.display.mock.MockUnitManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
 import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
-import org.supply.simulator.display.window.impl.BasicPlayWindow;
+import org.supply.simulator.display.window.impl.BasicWindow;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
 /**
  * Created by Alex on 7/18/2014.
  */
-public class BasicPlayWindowSystemTest {
+public class BasicWindowSystemTest {
 
 
-    private BasicPlayWindow window;
+    private BasicWindow window;
     private MockDisplayCore core;
     private CameraImpl camera;
 
@@ -39,7 +39,7 @@ public class BasicPlayWindowSystemTest {
     @Before
     public void create() {
         core = new MockDisplayCore();
-        core.build("BasicPlayWindowSystemTest");
+        core.build("BasicWindowSystemTest");
 
         shaderEngine = new BasicShaderEngine();
 
@@ -68,8 +68,10 @@ public class BasicPlayWindowSystemTest {
         menuRenderer.setTextureEngine(new BasicTextureEngine());
         menuManager.setEntityRenderer(menuRenderer);
 
-        window = new BasicPlayWindow();
-        window.setUserCameraInterface(new UserCameraInterface());
+        window = new BasicWindow();
+        UserCameraInterface userCameraInterface = new UserCameraInterface();
+        userCameraInterface.setCamera(camera);
+        window.setUserCameraInterface(userCameraInterface);
 
         window.setShaderEngine(shaderEngine);
 

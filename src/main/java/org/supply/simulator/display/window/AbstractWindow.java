@@ -12,7 +12,7 @@ import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 /**
  * Created by Alex on 6/29/2014.
  */
-public abstract class AbstractPlayWindow implements Window {
+public abstract class AbstractWindow implements Window {
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
@@ -21,7 +21,7 @@ public abstract class AbstractPlayWindow implements Window {
     protected Manager<BasicUnitRenderer>  unitManager;
     protected Manager<BasicChunkRenderer> chunkManager;
 
-    public AbstractPlayWindow() {
+    public AbstractWindow() {
     }
 
     @Override

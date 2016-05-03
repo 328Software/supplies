@@ -1,17 +1,17 @@
 package org.supply.simulator.display.window.impl;
 
-import org.supply.simulator.display.window.AbstractPlayWindow;
+import org.supply.simulator.display.window.AbstractWindow;
 import org.supply.simulator.display.window.Window;
 
 /**
- * Basic implementaion of AbstractPlayWindow.
+ * Basic implementaion of AbstractWindow.
  *
  * Created by Alex on 6/27/2014.
  */
-public class BasicPlayWindow extends AbstractPlayWindow implements Window{
+public class BasicWindow extends AbstractWindow implements Window{
     UserCameraInterface userCameraInterface;
 
-    public BasicPlayWindow() {
+    public BasicWindow() {
         super();
     }
 

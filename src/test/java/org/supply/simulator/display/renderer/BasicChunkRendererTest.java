@@ -15,6 +15,7 @@ import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockCameraImpl;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
+import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class BasicChunkRendererTest {
     private int totalChunkColumns = 30;
 
     BasicShaderEngine shaderEngine;
-    MockCameraImpl camera;
+    CameraImpl camera;
 
     MockDisplayCore core;
     BasicChunkRenderer renderer;
@@ -60,7 +61,13 @@ public class BasicChunkRendererTest {
 
         shaderEngine = new BasicShaderEngine();
 
-        camera = new MockCameraImpl();
+//        camera = new MockCameraImpl();
+        camera = new CameraImpl();
+        camera.setAspectRatio(1);
+        camera.setFarPlane(100);
+        camera.setNearPlane(0.1f);
+        camera.setFieldOfView(60);
+
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());

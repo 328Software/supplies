@@ -16,7 +16,7 @@
 
     <bean id="displayCore" class="org.supply.simulator.display.core.impl.BasicDisplayCore"/>
 
-    <bean id="window" class="org.supply.simulator.display.window.impl.BasicPlayWindow"/>
+    <bean id="window" class="org.supply.simulator.display.window.impl.BasicWindow"/>
 
     <bean id="userCameraInterface" class="org.supply.simulator.display.window.impl.UserCameraInterface"/>
 

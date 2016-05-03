@@ -4,6 +4,7 @@ import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,12 +15,12 @@ import java.util.Collection;
 public class BasicChunkManager extends AbstractManager<BasicChunkRenderer> implements Manager<BasicChunkRenderer> {
 
     @Override
-    protected Collection getRenderablesToAdd(Camera camera) {
+    protected Collection getRenderablesToAdd(CameraImpl camera) {
         return new ArrayList();
     }
 
     @Override
-    protected Collection getRenderablesToRemove(Camera camera) {
+    protected Collection getRenderablesToRemove(CameraImpl camera) {
         return new ArrayList();
     }
 }

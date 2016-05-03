@@ -9,7 +9,20 @@ import org.supply.simulator.display.window.Window;
  * Created by Alex on 6/27/2014.
  */
 public class BasicPlayWindow extends AbstractPlayWindow implements Window{
+    UserCameraInterface userCameraInterface;
+
     public BasicPlayWindow() {
         super();
+    }
+
+    @Override
+    public void update() {
+        userCameraInterface.refresh();
+
+        super.update();
+    }
+
+    public void setUserCameraInterface(UserCameraInterface userCameraInterface) {
+        this.userCameraInterface = userCameraInterface;
     }
 }

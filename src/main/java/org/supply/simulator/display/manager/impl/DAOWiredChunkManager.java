@@ -7,6 +7,7 @@ import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +34,7 @@ public class DAOWiredChunkManager  extends AbstractManager<BasicChunkRenderer> {
     }
 
     @Override @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    protected Collection<BasicChunk> getRenderablesToAdd(Camera view) {
+    protected Collection<BasicChunk> getRenderablesToAdd(CameraImpl view) {
         ArrayList<BasicChunk> chunkRenderables = new ArrayList<>();
         if (isFirst) {
             isFirst=false;
@@ -49,7 +50,7 @@ public class DAOWiredChunkManager  extends AbstractManager<BasicChunkRenderer> {
     }
 
     @Override
-    protected Collection<BasicChunk> getRenderablesToRemove(Camera view) {
+    protected Collection<BasicChunk> getRenderablesToRemove(CameraImpl view) {
         return new ArrayList<BasicChunk>();
     }
 

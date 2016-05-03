@@ -14,6 +14,7 @@ import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.CameraImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,12 +45,12 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
 //    }
 
     @Override
-    protected Collection<BasicChunk> getRenderablesToRemove(Camera camera) {
+    protected Collection<BasicChunk> getRenderablesToRemove(CameraImpl camera) {
         return new ArrayList<BasicChunk>();
     }
 
     @Override /*@Transactional(value = "chunk",propagation = Propagation.REQUIRES_NEW)*/
-    protected java.util.Collection<BasicChunk> getRenderablesToAdd(Camera view) {
+    protected java.util.Collection<BasicChunk> getRenderablesToAdd(CameraImpl view) {
         Collection<BasicChunk> newChunks = new ArrayList<BasicChunk>();
         if (isFirst) {
             isFirst=false;

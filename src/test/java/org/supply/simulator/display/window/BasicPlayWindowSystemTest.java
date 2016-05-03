@@ -6,15 +6,15 @@ import org.lwjgl.opengl.Display;
 import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
-import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
-import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockChunkManager;
+import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockUnitManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
 import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 import org.supply.simulator.display.window.impl.BasicPlayWindow;
+import org.supply.simulator.display.window.impl.UserCameraInterface;
 
 /**
  * Created by Alex on 7/18/2014.
@@ -24,7 +24,7 @@ public class BasicPlayWindowSystemTest {
 
     private BasicPlayWindow window;
     private MockDisplayCore core;
-    private MockCamera camera;
+    private CameraImpl camera;
 
     private BasicShaderEngine shaderEngine;
 
@@ -43,7 +43,11 @@ public class BasicPlayWindowSystemTest {
 
         shaderEngine = new BasicShaderEngine();
 
-        camera = new MockCamera();
+        camera = new CameraImpl();
+        camera.setAspectRatio(1);
+        camera.setFarPlane(100);
+        camera.setNearPlane(0.1f);
+        camera.setFieldOfView(60);
 
         chunkManager=new MockChunkManager();
         chunkRenderer=new BasicChunkRenderer();
@@ -65,6 +69,7 @@ public class BasicPlayWindowSystemTest {
         menuManager.setEntityRenderer(menuRenderer);
 
         window = new BasicPlayWindow();
+        window.setUserCameraInterface(new UserCameraInterface());
 
         window.setShaderEngine(shaderEngine);
 

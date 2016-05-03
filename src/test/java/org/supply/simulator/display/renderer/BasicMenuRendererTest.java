@@ -11,7 +11,7 @@ import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
-import org.supply.simulator.display.mock.MockCamera;
+import org.supply.simulator.display.mock.MockCameraImpl;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
 
@@ -26,7 +26,7 @@ public class BasicMenuRendererTest {
     MockDisplayCore core;
     BasicShaderEngine shaderEngine;
     BasicTextureEngine textureEngine;
-    MockCamera camera;
+    MockCameraImpl camera;
     BasicMenuRenderer menuRenderer;
     DataGenerator dataGenerator;
 
@@ -83,11 +83,11 @@ public class BasicMenuRendererTest {
     private void startup() {
 
         core.build("MenuRendererTest");
-        camera = new MockCamera();
+        camera = new MockCameraImpl();
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.MENU).getViewMatrixLocation());
-        camera.start();
+        camera.create();
         menuRenderer = new BasicMenuRenderer();
         menuRenderer.setTextureEngine(textureEngine);
         menuRenderer.setAttributeLocations(new int[]{0, 1, 2});

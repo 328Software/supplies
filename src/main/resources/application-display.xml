@@ -18,7 +18,14 @@
 
     <bean id="window" class="org.supply.simulator.display.window.impl.BasicPlayWindow"/>
 
-    <bean id="camera" class="org.supply.simulator.display.window.impl.BasicCamera"/>
+    <bean id="userCameraInterface" class="org.supply.simulator.display.window.impl.UserCameraInterface"/>
+
+    <bean id="camera" class="org.supply.simulator.display.window.CameraImpl">
+        <property name="fieldOfView" value="60"/>
+        <property name="aspectRatio" value="1"/>
+        <property name="nearPlane" value="0.1f"/>
+        <property name="farPlane" value="100f"/>
+    </bean>
 
     <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
 

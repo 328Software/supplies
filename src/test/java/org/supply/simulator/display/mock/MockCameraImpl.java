@@ -3,12 +3,12 @@ package org.supply.simulator.display.mock;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
-import org.supply.simulator.display.window.AbstractCamera;
+import org.supply.simulator.display.window.CameraImpl;
 
 /**
  * Created by Alex on 9/10/2014.
  */
-public class MockCamera extends AbstractCamera{
+public class MockCameraImpl extends CameraImpl {
     private final float rotationDelta = 0.02f;
     private final float rotationDelta2 = 3f;
     private final float posDelta = 0.02f;
@@ -19,7 +19,7 @@ public class MockCamera extends AbstractCamera{
     private int oldX;
     private int oldY;
 
-    public MockCamera() {
+    public MockCameraImpl() {
         super();
         Keyboard.enableRepeatEvents(true);
         super.setModelPos(new Vector3f(0, 0, -.5f));
@@ -31,7 +31,6 @@ public class MockCamera extends AbstractCamera{
         oldY =0;
     }
 
-    @Override
     protected void refreshInput() {
         refresh();
     }

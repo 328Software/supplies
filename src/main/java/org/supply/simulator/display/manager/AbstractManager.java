@@ -2,6 +2,7 @@ package org.supply.simulator.display.manager;
 
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.CameraImpl;
 import org.supply.simulator.logging.HasLogger;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
 
     protected Collection visibleRenderables;
 
-    protected Camera camera;
+    protected CameraImpl camera;
 
     protected R renderer;
 
@@ -61,7 +62,7 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
      * @param camera
      * @return
      */
-    protected abstract Collection getRenderablesToAdd(Camera camera);
+    protected abstract Collection getRenderablesToAdd(CameraImpl camera);
 
 
     /**
@@ -69,12 +70,12 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
      * @param camera
      * @return
      */
-    protected abstract Collection getRenderablesToRemove(Camera camera);
+    protected abstract Collection getRenderablesToRemove(CameraImpl camera);
 
 
 
     @Override
-    public void setCamera(Camera camera) {
+    public void setCamera(CameraImpl camera) {
         this.camera = camera;
     }
 

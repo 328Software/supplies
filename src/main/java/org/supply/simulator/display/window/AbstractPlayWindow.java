@@ -16,7 +16,7 @@ public abstract class AbstractPlayWindow implements Window {
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
-    protected Camera camera;
+    protected CameraImpl camera;
     protected Manager<BasicMenuRenderer>  menuManager;
     protected Manager<BasicUnitRenderer>  unitManager;
     protected Manager<BasicChunkRenderer> chunkManager;
@@ -31,7 +31,7 @@ public abstract class AbstractPlayWindow implements Window {
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
-        camera.start();
+        camera.create();
         chunkManager.start();
         unitManager.start();
         menuManager.start();
@@ -84,7 +84,7 @@ public abstract class AbstractPlayWindow implements Window {
      *
      * @param camera
      */
-    public void setCamera(Camera camera) {this.camera = camera;}
+    public void setCamera(CameraImpl camera) {this.camera = camera;}
 
     /**
      * Sets the manager object for entities

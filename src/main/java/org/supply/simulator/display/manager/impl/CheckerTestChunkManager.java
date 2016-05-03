@@ -1,4 +1,4 @@
-package org.supply.simulator.display.manager.chunk.impl;
+package org.supply.simulator.display.manager.impl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;

@@ -22,7 +22,7 @@
 
     <bean id="shaderEngine" class="org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine"/>
 
-    <bean id="chunkManager" class="org.supply.simulator.display.manager.chunk.impl.CheckerTestChunkManager">
+    <bean id="chunkManager" class="org.supply.simulator.display.manager.impl.CheckerTestChunkManager">
         <property name="entityRenderer" ref="chunkRenderer"/>
     </bean>
     <!--<bean id="chunkManager" class="org.supply.simulator.display.manager.impl.DAOWiredChunkManager">

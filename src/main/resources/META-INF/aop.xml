@@ -2,6 +2,6 @@
 <aspectj>
     <weaver options="-verbose">
         <!-- only weave classes in our application-specific packages -->
-        <include within="org.supply.simulator.display.manager.chunk.impl.*"/>
+        <include within="org.supply.simulator.display.manager.impl.*"/>
     </weaver>
 </aspectj>

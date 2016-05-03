@@ -2,7 +2,7 @@ package org.supply.simulator.display.manager;
 
 import org.supply.simulator.display.core.SupplyDisplay;
 import org.supply.simulator.display.renderer.EntityRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 /**
  * Interface for managers of SupplyRenderable objects.
@@ -11,7 +11,7 @@ import org.supply.simulator.display.window.CameraImpl;
  */
 public interface Manager<R extends EntityRenderer> extends SupplyDisplay {
 
-    public void setCamera(CameraImpl camera);
+    public void setCamera(Camera camera);
 
     public void setEntityRenderer(R entityRenderer);
 

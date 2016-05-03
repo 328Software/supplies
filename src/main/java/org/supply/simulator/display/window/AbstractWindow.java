@@ -16,7 +16,7 @@ public abstract class AbstractWindow implements Window {
 
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
-    protected CameraImpl camera;
+    protected Camera camera;
     protected Manager<BasicMenuRenderer>  menuManager;
     protected Manager<BasicUnitRenderer>  unitManager;
     protected Manager<BasicChunkRenderer> chunkManager;
@@ -84,7 +84,7 @@ public abstract class AbstractWindow implements Window {
      *
      * @param camera
      */
-    public void setCamera(CameraImpl camera) {this.camera = camera;}
+    public void setCamera(Camera camera) {this.camera = camera;}
 
     /**
      * Sets the manager object for entities

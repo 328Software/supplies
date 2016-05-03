@@ -5,11 +5,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
-import org.supply.simulator.display.window.CameraImpl;
-import org.supply.simulator.util.MatrixUtil;
+import org.supply.simulator.display.window.Camera;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -25,7 +22,7 @@ public class UserCameraInterface {
 
 
 
-    CameraImpl camera;
+    Camera camera;
 
     public UserCameraInterface() {
         super();
@@ -112,7 +109,7 @@ public class UserCameraInterface {
         return camera.getViewMatrix().m32;
     }
 
-    public void setCamera(CameraImpl camera) {
+    public void setCamera(Camera camera) {
         this.camera = camera;
     }
 }

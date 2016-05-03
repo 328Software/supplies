@@ -13,7 +13,7 @@ import static org.supply.simulator.util.MatrixUtil.projection;
 /**
  * Created by Alex on 7/2/2014.
  */
-public class CameraImpl {
+public class Camera {
 
     private static final double PI = Math.PI;
     public static final double PI_OVER_ONE_HUNDRED_EIGHTY = PI / 180d;

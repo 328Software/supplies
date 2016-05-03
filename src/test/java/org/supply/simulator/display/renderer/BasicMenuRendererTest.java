@@ -13,7 +13,7 @@ import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class BasicMenuRendererTest {
     private MockDisplayCore core;
-    private CameraImpl camera;
+    private Camera camera;
 
     private DataGenerator generator;
 
@@ -43,7 +43,7 @@ public class BasicMenuRendererTest {
 
         shaderEngine = new BasicShaderEngine();
 
-        camera = new CameraImpl();
+        camera = new Camera();
 
         manager = new BasicMenuManager();
         renderer = new BasicMenuRenderer();

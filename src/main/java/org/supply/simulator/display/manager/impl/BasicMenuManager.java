@@ -4,7 +4,7 @@ import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +27,7 @@ public class BasicMenuManager extends AbstractManager<BasicMenuRenderer> impleme
     }
 
     @Override
-    protected Collection getRenderablesToAdd(CameraImpl camera) {
+    protected Collection getRenderablesToAdd(Camera camera) {
         if (isAdded) return new ArrayList();
         isAdded=true;
         return toAdd;
@@ -35,7 +35,7 @@ public class BasicMenuManager extends AbstractManager<BasicMenuRenderer> impleme
     }
 
     @Override
-    protected Collection getRenderablesToRemove(CameraImpl camera) {
+    protected Collection getRenderablesToRemove(Camera camera) {
         if (isRemoved) return new ArrayList();
         isRemoved=true;
 

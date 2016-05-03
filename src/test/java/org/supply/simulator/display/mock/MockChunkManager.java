@@ -7,7 +7,7 @@ import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
 import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +31,7 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
         }
 
         @Override
-        protected Collection<Chunk> getRenderablesToAdd(CameraImpl view) {
+        protected Collection<Chunk> getRenderablesToAdd(Camera view) {
             ArrayList<Chunk> chunks = new ArrayList<>();
             if (isFirst) {
                 isFirst=false;
@@ -48,7 +48,7 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
 
 
         @Override
-        protected Collection<Chunk> getRenderablesToRemove(CameraImpl view) {
+        protected Collection<Chunk> getRenderablesToRemove(Camera view) {
             return new ArrayList<>();
         }
 

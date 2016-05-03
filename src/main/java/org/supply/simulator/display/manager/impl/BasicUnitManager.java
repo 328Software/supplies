@@ -3,7 +3,7 @@ package org.supply.simulator.display.manager.impl;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,12 +14,12 @@ import java.util.Collection;
 public class BasicUnitManager extends AbstractManager<BasicUnitRenderer> implements Manager<BasicUnitRenderer> {
 
     @Override
-    protected Collection getRenderablesToAdd(CameraImpl camera) {
+    protected Collection getRenderablesToAdd(Camera camera) {
         return new ArrayList();
     }
 
     @Override
-    protected Collection getRenderablesToRemove(CameraImpl camera) {
+    protected Collection getRenderablesToRemove(Camera camera) {
         return new ArrayList();
     }
 }

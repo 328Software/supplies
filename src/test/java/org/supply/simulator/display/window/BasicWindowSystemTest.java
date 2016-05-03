@@ -24,7 +24,7 @@ public class BasicWindowSystemTest {
 
     private BasicWindow window;
     private MockDisplayCore core;
-    private CameraImpl camera;
+    private Camera camera;
 
     private BasicShaderEngine shaderEngine;
 
@@ -43,7 +43,7 @@ public class BasicWindowSystemTest {
 
         shaderEngine = new BasicShaderEngine();
 
-        camera = new CameraImpl();
+        camera = new Camera();
         camera.setAspectRatio(1);
         camera.setFarPlane(100);
         camera.setNearPlane(0.1f);

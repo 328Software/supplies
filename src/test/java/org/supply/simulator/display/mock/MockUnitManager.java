@@ -4,7 +4,7 @@ import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class MockUnitManager extends AbstractManager implements Manager {
     }
 
     @Override
-    protected Collection<Unit> getRenderablesToAdd(CameraImpl view) {
+    protected Collection<Unit> getRenderablesToAdd(Camera view) {
         Collection<Unit> list = new ArrayList();
 
 
@@ -36,7 +36,7 @@ public class MockUnitManager extends AbstractManager implements Manager {
     }
 
     @Override
-    protected Collection getRenderablesToRemove(CameraImpl view) {
+    protected Collection getRenderablesToRemove(Camera view) {
         return new ArrayList();
     }
 }

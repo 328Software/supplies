@@ -12,10 +12,9 @@ import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngi
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.extra.DataGenerator;
-import org.supply.simulator.display.mock.MockCameraImpl;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.window.CameraImpl;
+import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class BasicChunkRendererTest {
     private int totalChunkColumns = 30;
 
     BasicShaderEngine shaderEngine;
-    CameraImpl camera;
+    Camera camera;
 
     MockDisplayCore core;
     BasicChunkRenderer renderer;
@@ -62,7 +61,7 @@ public class BasicChunkRendererTest {
         shaderEngine = new BasicShaderEngine();
 
 //        camera = new MockCameraImpl();
-        camera = new CameraImpl();
+        camera = new Camera();
         camera.setAspectRatio(1);
         camera.setFarPlane(100);
         camera.setNearPlane(0.1f);

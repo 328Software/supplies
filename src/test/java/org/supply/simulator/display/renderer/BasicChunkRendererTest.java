@@ -15,6 +15,7 @@ import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.display.window.impl.UserCameraInterface;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class BasicChunkRendererTest {
     MockDisplayCore core;
     BasicChunkRenderer renderer;
     DataGenerator dataGenerator;
+    UserCameraInterface userCameraInterface;
 
     ArrayList<Chunk> chunks;
 
@@ -54,7 +56,8 @@ public class BasicChunkRendererTest {
 //        chunkType = new BasicChunkType();
 //        chunkType.setColumns(30);
 //        chunkType.setRows(20);
-        core = new MockDisplayCore();;
+        core = new MockDisplayCore();
+        userCameraInterface = new UserCameraInterface();
 
         core.build("BasicChunkRendererTest");
 
@@ -71,6 +74,8 @@ public class BasicChunkRendererTest {
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
         camera.create();
+
+        userCameraInterface.setCamera(camera);
 
         renderer=new BasicChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
@@ -99,6 +104,7 @@ public class BasicChunkRendererTest {
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
             camera.update();
+            userCameraInterface.refresh();
 
             GL20.glUseProgram(0);
 

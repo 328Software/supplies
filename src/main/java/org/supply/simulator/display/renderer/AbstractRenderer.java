@@ -11,6 +11,7 @@ import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.data.statistic.entity.UnitPositions;
 import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
@@ -59,7 +60,8 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected TextureEngine<EntityType> textureEngine;
 
-    protected UnitIndexEngine indexEngine;
+    protected IndexEngine indexEngine;
+
 
     protected int[] locations;
 
@@ -74,15 +76,16 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         idMap = new HashMap<>();
         idMap2 = new HashMap<>();
 
-    }
 
+    }
 
 
 
     @Override
     public void build(Collection<V> entities) {
         if (indicesBufferId < 0) {
-            indicesBufferId = indexEngine.get(ENTITY_MAX).getIndexId();
+            setIndicesBufferId();
+//     indicesBufferId = indexEngine.get(ENTITY_MAX).getIndexId();
         }
 
 
@@ -147,7 +150,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
             GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
                     VERTICES_PER_ENTITY *data.getEntityList().size(), //Number of vertices to render (theres 6 per image)
                     GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
-                    VERTICES_PER_ENTITY * Integer.SIZE * 0);
+                    VERTICES_PER_ENTITY * Integer.SIZE * 0);//index into buffer when to start rendering
 
             GL20.glDisableVertexAttribArray(locations[0]);
             GL20.glDisableVertexAttribArray(locations[1]);
@@ -177,6 +180,9 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         //TODO fill out autogeneration whatever
 
     }
+
+
+    protected abstract void setIndicesBufferId ();
 
     protected void fillEntityDataWithTextureData(Entity entity, TextureHandle texture) {
 
@@ -251,7 +257,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     @Override
     public void setIndexEngine(IndexEngine indexEngine) {
         //TODO this casting is not good!
-        this.indexEngine=(UnitIndexEngine)indexEngine;
+        this.indexEngine=indexEngine;
 
     }
 }

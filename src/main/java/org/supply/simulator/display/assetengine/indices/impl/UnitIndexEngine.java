@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
+import org.supply.simulator.display.assetengine.indices.AbstractIndexEngine;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.IndexHandle;
 
@@ -12,7 +13,7 @@ import java.nio.IntBuffer;
 /**
  * Created by Alex on 5/6/2016.
  */
-public class UnitIndexEngine extends AbstractAssetEngine<Integer,IndexHandle>
+public class UnitIndexEngine extends AbstractIndexEngine<Integer>
         implements IndexEngine<Integer> {
 
     private static final int INDICES_PER_VERTEX = 6;
@@ -37,7 +38,6 @@ public class UnitIndexEngine extends AbstractAssetEngine<Integer,IndexHandle>
             }
         }
 
-        System.out.println("indicesCount"+indicesBuffer.capacity());
         indicesBuffer.flip();
 
         int indicesBufferId = GL15.glGenBuffers();

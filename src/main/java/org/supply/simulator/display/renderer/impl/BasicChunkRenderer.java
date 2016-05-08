@@ -148,6 +148,11 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
     }
 
     @Override
+    protected void setIndicesBufferId() {
+
+    }
+
+    @Override
     public void setAttributeLocations(int[] locations) {
         this.locations=locations;
     }

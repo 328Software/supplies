@@ -6,12 +6,8 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
-import org.supply.simulator.data.entity.impl.BasicMenu;
-import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.data.statistic.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
@@ -19,7 +15,6 @@ import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -90,11 +85,10 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
 
         for (V entity : entities) {
-            TextureHandle texture = textureEngine.get(entity.getType());
 
-            fillEntityDataWithTextureData(entity, texture);
+            fillEntityWithTextureData(entity);
 
-            AtlasType atlas = texture.getAtlasType();
+            AtlasType atlas = entity.getType().getTextureHandle().getAtlasType();
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
 
@@ -122,6 +116,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, data.getTextureId());
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+
             GL20.glEnableVertexAttribArray(locations[0]);
             GL20.glEnableVertexAttribArray(locations[1]);
             GL20.glEnableVertexAttribArray(locations[2]);
@@ -147,7 +142,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
 
             GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
-                    VERTICES_PER_ENTITY *data.getEntityList().size(), //Number of vertices to render (theres 6 per image)
+                    VERTICES_PER_ENTITY *data.getEntityList().size(), //Number of vertices to render (there's 6 per image)
                     GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
                     VERTICES_PER_ENTITY * Integer.SIZE * 0);//index into buffer when to start rendering
 
@@ -183,11 +178,12 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected abstract void setIndicesBufferId ();
 
-    protected void fillEntityDataWithTextureData(Entity entity, TextureHandle texture) {
+    protected void fillEntityWithTextureData(Entity entity) {
+        TextureHandle texture = textureEngine.get(entity.getType());
 
 
         float[] data = null;
-        //TODO we really need to combine unit and chunk positions to be able to clean this up
+        //TODO we really need to fix our data package to be able to clean this up
         Positions pos= null;
 
         if (entity instanceof Menu) {
@@ -212,6 +208,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
         pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
+        entity.getType().setTextureHandle(texture);
     }
 
     protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {

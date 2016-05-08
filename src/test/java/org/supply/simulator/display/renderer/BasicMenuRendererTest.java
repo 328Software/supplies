@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alex on 9/14/2014.
+ * Created by Alex on 5/8/2016.
  */
 public class BasicMenuRendererTest {
     private MockDisplayCore core;
@@ -48,6 +49,7 @@ public class BasicMenuRendererTest {
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         renderer.setTextureEngine(new BasicTextureEngine());
+        renderer.setIndexEngine(new UnitIndexEngine());
         manager.setEntityRenderer(renderer);
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
@@ -58,8 +60,10 @@ public class BasicMenuRendererTest {
 
         List<Menu> menus = new ArrayList();
 //        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "a"));
-        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/alexsface.png"));
+        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
         menus.add(generator.createMenu(.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
+        menus.add(generator.createMenu(0.0f, .25f, 0, .5f, .5f, "textures/text2.png"));
+        menus.add(generator.createMenu(0.0f, .8f, 0, .1f, .1f, "a"));
 
         manager.add(menus);
 

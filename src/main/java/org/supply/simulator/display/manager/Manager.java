@@ -13,7 +13,7 @@ public interface Manager<R extends EntityRenderer> extends SupplyDisplay {
 
     public void setCamera(Camera camera);
 
-    public void setEntityRenderer(R entityRenderer);
+    public void setEntityRenderer(EntityRenderer entityRenderer);
 
 
 

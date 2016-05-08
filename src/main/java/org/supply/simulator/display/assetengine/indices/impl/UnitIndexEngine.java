@@ -37,6 +37,7 @@ public class UnitIndexEngine extends AbstractAssetEngine<Integer,IndexHandle>
             }
         }
 
+        System.out.println("indicesCount"+indicesBuffer.capacity());
         indicesBuffer.flip();
 
         int indicesBufferId = GL15.glGenBuffers();

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
@@ -35,6 +36,7 @@ public class BasicWindowSystemTest {
     private MockUnitManager unitManager;
     private BasicMenuManager menuManager;
     private BasicMenuRenderer menuRenderer;
+    private UnitIndexEngine indexEngine;
 
     @Before
     public void create() {
@@ -42,6 +44,7 @@ public class BasicWindowSystemTest {
         core.build("BasicWindowSystemTest");
 
         shaderEngine = new BasicShaderEngine();
+        indexEngine = new UnitIndexEngine();
 
         camera = new Camera();
         camera.setAspectRatio(1);
@@ -60,12 +63,14 @@ public class BasicWindowSystemTest {
         unitRenderer = new BasicUnitRenderer();
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
         unitRenderer.setTextureEngine(new BasicTextureEngine());
+        unitRenderer.setIndexEngine(indexEngine);
         unitManager.setEntityRenderer(unitRenderer);
 
         menuManager = new BasicMenuManager();
         menuRenderer = new BasicMenuRenderer();
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
         menuRenderer.setTextureEngine(new BasicTextureEngine());
+        menuRenderer.setIndexEngine(indexEngine);
         menuManager.setEntityRenderer(menuRenderer);
 
         window = new BasicWindow();

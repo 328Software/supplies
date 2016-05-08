@@ -6,24 +6,27 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
+import org.supply.simulator.data.entity.impl.BasicMenu;
+import org.supply.simulator.data.entity.impl.BasicUnit;
+import org.supply.simulator.data.statistic.entity.UnitPositions;
+import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
+import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**
- * Created by Alex on 4/30/2016.
+ * Created by Alex on 5/6/2016.
  */
 public abstract class AbstractRenderer<V extends Entity> extends HasLogger implements  EntityRenderer<V> {
-
-    public static final int VERTICES_PER_ENTITY = 4;
 
     // The amount of bytes an element has
     public static final int ELEMENT_BYTES = 4;
@@ -48,204 +51,185 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     public static final int stride = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
-    private final int ENTITY_MAX =100;
-    private final int BUFFER_ROOM = 50;
+    protected final int ENTITY_MAX =100;
 
-    private final int VERTEX_SIZE = 40;
-    private final int INDEX_PER_VERTEX = 6;
+    protected final int VERTEX_SIZE = 40;
+    protected final int VERTICES_PER_ENTITY = 6;
 
-    protected int[] locations;
-
-    private int indicesCount;
-
-    protected ArrayList<Entity> unitList;
-
-    protected int indicesBufferId = -1;
-
-    protected HashMap<AtlasType,BufferIds> idMap;
 
     protected TextureEngine<EntityType> textureEngine;
 
+    protected UnitIndexEngine indexEngine;
+
+    protected int[] locations;
+
+    protected int indicesBufferId = -1;
+
+    protected HashMap<AtlasType,AtlasRenderData> idMap;
+
+    protected HashMap<EntityType,AtlasRenderData> idMap2;
+
     public AbstractRenderer() {
+        super();
         idMap = new HashMap<>();
-        unitList = new ArrayList<>();
-        locations = new int[] {0,1,2};
+        idMap2 = new HashMap<>();
+
     }
+
 
 
 
     @Override
-    public void build(Collection<V> renderables) {
-        for (V renderable : renderables) {
-
-            renderable.getType().setTextureHandle(textureEngine.get(renderable.getType()));
-            unitList.add(renderable);
-
-            if (!idMap.containsValue(renderable.getType().getTextureHandle().getAtlasType())) {
-                BufferIds bufferIds = new BufferIds();
-                bufferIds.textureId = renderable.getType().getTextureHandle().getAtlasType().getTextureId();
-                bufferIds.positionsArrayId = GL15.glGenBuffers();
-                bufferIds.vertexAttributesId  = GL30.glGenVertexArrays();
-
-                GL30.glBindVertexArray(bufferIds.vertexAttributesId);
-                GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, bufferIds.positionsArrayId);
-                GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
-                        false, stride, POSITION_BYTE_OFFSET);
-                // Put the color components in attribute list 1
-                GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
-                        false, stride, COLOR_BYTE_OFFSET);
-                // Put the texture coordinates in attribute list 2
-                GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
-                        false, stride, TEXTURE_BYTE_OFFSET);
-
-//                bufferIds.texCoordId=GL15.glGenBuffers();
-
-
-
-                idMap.put(renderable.getType().getTextureHandle().getAtlasType(),bufferIds);
-                GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-            }
+    public void build(Collection<V> entities) {
+        if (indicesBufferId < 0) {
+            indicesBufferId = indexEngine.get(ENTITY_MAX).getIndexId();
         }
 
-        Collections.sort(unitList);
-        if (indicesBufferId<0) {
-            createIndices(ENTITY_MAX);
-        }
 
-    }
 
-    @Override
-    public void render(Collection<V> renderables) {
-        if (renderables.size()>0) renderAtlas(unitList,0);
+        for (V entity : entities) {
+            TextureHandle texture = textureEngine.get(entity.getType());
 
-    }
+            fillEntityDataWithTextureData(entity, texture);
 
-    private void renderAtlas(ArrayList<Entity> renderables, int atlasIndex) {
-        AtlasType    currentAtlas    = renderables.get(atlasIndex).getType().getTextureHandle().getAtlasType();
+            AtlasType atlas = texture.getAtlasType();
+            if (!idMap.containsKey(atlas)) {
+                AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
 
-        BufferIds bufferIds = idMap.get(currentAtlas);
-        GL30.glBindVertexArray(bufferIds.vertexAttributesId);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, bufferIds.positionsArrayId);
+                atlasRenderData.add(entity);
 
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, bufferIds.textureId);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL20.glEnableVertexAttribArray(locations[0]);
-        GL20.glEnableVertexAttribArray(locations[1]);
-        GL20.glEnableVertexAttribArray(locations[2]);
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, bufferIds.textureId);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-
-        //TODO variable buffer size
-        //FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE*(entities.count(atlasType)+BUFFER_ROOM));
-
-        float tWidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D,0,GL11.GL_TEXTURE_WIDTH);
-        float tHeight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D,0,GL11.GL_TEXTURE_HEIGHT);
-
-        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
-        int count = atlasIndex;
-        while(count<renderables.size()) {
-            Entity entity = renderables.get(count);
-
-            if (!entity.getType().getTextureHandle().getAtlasType().equals(currentAtlas)) {
-                break;
-            }
-            float[] data = null;
-            if (entity instanceof Menu) {
-                 data = ((Menu)entity).getPositions().getValue();
-            } else if (entity instanceof Unit) {
-                data = ((Unit)entity).getPositions().getValue();
+                idMap.put(atlas, atlasRenderData);
             } else {
-                logger.error("INVALID entity type");
+                idMap.get(atlas).add(entity);
             }
 
 
-            //TODO this needs to be done on Entity generation, should be in bad engine?
-            data[8] =(float)entity.getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[9] =(float)entity.getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
-
-            data[18]=(float)entity.getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[19]=(float)entity.getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
-
-            data[28]=(float)entity.getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[29]=(float)entity.getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
-
-            data[38]=(float)entity.getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[39]=(float)entity.getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
-            verticesFloatBuffer.put(data);
-            count = count +1;
-
-        }
-
-        verticesFloatBuffer.flip();
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
-
-        GL11.glDrawElements(GL11.GL_TRIANGLES,
-                INDEX_PER_VERTEX * (count-atlasIndex),
-                GL11.GL_UNSIGNED_INT,
-                INDEX_PER_VERTEX * Integer.SIZE * (atlasIndex));
-        atlasIndex=count;
-
-        GL20.glDisableVertexAttribArray(locations[0]);
-        GL20.glDisableVertexAttribArray(locations[1]);
-        GL20.glDisableVertexAttribArray(locations[2]);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-        GL30.glBindVertexArray(0);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-
-        if (atlasIndex <renderables.size()) {
-            renderAtlas(renderables,atlasIndex);
         }
 
 
     }
 
+    //TODO currently not using input to this method
+    @Override
+    public void render(Collection<V> entities) {
+        int count=0;
+        for (AtlasRenderData data : idMap.values()) {
+            GL30.glBindVertexArray(data.getVertexAttributesId());
+            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, data.getPositionsArrayId());
 
+            GL13.glActiveTexture(GL13.GL_TEXTURE0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, data.getTextureId());
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+            GL20.glEnableVertexAttribArray(locations[0]);
+            GL20.glEnableVertexAttribArray(locations[1]);
+            GL20.glEnableVertexAttribArray(locations[2]);
+            GL13.glActiveTexture(GL13.GL_TEXTURE0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, data.getTextureId());
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
+
+            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
+
+            for (Entity entity : data.getEntityList()) {
+                UnitPositions pos= null;
+                //TODO we really need to combine unit and chunk positions to be able to clean this up
+                if (entity instanceof Menu) {
+                    verticesFloatBuffer.put(((Menu)entity).getPositions().getValue());
+                } else if (entity instanceof Unit) {
+                    verticesFloatBuffer.put(((Unit)entity).getPositions().getValue());
+                } else {
+                    logger.error("INVALID entity type");
+                }
+            }
+            verticesFloatBuffer.flip();
+            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
+
+
+            GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
+                    VERTICES_PER_ENTITY *data.getEntityList().size(), //Number of vertices to render (theres 6 per image)
+                    GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
+                    VERTICES_PER_ENTITY * Integer.SIZE * 0);
+
+            GL20.glDisableVertexAttribArray(locations[0]);
+            GL20.glDisableVertexAttribArray(locations[1]);
+            GL20.glDisableVertexAttribArray(locations[2]);
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+            GL30.glBindVertexArray(0);
+            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+
+
+            count=count+1;
+        }
+    }
 
     @Override
-    public void destroy(Collection<V> renderables) {
-        for (V renderable : renderables) {
-            textureEngine.done(renderable.getType());
-            unitList.remove(renderable);
+    public void destroy(Collection<V> entities) {
+        for (V entity : entities) {
+            textureEngine.done(entity.getType());
+            idMap2.get(entity.getType()).remove(entity);
+            //TODO when to delete atlas data??
         }
+
     }
 
     @Override
     public void destroyAll() {
-        for (Entity renderable : unitList) {
-            textureEngine.done(renderable.getType());
-        }
-        unitList.clear();
+        //TODO fill out autogeneration whatever
+
     }
 
+    protected void fillEntityDataWithTextureData(Entity entity, TextureHandle texture) {
 
 
-    private void createIndices(int numberOfEntities) {
+        float[] data = null;
+        //TODO we really need to combine unit and chunk positions to be able to clean this up
+        UnitPositions pos= null;
 
-        indicesBufferId = GL15.glGenBuffers();
-        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(6*numberOfEntities);
-
-
-        //TODO WE SHOULDN'T GENERATE THIS ON THE FLY
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < numberOfEntities; j++) {
-                int offset = ((i * numberOfEntities + j) * 4);
-
-                indicesBuffer.put((offset));
-                indicesBuffer.put((offset + 1));
-                indicesBuffer.put((offset + 2));
-                indicesBuffer.put((offset + 2));
-                indicesBuffer.put((offset + 3));
-                indicesBuffer.put((offset));
-            }
+        if (entity instanceof Menu) {
+            pos = ((Menu)entity).getPositions();
+        } else if (entity instanceof Unit) {
+            pos = ((Unit)entity).getPositions();
+        } else {
+            logger.error("INVALID entity type");
         }
-        indicesCount = indicesBuffer.capacity();
-        indicesBuffer.flip();
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+        //TODO can this be done on Entity generation?
+        pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+
+        pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+
+        pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+
+        pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+
+    }
+
+    protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
+        AtlasRenderData ids = new AtlasRenderData();
+        ids.setTextureId(atlas.getTextureId());
+        ids.setPositionsArrayId(GL15.glGenBuffers());
+        ids.setVertexAttributesId(GL30.glGenVertexArrays());
+
+        GL30.glBindVertexArray(ids.getVertexAttributesId());
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
+        GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, stride, POSITION_BYTE_OFFSET);
+        // Put the color components in attribute list 1
+        GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, stride, COLOR_BYTE_OFFSET);
+        // Put the texture coordinates in attribute list 2
+        GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, stride, TEXTURE_BYTE_OFFSET);
+
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL30.glBindVertexArray(0);
+        return ids;
     }
 
 
@@ -253,25 +237,6 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     public void setTextureEngine(TextureEngine textureEngine) {
         this.textureEngine =  textureEngine;
     }
-
-
-
-    protected class BufferIds {
-        public BufferIds() {
-            size = 0;
-        }
-
-        //        protected int texCoordId;
-        protected int vertexAttributesId;
-        protected int positionsArrayId;
-        protected int indicesBufferId;
-        protected int textureId;
-        protected int textureWidth;
-        protected int textureHeight;
-
-        protected int size;
-    }
-
 
     @Override
     public void setAttributeLocations(int[] locations) {
@@ -285,6 +250,8 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     @Override
     public void setIndexEngine(IndexEngine indexEngine) {
+        //TODO this casting is not good!
+        this.indexEngine=(UnitIndexEngine)indexEngine;
 
     }
 }

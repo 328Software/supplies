@@ -19,7 +19,7 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
 
     protected Camera camera;
 
-    protected R renderer;
+    protected EntityRenderer renderer;
 
     @Override
     public void start() {
@@ -78,7 +78,7 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
         this.camera = camera;
     }
 
-    public void setEntityRenderer(R entityRenderer) {
+    public void setEntityRenderer(EntityRenderer entityRenderer) {
         this.renderer = entityRenderer;
     }
 

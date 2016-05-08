@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.impl.BasicUnit;
+import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
@@ -27,6 +28,7 @@ public class BasicUnitRendererTest {
     BasicTextureEngine textureEngine;
     MockCamera camera;
     BasicUnitRenderer unitRenderer;
+    UnitIndexEngine indexEngine;
     DataGenerator dataGenerator;
 
 
@@ -34,6 +36,7 @@ public class BasicUnitRendererTest {
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
         dataGenerator = new DataGenerator();
+        indexEngine = new UnitIndexEngine();
     }
 
 
@@ -124,6 +127,7 @@ public class BasicUnitRendererTest {
         camera.create();
         unitRenderer = new BasicUnitRenderer();
         unitRenderer.setTextureEngine(textureEngine);
+        unitRenderer.setIndexEngine(indexEngine);
         unitRenderer.setAttributeLocations(new int[]{0,1,2});
     }
 

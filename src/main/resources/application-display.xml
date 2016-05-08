@@ -44,13 +44,17 @@
 
     <bean id="menuRenderer" class="org.supply.simulator.display.renderer.impl.BasicMenuRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
+        <property name="indexEngine" ref="unitIndexEngine"/>
     </bean>
 
     <bean id="unitRenderer" class="org.supply.simulator.display.renderer.impl.BasicUnitRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
+        <property name="indexEngine" ref="unitIndexEngine"/>
     </bean>
 
     <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine"/>
+
+    <bean id="unitIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine"/>
 
 
     <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>

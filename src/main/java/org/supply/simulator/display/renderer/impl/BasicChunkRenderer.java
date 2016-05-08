@@ -6,6 +6,7 @@ import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;
+import org.supply.simulator.display.renderer.OldAbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.ByteBuffer;

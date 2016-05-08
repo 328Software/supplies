@@ -1,5 +1,6 @@
 package org.supply.simulator.display.extra;
 
+import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.MenuType;
 import org.supply.simulator.data.attribute.entity.UnitType;
@@ -10,6 +11,8 @@ import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.data.statistic.entity.UnitPositions;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
+import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
 import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
 import org.supply.simulator.display.mock.data.MockChunkColors;
 import org.supply.simulator.display.mock.data.MockChunkPositions;
@@ -21,26 +24,41 @@ import java.util.HashMap;
  */
 public class DataGenerator {
 
-    private HashMap<String,EntityType> typeMap;
+    private HashMap<String,UnitType> unitTypeMap;
+    private HashMap<String,MenuType> menuTypeMap;
+    private HashMap<int[],ChunkType> chunkTypeMap;
+
     public DataGenerator () {
-        typeMap = new HashMap<>();
+        unitTypeMap = new HashMap<>();
+        menuTypeMap = new HashMap<>();
+        chunkTypeMap = new HashMap<>();
     }
 
     public BasicChunk createChunk(int chunkRows, int chunkColumns, int offsetX, int offsetY) {
-        //TODO store chunktype in map too?
-        BasicChunkType type = new BasicChunkType();
-        type.setColumns(chunkColumns);
-        type.setRows(chunkRows);
+        BasicChunk chunk = new BasicChunk();
+
+        ChunkType type;
+        int[] key = new int[]{chunkRows,chunkColumns};
+
+        if (chunkTypeMap.containsKey(key)) {
+            type =  chunkTypeMap.get(key);
+        } else {
+            type = new BasicChunkType();
+            type.setColumns(chunkColumns);
+            type.setRows(chunkRows);
+            chunkTypeMap.put(key,type);
+        }
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-        MockChunkPositions positions = new MockChunkPositions();
-        MockChunkColors colors = new MockChunkColors();
+        BasicChunkPositions positions = new BasicChunkPositions();
+        BasicChunkColors colors = new BasicChunkColors();
 
         positions.setValue(pair.positions);
         colors.setValue(pair.colors);
 
 
-        BasicChunk chunk = new BasicChunk();
+
+
         chunk.setType(type);
         chunk.setChunkPositions(positions);
         chunk.setChunkColors(colors);
@@ -53,12 +71,12 @@ public class DataGenerator {
         unit.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ,  length,  width));
 
         UnitType type;
-        if (typeMap.containsKey(name)) {
-            type = (UnitType)typeMap.get(name);
+        if (unitTypeMap.containsKey(name)) {
+            type =  unitTypeMap.get(name);
         } else {
             type = new BasicUnitType();
             type.setName(name);
-            typeMap.put(name,type);
+            unitTypeMap.put(name,type);
         }
 
         unit.setType(type);
@@ -74,12 +92,12 @@ public class DataGenerator {
         menu.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width));
         MenuType type;
 
-        if (typeMap.containsKey(name)) {
-            type = (BasicMenuType)typeMap.get(name);
+        if (menuTypeMap.containsKey(name)) {
+            type = menuTypeMap.get(name);
         } else {
             type = new BasicMenuType();
             type.setName(name);
-            typeMap.put(name,type);
+            menuTypeMap.put(name,type);
         }
 
         //TODO WHY do I have to cast it to EntityType?

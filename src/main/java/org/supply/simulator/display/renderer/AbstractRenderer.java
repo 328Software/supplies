@@ -8,8 +8,7 @@ import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.data.statistic.entity.UnitPositions;
-import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
+import org.supply.simulator.data.statistic.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
@@ -133,7 +132,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
             FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
 
             for (Entity entity : data.getEntityList()) {
-                UnitPositions pos= null;
+//                Positions pos= null;
                 //TODO we really need to combine unit and chunk positions to be able to clean this up
                 if (entity instanceof Menu) {
                     verticesFloatBuffer.put(((Menu)entity).getPositions().getValue());
@@ -189,7 +188,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
         float[] data = null;
         //TODO we really need to combine unit and chunk positions to be able to clean this up
-        UnitPositions pos= null;
+        Positions pos= null;
 
         if (entity instanceof Menu) {
             pos = ((Menu)entity).getPositions();

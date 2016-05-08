@@ -5,7 +5,7 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.UnitType;
 import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
-import org.supply.simulator.data.statistic.entity.UnitPositions;
+import org.supply.simulator.data.statistic.entity.Positions;
 
 import java.util.Iterator;
 
@@ -14,7 +14,7 @@ import java.util.Iterator;
  */
 public class BasicUnit implements Unit {
     private Long id;
-    private UnitPositions unitPositions;
+    private Positions unitPositions;
     private UnitType type;
 
 
@@ -29,11 +29,11 @@ public class BasicUnit implements Unit {
         this.type = (UnitType) type;
     }
 
-    public UnitPositions getPositions() {
+    public Positions getPositions() {
         return unitPositions;
     }
 
-    public void setPositions(UnitPositions unitPositions) {
+    public void setPositions(Positions unitPositions) {
         this.unitPositions = unitPositions;
     }
 

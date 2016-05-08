@@ -10,12 +10,8 @@ import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.data.statistic.entity.UnitPositions;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
-import org.supply.simulator.data.statistic.entity.impl.BasicUnitPositions;
-import org.supply.simulator.display.mock.data.MockChunkColors;
-import org.supply.simulator.display.mock.data.MockChunkPositions;
+import org.supply.simulator.data.statistic.entity.impl.BasicColors;
+import org.supply.simulator.data.statistic.entity.impl.BasicPositions;
 
 import java.util.HashMap;
 
@@ -50,8 +46,8 @@ public class DataGenerator {
         }
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-        BasicChunkPositions positions = new BasicChunkPositions();
-        BasicChunkColors colors = new BasicChunkColors();
+        BasicPositions positions = new BasicPositions();
+        BasicColors colors = new BasicColors();
 
         positions.setValue(pair.positions);
         colors.setValue(pair.colors);
@@ -60,8 +56,8 @@ public class DataGenerator {
 
 
         chunk.setType(type);
-        chunk.setChunkPositions(positions);
-        chunk.setChunkColors(colors);
+        chunk.setPositions(positions);
+        chunk.setColors(colors);
 
         return chunk;
     }
@@ -106,7 +102,7 @@ public class DataGenerator {
         return menu;
     }
 
-    private UnitPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();
@@ -123,7 +119,7 @@ public class DataGenerator {
         System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.elementCount,TexturedVertex.elementCount);
         System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.elementCount,TexturedVertex.elementCount);
 
-        UnitPositions entityData = new BasicUnitPositions();
+        BasicPositions entityData = new BasicPositions();
         entityData.setValue(data);
 
         return entityData;

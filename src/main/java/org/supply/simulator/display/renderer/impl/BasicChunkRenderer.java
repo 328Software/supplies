@@ -6,7 +6,6 @@ import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;
-import org.supply.simulator.display.renderer.OldAbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.ByteBuffer;
@@ -60,8 +59,8 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
             int positionsArrayId = GL15.glGenBuffers();
             int colorsArrayId = GL15.glGenBuffers();
 
-            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(renderable.getChunkPositions().getValue().length);
-            verticesFloatBuffer.put(renderable.getChunkPositions().getValue());
+            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(renderable.getPositions().getValue().length);
+            verticesFloatBuffer.put(renderable.getPositions().getValue());
             verticesFloatBuffer.flip();
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
@@ -72,8 +71,8 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
                     false, POSITION_BYTES, POSITION_BYTE_OFFSET);
 
 
-            ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(renderable.getChunkColors().getValue().length);
-            verticesByteBuffer.put(renderable.getChunkColors().getValue());
+            ByteBuffer verticesByteBuffer = BufferUtils.createByteBuffer(renderable.getColors().getValue().length);
+            verticesByteBuffer.put(renderable.getColors().getValue());
 
             verticesByteBuffer.flip();
 

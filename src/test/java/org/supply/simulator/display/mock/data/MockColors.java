@@ -1,11 +1,11 @@
-package org.supply.simulator.data.statistic.entity.impl;
+package org.supply.simulator.display.mock.data;
 
-import org.supply.simulator.data.statistic.entity.ChunkColors;
+import org.supply.simulator.data.statistic.entity.Colors;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkColors implements ChunkColors {
+public class MockColors implements Colors {
     private Long id;
 
     private byte[] value;

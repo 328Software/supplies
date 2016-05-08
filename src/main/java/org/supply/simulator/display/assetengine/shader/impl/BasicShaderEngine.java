@@ -43,7 +43,7 @@ public class BasicShaderEngine
         GL20.glAttachShader(programId,vertexId);
         GL20.glAttachShader(programId,fragmentId);
 
-        //Position information will be attribute 0
+        //Positions information will be attribute 0
         GL20.glBindAttribLocation(programId, 0, "in_Position");
         // Color information will be attribute 1
         GL20.glBindAttribLocation(programId, 1, "in_Color");

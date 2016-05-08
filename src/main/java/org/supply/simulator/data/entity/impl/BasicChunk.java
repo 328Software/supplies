@@ -4,8 +4,8 @@ import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.data.statistic.entity.ChunkColors;
-import org.supply.simulator.data.statistic.entity.ChunkPositions;
+import org.supply.simulator.data.statistic.entity.Colors;
+import org.supply.simulator.data.statistic.entity.Positions;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 
 import java.util.Iterator;
@@ -15,8 +15,8 @@ import java.util.Iterator;
  */
 public class BasicChunk implements Chunk {
     private Long id;
-    private ChunkColors chunkColors;
-    private ChunkPositions chunkPositions;
+    private Colors colors;
+    private Positions positions;
     private ChunkType chunkType;
 
     protected int vertexAttributesId;
@@ -42,22 +42,22 @@ public class BasicChunk implements Chunk {
     }
 
 
-    public ChunkColors getChunkColors () {
-        return chunkColors;
+    public Colors getColors() {
+        return colors;
     }
 
-    public void setChunkColors ( ChunkColors chunkColors) {
-        this.chunkColors =chunkColors;
+    public void setColors(Colors colors) {
+        this.colors = colors;
     }
 
 
 
-    public ChunkPositions getChunkPositions () {
-        return chunkPositions;
+    public Positions getPositions() {
+        return positions;
     }
 
-    public void setChunkPositions ( ChunkPositions chunkPositions) {
-        this.chunkPositions =chunkPositions;
+    public void setPositions(Positions positions) {
+        this.positions = positions;
     }
 
     public void setVertexAttributesId(int vertexAttributesId) {

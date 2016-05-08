@@ -1,11 +1,11 @@
-package org.supply.simulator.data.statistic.entity.impl;
+package org.supply.simulator.display.mock.data;
 
-import org.supply.simulator.data.statistic.entity.ChunkPositions;
+import org.supply.simulator.data.statistic.entity.Positions;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkPositions implements ChunkPositions {
+public class MockPositions implements Positions {
     private Long id;
     
     private float[] value;

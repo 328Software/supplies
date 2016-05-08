@@ -3,8 +3,8 @@ package org.supply.simulator.display.mock;
 import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkColors;
-import org.supply.simulator.data.statistic.entity.impl.BasicChunkPositions;
+import org.supply.simulator.data.statistic.entity.impl.BasicColors;
+import org.supply.simulator.data.statistic.entity.impl.BasicPositions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
@@ -81,8 +81,8 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
             type.setRows(chunkRows);
 
             DataPair pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-            BasicChunkPositions positions = new BasicChunkPositions();
-            BasicChunkColors colors = new BasicChunkColors();
+            BasicPositions positions = new BasicPositions();
+            BasicColors colors = new BasicColors();
 
             positions.setValue(pair.positions);
             colors.setValue(pair.colors);
@@ -90,8 +90,8 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
 
             BasicChunk chunk = new BasicChunk();
             chunk.setType(type);
-            chunk.setChunkPositions(positions);
-            chunk.setChunkColors(colors);
+            chunk.setPositions(positions);
+            chunk.setColors(colors);
 
             return chunk;
         }

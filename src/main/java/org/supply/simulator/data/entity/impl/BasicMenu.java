@@ -6,7 +6,7 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.attribute.entity.MenuType;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
-import org.supply.simulator.data.statistic.entity.UnitPositions;
+import org.supply.simulator.data.statistic.entity.Positions;
 
 import java.util.Iterator;
 
@@ -15,7 +15,7 @@ import java.util.Iterator;
  */
 public class BasicMenu extends AbstractEntityType implements Menu {
 
-    private UnitPositions unitPositions;
+    private Positions unitPositions;
     private MenuType type;
 
     @Override
@@ -28,11 +28,11 @@ public class BasicMenu extends AbstractEntityType implements Menu {
         this.type = (MenuType) type;
     }
 
-    public UnitPositions getPositions() {
+    public Positions getPositions() {
         return unitPositions;
     }
 
-    public void setPositions(UnitPositions unitPositions) {
+    public void setPositions(Positions unitPositions) {
         this.unitPositions = unitPositions;
     }
 

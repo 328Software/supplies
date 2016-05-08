@@ -2,8 +2,8 @@ package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
-import org.supply.simulator.data.statistic.entity.ChunkColors;
-import org.supply.simulator.data.statistic.entity.ChunkPositions;
+import org.supply.simulator.data.statistic.entity.Colors;
+import org.supply.simulator.data.statistic.entity.Positions;
 import org.supply.simulator.data.statistic.entity.EntityStatistic;
 
 /**
@@ -19,15 +19,15 @@ public interface Chunk extends Entity<EntityAttribute,EntityStatistic,Long> {
 //
 //
 
-    public ChunkColors getChunkColors();
+    public Colors getColors();
 
-    public void setChunkColors(ChunkColors chunkColors);
+    public void setColors(Colors colors);
 
 
 
-    public ChunkPositions getChunkPositions();
+    public Positions getPositions();
 
-    public void setChunkPositions(ChunkPositions chunkPositions);
+    public void setPositions(Positions positions);
 
 
     public void setVertexAttributesId(int vertexAttributesId);

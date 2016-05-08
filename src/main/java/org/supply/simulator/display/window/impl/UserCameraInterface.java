@@ -10,6 +10,9 @@ import org.supply.simulator.display.window.Camera;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
+
+import static java.lang.Math.*;
 
 /**
  * Basic implementation of AbstractCamera.
@@ -19,10 +22,14 @@ import java.nio.IntBuffer;
 public class UserCameraInterface {
 
     private static final float WASD_POS_DELTA = 0.02f;
-
+    private static final float ZOOM_FACTOR = 0.1F;
+    public static final int SCROLL_FACTOR = 120;
+    public static final int MIN_FOV = 5;
+    public static final int MAX_FOV = 175;
 
 
     Camera camera;
+    private int scrollSpeed = 3;
 
     public UserCameraInterface() {
         super();
@@ -52,15 +59,6 @@ public class UserCameraInterface {
             }
         }
 
-      /*  if(Mouse.isButtonDown(0)) {
-            int dx = Mouse.getX();
-            int dy = Mouse.getY();
-
-            float[] floats = calcWorldCoordinates(dx, dy);
-
-            camera.getCameraPos().set(floats[0], floats[1]);
-        }*/
-
         if (Mouse.isButtonDown(1)) {
 
             int mouseDeltaX = Mouse.getDX();
@@ -69,13 +67,42 @@ public class UserCameraInterface {
             int newMouseX = Mouse.getX();
             int newMouseY = Mouse.getY();
 
-            float[] floats = calcWorldCoordinates(newMouseX, newMouseY);
+            float[] mouseWorldCoordinates = calcWorldCoordinates(newMouseX, newMouseY);
+
+
             float[] offset = calcWorldCoordinates(newMouseX + mouseDeltaX, newMouseY + mouseDeltaY);
 
-            Vector3f.add(camera.getCameraPos(), new Vector3f(offset[0]-floats[0], offset[1]-floats[1], 0), camera.getCameraPos());
+            Vector3f.add(camera.getCameraPos(), new Vector3f(offset[0]-mouseWorldCoordinates[0], offset[1]-mouseWorldCoordinates[1], 0), camera.getCameraPos());
+        }
+
+        if(Mouse.hasWheel()) {
+            int wheel = Mouse.getDWheel();
+            if(wheel != 0) {
+
+                float oldFov = camera.getFieldOfView();
+                float result = min(MAX_FOV, (max(MIN_FOV, oldFov - (wheel / SCROLL_FACTOR) * scrollSpeed)));
+
+                if(wheel > 0) {
+
+                    int newMouseX = Mouse.getX();
+                    int newMouseY = Mouse.getY();
+
+                    float changeDenominator = oldFov - MIN_FOV;
+                    if(changeDenominator != 0) {
+                        float[] originalCoords = calcWorldCoordinates(newMouseX, newMouseY);
+                        camera.setFieldOfView(result);
+                        camera.reproject();
+                        float[] newCoords = calcWorldCoordinates(newMouseX, newMouseY);
+                        camera.moveWest (originalCoords[0] - newCoords[0] );
+                        camera.moveNorth(originalCoords[1] - newCoords[1]);
+                    }
+                } else {
+                    camera.setFieldOfView(result);
+                    camera.reproject();
+                }
+            }
         }
     }
-
 
     public float[] calcWorldCoordinates(int mouseX, int mouseY) {
         FloatBuffer model = BufferUtils.createFloatBuffer(16);
@@ -96,8 +123,27 @@ public class UserCameraInterface {
         return new float[]{posNear.get(), posNear.get()};
     }
 
+    public float[] uncalcWorldCoordinates(float worldX, float worldY) {
+        FloatBuffer model = BufferUtils.createFloatBuffer(16);
+        camera.getModelMatrix().store(model); model.flip();
+
+        FloatBuffer projection = BufferUtils.createFloatBuffer(16);
+        camera.getProjectionMatrix().store(projection); projection.flip();
+
+        //todo might be better to build our own viewport
+        IntBuffer viewport = BufferUtils.createIntBuffer(16);
+
+        GL11.glGetInteger(GL11.GL_VIEWPORT, viewport);
+
+        FloatBuffer posNear = BufferUtils.createFloatBuffer(3);
+
+        GLU.gluProject(worldX, worldY, getWinZ(), model, projection, viewport, posNear);
+
+        return new float[]{posNear.get(), posNear.get()};
+    }
+
     private float getWinZ() {
-        float zDelta =  getViewZ() - getModelZ();
+        float zDelta =  getViewZ() + getModelZ();
         return camera.getFarPlane()*(camera.getNearPlane()+zDelta)/((camera.getFarPlane()-camera.getNearPlane())*zDelta);
     }
 

@@ -45,12 +45,12 @@ public class Camera {
 
 
     public void create() {
-        projectionMatrix = projection(fieldOfView, aspectRatio, nearPlane, farPlane);
+        projectionMatrix = createProjectionMatrix();
 
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
 
         //todo this stuff should go in another class
-       setModelPos(new Vector3f(0, 0, 0));
+       setModelPos(new Vector3f(0, 0, -5));
        setModelAngle(new Vector3f(0, 0, 0));
        setModelScale(new Vector3f(1, 1, 1));
        setCameraPos(new Vector3f(0, 0, -1));
@@ -58,7 +58,7 @@ public class Camera {
     }
 
     public void update() {
-
+//        projectionMatrix = createProjectionMatrix();
         /*float fieldOfView = 60f;
         float aspectRatio = (float)100 / (float)100;
         float near_plane = 0.1f;
@@ -92,6 +92,10 @@ public class Camera {
         storeModelMatrix();
     }
 
+    private Matrix4f createProjectionMatrix() {
+        return projection(fieldOfView, aspectRatio, nearPlane, farPlane);
+    }
+
     private void storeModelMatrix() {
         modelMatrix.store(matrix44Buffer);
         matrix44Buffer.flip();
@@ -110,12 +114,20 @@ public class Camera {
         glUniformMatrix4(projectionMatrixLocation, false, matrix44Buffer);
     }
 
+    public void reproject() {
+        this.projectionMatrix = createProjectionMatrix();
+    }
+
     public void stop() {
 
     }
 
 
     //***** Movement Methods
+    public void zoom(float delta) {
+        cameraPos.z += delta;
+    }
+
     public void moveNorth(float posDelta) {
         cameraPos.y -= posDelta;
     }

@@ -15,7 +15,7 @@
 
     <bean id="camera" class="org.supply.simulator.display.window.Camera">
         <property name="fieldOfView" value="90"/>
-        <property name="aspectRatio" value="1"/>
+        <property name="aspectRatio" value="#{4f/3f}"/>
         <property name="nearPlane" value="0.1f"/>
         <property name="farPlane" value="100f"/>
     </bean>

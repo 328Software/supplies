@@ -1,12 +1,12 @@
 package org.supply.simulator.display.assetengine.indices.impl;
 
 import org.supply.simulator.display.assetengine.AbstractAssetHandle;
-import org.supply.simulator.display.assetengine.indices.ChunkHandle;
+import org.supply.simulator.display.assetengine.indices.IndexHandle;
 
 /**
  * Created by Alex on 9/11/2014.
  */
-public class BasicChunkHandle extends AbstractAssetHandle implements ChunkHandle {
+public class BasicIndexHandle extends AbstractAssetHandle implements IndexHandle {
     private Integer indexId;
 
     @Override

@@ -6,6 +6,7 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
+import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.logging.HasLogger;
@@ -61,9 +62,9 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected int indicesBufferId = -1;
 
-    private HashMap<AtlasType,BufferIds> idMap;
+    protected HashMap<AtlasType,BufferIds> idMap;
 
-    private TextureEngine<EntityType> textureEngine;
+    protected TextureEngine<EntityType> textureEngine;
 
     public AbstractRenderer() {
         idMap = new HashMap<>();
@@ -120,7 +121,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     }
 
     private void renderAtlas(ArrayList<Entity> renderables, int atlasIndex) {
-        AtlasType    currentAtlas    = unitList.get(atlasIndex).getType().getTextureHandle().getAtlasType();
+        AtlasType    currentAtlas    = renderables.get(atlasIndex).getType().getTextureHandle().getAtlasType();
 
         BufferIds bufferIds = idMap.get(currentAtlas);
         GL30.glBindVertexArray(bufferIds.vertexAttributesId);
@@ -255,7 +256,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
 
 
-    private class BufferIds {
+    protected class BufferIds {
         public BufferIds() {
             size = 0;
         }
@@ -282,4 +283,8 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         return locations;
     }
 
+    @Override
+    public void setIndexEngine(IndexEngine indexEngine) {
+
+    }
 }

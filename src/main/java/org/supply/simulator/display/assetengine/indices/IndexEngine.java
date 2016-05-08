@@ -5,8 +5,8 @@ import org.supply.simulator.display.assetengine.AssetEngine;
 /**
  * Created by Alex on 7/7/2014.
  */
-public interface ChunkIndexEngine<K> extends AssetEngine<K,ChunkHandle> {
+public interface IndexEngine<K> extends AssetEngine<K,IndexHandle> {
     @Override
-    public ChunkHandle get(K type);
+    public IndexHandle get(K type);
 
 }

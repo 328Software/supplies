@@ -38,7 +38,9 @@
         <property name="entityRenderer" ref="menuRenderer"/>
     </bean>
 
-    <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.impl.BasicChunkRenderer"/>
+    <bean id="chunkRenderer" class="org.supply.simulator.display.renderer.impl.BasicChunkRenderer">
+        <property name="indexEngine" ref="chunkIndexEngine"/>
+    </bean>
 
     <bean id="menuRenderer" class="org.supply.simulator.display.renderer.impl.BasicMenuRenderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
@@ -48,7 +50,7 @@
         <property name="textureEngine" ref="basicTextureEngine"/>
     </bean>
 
-    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine"/>
+    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine"/>
 
 
     <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine"/>

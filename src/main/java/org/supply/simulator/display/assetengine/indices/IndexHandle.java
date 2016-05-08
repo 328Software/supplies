@@ -5,7 +5,7 @@ import org.supply.simulator.display.assetengine.AssetHandle;
 /**
  * Created by Alex on 9/11/2014.
  */
-public interface ChunkHandle extends AssetHandle {
+public interface IndexHandle extends AssetHandle {
 
     /**
      *

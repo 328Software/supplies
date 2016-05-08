@@ -3,7 +3,7 @@ package org.supply.simulator.display.window;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
@@ -51,7 +51,7 @@ public class BasicWindowSystemTest {
 
         chunkManager=new MockChunkManager();
         chunkRenderer=new BasicChunkRenderer();
-        chunkRenderer.setChunkIndexEngine(new BasicChunkIndexEngine());
+        chunkRenderer.setIndexEngine(new ChunkIndexEngine());
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
         chunkManager.setEntityRenderer(chunkRenderer);

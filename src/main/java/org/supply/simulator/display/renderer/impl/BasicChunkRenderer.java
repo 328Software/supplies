@@ -3,8 +3,8 @@ package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.BasicChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.IndexEngine;
+import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
@@ -46,7 +46,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
         locations = new int[] { 0, 1 };
     }
 
-    private BasicChunkIndexEngine chunkIndexEngine;
+    private ChunkIndexEngine chunkIndexEngine;
 
     @Override
     public void build(Collection<Chunk> renderables) {
@@ -156,8 +156,8 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
         return locations;
     }
 
-
-    public void setChunkIndexEngine(ChunkIndexEngine chunkIndexEngine) {
-        this.chunkIndexEngine = (BasicChunkIndexEngine)chunkIndexEngine;
+    @Override
+    public void setIndexEngine(IndexEngine chunkIndexEngine) {
+        this.chunkIndexEngine = (ChunkIndexEngine)chunkIndexEngine;
     }
 }

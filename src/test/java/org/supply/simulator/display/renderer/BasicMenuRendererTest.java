@@ -29,8 +29,6 @@ public class BasicMenuRendererTest {
 
     private BasicShaderEngine shaderEngine;
 
-    //    private MockUnitManager manager;
-//    private BasicUnitRenderer renderer;
     private BasicMenuManager manager;
     private BasicMenuRenderer renderer;
 
@@ -47,8 +45,7 @@ public class BasicMenuRendererTest {
 
         manager = new BasicMenuManager();
         renderer = new BasicMenuRenderer();
-//        manager = new MockUnitManager();
-//        renderer = new BasicUnitRenderer();
+
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         renderer.setTextureEngine(new BasicTextureEngine());
         manager.setEntityRenderer(renderer);
@@ -60,7 +57,10 @@ public class BasicMenuRendererTest {
         manager.start();
 
         List<Menu> menus = new ArrayList();
-        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/text2.png"));
+//        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "a"));
+        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/alexsface.png"));
+        menus.add(generator.createMenu(.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
+
         manager.add(menus);
 
     }
@@ -72,29 +72,17 @@ public class BasicMenuRendererTest {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);// | GL11.GL_DEPTH_BUFFER_BIT);
 
-            // Set shader program type to VIEW
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 
             camera.update();
 
-            // Clear shader program type
             GL20.glUseProgram(0);
 
-            // Clear bit
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//
-//
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
-//            chunkManager.update();
-//            GL20.glUseProgram(0);
 
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
             manager.update();
             GL20.glUseProgram(0);
-//
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
-//            menuManager.update();
-//            GL20.glUseProgram(0);
 
             core.render();
         }

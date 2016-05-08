@@ -4,17 +4,17 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
 import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
-import org.supply.simulator.display.assetengine.indices.ChunkHandle;
-import org.supply.simulator.display.assetengine.indices.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.IndexHandle;
+import org.supply.simulator.display.assetengine.indices.IndexEngine;
 
 import java.nio.IntBuffer;
 
 /**
  * Created by Alex on 7/7/2014.
  */
-public class BasicChunkIndexEngine
-        extends AbstractAssetEngine<ChunkType,ChunkHandle>
-        implements ChunkIndexEngine<ChunkType> {
+public class ChunkIndexEngine
+        extends AbstractAssetEngine<ChunkType,IndexHandle>
+        implements IndexEngine<ChunkType> {
 
         //, InitializingBean {
 
@@ -30,12 +30,12 @@ public class BasicChunkIndexEngine
 //        }
 //    }
 
-    public BasicChunkIndexEngine() {
+    public ChunkIndexEngine() {
         super();
     }
 
     @Override
-    protected ChunkHandle createHandle (ChunkType key) {
+    protected IndexHandle createHandle (ChunkType key) {
         IntBuffer indicesBuffer = BufferUtils.createIntBuffer(INDICES_PER_VERTEX * key.getRows() * key.getColumns());
         for (int i = 0; i < key.getRows(); i++) {
             for (int j = 0; j < key.getColumns(); j++) {
@@ -63,14 +63,14 @@ public class BasicChunkIndexEngine
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
-        ChunkHandle handle = new BasicChunkHandle();
+        IndexHandle handle = new BasicIndexHandle();
         handle.setIndexId(indicesBufferId);
         return handle;
     }
 
     @Override
     protected void destroyHandle(ChunkType key) {
-        ChunkHandle handle = handleMap.remove(key);
+        IndexHandle handle = handleMap.remove(key);
         GL15.glDeleteBuffers(handle.getIndexId());
 
     }

@@ -8,7 +8,7 @@ import java.nio.IntBuffer;
 /**
  * Created by Alex on 7/14/2014.
  */
-public class BasicChunkIndexData<V extends Buffer> implements ChunkIndexData<IntBuffer> {
+public class BasicIndexData<V extends Buffer> implements ChunkIndexData<IntBuffer> {
     private IntBuffer data;
 
     @Override

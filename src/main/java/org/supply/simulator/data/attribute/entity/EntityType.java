@@ -7,6 +7,7 @@ import org.supply.simulator.display.assetengine.texture.TextureHandle;
  */
 public interface EntityType<I> extends EntityAttribute<I> {
 
+    //TODO PRETTY SURE ENTITIES don't NEED TO KNOW THEIR TEXTURE HANDLES ANYMORE
     public void setTextureHandle(TextureHandle textureHandle);
 
     public TextureHandle getTextureHandle();

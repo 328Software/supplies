@@ -37,8 +37,7 @@ public abstract class AbstractTextureEngine<K extends EntityType>
         if (atlasMap.containsKey(fileName)) {
             atlasType = atlasMap.get(fileName);
         } else {
-            atlasType = new BasicAtlasType();
-            atlasType.setTextureId(loadPNGTexture2D(fileName, GL13.GL_TEXTURE0));
+            atlasType = loadPNGTexture2D(fileName, GL13.GL_TEXTURE0);
             atlasMap.put(fileName,atlasType);
         }
 
@@ -49,7 +48,7 @@ public abstract class AbstractTextureEngine<K extends EntityType>
         return handle;
     }
 
-    private int loadPNGTexture2D(String filename, int textureUnit) {
+    private BasicAtlasType loadPNGTexture2D(String filename, int textureUnit) {
 
         ByteBuffer buf = null;
         int tWidth = 0;
@@ -100,7 +99,12 @@ public abstract class AbstractTextureEngine<K extends EntityType>
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
                 GL11.GL_LINEAR_MIPMAP_LINEAR);
 
-        return texId;
+        BasicAtlasType atlasType = new BasicAtlasType();
+        atlasType.setFileName(filename);
+        atlasType.setTextureId(texId);
+        atlasType.setHeight(tHeight);
+        atlasType.setWidth(tWidth);
+        return atlasType;
     }
 
     @Override

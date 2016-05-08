@@ -9,8 +9,9 @@ public class BasicAtlasType implements AtlasType {
 
     private String fileName;
     private Integer id;
-
     protected Integer count=0;
+    private int height;
+    private int width;
 
     @Override
     public void add() {
@@ -52,5 +53,25 @@ public class BasicAtlasType implements AtlasType {
         if (this == o) return true;
         if (!(o instanceof BasicAtlasType)) return false;
         return false;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

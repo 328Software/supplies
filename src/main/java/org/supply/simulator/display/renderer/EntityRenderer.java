@@ -1,6 +1,7 @@
 package org.supply.simulator.display.renderer;
 
 import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 
 import java.util.Collection;
@@ -37,4 +38,6 @@ public interface EntityRenderer<V extends Entity>{
      * @return
      */
     int[] getAttributeLocations();
+
+    void setIndexEngine(IndexEngine indexEngine);
 }

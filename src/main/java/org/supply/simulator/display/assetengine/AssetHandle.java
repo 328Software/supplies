@@ -10,4 +10,6 @@ public interface AssetHandle {
     public void subtract();
 
     public Integer count();
+
+
 }

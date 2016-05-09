@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by Alex on 5/8/2016.
  */
-public class AtlasRenderData extends HasLogger {
+public class AtlasRenderData<V> extends HasLogger {
     private int vertexAttributesId;
     private int positionsArrayId;
     private int textureId;
-    private ArrayList<Entity> list;
+    private ArrayList<V> list;
 
 
     public int getTextureId() {
@@ -43,7 +43,7 @@ public class AtlasRenderData extends HasLogger {
         list = new ArrayList<>();
     }
 
-    public void add(Entity entity) {
+    public void add(V entity) {
         if (!list.contains(entity)) {
             list.add(entity);
         } else {
@@ -51,7 +51,7 @@ public class AtlasRenderData extends HasLogger {
         }
     }
 
-    public void remove(Entity entity) {
+    public void remove(V entity) {
         if (list.contains(entity)) {
             list.remove(entity);
         } else {
@@ -59,7 +59,7 @@ public class AtlasRenderData extends HasLogger {
         }
     }
 
-    public ArrayList<Entity> getEntityList() {
+    public ArrayList<V> getEntityList() {
         return list;
     }
 

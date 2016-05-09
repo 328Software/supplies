@@ -4,10 +4,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.supply.simulator.data.entity.Chunk;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.supply.simulator.data.entity.impl.BasicChunk;
+import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
+import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
@@ -17,27 +24,27 @@ import java.util.ArrayList;
  * Created by Alex on 5/8/2016.
  */
 public class TexturedChunkRendererTest {
-    private int chunkRows = 20;
-    private int chunkColumns = 20;
-    private int totalChunkRows = 30;
-    private int totalChunkColumns = 30;
-
-    BasicShaderEngine shaderEngine;
-    Camera camera;
-
-    MockDisplayCore core;
-    EntityRenderer renderer;
-    BasicTextureEngine textureEngine;
-    DataGenerator dataGenerator;
-    UserCameraInterface userCameraInterface;
-
-
-    ArrayList<Chunk> chunks;
-
-//    private BasicChunkType chunkType;
-
-    @Before
-    public void create() {
+//    private int chunkRows = 20;
+//    private int chunkColumns = 20;
+//    private int totalChunkRows = 30;
+//    private int totalChunkColumns = 30;
+//
+//    BasicShaderEngine shaderEngine;
+//    Camera camera;
+//
+//    MockDisplayCore core;
+//    TexturedChunkRenderer renderer;
+//    BasicTextureEngine textureEngine;
+//    DataGenerator dataGenerator;
+//    UserCameraInterface userCameraInterface;
+//
+//
+//    ArrayList<BasicChunk> chunks;
+//
+////    private BasicChunkType chunkType;
+//
+//    @Before
+//    public void create() {
 //        dataGenerator = new DataGenerator();
 //
 //        core = new MockDisplayCore();
@@ -60,24 +67,41 @@ public class TexturedChunkRendererTest {
 //        camera.create();
 //
 //        userCameraInterface.setCamera(camera);
+//        BasicChunkType type = new BasicChunkType();
+//        //where do we get this.
+//        type.setRows(20);
+//        type.setColumns(20);
 //
 //        renderer=new TexturedChunkRenderer();
 //        renderer.setAttributeLocations(new int[] {0,1,2});
 //        renderer.setTextureEngine(textureEngine);
 //        renderer.setIndexEngine(new ChunkIndexEngine());
+//        renderer.setChunkType(type);
 //
 //        chunks = new ArrayList<>();
 //        for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
 //            for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
-//                chunks.add(dataGenerator.createChunk(chunkRows, chunkColumns, i, j));
+//                BasicChunk chunk = dataGenerator.createChunk(chunkRows, chunkColumns, i, j);
+//
+//                double num = Math.random();
+//                if (num<2.5) {
+//                    chunk.getType().setTextureHandle(textureEngine.get("textures/ground/Grass.png"));
+//                } else if (num<5.0) {
+//                    chunk.getType().setTextureHandle(textureEngine.get("textures/ground/Grass2.png"));
+//                } else if (num<7.5) {
+//                    chunk.getType().setTextureHandle(textureEngine.get("textures/ground/GrassDry.png"));
+//                } else if (num<=1.0) {
+//                    chunk.getType().setTextureHandle(textureEngine.get("textures/ground/Dirt.png"));
+//                }
+//
+//                chunks.add(chunk);
+//
 //            }
 //        }
 //
 //        renderer.build(chunks);
 //
-//        // OpenGLDebugger.printChunkBuffers(chunk);
-
-    }
+//    }
 
     @Test
     public void render() {
@@ -106,17 +130,17 @@ public class TexturedChunkRendererTest {
 //        }
 
     }
-
-    @After
-    public void destroy() {
-        //
+//
+//    @After
+//    public void destroy() {
+//
 //        GL20.glUseProgram(0);
 //        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
 //
 //
 //        renderer.destroyAll();
 //        core.destroy();
-
-    }
+//
+//    }
 
 }

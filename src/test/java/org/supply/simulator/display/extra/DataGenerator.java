@@ -23,6 +23,13 @@ public class DataGenerator {
         BasicChunk chunk = new BasicChunk();
 
 
+
+//        ChunkType type;
+//
+//        //CANTOR PAIRING FUNCTION
+//        //  Ensures unique key from two numbers
+//        double key = .5*(chunkRows+chunkColumns)*(chunkRows+chunkColumns+1)+chunkColumns;
+
 //        ChunkType type;
 //        int[] key = new int[]{chunkRows,chunkColumns};
 /*

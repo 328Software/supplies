@@ -11,6 +11,7 @@ import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -117,7 +118,6 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
         }
 
     }
-
     @Override
     public void destroy(Collection<Chunk> renderables) {
         for (Chunk renderable : renderables) {
@@ -144,6 +144,16 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
 
     @Override
     public void destroyAll() {
+
+    }
+
+    @Override
+    protected void buildEntities(Collection<Chunk> entityList) {
+
+    }
+
+    @Override
+    protected void drawEntities(Collection<Chunk> entityList) {
 
     }
 

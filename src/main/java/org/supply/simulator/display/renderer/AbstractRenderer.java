@@ -3,6 +3,7 @@ package org.supply.simulator.display.renderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.attribute.entity.EntityType;
+import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Positions;
@@ -15,6 +16,7 @@ import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -46,7 +48,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     public static final int stride = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
-    protected final int ENTITY_MAX =100;
+    protected final int max_entities;
 
     protected final int VERTEX_SIZE = 40;
     protected final int VERTICES_PER_ENTITY = 6;
@@ -61,35 +63,36 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected int indicesBufferId = -1;
 
-    protected HashMap<AtlasType,AtlasRenderData> idMap;
+    protected HashMap<AtlasType,AtlasRenderData<Entity>> idMap;
 
-    protected HashMap<EntityType,AtlasRenderData> idMap2;
+    protected HashMap<EntityType,AtlasRenderData<Entity>> idMap2;
 
     public AbstractRenderer() {
         super();
         idMap = new HashMap<>();
         idMap2 = new HashMap<>();
-
-
+        max_entities = 100;
     }
 
 
 
     @Override
     public void build(Collection<V> entities) {
+        // Create Indices Buffer, uses max_entities to determine size
         if (indicesBufferId < 0) {
             setIndicesBufferId();
 //     indicesBufferId = indexEngine.get(ENTITY_MAX).getIndexId();
         }
 
+        // Do any OpenGL pre-work before rendering
+        buildEntities(entities);
 
-
+        //Load texture atlases
         for (V entity : entities) {
 
             fillEntityWithTextureData(entity);
+            AtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
 
-            TextureHandle textureHandle = textureEngine.get(entity.getTextureKey());
-            AtlasType atlas = textureHandle.getAtlasType();
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
 
@@ -111,6 +114,9 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     public void render(Collection<V> entities) {
         int count=0;
         for (AtlasRenderData data : idMap.values()) {
+
+            //Prepare to draw block of entities
+            //    i.e. bind all the opengl buffers, bind texture
             GL30.glBindVertexArray(data.getVertexAttributesId());
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, data.getPositionsArrayId());
 
@@ -125,28 +131,11 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, data.getTextureId());
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBufferId);
 
-            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * ENTITY_MAX);
+            //Draw Entities
+            drawEntities(data.getEntityList());
 
-            for (Entity entity : data.getEntityList()) {
-//                Positions pos= null;
-                //TODO we really need to combine unit and chunk positions to be able to clean this up
-                if (entity instanceof Menu) {
-                    verticesFloatBuffer.put(((Menu)entity).getPositions().getValue());
-                } else if (entity instanceof Unit) {
-                    verticesFloatBuffer.put(((Unit)entity).getPositions().getValue());
-                } else {
-                    logger.error("INVALID entity type");
-                }
-            }
-            verticesFloatBuffer.flip();
-            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
-
-
-            GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
-                    VERTICES_PER_ENTITY *data.getEntityList().size(), //Number of vertices to render (there's 6 per image)
-                    GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
-                    VERTICES_PER_ENTITY * Integer.SIZE * 0);//index into buffer when to start rendering
-
+            //Finish drawing block of entities
+            //    i.e. unbind all the opengl buffers, unbind texture
             GL20.glDisableVertexAttribArray(locations[0]);
             GL20.glDisableVertexAttribArray(locations[1]);
             GL20.glDisableVertexAttribArray(locations[2]);
@@ -172,45 +161,70 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     @Override
     public void destroyAll() {
-        //TODO fill out autogeneration whatever
+        //TODO fill out auto-generated whatever
 
     }
 
 
+    protected abstract void buildEntities(Collection<V> entityList);
+    protected abstract void drawEntities(Collection<V> entityList);
     protected abstract void setIndicesBufferId ();
 
     protected void fillEntityWithTextureData(Entity entity) {
-        TextureHandle texture = textureEngine.get(entity.getTextureKey());
+
+        //Chunks come prefilled with texture data,
+        // menu and unit soon to come
+        if (entity instanceof Menu || entity instanceof Unit) {
+            TextureHandle texture = textureEngine.get(entity.getTextureKey());
+            float[] data = null;
+            //TODO we really need to fix our data package to be able to clean this up
+            Positions pos= null;
+
+            if (entity instanceof Menu) {
+                pos = ((Menu)entity).getPositions();
+            } else if (entity instanceof Unit) {
+                pos = ((Unit) entity).getPositions();
+            } else if (entity instanceof Chunk) {
+                pos = ((Chunk)entity).getPositions();
+            } else {
+                logger.error("INVALID entity type");
+            }
 
 
-        float[] data = null;
-        //TODO we really need to fix our data package to be able to clean this up
-        Positions pos= null;
+            //TODO can this be done on Entity generation?
+            pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+            pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
-        if (entity instanceof Menu) {
-            pos = ((Menu)entity).getPositions();
-        } else if (entity instanceof Unit) {
-            pos = ((Unit)entity).getPositions();
-        } else {
-            logger.error("INVALID entity type");
+            pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+            pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+
+            pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+            pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+
+            pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+            pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+
+//            entity.getType().setTextureHandle(texture);
         }
-
-
-        //TODO can this be done on Entity generation?
-        pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
-
-        pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
-
-        pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
-
-        pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
-
-//        entity.getType().setTextureHandle(texture);
     }
+
+//    protected void movePositions2OpenGLMemory(Collection<V> entityList) {
+//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * max_entities);
+//
+//        for (Entity entity : entityList) {
+//            //TODO we really need to combine unit and chunk positions to be able to clean this up
+//            if (entity instanceof Menu) {
+//                verticesFloatBuffer.put(((Menu)entity).getPositions().getValue());
+//            } else if (entity instanceof Unit) {
+//                verticesFloatBuffer.put(((Unit)entity).getPositions().getValue());
+//            } else {
+//                logger.error("INVALID entity type");
+//            }
+//        }
+//        verticesFloatBuffer.flip();
+//        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
+//
+//    }
 
     protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
         AtlasRenderData ids = new AtlasRenderData();
@@ -253,7 +267,6 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     @Override
     public void setIndexEngine(IndexEngine indexEngine) {
-        //TODO this casting is not good!
         this.indexEngine=indexEngine;
 
     }

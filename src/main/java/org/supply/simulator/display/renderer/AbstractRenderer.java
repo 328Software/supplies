@@ -1,6 +1,5 @@
 package org.supply.simulator.display.renderer;
 
-import org.hibernate.type.EntityType;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.*;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;

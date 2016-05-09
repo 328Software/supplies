@@ -1,5 +1,7 @@
 package org.supply.simulator.display.factory;
 
+import static org.supply.simulator.display.renderer.AbstractRenderer.*;
+
 /**
  * Created by Alex on 7/27/2014.
  */
@@ -9,30 +11,8 @@ public class TexturedVertex {
     private float[] rgba = new float[] {1f, 1f, 1f, 1f};
     private float[] st = new float[] {0f, 0f};
 
-    // The amount of bytes an element has
-    public static final int elementBytes = 4;
-
-    // Elements per parameter
-    public static final int positionElementCount = 4;
-    public static final int colorElementCount = 4;
-    public static final int textureElementCount = 2;
-
-    // Bytes per parameter
-    public static final int positionBytesCount = positionElementCount * elementBytes;
-    public static final int colorByteCount = colorElementCount * elementBytes;
-    public static final int textureByteCount = textureElementCount * elementBytes;
-
-    // Byte offsets per parameter
-    public static final int positionByteOffset = 0;
-    public static final int colorByteOffset = positionByteOffset + positionBytesCount;
-    public static final int textureByteOffset = colorByteOffset + colorByteCount;
-
-    // The amount of elements that a vertex has
-    public static final int elementCount = positionElementCount +
-            colorElementCount + textureElementCount;
-    // The size of a vertex in bytes, like in C/C++: sizeof(Vertex)
-    public static final int stride = positionBytesCount + colorByteCount +
-            textureByteCount;
+    public static final int TEXTURE_VERTEX_TOTAL_SIZE = POSITION_ELEMENT_COUNT +
+            COLOR_ELEMENT_COUNT + TEXTURE_ELEMENT_COUNT;
 
     // Setters
     public void setXYZ(float x, float y, float z) {
@@ -57,7 +37,7 @@ public class TexturedVertex {
 
     // Getters
     public float[] getElements() {
-        float[] out = new float[TexturedVertex.elementCount];
+        float[] out = new float[TEXTURE_VERTEX_TOTAL_SIZE];
         int i = 0;
 
         // Insert XYZW elements
@@ -72,7 +52,7 @@ public class TexturedVertex {
         out[i++] = this.rgba[3];
         // Insert ST elements
         out[i++] = this.st[0];
-        out[i++] = this.st[1];
+        out[i] = this.st[1];
 
         return out;
     }

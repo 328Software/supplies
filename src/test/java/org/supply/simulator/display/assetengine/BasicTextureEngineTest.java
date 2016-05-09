@@ -15,6 +15,10 @@ import org.supply.simulator.logging.HasLogger;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
+import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
+import static org.supply.simulator.display.renderer.AbstractRenderer.*;
+import static org.supply.simulator.display.renderer.impl.BasicChunkRenderer.STRIDE;
+
 /**
  * Created by Alex on 7/14/2014.
  */
@@ -75,7 +79,7 @@ public class BasicTextureEngineTest extends HasLogger {
         TexturedVertex[] vertices = new TexturedVertex[] {v0, v1, v2, v3};
         // Put each 'Vertex' in one FloatBuffer
         FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer(vertices.length *
-                TexturedVertex.elementCount);
+                TEXTURE_VERTEX_TOTAL_SIZE);
         for (int i = 0; i < vertices.length; i++) {
             // Add position, color and texture floats to the buffer
             verticesBuffer.put(vertices[i].getElements());
@@ -101,14 +105,14 @@ public class BasicTextureEngineTest extends HasLogger {
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW);
 
         // Put the position coordinates in attribute list 0BYTE
-        GL20.glVertexAttribPointer(0, TexturedVertex.positionElementCount, GL11.GL_FLOAT,
-                false, TexturedVertex.stride, TexturedVertex.positionByteOffset);
+        GL20.glVertexAttribPointer(0, POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, POSITION_BYTE_OFFSET);
         // Put the color components in attribute list 1
-        GL20.glVertexAttribPointer(1, TexturedVertex.colorElementCount, GL11.GL_FLOAT,
-                false, TexturedVertex.stride, TexturedVertex.colorByteOffset);
+        GL20.glVertexAttribPointer(1, COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, COLOR_BYTE_OFFSET);
         // Put the texture coordinates in attribute list 2
-        GL20.glVertexAttribPointer(2, TexturedVertex.textureElementCount, GL11.GL_FLOAT,
-                false, TexturedVertex.stride, TexturedVertex.textureByteOffset);
+        GL20.glVertexAttribPointer(2, TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, TEXTURE_BYTE_OFFSET);
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 

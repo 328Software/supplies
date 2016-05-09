@@ -2,7 +2,8 @@ package org.supply.simulator.display.extra;
 
 import org.supply.simulator.data.entity.impl.*;
 import org.supply.simulator.display.factory.TexturedVertex;
-import org.supply.simulator.display.factory.VertexData;
+
+import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 
 /**
  * Created by Alex on 9/10/2014.
@@ -111,12 +112,12 @@ public class DataGenerator {
         v2.setXYZ( topLeftX+width, topLeftY-length, topLeftZ); v2.setRGB(0, 0, 1); v2.setST(1, 1);
         v3.setXYZ( topLeftX+width, topLeftY,        topLeftZ); v3.setRGB(1, 1, 1); v3.setST(1, 0);
 
-        float[] data = new float[4*TexturedVertex.elementCount];
+        float[] data = new float[4* TEXTURE_VERTEX_TOTAL_SIZE];
 
-        System.arraycopy(v0.getElements(),0,data,0*TexturedVertex.elementCount,TexturedVertex.elementCount);
-        System.arraycopy(v1.getElements(),0,data,1*TexturedVertex.elementCount,TexturedVertex.elementCount);
-        System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.elementCount,TexturedVertex.elementCount);
-        System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.elementCount,TexturedVertex.elementCount);
+        System.arraycopy(v0.getElements(),0,data, 0,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
+        System.arraycopy(v1.getElements(),0,data, TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
+        System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
+        System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
 
         BasicPositions entityData = new BasicPositions();
         entityData.setValue(data);

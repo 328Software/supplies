@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
-import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicColors;
 import org.supply.simulator.data.entity.impl.BasicPositions;
@@ -54,9 +53,9 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
         if (isFirst) {
             isFirst=false;
             int count = 0;
-            BasicChunkType type = new BasicChunkType();
-            type.setColumns(chunkColumns);
-            type.setRows(chunkRows);
+//            BasicChunkType type = new BasicChunkType();
+//            type.setColumns(chunkColumns);
+//            type.setRows(chunkRows);
             SimpleTerrainGenerator generator = new SimpleTerrainGenerator();
 
             for(TerrainChunk terrainChunk: generator.generate().partition()) {
@@ -67,7 +66,7 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
                 BasicColors colors = new BasicColors();
                 positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());
-                chunk.setType(type);
+//                chunk.setType(type);
                 chunk.setColors(colors);
                 chunk.setPositions(positions);
 

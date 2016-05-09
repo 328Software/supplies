@@ -1,43 +1,31 @@
 package org.supply.simulator.display.extra;
 
-import org.supply.simulator.data.attribute.entity.ChunkType;
-import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.attribute.entity.MenuType;
-import org.supply.simulator.data.attribute.entity.UnitType;
-import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
-import org.supply.simulator.data.attribute.entity.impl.BasicMenuType;
-import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
-import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.data.entity.impl.BasicMenu;
-import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.data.entity.impl.BasicColors;
-import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.data.entity.impl.*;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.display.factory.VertexData;
-
-import java.util.HashMap;
 
 /**
  * Created by Alex on 9/10/2014.
  */
 public class DataGenerator {
 
-    private HashMap<String,UnitType> unitTypeMap;
-    private HashMap<String,MenuType> menuTypeMap;
-    private HashMap<int[],ChunkType> chunkTypeMap;
+//    private HashMap<String,UnitType> unitTypeMap;
+//    private HashMap<String,MenuType> menuTypeMap;
+//    private HashMap<int[],ChunkType> chunkTypeMap;
 
     public DataGenerator () {
-        unitTypeMap = new HashMap<>();
-        menuTypeMap = new HashMap<>();
-        chunkTypeMap = new HashMap<>();
+//        unitTypeMap = new HashMap<>();
+//        menuTypeMap = new HashMap<>();
+//        chunkTypeMap = new HashMap<>();
     }
 
     public BasicChunk createChunk(int chunkRows, int chunkColumns, int offsetX, int offsetY) {
         BasicChunk chunk = new BasicChunk();
 
-        ChunkType type;
-        int[] key = new int[]{chunkRows,chunkColumns};
 
+//        ChunkType type;
+//        int[] key = new int[]{chunkRows,chunkColumns};
+/*
         if (chunkTypeMap.containsKey(key)) {
             type =  chunkTypeMap.get(key);
         } else {
@@ -45,7 +33,7 @@ public class DataGenerator {
             type.setColumns(chunkColumns);
             type.setRows(chunkRows);
             chunkTypeMap.put(key,type);
-        }
+        }*/
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
         BasicPositions positions = new BasicPositions();
@@ -57,7 +45,7 @@ public class DataGenerator {
 
 
 
-        chunk.setType(type);
+//        chunk.setType(type);
         chunk.setPositions(positions);
         chunk.setColors(colors);
 
@@ -67,8 +55,8 @@ public class DataGenerator {
     public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicUnit unit = new BasicUnit();
         unit.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ,  length,  width));
-
-        UnitType type;
+        unit.setTextureKey(name);
+       /* UnitType type;
         if (unitTypeMap.containsKey(name)) {
             type =  unitTypeMap.get(name);
         } else {
@@ -77,7 +65,7 @@ public class DataGenerator {
             unitTypeMap.put(name,type);
         }
 
-        unit.setType(type);
+        unit.setType(type);*/
         return unit;
     }
 
@@ -87,19 +75,21 @@ public class DataGenerator {
 
     public BasicMenu createMenu(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicMenu menu = new BasicMenu();
-        menu.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width));
-        MenuType type;
 
-        if (menuTypeMap.containsKey(name)) {
-            type = menuTypeMap.get(name);
-        } else {
-            type = new BasicMenuType();
-            type.setName(name);
-            menuTypeMap.put(name,type);
-        }
+        menu.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width));
+        menu.setTextureKey(name);
+//        MenuType type;
+
+//        if (menuTypeMap.containsKey(name)) {
+//            type = menuTypeMap.get(name);
+//        } else {
+//            type = new BasicMenuType();
+//            type.setName(name);
+//            menuTypeMap.put(name,type);
+//        }
 
         //TODO WHY do I have to cast it to EntityType?
-        menu.setType((EntityType)type);
+//        menu.setType((EntityType)type);
 
         return menu;
     }

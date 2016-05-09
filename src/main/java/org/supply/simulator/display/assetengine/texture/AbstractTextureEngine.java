@@ -4,7 +4,6 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicAtlasType;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureHandle;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 9/14/2014.
  */
-public abstract class AbstractTextureEngine<K extends EntityType>
+public abstract class AbstractTextureEngine<K>
         extends AbstractAssetEngine<K,TextureHandle>
         implements TextureEngine<K>  {
 

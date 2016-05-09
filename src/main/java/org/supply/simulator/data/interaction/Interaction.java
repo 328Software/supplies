@@ -1,6 +1,5 @@
 package org.supply.simulator.data.interaction;
 
-import org.supply.simulator.data.HasId;
 import org.supply.simulator.data.entity.Entity;
 
 /**

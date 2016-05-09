@@ -3,7 +3,6 @@ package org.supply.simulator.display.manager.impl;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
 import org.supply.simulator.display.window.Camera;
 

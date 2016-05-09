@@ -3,19 +3,11 @@ package org.supply.simulator.display.renderer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
@@ -42,7 +34,7 @@ public class TexturedChunkRendererTest {
 
     ArrayList<Chunk> chunks;
 
-    private BasicChunkType chunkType;
+//    private BasicChunkType chunkType;
 
     @Before
     public void create() {

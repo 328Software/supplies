@@ -1,14 +1,15 @@
 package org.supply.simulator.data.entity;
 
+import org.supply.simulator.data.attribute.entity.EntityType;
+
 /**
  * Created by Alex on 9/14/2014.
  */
 public interface Unit extends Entity<Long> {
-
-//    @Override
-//    public UnitType getType();
-//
-//    public void setType(UnitType type);
+    @Override
+    default EntityType getType() {
+        return EntityType.UNIT;
+    }
 
     public Positions getPositions();
 

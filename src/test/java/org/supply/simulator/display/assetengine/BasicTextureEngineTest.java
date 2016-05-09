@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.supply.simulator.data.attribute.entity.UnitType;
-import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
@@ -25,7 +23,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private static final int HEIGHT = 600;
 
     private BasicTextureEngine textureEngine;
-    UnitType entityType;
+//    UnitType entityType;
 
     private MockDisplayCore core;
     private BasicShaderEngine shaderEngine;
@@ -40,7 +38,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private int VAO;
     private int VBOI;
     int indicesCount;
-    UnitType unitType;
+//    UnitType unitType;
 
     TextureHandle handle;
 
@@ -52,9 +50,9 @@ public class BasicTextureEngineTest extends HasLogger {
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
 
-        unitType = new BasicUnitType();
-        unitType.setName("textures/rect.png");
-        handle = textureEngine.get(unitType);
+//        unitType = new BasicUnitType();
+//        unitType.setName("textures/rect.png");
+        handle = textureEngine.get("textures/rect.png");
 
 
 
@@ -171,7 +169,7 @@ public class BasicTextureEngineTest extends HasLogger {
 
         GL20.glUseProgram(0);
         GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
-        textureEngine.done(unitType);
+        textureEngine.done("textures/rect.png");
         core.destroy();
 
     }

@@ -9,6 +9,7 @@ import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.FloatBuffer;
@@ -78,12 +79,12 @@ public abstract class OldAbstractRenderer<V extends Entity> extends HasLogger im
     public void build(Collection<V> renderables) {
         for (V renderable : renderables) {
 
-            renderable.getType().setTextureHandle(textureEngine.get(renderable.getType()));
+//            renderable.getType().setTextureHandle(textureEngine.get(renderable.getType()));
             unitList.add(renderable);
-
-            if (!idMap.containsValue(renderable.getType().getTextureHandle().getAtlasType())) {
+            TextureHandle textureHandle = textureEngine.get(renderable.getType());
+            if (!idMap.containsValue(textureHandle.getAtlasType())) {
                 BufferIds bufferIds = new BufferIds();
-                bufferIds.textureId = renderable.getType().getTextureHandle().getAtlasType().getTextureId();
+                bufferIds.textureId = textureHandle.getAtlasType().getTextureId();
                 bufferIds.positionsArrayId = GL15.glGenBuffers();
                 bufferIds.vertexAttributesId  = GL30.glGenVertexArrays();
 
@@ -102,7 +103,7 @@ public abstract class OldAbstractRenderer<V extends Entity> extends HasLogger im
 
 
 
-                idMap.put(renderable.getType().getTextureHandle().getAtlasType(),bufferIds);
+                idMap.put(textureEngine.get(renderable.getType()).getAtlasType(),bufferIds);
                 GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
             }
         }
@@ -121,7 +122,8 @@ public abstract class OldAbstractRenderer<V extends Entity> extends HasLogger im
     }
 
     private void renderAtlas(ArrayList<Entity> renderables, int atlasIndex) {
-        AtlasType    currentAtlas    = renderables.get(atlasIndex).getType().getTextureHandle().getAtlasType();
+        textureEngine.get(renderables.get(atlasIndex).getType());
+        AtlasType    currentAtlas    = textureEngine.get(renderables.get(atlasIndex).getType()).getAtlasType();
 
         BufferIds bufferIds = idMap.get(currentAtlas);
         GL30.glBindVertexArray(bufferIds.vertexAttributesId);
@@ -148,7 +150,8 @@ public abstract class OldAbstractRenderer<V extends Entity> extends HasLogger im
         while(count<renderables.size()) {
             Entity entity = renderables.get(count);
 
-            if (!entity.getType().getTextureHandle().getAtlasType().equals(currentAtlas)) {
+            TextureHandle textureHandle = textureEngine.get(entity.getType());
+            if (!textureHandle.getAtlasType().equals(currentAtlas)) {
                 break;
             }
             float[] data = null;
@@ -162,17 +165,14 @@ public abstract class OldAbstractRenderer<V extends Entity> extends HasLogger im
 
 
             //TODO this needs to be done on Entity generation, should be in bad engine?
-            data[8] =(float)entity.getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[9] =(float)entity.getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
-
-            data[18]=(float)entity.getType().getTextureHandle().getSubInfo()[0]/tWidth;  //X0
-            data[19]=(float)entity.getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
-
-            data[28]=(float)entity.getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[29]=(float)entity.getType().getTextureHandle().getSubInfo()[3]/tHeight; //Y1
-
-            data[38]=(float)entity.getType().getTextureHandle().getSubInfo()[2]/tWidth;  //X1
-            data[39]=(float)entity.getType().getTextureHandle().getSubInfo()[1]/tHeight; //Y0
+            data[8] =(float)textureHandle.getSubInfo()[0]/tWidth;  //X0
+            data[9] =(float)textureHandle.getSubInfo()[1]/tHeight; //Y0
+            data[18]=(float)textureHandle.getSubInfo()[0]/tWidth;  //X0
+            data[19]=(float)textureHandle.getSubInfo()[3]/tHeight; //Y1
+            data[28]=(float)textureHandle.getSubInfo()[2]/tWidth;  //X1
+            data[29]=(float)textureHandle.getSubInfo()[3]/tHeight; //Y1
+            data[38]=(float)textureHandle.getSubInfo()[2]/tWidth;  //X1
+            data[39]=(float)textureHandle.getSubInfo()[1]/tHeight; //Y0
             verticesFloatBuffer.put(data);
             count = count +1;
 

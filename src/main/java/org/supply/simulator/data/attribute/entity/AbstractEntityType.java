@@ -1,19 +1,18 @@
 package org.supply.simulator.data.attribute.entity;
 
-import org.lwjgl.opengl.GL11;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.logging.HasLogger;
 
 /**
  * Created by Alex on 5/1/2016.
  */
-public abstract class AbstractEntityType extends HasLogger implements EntityType<Long> {
+public abstract class AbstractEntityType extends HasLogger {
 
     private TextureHandle textureHandle;
     private Long id;
 
 
-    @Override
+  /*  @Override
     public void setTextureHandle(TextureHandle textureHandle) {
         this.textureHandle=textureHandle;
     }
@@ -21,19 +20,19 @@ public abstract class AbstractEntityType extends HasLogger implements EntityType
     @Override
     public TextureHandle getTextureHandle() {
         return this.textureHandle;
-    }
+    }*/
 
 
-    @Override
+//    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
+//    @Override
     public void setId(Long id) {
         this.id = id;
     }
-
+/*
     public String printOpenGLError(String className) {
         String errorString = "";
         switch(GL11.glGetError()) {
@@ -54,5 +53,5 @@ public abstract class AbstractEntityType extends HasLogger implements EntityType
         }
         logger.error("OpenGl error in "+className+": "+errorString);
         return errorString;
-    }
+    }*/
 }

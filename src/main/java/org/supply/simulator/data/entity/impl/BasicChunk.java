@@ -1,7 +1,5 @@
 package org.supply.simulator.data.entity.impl;
 
-import org.supply.simulator.data.attribute.entity.ChunkType;
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
@@ -13,30 +11,22 @@ public class BasicChunk implements Chunk {
     private Long id;
     private Colors colors;
     private Positions positions;
-    private ChunkType chunkType;
 
     protected int vertexAttributesId;
 
     protected int indicesBufferId;
     protected int colorsArrayId;
     protected int positionsArrayId;
+    String textureKey;
 
     @Override
-    public void setType(EntityType type) {
-        this.chunkType = (ChunkType)type;
+    public String getTextureKey() {
+        return textureKey;
     }
 
-
-    //TODO remove this method hibernate breaks
-    public void setType(ChunkType type) {
-        this.chunkType = type;
+    public void setTextureKey(String textureKey) {
+        this.textureKey = textureKey;
     }
-
-    //TODO remove this method hibernate breaks
-    public ChunkType getType() {
-        return this.chunkType;
-    }
-
 
     public Colors getColors() {
         return colors;

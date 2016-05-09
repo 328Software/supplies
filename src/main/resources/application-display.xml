@@ -52,7 +52,10 @@
         <property name="indexEngine" ref="unitIndexEngine"/>
     </bean>
 
-    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine"/>
+    <bean id="chunkIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine">
+        <constructor-arg value="8"/>
+        <constructor-arg value="8"/>
+    </bean>
 
     <bean id="unitIndexEngine" class="org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine"/>
 

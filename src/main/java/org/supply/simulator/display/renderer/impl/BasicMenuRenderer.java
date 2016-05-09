@@ -3,7 +3,6 @@ package org.supply.simulator.display.renderer.impl;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
 import org.supply.simulator.display.renderer.AbstractRenderer;
-import org.supply.simulator.display.renderer.OldAbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 /**

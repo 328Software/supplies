@@ -5,8 +5,8 @@ import org.lwjgl.opengl.*;
 import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
-import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.entity.Positions;
+import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
@@ -52,7 +52,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     protected final int VERTICES_PER_ENTITY = 6;
 
 
-    protected TextureEngine<EntityType> textureEngine;
+    protected TextureEngine<String> textureEngine;
 
     protected IndexEngine indexEngine;
 
@@ -88,7 +88,8 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
             fillEntityWithTextureData(entity);
 
-            AtlasType atlas = entity.getType().getTextureHandle().getAtlasType();
+            TextureHandle textureHandle = textureEngine.get(entity.getTextureKey());
+            AtlasType atlas = textureHandle.getAtlasType();
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
 
@@ -162,7 +163,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     @Override
     public void destroy(Collection<V> entities) {
         for (V entity : entities) {
-            textureEngine.done(entity.getType());
+            textureEngine.done(entity.getTextureKey());
             idMap2.get(entity.getType()).remove(entity);
             //TODO when to delete atlas data??
         }
@@ -179,7 +180,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     protected abstract void setIndicesBufferId ();
 
     protected void fillEntityWithTextureData(Entity entity) {
-        TextureHandle texture = textureEngine.get(entity.getType());
+        TextureHandle texture = textureEngine.get(entity.getTextureKey());
 
 
         float[] data = null;
@@ -208,7 +209,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
         pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
-        entity.getType().setTextureHandle(texture);
+//        entity.getType().setTextureHandle(texture);
     }
 
     protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {

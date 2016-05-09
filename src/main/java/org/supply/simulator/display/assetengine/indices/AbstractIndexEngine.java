@@ -2,7 +2,6 @@ package org.supply.simulator.display.assetengine.indices;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
-import org.supply.simulator.data.attribute.entity.ChunkType;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
 import org.supply.simulator.display.assetengine.AssetEngine;
 

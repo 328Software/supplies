@@ -2,6 +2,7 @@ package org.supply.simulator.display.renderer.impl;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
@@ -90,7 +91,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
             renderable.setVertexAttributesId(vertexAttributesId);
             renderable.setPositionsArrayId(positionsArrayId);
             renderable.setColorsArrayId(colorsArrayId);
-            renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getType()).getIndexId());
+            renderable.setIndicesBufferId(chunkIndexEngine.get(EntityType.CHUNK).getIndexId());
         }
 
     }
@@ -107,7 +108,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, renderable.getIndicesBufferId());
 
             // Draw the vertices
-            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, renderable.getType().getRows() * renderable.getType().getColumns() * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
+            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, chunkIndexEngine.getRows() * chunkIndexEngine.getColumns() * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
             // Put everything back to default (deselect)
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
             GL20.glDisableVertexAttribArray(locations[0]);
@@ -130,7 +131,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 //            GL15.glDeleteBuffers(indicesBufferId);
-            chunkIndexEngine.done(renderable.getType());
+            chunkIndexEngine.done(EntityType.CHUNK);
 
             GL30.glBindVertexArray(0);
             GL30.glDeleteVertexArrays(renderable.getVertexAttributesId());

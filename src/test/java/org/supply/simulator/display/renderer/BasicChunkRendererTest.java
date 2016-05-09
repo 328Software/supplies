@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.data.attribute.entity.impl.BasicChunkType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
@@ -38,8 +37,6 @@ public class BasicChunkRendererTest {
     UserCameraInterface userCameraInterface;
 
     ArrayList<Chunk> chunks;
-
-    private BasicChunkType chunkType;
 
 //    private Vector3f modelPos;
 //    private Vector3f modelAngle;
@@ -79,7 +76,7 @@ public class BasicChunkRendererTest {
 
         renderer=new BasicChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
-        renderer.setIndexEngine(new ChunkIndexEngine());
+        renderer.setIndexEngine(new ChunkIndexEngine(chunkRows, chunkColumns));
 
         chunks = new ArrayList<>();
         for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {

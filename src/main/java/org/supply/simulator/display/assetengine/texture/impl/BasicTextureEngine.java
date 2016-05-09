@@ -1,41 +1,38 @@
 package org.supply.simulator.display.assetengine.texture.impl;
 
-import org.supply.simulator.data.attribute.entity.ChunkType;
-import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.attribute.entity.MenuType;
-import org.supply.simulator.data.attribute.entity.UnitType;
 import org.supply.simulator.display.assetengine.texture.AbstractTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 /**
  * Created by Alex on 7/13/2014.
  */
 public class BasicTextureEngine
-        extends AbstractTextureEngine<EntityType>
-        implements TextureEngine<EntityType> {
+        extends AbstractTextureEngine<String>
+        implements TextureEngine<String> {
 
 
     @Override
-    protected String lookupTextureFileName(EntityType key) {
+    protected String lookupTextureFileName(String key) {
         return getTextureData(key).fileName;
     }
 
     @Override
-    protected float[] lookupTextureSubInfo(EntityType key) {
+    protected float[] lookupTextureSubInfo(String key) {
         return getTextureData(key).subInfo;
     }
 
-    private TextureData getTextureData(EntityType key) {
+    private TextureData getTextureData(String key) {
 
         TextureData data=null;
-        if (key instanceof MenuType) {
-            data = generateTextureData(((MenuType)key).getName());
-        } else if (key instanceof UnitType) {
-            data = generateTextureData(((UnitType)key).getName());
-        } else if (key instanceof ChunkType) {
-            logger.warn("have not implemented ChunkType for texture engine");
-        } else {
-            logger.error("Incorrect EntityType for texture engine");
-        }
+//        if (key instanceof MenuType) {
+//            data = generateTextureData(((MenuType)key).getName());
+//        } else if (key instanceof UnitType) {
+//            data = generateTextureData(((UnitType)key).getName());
+//        } else if (key instanceof ChunkType) {
+//            logger.warn("have not implemented ChunkType for texture engine");
+//        } else {
+//            logger.error("Incorrect EntityType for texture engine");
+//        }
+        data = generateTextureData(key);
 
         return data;
     }

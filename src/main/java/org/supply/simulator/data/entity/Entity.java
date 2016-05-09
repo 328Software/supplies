@@ -13,10 +13,9 @@ import org.supply.simulator.data.attribute.entity.EntityType;
  * non-generic super-type for all matter.
  */
 public interface Entity<I extends Comparable<I>> extends  HasId<I>, Comparable<Entity<I>> {
+    String getTextureKey();
 
-    public EntityType getType();
-
-    public void setType(EntityType type);
+    EntityType getType();
 
     @Override
     default int compareTo(Entity<I> o) {

@@ -40,12 +40,12 @@
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>
-        <many-to-one name="type" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>
+        <!--<many-to-one name="type" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>-->
         <many-to-one name="colors" column="chunk_colors" class="org.supply.simulator.data.entity.impl.BasicColors" cascade="save-update"/>
         <many-to-one name="positions" column="chunk_positions" class="org.supply.simulator.data.entity.impl.BasicPositions" cascade="save-update"/>
     </class>
 
-    <class name="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" table="chunk_type" lazy="false">
+   <!-- <class name="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" table="chunk_type" lazy="false">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -54,5 +54,5 @@
         </id>
         <property name="rows" column="rows" type="int"/>
         <property name="columns" column="columns" type="int"/>
-    </class>
+    </class>-->
 </hibernate-mapping>

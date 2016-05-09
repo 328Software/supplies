@@ -10,9 +10,9 @@ import org.supply.simulator.display.window.Camera;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.Arrays;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * Basic implementation of AbstractCamera.

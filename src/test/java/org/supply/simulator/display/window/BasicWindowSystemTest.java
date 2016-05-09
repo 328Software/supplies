@@ -54,7 +54,7 @@ public class BasicWindowSystemTest {
 
         chunkManager=new MockChunkManager();
         chunkRenderer=new BasicChunkRenderer();
-        chunkRenderer.setIndexEngine(new ChunkIndexEngine());
+        chunkRenderer.setIndexEngine(new ChunkIndexEngine(20, 20));
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
         chunkManager.setEntityRenderer(chunkRenderer);

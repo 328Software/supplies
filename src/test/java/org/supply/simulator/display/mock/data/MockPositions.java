@@ -1,11 +1,11 @@
 package org.supply.simulator.display.mock.data;
 
-import org.supply.simulator.data.statistic.entity.Positions;
+import org.supply.simulator.data.entity.Positions;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class MockPositions implements Positions {
+public class MockPositions implements Positions<Long> {
     private Long id;
     
     private float[] value;

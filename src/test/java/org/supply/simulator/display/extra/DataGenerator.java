@@ -10,8 +10,10 @@ import org.supply.simulator.data.attribute.entity.impl.BasicUnitType;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.data.statistic.entity.impl.BasicColors;
-import org.supply.simulator.data.statistic.entity.impl.BasicPositions;
+import org.supply.simulator.data.entity.impl.BasicColors;
+import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.display.factory.TexturedVertex;
+import org.supply.simulator.display.factory.VertexData;
 
 import java.util.HashMap;
 

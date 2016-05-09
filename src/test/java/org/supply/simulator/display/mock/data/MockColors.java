@@ -1,11 +1,11 @@
 package org.supply.simulator.display.mock.data;
 
-import org.supply.simulator.data.statistic.entity.Colors;
+import org.supply.simulator.data.entity.Colors;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class MockColors implements Colors {
+public class MockColors implements Colors<Long> {
     private Long id;
 
     private byte[] value;

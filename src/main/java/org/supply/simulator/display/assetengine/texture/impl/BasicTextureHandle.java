@@ -42,39 +42,4 @@ public class BasicTextureHandle extends AbstractAssetHandle implements TextureHa
     public AtlasType getAtlasType() {
         return atlasType;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BasicTextureHandle)) return false;
-        return atlasType.equals(((BasicTextureHandle) o).atlasType);
-    }
-
-    @Override
-    public int compareTo (Object o) {
-        if (this == o) return 0;
-        if (!(o instanceof BasicTextureHandle)) return -1;
-
-
-//        if (this.getAtlasType()==((BasicTextureHandle)o).getAtlasType()) {
-//
-//            return 0;
-//        }
-
-
-//        int val = ((BasicTextureHandle) o).getTextureHandle().compareTo(this.getTextureHandle());
-//
-//        if (val==0) {
-//            Integer[] otherInfo = ((BasicTextureHandle) o).getSubInfo();
-//            for (int i = 0; i< otherInfo.length;i++) {
-//                val = atlasType.getSubInfo()[i].compareTo(otherInfo[i]);
-//                if (val != 0) {
-//                    return val;
-//                }
-//            }
-//            return 0;
-//        }
-
-        return -1;
-    }
 }

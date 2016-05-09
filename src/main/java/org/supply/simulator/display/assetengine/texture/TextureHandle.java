@@ -5,7 +5,7 @@ import org.supply.simulator.display.assetengine.AssetHandle;
 /**
  * Created by Alex on 7/14/2014.
  */
-public interface TextureHandle extends AssetHandle, Comparable{
+public interface TextureHandle extends AssetHandle/*, Comparable<TextureHandle>*/ {
 
     /**
      *

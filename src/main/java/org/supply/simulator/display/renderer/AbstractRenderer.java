@@ -6,7 +6,7 @@ import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
-import org.supply.simulator.data.statistic.entity.Positions;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;

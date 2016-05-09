@@ -6,6 +6,8 @@ import org.lwjgl.util.vector.Vector3f;
 
 import java.nio.FloatBuffer;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4;
 import static org.lwjgl.util.vector.Matrix4f.*;
 import static org.supply.simulator.util.MatrixUtil.projection;
@@ -177,6 +179,9 @@ public class Camera {
     }
     //***** Movement Methods
     public Matrix4f getProjectionMatrix() {
+        if(isNull(projectionMatrix) && aspectRatio > 0 && farPlane != nearPlane) {
+            projectionMatrix = createProjectionMatrix();
+        }
         return projectionMatrix;
     }
 
@@ -262,17 +267,35 @@ public class Camera {
 
     public void setFieldOfView(float fieldOfView) {
         this.fieldOfView = fieldOfView;
+        reproject();
     }
 
     public void setAspectRatio(float aspectRatio) {
         this.aspectRatio = aspectRatio;
+
+        Matrix4f matrix = getProjectionMatrix();
+        if(nonNull(matrix)) {
+            matrix.m00 = matrix.m11 / this.aspectRatio;
+        }
     }
 
     public void setNearPlane(float nearPlane) {
         this.nearPlane = nearPlane;
+        adjustProjectionPlanes();
+    }
+
+    private void adjustProjectionPlanes() {
+        Matrix4f matrix = getProjectionMatrix();
+
+        float frustum_length = farPlane - nearPlane;
+        if(nonNull(matrix)) {
+            matrix.m22 = -((farPlane + nearPlane) / frustum_length);
+            matrix.m32 = -((2 * nearPlane * farPlane) / frustum_length);
+        }
     }
 
     public void setFarPlane(float farPlane) {
         this.farPlane = farPlane;
+        adjustProjectionPlanes();
     }
 }

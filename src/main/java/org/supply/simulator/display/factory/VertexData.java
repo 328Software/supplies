@@ -1,4 +1,4 @@
-package org.supply.simulator.display.extra;
+package org.supply.simulator.display.factory;
 
 /**
  * Created by Alex on 6/29/2014.

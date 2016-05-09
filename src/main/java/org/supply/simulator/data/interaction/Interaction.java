@@ -1,11 +1,7 @@
 package org.supply.simulator.data.interaction;
 
 import org.supply.simulator.data.HasId;
-import org.supply.simulator.data.attribute.HasAttributes;
-import org.supply.simulator.data.attribute.interaction.InteractionAttribute;
 import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.statistic.HasStatistics;
-import org.supply.simulator.data.statistic.interaction.InteractionStatistic;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,11 +11,7 @@ import org.supply.simulator.data.statistic.interaction.InteractionStatistic;
  * Interaction is a way of describing a relationship between two Entities. Interactions can be described
  * by Attributes. Interactions are the highest non-generic super-type for all impl relationship descriptions.
  */
-interface Interaction<
-        A extends InteractionAttribute, //
-        S extends InteractionStatistic, //
-        I                               //
-        > extends HasAttributes<A>, HasStatistics<S>, HasId<I> {
+interface Interaction {
     /**
      * Sets the impl whence the interaction originates.
      *

@@ -22,7 +22,6 @@ import static java.lang.Math.*;
 public class UserCameraInterface {
 
     private static final float WASD_POS_DELTA = 0.02f;
-    private static final float ZOOM_FACTOR = 0.1F;
     public static final int SCROLL_FACTOR = 120;
     public static final int MIN_FOV = 5;
     public static final int MAX_FOV = 175;
@@ -91,14 +90,14 @@ public class UserCameraInterface {
                     if(changeDenominator != 0) {
                         float[] originalCoords = calcWorldCoordinates(newMouseX, newMouseY);
                         camera.setFieldOfView(result);
-                        camera.reproject();
+//                        camera.reproject();
                         float[] newCoords = calcWorldCoordinates(newMouseX, newMouseY);
                         camera.moveWest (originalCoords[0] - newCoords[0] );
                         camera.moveNorth(originalCoords[1] - newCoords[1]);
                     }
                 } else {
                     camera.setFieldOfView(result);
-                    camera.reproject();
+//                    camera.reproject();
                 }
             }
         }

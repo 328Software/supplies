@@ -1,11 +1,7 @@
 package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.HasId;
-import org.supply.simulator.data.attribute.HasAttributes;
-import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.statistic.HasStatistics;
-import org.supply.simulator.data.statistic.entity.EntityStatistic;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,15 +12,14 @@ import org.supply.simulator.data.statistic.entity.EntityStatistic;
  * object matter that can be described by Attributes. Entity is meant to be used as the highest
  * non-generic super-type for all matter.
  */
-public interface Entity
-        <
-        A extends EntityAttribute, //
-        S extends EntityStatistic, //
-        I                          //
-        > extends HasAttributes<A>, HasStatistics<S>, HasId<I>, Comparable {
+public interface Entity<I extends Comparable<I>> extends  HasId<I>, Comparable<Entity<I>> {
 
     public EntityType getType();
 
     public void setType(EntityType type);
 
+    @Override
+    default int compareTo(Entity<I> o) {
+        return getId().compareTo(o.getId());
+    }
 }

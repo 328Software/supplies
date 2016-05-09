@@ -1,14 +1,16 @@
-package org.supply.simulator.data.statistic.entity.impl;
+package org.supply.simulator.data.entity.impl;
 
-import org.supply.simulator.data.statistic.entity.Colors;
+import org.supply.simulator.data.entity.Colors;
 
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicColors implements Colors {
+public class BasicColors implements Colors<Long> {
     private Long id;
 
     private byte[] value;
+
+
 
     @Override
     public byte[] getValue() {

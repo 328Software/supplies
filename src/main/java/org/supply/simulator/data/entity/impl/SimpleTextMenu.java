@@ -1,6 +1,5 @@
 package org.supply.simulator.data.entity.impl;
 
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Positions;
 
@@ -11,23 +10,10 @@ public class SimpleTextMenu implements Menu {
     private String text;
     private Long id;
     String textureKey;
+    Positions positions;
 
-    @Override
-    public String getTextureKey() {
-        return textureKey;
-    }
-
-    public void setTextureKey(String textureKey) {
-
-    }
-    @Override
-    public Long getId() {
-        return null;
-    }
-
-    @Override
-    public void setId(Long id) {
-
+    public String getText() {
+        return text;
     }
 
     public void setText(String text) {
@@ -35,12 +21,30 @@ public class SimpleTextMenu implements Menu {
     }
 
     @Override
-    public Positions getPositions() {
-        return null;
+    public Long getId() {
+        return id;
     }
 
     @Override
-    public void setPositions(Positions positions) {
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    @Override
+    public String getTextureKey() {
+        return textureKey;
+    }
+
+    public void setTextureKey(String textureKey) {
+        this.textureKey = textureKey;
+    }
+
+    @Override
+    public Positions getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Positions positions) {
+        this.positions = positions;
     }
 }

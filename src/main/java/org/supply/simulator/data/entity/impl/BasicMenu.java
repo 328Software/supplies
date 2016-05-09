@@ -1,6 +1,5 @@
 package org.supply.simulator.data.entity.impl;
 
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Positions;
 
@@ -22,16 +21,15 @@ public class BasicMenu implements Menu {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     private Positions unitPositions;
-    private EntityType type;
 
     public Positions getPositions() {
         return unitPositions;

@@ -8,8 +8,6 @@ import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.logging.HasLogger;
 
-import static org.supply.simulator.data.attribute.entity.EntityType.CHUNK;
-
 /**
  * Created by Alex on 7/17/2014.
  */
@@ -29,7 +27,7 @@ public class ChunkIndexEngineTest extends HasLogger {
     @Test
     public void chunkIndexEngineTest () {
 
-        int bufferId = indexEngine.get(CHUNK).getIndexId();
+        int bufferId = indexEngine.get(null).getIndexId();
 
         logger.info("Succesfully created chunk index opengl buffer:"+bufferId);
         
@@ -37,7 +35,7 @@ public class ChunkIndexEngineTest extends HasLogger {
 
     @After
     public void destroyFixture() {
-        indexEngine.done(CHUNK);
+        indexEngine.done(null);
         core.destroy();
 
     }

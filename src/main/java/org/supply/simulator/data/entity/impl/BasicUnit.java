@@ -1,6 +1,5 @@
 package org.supply.simulator.data.entity.impl;
 
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Unit;
 
@@ -10,8 +9,7 @@ import org.supply.simulator.data.entity.Unit;
 public class BasicUnit implements Unit {
     private Long id;
     private Positions unitPositions;
-    private EntityType type;
-    String textureKey;
+    private String textureKey;
 
     @Override
     public String getTextureKey() {

@@ -2,7 +2,6 @@ package org.supply.simulator.display.renderer.impl;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.supply.simulator.data.attribute.entity.EntityType;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
@@ -11,7 +10,6 @@ import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -92,7 +90,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
             renderable.setVertexAttributesId(vertexAttributesId);
             renderable.setPositionsArrayId(positionsArrayId);
             renderable.setColorsArrayId(colorsArrayId);
-            renderable.setIndicesBufferId(chunkIndexEngine.get(EntityType.CHUNK).getIndexId());
+            renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getTextureKey()).getIndexId());
         }
 
     }
@@ -131,7 +129,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 //            GL15.glDeleteBuffers(indicesBufferId);
-            chunkIndexEngine.done(EntityType.CHUNK);
+            chunkIndexEngine.done(renderable.getTextureKey());
 
             GL30.glBindVertexArray(0);
             GL30.glDeleteVertexArrays(renderable.getVertexAttributesId());

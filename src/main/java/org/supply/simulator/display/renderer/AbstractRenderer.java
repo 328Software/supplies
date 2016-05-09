@@ -1,13 +1,8 @@
 package org.supply.simulator.display.renderer;
 
-import org.lwjgl.BufferUtils;
+import org.hibernate.type.EntityType;
 import org.lwjgl.opengl.*;
-import org.supply.simulator.data.attribute.entity.EntityType;
-import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.entity.Menu;
-import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.data.entity.Unit;
+import org.supply.simulator.data.entity.*;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
@@ -15,8 +10,6 @@ import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -65,7 +58,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected HashMap<AtlasType,AtlasRenderData<Entity>> idMap;
 
-    protected HashMap<EntityType,AtlasRenderData<Entity>> idMap2;
+    protected HashMap<String,AtlasRenderData<Entity>> idMap2;
 
     public AbstractRenderer() {
         super();
@@ -153,7 +146,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
     public void destroy(Collection<V> entities) {
         for (V entity : entities) {
             textureEngine.done(entity.getTextureKey());
-            idMap2.get(entity.getType()).remove(entity);
+            idMap2.get(entity.getTextureKey()).remove(entity);
             //TODO when to delete atlas data??
         }
 

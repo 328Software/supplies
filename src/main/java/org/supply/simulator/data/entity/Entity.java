@@ -1,7 +1,6 @@
 package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.HasId;
-import org.supply.simulator.data.attribute.entity.EntityType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +13,6 @@ import org.supply.simulator.data.attribute.entity.EntityType;
  */
 public interface Entity<I extends Comparable<I>> extends  HasId<I>, Comparable<Entity<I>> {
     String getTextureKey();
-
-    EntityType getType();
 
     @Override
     default int compareTo(Entity<I> o) {

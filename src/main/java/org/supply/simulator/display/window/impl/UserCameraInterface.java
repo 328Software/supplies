@@ -81,24 +81,16 @@ public class UserCameraInterface {
                 float oldFov = camera.getFieldOfView();
                 float result = min(MAX_FOV, (max(MIN_FOV, oldFov - (wheel / SCROLL_FACTOR) * scrollSpeed)));
 
-//                if(wheel != 0) {
+                int newMouseX = Mouse.getX();
+                int newMouseY = Mouse.getY();
 
-                    int newMouseX = Mouse.getX();
-                    int newMouseY = Mouse.getY();
+                float[] originalCoords = calcWorldCoordinates(newMouseX, newMouseY);
+                camera.setFieldOfView(result);
 
-                    float changeDenominator = oldFov - MIN_FOV;
-                    if(changeDenominator != 0) {
-                        float[] originalCoords = calcWorldCoordinates(newMouseX, newMouseY);
-                        camera.setFieldOfView(result);
-//                        camera.reproject();
-                        float[] newCoords = calcWorldCoordinates(newMouseX, newMouseY);
-                        camera.moveWest (originalCoords[0] - newCoords[0] );
-                        camera.moveNorth(originalCoords[1] - newCoords[1]);
-                    }
-               /* } else {
-                    camera.setFieldOfView(result);
-//                    camera.reproject();
-                }*/
+                float[] newCoords = calcWorldCoordinates(newMouseX, newMouseY);
+                camera.moveWest (originalCoords[0] - newCoords[0] );
+                camera.moveNorth(originalCoords[1] - newCoords[1]);
+
             }
         }
     }

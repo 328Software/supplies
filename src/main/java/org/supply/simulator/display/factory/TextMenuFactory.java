@@ -2,7 +2,7 @@ package org.supply.simulator.display.factory;
 
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.impl.BasicMenu;
-import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.MenuFactory;
 
 import static java.lang.System.arraycopy;
@@ -43,7 +43,7 @@ public class TextMenuFactory implements MenuFactory {
         return menu;
     }
 
-    private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    private Positions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();
@@ -60,7 +60,7 @@ public class TextMenuFactory implements MenuFactory {
         arraycopy(v2.getElements(),0,data,2* TEXTURE_VERTEX_TOTAL_SIZE, TEXTURE_VERTEX_TOTAL_SIZE);
         arraycopy(v3.getElements(),0,data,3* TEXTURE_VERTEX_TOTAL_SIZE, TEXTURE_VERTEX_TOTAL_SIZE);
 
-        BasicPositions entityData = new BasicPositions();
+        Positions entityData = new Positions();
         entityData.setValue(data);
 
         return entityData;

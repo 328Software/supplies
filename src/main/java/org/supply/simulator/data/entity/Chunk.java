@@ -7,7 +7,7 @@ public interface Chunk extends Entity<Long> {
 
 //
 
-    Colors<Long> getColors();
+    Colors getColors();
 
     void setColors(Colors colors);
 

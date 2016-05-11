@@ -7,7 +7,7 @@ public interface Menu extends Entity<Long> {
 
     Positions getPositions();
 
-    void setPositions(Positions<Long> positions);
+    void setPositions(Positions positions);
 
 
 }

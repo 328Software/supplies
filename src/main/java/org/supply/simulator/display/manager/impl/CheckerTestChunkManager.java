@@ -7,8 +7,8 @@ import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.data.entity.impl.BasicColors;
-import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.data.entity.Colors;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
@@ -62,8 +62,8 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
 
                 logger.info("creating chunk " + (count++));
                 BasicChunk chunk = new BasicChunk();
-                BasicPositions positions = new BasicPositions();
-                BasicColors colors = new BasicColors();
+                Positions positions = new Positions();
+                Colors colors = new Colors();
                 positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());
 //                chunk.setType(type);

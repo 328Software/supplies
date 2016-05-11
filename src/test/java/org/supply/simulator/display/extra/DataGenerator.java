@@ -1,5 +1,7 @@
 package org.supply.simulator.display.extra;
 
+import org.supply.simulator.data.entity.Colors;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.*;
 import org.supply.simulator.display.factory.TexturedVertex;
 
@@ -44,8 +46,8 @@ public class DataGenerator {
         }*/
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-        BasicPositions positions = new BasicPositions();
-        BasicColors colors = new BasicColors();
+        Positions positions = new Positions();
+        Colors colors = new Colors();
 
         positions.setValue(pair.positions);
         colors.setValue(pair.colors);
@@ -102,15 +104,15 @@ public class DataGenerator {
         return menu;
     }
 
-    private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    private Positions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();
         TexturedVertex v3 = new TexturedVertex();
-        v0.setXYZ( topLeftX,       topLeftY,        topLeftZ); v0.setRGB(1, 0, 0); v0.setST(0, 0);
-        v1.setXYZ( topLeftX,       topLeftY-length, topLeftZ); v1.setRGB(0, 1, 0); v1.setST(0, 1);
-        v2.setXYZ( topLeftX+width, topLeftY-length, topLeftZ); v2.setRGB(0, 0, 1); v2.setST(1, 1);
-        v3.setXYZ( topLeftX+width, topLeftY,        topLeftZ); v3.setRGB(1, 1, 1); v3.setST(1, 0);
+        v0.setXYZ( topLeftX,       topLeftY,        topLeftZ); v0.setRGB(0, 0, 0); v0.setST(0, 0);
+        v1.setXYZ( topLeftX,       topLeftY-length, topLeftZ); v1.setRGB(0, 0, 0); v1.setST(0, 1);
+        v2.setXYZ( topLeftX+width, topLeftY-length, topLeftZ); v2.setRGB(0, 0, 0); v2.setST(1, 1);
+        v3.setXYZ( topLeftX+width, topLeftY,        topLeftZ); v3.setRGB(0, 0, 0); v3.setST(1, 0);
 
         float[] data = new float[4* TEXTURE_VERTEX_TOTAL_SIZE];
 
@@ -119,7 +121,7 @@ public class DataGenerator {
         System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
         System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
 
-        BasicPositions entityData = new BasicPositions();
+        Positions entityData = new Positions();
         entityData.setValue(data);
 
         return entityData;

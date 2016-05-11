@@ -10,7 +10,7 @@ import org.supply.simulator.data.attribute.Attribute;
  *
  * The superclass for all attributes that an entity object can possibly have.
  */
-public interface EntityAttribute<I> extends Attribute<I> {
+public interface EntityAttribute<I extends Comparable<I>> extends Attribute<I> {
 
 }
 

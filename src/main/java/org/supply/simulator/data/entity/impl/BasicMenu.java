@@ -8,7 +8,7 @@ import org.supply.simulator.data.entity.Positions;
  */
 public class BasicMenu implements Menu {
     private Long id;
-    String textureKey;
+    private String textureKey;
 
     @Override
     public String getTextureKey() {

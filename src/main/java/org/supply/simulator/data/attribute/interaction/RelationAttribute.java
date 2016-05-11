@@ -8,5 +8,5 @@ package org.supply.simulator.data.attribute.interaction;
  *
  * The superclass for all attributes that an relation object can possibly have.
  */
-public interface RelationAttribute<I> extends InteractionAttribute<I> {
+public interface RelationAttribute<I extends Comparable<I>> extends InteractionAttribute<I> {
 }

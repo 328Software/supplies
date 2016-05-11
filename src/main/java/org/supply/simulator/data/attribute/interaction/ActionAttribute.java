@@ -8,5 +8,5 @@ package org.supply.simulator.data.attribute.interaction;
  *
  * The superclass for all attributes that an action object can possibly have.
  */
-public interface ActionAttribute<I> extends InteractionAttribute<I> {
+public interface ActionAttribute<I extends Comparable<I>> extends InteractionAttribute<I> {
 }

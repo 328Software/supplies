@@ -11,6 +11,7 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
 
     private float[] value;
 
+    @Override
     public float[] getValue() {
         return value;
     }

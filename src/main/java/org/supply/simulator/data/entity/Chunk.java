@@ -3,7 +3,7 @@ package org.supply.simulator.data.entity;
 /**
  * Created by Alex on 9/14/2014.
  */
-public interface Chunk extends Entity<Long> {
+public interface Chunk extends Entity {
 
 //
 

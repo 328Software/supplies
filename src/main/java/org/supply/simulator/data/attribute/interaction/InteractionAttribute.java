@@ -11,6 +11,6 @@ import org.supply.simulator.data.attribute.Attribute;
  * The superclass for all attributes that an interaction object can possibly have.
  * Describes the basics of an interaction between entities.
  */
-public interface InteractionAttribute<I> extends Attribute<I> {
+public interface InteractionAttribute<I extends Comparable<I>> extends Attribute<I> {
 
 }

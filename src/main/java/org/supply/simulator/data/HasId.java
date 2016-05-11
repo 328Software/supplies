@@ -7,7 +7,12 @@ package org.supply.simulator.data;
  * Time: 3:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface HasId<I> {
+public interface HasId<I extends Comparable<I>> extends Comparable<HasId<I>> {
     I getId();
     void setId(I id);
+
+    @Override
+    default int compareTo(HasId<I> o) {
+        return getId().compareTo(o.getId());
+    }
 }

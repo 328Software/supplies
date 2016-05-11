@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Brandon on 7/20/2014.
  */
-public class TerrainChunk{
+public class TerrainChunk {
     float[] positions;
     byte colors[];
 

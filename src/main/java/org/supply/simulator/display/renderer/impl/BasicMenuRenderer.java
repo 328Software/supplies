@@ -8,17 +8,16 @@ import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
-import org.supply.simulator.display.renderer.AbstractRenderer;
+import org.supply.simulator.display.renderer.RendererBase;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by Alex on 9/14/2014.
  */
-public class BasicMenuRenderer extends AbstractRenderer<BasicMenu> implements EntityRenderer<BasicMenu> {
+public class BasicMenuRenderer extends RendererBase<BasicMenu> implements EntityRenderer<BasicMenu> {
 
     @Override
     protected void buildEntities(Collection<BasicMenu> entityList) {

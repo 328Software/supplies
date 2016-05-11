@@ -16,7 +16,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
-import static org.supply.simulator.display.renderer.AbstractRenderer.*;
+import static org.supply.simulator.display.renderer.RendererBase.*;
 import static org.supply.simulator.display.renderer.impl.BasicChunkRenderer.STRIDE;
 
 /**

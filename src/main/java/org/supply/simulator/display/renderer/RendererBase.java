@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 5/6/2016.
  */
-public abstract class AbstractRenderer<V extends Entity> extends HasLogger implements  EntityRenderer<V> {
+public abstract class RendererBase<V extends Entity> extends HasLogger implements  EntityRenderer<V> {
 
     // The amount of bytes an element has
     public static final int ELEMENT_BYTES = 4;
@@ -37,7 +37,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     // The amount of elements that a vertex has
     // The size of a vertex in bytes, like in C/C++: sizeof(Vertex)
-    public static final int stride = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
+    public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
     protected final int max_entities;
@@ -59,7 +59,7 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
 
     protected HashMap<String,AtlasRenderData<Entity>> idMap2;
 
-    public AbstractRenderer() {
+    public RendererBase() {
         super();
         idMap = new HashMap<>();
         idMap2 = new HashMap<>();
@@ -227,13 +227,13 @@ public abstract class AbstractRenderer<V extends Entity> extends HasLogger imple
         GL30.glBindVertexArray(ids.getVertexAttributesId());
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
         GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, stride, POSITION_BYTE_OFFSET);
+                false, STRIDE, POSITION_BYTE_OFFSET);
         // Put the color components in attribute list 1
         GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, stride, COLOR_BYTE_OFFSET);
+                false, STRIDE, COLOR_BYTE_OFFSET);
         // Put the texture coordinates in attribute list 2
         GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, stride, TEXTURE_BYTE_OFFSET);
+                false, STRIDE, TEXTURE_BYTE_OFFSET);
 
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);

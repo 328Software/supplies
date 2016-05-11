@@ -6,20 +6,18 @@ import org.lwjgl.opengl.GL15;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
 import org.supply.simulator.data.entity.Unit;
-import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
-import org.supply.simulator.display.renderer.AbstractRenderer;
+import org.supply.simulator.display.renderer.RendererBase;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by Alex on 7/21/2014.
  */
-public class BasicUnitRenderer extends AbstractRenderer<BasicUnit> implements EntityRenderer<BasicUnit> {
+public class BasicUnitRenderer extends RendererBase<BasicUnit> implements EntityRenderer<BasicUnit> {
     @Override
     protected void buildEntities(Collection<BasicUnit> entityList) {
         //DO nothing, Unit's positions a moved into memory on the fly!

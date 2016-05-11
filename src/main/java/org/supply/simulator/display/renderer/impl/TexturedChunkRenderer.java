@@ -1,7 +1,7 @@
 package org.supply.simulator.display.renderer.impl;
 
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.display.renderer.AbstractRenderer;
+import org.supply.simulator.display.renderer.RendererBase;
 import org.supply.simulator.display.renderer.EntityRenderer;
 
 import java.util.Collection;
@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by Alex on 5/8/2016.
  */
-public class TexturedChunkRenderer extends AbstractRenderer<BasicChunk> implements EntityRenderer<BasicChunk> {
+public class TexturedChunkRenderer extends RendererBase<BasicChunk> implements EntityRenderer<BasicChunk> {
     public TexturedChunkRenderer () {
         super();
 //        max_entities =1000;

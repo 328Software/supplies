@@ -1,6 +1,6 @@
 package org.supply.simulator.display.factory;
 
-import static org.supply.simulator.display.renderer.AbstractRenderer.*;
+import static org.supply.simulator.display.renderer.RendererBase.*;
 
 /**
  * Created by Alex on 7/27/2014.

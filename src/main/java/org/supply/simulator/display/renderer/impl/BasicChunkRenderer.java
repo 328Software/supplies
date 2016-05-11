@@ -5,8 +5,8 @@ import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.IndexEngine;
 import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
-import org.supply.simulator.display.renderer.AbstractRenderer;
 import org.supply.simulator.display.renderer.EntityRenderer;
+import org.supply.simulator.display.renderer.RendererBase;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -15,7 +15,7 @@ import java.util.Collection;
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements EntityRenderer<Chunk> {
+public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRenderer<Chunk> {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4 ;
@@ -31,12 +31,7 @@ public class BasicChunkRenderer extends AbstractRenderer<Chunk> implements Entit
     public static final int COLOR_BYTES = COLOR_COUNT * COLOR_ELEMENT;
     public static final int TEXTURE_BYTE = TEXTURE_COUNT * POSITION_ELEMENT;
 
-    // Byte offsets per parameter
-    public static final int POSITION_BYTE_OFFSET = 0;
-    public static final int COLOR_BYTE_OFFSET = POSITION_BYTE_OFFSET + POSITION_COUNT;
-    public static final int TEXTURE_BYTE_OFFSET = COLOR_BYTE_OFFSET + COLOR_COUNT;
 
-    public static final int STRIDE = POSITION_BYTES + COLOR_BYTES + TEXTURE_BYTE;
 
     public static final int INDICES_PER_VERTEX = 6;
 

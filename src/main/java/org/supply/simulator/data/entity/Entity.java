@@ -11,6 +11,6 @@ import org.supply.simulator.data.HasId;
  * object matter that can be described by Attributes. Entity is meant to be used as the highest
  * non-generic super-type for all matter.
  */
-public interface Entity extends  HasId<Long> {
+public interface Entity extends HasId<Long> {
     String getTextureKey();
 }

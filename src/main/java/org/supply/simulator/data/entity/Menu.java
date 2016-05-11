@@ -8,6 +8,4 @@ public interface Menu extends Entity {
     Positions getPositions();
 
     void setPositions(Positions positions);
-
-
 }

@@ -55,9 +55,9 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
     protected int indicesBufferId = -1;
 
-    protected HashMap<AtlasType,AtlasRenderData<Entity>> idMap;
+    protected HashMap<AtlasType,AtlasRenderData<V>> idMap;
 
-    protected HashMap<String,AtlasRenderData<Entity>> idMap2;
+    protected HashMap<String,AtlasRenderData<V>> idMap2;
 
     public RendererBase() {
         super();
@@ -105,7 +105,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     @Override
     public void render(Collection<V> entities) {
         int count=0;
-        for (AtlasRenderData data : idMap.values()) {
+        for (AtlasRenderData<V> data : idMap.values()) {
 
             //Prepare to draw block of entities
             //    i.e. bind all the opengl buffers, bind texture

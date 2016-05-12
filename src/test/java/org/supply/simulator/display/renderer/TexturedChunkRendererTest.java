@@ -74,7 +74,7 @@ public class TexturedChunkRendererTest {
         renderer=new TexturedChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
         renderer.setTextureEngine(textureEngine);
-        renderer.setIndexEngine(new BasicIndexEngine(20,20));
+        renderer.setIndexEngine(new BasicIndexEngine());
 //        renderer.setChunkType(type);
 
         chunks = new ArrayList<>();

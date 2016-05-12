@@ -19,9 +19,6 @@ public class MapUtils {
     }
 
     public static TreeMap<Map.Entry<Integer, Integer>, BasicIndexHandle> newMap() {
-        TreeMap map = new TreeMap<Map.Entry<Integer, Integer>, Integer>(ENTRY_COMPARATOR);
-        return map;
-
-
+        return new TreeMap<>(ENTRY_COMPARATOR);
     }
 }

@@ -16,26 +16,12 @@ public class BasicIndexEngine
         extends AbstractAssetEngine<Map.Entry<Integer, Integer>,BasicIndexHandle>
         implements AssetEngine<Map.Entry<Integer, Integer>,BasicIndexHandle> {
 
-    int rows, columns;
     private static final int INDICES_PER_VERTEX = 6;
 
-//    public int getRows() {
-//        return rows;
-//    }
-//
-//    public int getColumns() {
-//        return columns;
-//    }
 
     public BasicIndexEngine() {
         super();
         handleMap= MapUtils.newMap();
-    }
-
-    //TODO get rid of this
-    public BasicIndexEngine(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
     }
 
     @Override

@@ -52,10 +52,7 @@
         <property name="indexEngine" ref="indexEngine"/>
     </bean>
 
-    <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.BasicIndexEngine">
-        <constructor-arg value="8"/>
-        <constructor-arg value="8"/>
-    </bean>
+    <bean id="indexEngine" class="org.supply.simulator.display.assetengine.indices.BasicIndexEngine"/>
 
 
     <bean id="basicTextureEngine" class="org.supply.simulator.display.assetengine.texture.BasicTextureEngine"/>

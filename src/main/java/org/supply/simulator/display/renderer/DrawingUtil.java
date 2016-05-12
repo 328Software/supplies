@@ -22,17 +22,31 @@ public class DrawingUtil {
 
 
     }
-
     public static void dynamicDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
-        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
+        FloatBuffer verticesFloatBuffer
+                = BufferUtils.createFloatBuffer(entityList.stream().mapToInt(e -> e.getPositions().getValue().length).sum());
+
         for (Entity entity : entityList) {
             verticesFloatBuffer.put(entity.getPositions().getValue());
         }
         verticesFloatBuffer.flip();
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
         GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
-                verticesPerEntity * entityList.size(), //Number of vertices to render (there's 6 per image)
+                verticesFloatBuffer.limit(), //Number of vertices to render (there's 6 per image)
                 GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
-                verticesPerEntity * Integer.SIZE * 0);//index into buffer when to start rendering
+                verticesFloatBuffer.limit() * Integer.SIZE * 0);//index into buffer when to start rendering
     }
+
+//    public static void dynamicDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
+//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
+//        for (Entity entity : entityList) {
+//            verticesFloatBuffer.put(entity.getPositions().getValue());
+//        }
+//        verticesFloatBuffer.flip();
+//        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
+//        GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
+//                verticesPerEntity * entityList.size(), //Number of vertices to render (there's 6 per image)
+//                GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
+//                verticesPerEntity * Integer.SIZE * 0);//index into buffer when to start rendering
+//    }
 }

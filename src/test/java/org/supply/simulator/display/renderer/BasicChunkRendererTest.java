@@ -7,9 +7,9 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
@@ -76,7 +76,7 @@ public class BasicChunkRendererTest {
 
         renderer=new BasicChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
-        renderer.setIndexEngine(new ChunkIndexEngine(chunkRows, chunkColumns));
+        renderer.setIndexEngine(new BasicIndexEngine(chunkRows, chunkColumns));
 
         chunks = new ArrayList<>();
         for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {

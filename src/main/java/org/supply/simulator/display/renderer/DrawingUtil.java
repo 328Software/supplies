@@ -18,6 +18,10 @@ import java.util.Collection;
 public class DrawingUtil {
     protected static Logger logger = LogManager.getLogger(DrawingUtil.class);
 
+    public static void staticDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
+
+
+    }
 
     public static void dynamicDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
         FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);

@@ -1,6 +1,6 @@
 package org.supply.simulator.display.window;
 
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.core.SupplyDisplay;
 
 /**
@@ -15,7 +15,7 @@ public interface Window extends SupplyDisplay {
      *
      * @param shaderEngine the shader engine
      */
-    public void setShaderEngine(ShaderEngine shaderEngine);
+    public void setShaderEngine(BasicShaderEngine shaderEngine);
 
 
 }

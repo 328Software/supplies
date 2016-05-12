@@ -7,10 +7,10 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
@@ -74,7 +74,7 @@ public class TexturedChunkRendererTest {
         renderer=new TexturedChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
         renderer.setTextureEngine(textureEngine);
-        renderer.setIndexEngine(new ChunkIndexEngine(20,20));
+        renderer.setIndexEngine(new BasicIndexEngine(20,20));
 //        renderer.setChunkType(type);
 
         chunks = new ArrayList<>();

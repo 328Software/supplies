@@ -2,7 +2,7 @@ package org.supply.simulator.display.window;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.ShaderEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.manager.Manager;
 
@@ -11,7 +11,7 @@ import org.supply.simulator.display.manager.Manager;
  */
 public abstract class AbstractWindow implements Window {
 
-    protected ShaderEngine<ShaderProgramType> shaderEngine;
+    protected BasicShaderEngine shaderEngine;
 
     protected Camera camera;
     protected Manager menuManager;
@@ -111,7 +111,7 @@ public abstract class AbstractWindow implements Window {
     }
 
     @Override
-    public void setShaderEngine(ShaderEngine shaderEngine) {
+    public void setShaderEngine(BasicShaderEngine shaderEngine) {
         this.shaderEngine = shaderEngine;
     }
 

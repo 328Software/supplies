@@ -3,10 +3,10 @@ package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.display.assetengine.indices.IndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
+import org.supply.simulator.util.MapUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -41,7 +41,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
         locations = new int[] { 0, 1 };
     }
 
-    private ChunkIndexEngine chunkIndexEngine;
+    private BasicIndexEngine basicIndexEngine;
 
     @Override
     public void build(Collection<Chunk> renderables) {
@@ -85,7 +85,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
             renderable.setVertexAttributesId(vertexAttributesId);
             renderable.setPositionsArrayId(positionsArrayId);
             renderable.setColorsArrayId(colorsArrayId);
-            renderable.setIndicesBufferId(chunkIndexEngine.get(renderable.getTextureKey()).getIndexId());
+            renderable.setIndicesBufferId(basicIndexEngine.get(MapUtils.newEntry(rows,columns)).getIndexId());
         }
 
     }
@@ -102,7 +102,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, renderable.getIndicesBufferId());
 
             // Draw the vertices
-            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, chunkIndexEngine.getRows() * chunkIndexEngine.getColumns() * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
+            GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES, rows * columns * INDICES_PER_VERTEX, GL11.GL_UNSIGNED_INT, 0, 0);
             // Put everything back to default (deselect)
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
             GL20.glDisableVertexAttribArray(locations[0]);
@@ -124,7 +124,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 //            GL15.glDeleteBuffers(indicesBufferId);
-            chunkIndexEngine.done(renderable.getTextureKey());
+            basicIndexEngine.done(MapUtils.newEntry(rows,columns));
 
             GL30.glBindVertexArray(0);
             GL30.glDeleteVertexArrays(renderable.getVertexAttributesId());
@@ -166,7 +166,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     }
 
     @Override
-    public void setIndexEngine(IndexEngine chunkIndexEngine) {
-        this.chunkIndexEngine = (ChunkIndexEngine)chunkIndexEngine;
+    public void setIndexEngine(BasicIndexEngine chunkIndexEngine) {
+        this.basicIndexEngine = (BasicIndexEngine)chunkIndexEngine;
     }
 }

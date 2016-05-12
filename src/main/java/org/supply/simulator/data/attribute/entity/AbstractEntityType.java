@@ -1,6 +1,6 @@
 package org.supply.simulator.data.attribute.entity;
 
-import org.supply.simulator.display.assetengine.texture.TextureHandle;
+import org.supply.simulator.display.assetengine.texture.BasicTextureHandle;
 import org.supply.simulator.logging.HasLogger;
 
 /**
@@ -8,7 +8,7 @@ import org.supply.simulator.logging.HasLogger;
  */
 public abstract class AbstractEntityType extends HasLogger {
 
-    private TextureHandle textureHandle;
+    private BasicTextureHandle textureHandle;
     private Long id;
 
 

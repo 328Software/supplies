@@ -3,9 +3,10 @@ package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
+import org.supply.simulator.util.MapUtils;
 
 import java.nio.FloatBuffer;
 import java.util.Collection;
@@ -74,7 +75,7 @@ public class TexturedChunkRenderer extends RendererBase<BasicChunk> implements E
 
     @Override
     protected void setIndicesBufferId() {
-        indicesBufferId = ((ChunkIndexEngine)indexEngine).get("").getIndexId();
+        indicesBufferId = ((BasicIndexEngine)indexEngine).get(MapUtils.newEntry(20,20)).getIndexId();
     }
 
     public class ChunkIds {

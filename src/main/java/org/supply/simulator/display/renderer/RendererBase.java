@@ -2,10 +2,10 @@ package org.supply.simulator.display.renderer;
 
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.*;
-import org.supply.simulator.display.assetengine.indices.IndexEngine;
-import org.supply.simulator.display.assetengine.texture.AtlasType;
-import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.assetengine.texture.TextureHandle;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.BasicAtlasType;
+import org.supply.simulator.display.assetengine.texture.BasicTextureHandle;
 import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
@@ -46,16 +46,19 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     protected final int VERTICES_PER_ENTITY = 6;
 
 
-    protected TextureEngine<String> textureEngine;
+    protected BasicTextureEngine textureEngine;
 
-    protected IndexEngine indexEngine;
+    protected BasicIndexEngine indexEngine;
 
 
     protected int[] locations;
 
     protected int indicesBufferId = -1;
+    protected int rows;
+    protected int columns;
 
-    protected HashMap<AtlasType,AtlasRenderData<V>> idMap;
+
+    protected HashMap<BasicAtlasType,AtlasRenderData<V>> idMap;
 
     protected HashMap<String,AtlasRenderData<V>> idMap2;
 
@@ -64,6 +67,8 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         idMap = new HashMap<>();
         idMap2 = new HashMap<>();
         maxEntities = 100;
+        rows=20;
+        columns=20;
     }
 
 
@@ -83,7 +88,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         for (V entity : entities) {
 
             fillEntityWithTextureData(entity);
-            AtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
+            BasicAtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
 
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
@@ -167,7 +172,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         //Chunks come prefilled with texture data,
         // menu and unit soon to come
         if (entity instanceof Menu || entity instanceof Unit) {
-            TextureHandle texture = textureEngine.get(entity.getTextureKey());
+            BasicTextureHandle texture = textureEngine.get(entity.getTextureKey());
             float[] data = null;
             //TODO we really need to fix our data package to be able to clean this up
             Positions pos= null;
@@ -218,7 +223,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 //
 //    }
 
-    protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
+    protected AtlasRenderData createAtlasData(BasicAtlasType atlas, int[] locations) {
         AtlasRenderData ids = new AtlasRenderData();
         ids.setTextureId(atlas.getTextureId());
         ids.setPositionsArrayId(GL15.glGenBuffers());
@@ -242,8 +247,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
 
-    @Override
-    public void setTextureEngine(TextureEngine textureEngine) {
+    public void setTextureEngine(BasicTextureEngine textureEngine) {
         this.textureEngine =  textureEngine;
     }
 
@@ -258,8 +262,25 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
     @Override
-    public void setIndexEngine(IndexEngine indexEngine) {
+    public void setIndexEngine(BasicIndexEngine indexEngine) {
         this.indexEngine=indexEngine;
 
+    }
+
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 }

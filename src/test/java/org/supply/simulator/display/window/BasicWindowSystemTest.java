@@ -3,10 +3,11 @@ package org.supply.simulator.display.window;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.supply.simulator.display.assetengine.indices.impl.ChunkIndexEngine;
-import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
+import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -15,6 +16,9 @@ import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.impl.BasicWindow;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alex on 7/18/2014.
@@ -31,12 +35,14 @@ public class BasicWindowSystemTest {
     private BasicChunkRenderer chunkRenderer;
     private MockChunkManager chunkManager;
 
+    DataGenerator generator;
+
     private Renderer unitRenderer;
     private Renderer menuRenderer;
 
     private MockUnitManager unitManager;
     private BasicMenuManager menuManager;
-    private UnitIndexEngine indexEngine;
+    private BasicIndexEngine indexEngine;
 
     @Before
     public void create() {
@@ -44,7 +50,8 @@ public class BasicWindowSystemTest {
         core.build("BasicWindowSystemTest");
 
         shaderEngine = new BasicShaderEngine();
-        indexEngine = new UnitIndexEngine();
+        indexEngine = new BasicIndexEngine();
+        generator = new DataGenerator();
 
         camera = new Camera();
         camera.setAspectRatio(1);
@@ -54,7 +61,7 @@ public class BasicWindowSystemTest {
 
         chunkManager=new MockChunkManager();
         chunkRenderer=new BasicChunkRenderer();
-        chunkRenderer.setIndexEngine(new ChunkIndexEngine(20, 20));
+        chunkRenderer.setIndexEngine(indexEngine);
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
         chunkManager.setEntityRenderer(chunkRenderer);
@@ -88,6 +95,9 @@ public class BasicWindowSystemTest {
         window.setMenuManager(menuManager);
         window.start();
 
+
+        populateManagers();
+
     }
 
     @Test
@@ -100,5 +110,18 @@ public class BasicWindowSystemTest {
 
         window.stop();
         core.destroy();
+    }
+
+    private void populateManagers() {
+        List<Menu> menus=new ArrayList<>();
+        menus.add(generator.createMenu(-0.15f, .8f, 0, .1f, .05f, "Y"));
+        menus.add(generator.createMenu(-0.10f, .8f, 0, .1f, .05f, "O"));
+        menus.add(generator.createMenu(-0.05f, .8f, 0, .1f, .05f, "U"));
+        menus.add(generator.createMenu(0.0f, .8f, 0, .1f, .05f, " "));
+        menus.add(generator.createMenu(0.05f, .8f, 0, .1f, .05f, "S"));
+        menus.add(generator.createMenu(0.10f, .8f, 0, .1f, .05f, "U"));
+        menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
+        menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));
+        menuManager.add(menus);
     }
 }

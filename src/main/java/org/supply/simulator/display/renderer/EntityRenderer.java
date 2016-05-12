@@ -1,8 +1,8 @@
 package org.supply.simulator.display.renderer;
 
 import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.display.assetengine.indices.IndexEngine;
-import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 
 import java.util.Collection;
 
@@ -10,8 +10,6 @@ import java.util.Collection;
  * Created by Alex on 9/7/2014.
  */
 public interface EntityRenderer<V extends Entity>{
-
-
 
     public void build(Collection<V> renderables);
 
@@ -21,7 +19,7 @@ public interface EntityRenderer<V extends Entity>{
 
     public void destroyAll();
 
-    void setTextureEngine(TextureEngine textureEngine);
+    void setTextureEngine(BasicTextureEngine textureEngine);
 
     /**
      * Sets the vertex shader attribute locations. These locations were created by the ShaderEngine and reference\
@@ -39,5 +37,5 @@ public interface EntityRenderer<V extends Entity>{
      */
     int[] getAttributeLocations();
 
-    void setIndexEngine(IndexEngine indexEngine);
+    void setIndexEngine(BasicIndexEngine indexEngine);
 }

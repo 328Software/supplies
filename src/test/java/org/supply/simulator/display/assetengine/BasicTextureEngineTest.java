@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.assetengine.texture.TextureHandle;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureHandle;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.logging.HasLogger;
@@ -33,7 +33,7 @@ public class BasicTextureEngineTest extends HasLogger {
     private BasicShaderEngine shaderEngine;
 
     //Texture variables
-    private TextureHandle textureHandle;
+    private BasicTextureHandle textureHandle;
 
     private static final int textureWidth = 500;
     private static final int textureHeight = 500;
@@ -44,7 +44,7 @@ public class BasicTextureEngineTest extends HasLogger {
     int indicesCount;
 //    UnitType unitType;
 
-    TextureHandle handle;
+    BasicTextureHandle handle;
 
     @Before
     public void createFixture() {

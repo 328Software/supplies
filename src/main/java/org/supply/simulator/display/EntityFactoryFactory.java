@@ -1,6 +1,6 @@
 package org.supply.simulator.display;
 
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.renderer.impl.Renderer;

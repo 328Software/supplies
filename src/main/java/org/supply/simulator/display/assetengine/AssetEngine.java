@@ -4,7 +4,7 @@ package org.supply.simulator.display.assetengine;
 /**
  * Created by Alex on 7/13/2014.
  */
-public interface AssetEngine<K,V extends AssetHandle> {
+public interface AssetEngine<K,V extends AbstractAssetHandle> {
     /**
      *
      * @param key

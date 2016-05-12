@@ -6,10 +6,10 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.Menu;
-import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -49,7 +49,7 @@ public class BasicMenuRendererTest {
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         renderer.setTextureEngine(new BasicTextureEngine());
-        renderer.setIndexEngine(new UnitIndexEngine());
+        renderer.setIndexEngine(new BasicIndexEngine());
         manager.setEntityRenderer(renderer);
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());

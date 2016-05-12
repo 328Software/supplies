@@ -3,13 +3,14 @@ package org.supply.simulator.display.assetengine;
 import org.supply.simulator.logging.HasLogger;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Alex on 9/11/2014.
  */
-public abstract class AbstractAssetEngine<K,V extends AssetHandle> extends HasLogger implements AssetEngine<K,V> {
-    protected HashMap<K,V> handleMap;
-    protected HashMap<K,CountVar> countsMap;
+public abstract class AbstractAssetEngine<K,V extends AbstractAssetHandle> extends HasLogger implements AssetEngine<K,V> {
+    protected Map<K,V> handleMap;
+    protected Map<K,CountVar> countsMap;
 
     public AbstractAssetEngine() {
         handleMap = new HashMap<>();

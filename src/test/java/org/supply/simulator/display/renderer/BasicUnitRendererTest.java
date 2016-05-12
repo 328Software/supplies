@@ -6,10 +6,10 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.display.assetengine.indices.impl.UnitIndexEngine;
+import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
-import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
-import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -28,7 +28,7 @@ public class BasicUnitRendererTest {
     BasicTextureEngine textureEngine;
     MockCamera camera;
     Renderer unitRenderer;
-    UnitIndexEngine indexEngine;
+    BasicIndexEngine indexEngine;
     DataGenerator dataGenerator;
 
 
@@ -36,7 +36,7 @@ public class BasicUnitRendererTest {
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
         dataGenerator = new DataGenerator();
-        indexEngine = new UnitIndexEngine();
+        indexEngine = new BasicIndexEngine();
     }
 
 

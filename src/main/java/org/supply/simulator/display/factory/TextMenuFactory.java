@@ -60,7 +60,7 @@ public class TextMenuFactory implements MenuFactory {
         arraycopy(v2.getElements(),0,data,2* TEXTURE_VERTEX_TOTAL_SIZE, TEXTURE_VERTEX_TOTAL_SIZE);
         arraycopy(v3.getElements(),0,data,3* TEXTURE_VERTEX_TOTAL_SIZE, TEXTURE_VERTEX_TOTAL_SIZE);
 
-        Positions entityData = new Positions();
+        Positions entityData = Positions.newTexturedColorPositions();
         entityData.setValue(data);
 
         return entityData;

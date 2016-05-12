@@ -4,8 +4,6 @@ package org.supply.simulator.display.assetengine.shader;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
-import org.supply.simulator.display.assetengine.shader.BasicShaderHandle;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +15,14 @@ import java.io.InputStreamReader;
  * Created by Alex on 6/28/2014.
  */
 public class BasicShaderEngine
-        extends AbstractAssetEngine<ShaderProgramType,BasicShaderHandle> {
+        extends AbstractAssetEngine<ShaderProgramType,ShaderHandle> {
 
     public BasicShaderEngine () {
         super();
     }
 
     @Override
-    protected BasicShaderHandle createHandle(ShaderProgramType key) {
+    protected ShaderHandle createHandle(ShaderProgramType key) {
         int vertexId = -1;
         int fragmentId = -1;
         int programId = -1;
@@ -52,7 +50,7 @@ public class BasicShaderEngine
         GL20.glLinkProgram(programId);
         GL20.glValidateProgram(programId);
 
-        BasicShaderHandle data = new BasicShaderHandle();
+        ShaderHandle data = new ShaderHandle();
         data.setProjectionMatrixLocation(GL20.glGetUniformLocation(programId,"projectionMatrix"));
         data.setViewMatrixLocation(GL20.glGetUniformLocation(programId, "viewMatrix"));
         data.setModelMatrixLocation(GL20.glGetUniformLocation(programId, "modelMatrix"));
@@ -96,7 +94,7 @@ public class BasicShaderEngine
 
     @Override
     protected void destroyHandle(ShaderProgramType key) {
-        BasicShaderHandle handle = handleMap.remove(key);
+        ShaderHandle handle = handleMap.remove(key);
         GL20.glDeleteProgram(handle.getProgramId());
 
     }

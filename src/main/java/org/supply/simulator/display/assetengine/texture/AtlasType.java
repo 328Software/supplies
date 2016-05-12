@@ -3,7 +3,7 @@ package org.supply.simulator.display.assetengine.texture;
 /**
  * Created by Alex on 7/30/2014.
  */
-public class BasicAtlasType {
+public class AtlasType {
 
     private String fileName;
     private Integer id;
@@ -49,7 +49,7 @@ public class BasicAtlasType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BasicAtlasType)) return false;
+        if (!(o instanceof AtlasType)) return false;
         return false;
     }
 

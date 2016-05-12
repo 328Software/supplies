@@ -1,7 +1,5 @@
 package org.supply.simulator.util;
 
-import org.supply.simulator.display.assetengine.indices.BasicIndexHandle;
-
 import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.Map;

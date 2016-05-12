@@ -5,7 +5,7 @@ import org.supply.simulator.display.assetengine.AbstractAssetHandle;
 /**
  * Created by Alex on 9/11/2014.
  */
-public class BasicIndexHandle extends AbstractAssetHandle {
+public class IndexHandle extends AbstractAssetHandle {
     private Integer indexId;
 
 

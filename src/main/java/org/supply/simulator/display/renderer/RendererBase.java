@@ -4,8 +4,8 @@ import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.*;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
-import org.supply.simulator.display.assetengine.texture.BasicAtlasType;
-import org.supply.simulator.display.assetengine.texture.BasicTextureHandle;
+import org.supply.simulator.display.assetengine.texture.AtlasType;
+import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 
@@ -58,7 +58,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     protected int columns;
 
 
-    protected HashMap<BasicAtlasType,AtlasRenderData<V>> idMap;
+    protected HashMap<AtlasType,AtlasRenderData<V>> idMap;
 
     protected HashMap<String,AtlasRenderData<V>> idMap2;
 
@@ -88,7 +88,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         for (V entity : entities) {
 
             fillEntityWithTextureData(entity);
-            BasicAtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
+            AtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
 
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
@@ -172,7 +172,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         //Chunks come prefilled with texture data,
         // menu and unit soon to come
         if (entity instanceof Menu || entity instanceof Unit) {
-            BasicTextureHandle texture = textureEngine.get(entity.getTextureKey());
+            TextureHandle texture = textureEngine.get(entity.getTextureKey());
             float[] data = null;
             //TODO we really need to fix our data package to be able to clean this up
             Positions pos= null;
@@ -223,7 +223,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 //
 //    }
 
-    protected AtlasRenderData createAtlasData(BasicAtlasType atlas, int[] locations) {
+    protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
         AtlasRenderData ids = new AtlasRenderData();
         ids.setTextureId(atlas.getTextureId());
         ids.setPositionsArrayId(GL15.glGenBuffers());

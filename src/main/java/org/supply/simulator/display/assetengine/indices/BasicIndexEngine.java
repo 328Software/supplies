@@ -13,8 +13,8 @@ import java.util.Map;
  * Created by Alex on 7/7/2014.
  */
 public class BasicIndexEngine
-        extends AbstractAssetEngine<Map.Entry<Integer, Integer>,BasicIndexHandle>
-        implements AssetEngine<Map.Entry<Integer, Integer>,BasicIndexHandle> {
+        extends AbstractAssetEngine<Map.Entry<Integer, Integer>,IndexHandle>
+        implements AssetEngine<Map.Entry<Integer, Integer>,IndexHandle> {
 
     private static final int INDICES_PER_VERTEX = 6;
 
@@ -25,8 +25,8 @@ public class BasicIndexEngine
     }
 
     @Override
-    protected BasicIndexHandle createHandle (Map.Entry<Integer, Integer> key) {
-        BasicIndexHandle handle = new BasicIndexHandle();
+    protected IndexHandle createHandle (Map.Entry<Integer, Integer> key) {
+        IndexHandle handle = new IndexHandle();
         handle.setIndexId(createIndicesId(key.getKey(), key.getValue()));
 
         return handle;
@@ -34,7 +34,7 @@ public class BasicIndexEngine
 
     @Override
     protected void destroyHandle(Map.Entry<Integer, Integer> key) {
-        BasicIndexHandle handle = handleMap.remove(key);
+        IndexHandle handle = handleMap.remove(key);
         GL15.glDeleteBuffers(handle.getIndexId());
     }
 

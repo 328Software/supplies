@@ -16,22 +16,22 @@ import java.util.HashMap;
  * Created by Alex on 5/8/2016.
  */
 public class BasicTextureEngine
-        extends AbstractAssetEngine<String, BasicTextureHandle>
-        implements AssetEngine<String, BasicTextureHandle>{
+        extends AbstractAssetEngine<String, TextureHandle>
+        implements AssetEngine<String, TextureHandle>{
 
-            private HashMap<String,BasicAtlasType> atlasMap;
+            private HashMap<String,AtlasType> atlasMap;
 
             public BasicTextureEngine() {
                 atlasMap = new HashMap<>();
             }
 
             @Override
-            protected BasicTextureHandle createHandle(String key) {
-                BasicTextureHandle handle = new BasicTextureHandle();
+            protected TextureHandle createHandle(String key) {
+                TextureHandle handle = new TextureHandle();
                 String fileName = lookupTextureFileName(key);
 
 
-                BasicAtlasType atlasType;
+                AtlasType atlasType;
                 if (atlasMap.containsKey(fileName)) {
                     atlasType = atlasMap.get(fileName);
                 } else {
@@ -48,7 +48,7 @@ public class BasicTextureEngine
 
 
 
-            private BasicAtlasType loadPNGTexture2D(String filename, int textureUnit) {
+            private AtlasType loadPNGTexture2D(String filename, int textureUnit) {
 
                 ByteBuffer buf = null;
                 int tWidth = 0;
@@ -99,7 +99,7 @@ public class BasicTextureEngine
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
                         GL11.GL_LINEAR_MIPMAP_LINEAR);
 
-                BasicAtlasType atlasType = new BasicAtlasType();
+                AtlasType atlasType = new AtlasType();
                 atlasType.setFileName(filename);
                 atlasType.setTextureId(texId);
                 atlasType.setHeight(tHeight);
@@ -109,7 +109,7 @@ public class BasicTextureEngine
 
             @Override
             protected void destroyHandle(String key) {
-                BasicTextureHandle handle = handleMap.remove(key);
+                TextureHandle handle = handleMap.remove(key);
 
                 if (handle.getAtlasType().count()==0) {
                     GL11.glDeleteTextures(handle.getAtlasType().getTextureId());

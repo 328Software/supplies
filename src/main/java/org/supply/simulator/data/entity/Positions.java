@@ -81,7 +81,7 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
         return id;
     }
 
-    @Override
+//    @Override
     public void setId(Long id) {
         this.id = id;
     }

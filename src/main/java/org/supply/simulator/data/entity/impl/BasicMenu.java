@@ -24,7 +24,6 @@ public class BasicMenu implements Menu {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }

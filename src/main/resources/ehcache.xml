@@ -715,7 +715,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp"
     -->
- <!--   <cache name="sampleCache1"
+    <cache name="sampleCache1"
            maxEntriesLocalHeap="10000"
            maxEntriesLocalDisk="1000"
            eternal="false"
@@ -725,7 +725,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
         <persistence strategy="localTempSwap"/>
-    </cache>-->
+    </cache>
 
 
     <!--
@@ -734,10 +734,10 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     is also the maximum cache size. Note that when a cache is eternal, timeToLive and
     timeToIdle are not used and do not need to be specified.
     -->
- <!--   <cache name="sampleCache2"
+    <cache name="sampleCache2"
            maxEntriesLocalHeap="1000"
            eternal="true"
-           memoryStoreEvictionPolicy="FIFO"/>-->
+           memoryStoreEvictionPolicy="FIFO"/>
 
 
     <!--
@@ -745,7 +745,7 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
     persistent between cache and VM restarts. The disk expiry thread interval is set to 10
     minutes, overriding the default of 2 minutes.
     -->
-    <!--<cache name="sampleCache3"
+    <cache name="sampleCache3"
            maxEntriesLocalHeap="500"
            eternal="false"
            overflowToDisk="true"
@@ -754,13 +754,13 @@ Here is an example of CacheManager level resource tuning, which will use up to 4
            timeToLiveSeconds="600"
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LFU">
-    </cache>-->
+    </cache>
 
     <!--
     Sample Terracotta clustered cache named sampleTerracottaCache.
     This cache uses Terracotta to cluster the contents of the cache.
     -->
-    <!--<cache name="sampleTerracottaCache"
+  <!--  <cache name="sampleTerracottaCache"
            maxBytesLocalHeap="10m"
            eternal="false"
            timeToIdleSeconds="3600"

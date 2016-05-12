@@ -9,7 +9,6 @@ package org.supply.simulator.data;
  */
 public interface HasId<I extends Comparable<I>> extends Comparable<HasId<I>> {
     I getId();
-    void setId(I id);
 
     @Override
     default int compareTo(HasId<I> o) {

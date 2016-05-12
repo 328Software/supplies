@@ -21,7 +21,7 @@ public class BasicIndexEngine
 
     public BasicIndexEngine() {
         super();
-        handleMap= MapUtils.newMap();
+        handleMap= MapUtils.newMultiKeyMap();
     }
 
     @Override

@@ -12,13 +12,16 @@ import java.util.TreeMap;
  */
 public class MapUtils {
 
-    public static final Comparator<Map.Entry<Integer, Integer>> ENTRY_COMPARATOR = Map.Entry.<Integer, Integer>comparingByKey().thenComparing(Map.Entry.<Integer, Integer>comparingByValue());
-
-    public static Map.Entry<Integer, Integer> newEntry(Integer rows,Integer columns) {
-        return new AbstractMap.SimpleImmutableEntry(rows,columns);
+    public static <K, M> Map.Entry<K, M> newEntry(K firstKey ,M secondKey) {
+        return new AbstractMap.SimpleImmutableEntry<>(firstKey, secondKey);
     }
 
-    public static TreeMap<Map.Entry<Integer, Integer>, BasicIndexHandle> newMap() {
-        return new TreeMap<>(ENTRY_COMPARATOR);
+    public static <K extends Comparable<K>,M extends Comparable<M>,V> TreeMap<Map.Entry<K, M>, V> newMultiKeyMap() {
+        return new TreeMap<>(getComparator());
+    }
+
+    private static <K extends Comparable<K>,M extends Comparable<M>> Comparator<Map.Entry<K,M>> getComparator() {
+        return Map.Entry.<K,M>comparingByKey()
+                .thenComparing(Map.Entry.<K,M>comparingByValue());
     }
 }

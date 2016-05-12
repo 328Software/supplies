@@ -50,6 +50,8 @@ public class BasicMenuRendererTest {
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         renderer.setTextureEngine(new BasicTextureEngine());
         renderer.setIndexEngine(new BasicIndexEngine());
+        renderer.setColumns(1);
+        renderer.setRows(100);
         manager.setEntityRenderer(renderer);
 
         camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());

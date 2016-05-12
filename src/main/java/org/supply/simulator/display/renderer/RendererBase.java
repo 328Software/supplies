@@ -8,6 +8,7 @@ import org.supply.simulator.display.assetengine.texture.AtlasType;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
+import org.supply.simulator.util.MapUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -165,7 +166,12 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
     protected abstract void buildEntities(Collection<V> entityList);
     protected abstract void drawEntities(Collection<V> entityList);
-    protected abstract void setIndicesBufferId ();
+    protected void setIndicesBufferId () {
+
+
+        indicesBufferId = (indexEngine).get(MapUtils.newEntry(rows,columns)).getIndexId();
+
+    }
 
     protected void fillEntityWithTextureData(Entity entity) {
 

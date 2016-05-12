@@ -128,6 +128,8 @@ public class BasicUnitRendererTest {
         unitRenderer = new Renderer();
         unitRenderer.setTextureEngine(textureEngine);
         unitRenderer.setIndexEngine(indexEngine);
+        unitRenderer.setRows(1);
+        unitRenderer.setColumns(100);
         unitRenderer.setAttributeLocations(new int[]{0,1,2});
     }
 

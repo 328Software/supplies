@@ -24,6 +24,9 @@ import java.util.List;
  * Created by Alex on 7/18/2014.
  */
 public class BasicWindowSystemTest {
+    private static final int CHUNK_ROWS = 20;
+    private static final int CHUNK_COLUMNS = 20;
+    private static final int MAX_ENTITIES = 100;
 
 
     private BasicWindow window;
@@ -61,6 +64,8 @@ public class BasicWindowSystemTest {
 
         chunkManager=new MockChunkManager();
         chunkRenderer=new BasicChunkRenderer();
+        chunkRenderer.setColumns(CHUNK_COLUMNS);
+        chunkRenderer.setRows(CHUNK_ROWS);
         chunkRenderer.setIndexEngine(indexEngine);
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
@@ -71,6 +76,8 @@ public class BasicWindowSystemTest {
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
         unitRenderer.setTextureEngine(new BasicTextureEngine());
         unitRenderer.setIndexEngine(indexEngine);
+        unitRenderer.setColumns(1);
+        unitRenderer.setRows(MAX_ENTITIES);
         unitManager.setEntityRenderer(unitRenderer);
 
         menuManager = new BasicMenuManager();
@@ -78,7 +85,8 @@ public class BasicWindowSystemTest {
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
         menuRenderer.setTextureEngine(new BasicTextureEngine());
         menuRenderer.setIndexEngine(indexEngine);
-
+        menuRenderer.setColumns(1);
+        menuRenderer.setRows(MAX_ENTITIES);
         menuManager.setEntityRenderer(menuRenderer);
 
         window = new BasicWindow();

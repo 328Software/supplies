@@ -77,6 +77,8 @@ public class BasicChunkRendererTest {
         renderer=new BasicChunkRenderer();
         renderer.setAttributeLocations(new int[] {0,1,2});
         renderer.setIndexEngine(new BasicIndexEngine());
+        renderer.setRows(chunkRows);
+        renderer.setColumns(chunkColumns);
 
         chunks = new ArrayList<>();
         for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {

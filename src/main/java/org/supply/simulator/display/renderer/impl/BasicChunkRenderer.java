@@ -18,7 +18,7 @@ import java.util.Collection;
 public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRenderer<Chunk> {
 
     // The amount of bytes an element has
-    public static final int POSITION_ELEMENT = 4 ;
+    public static final int POSITION_ELEMENT = 4;
     public static final int COLOR_ELEMENT = 1;
 
     // Elements per parameter
@@ -32,16 +32,15 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     public static final int TEXTURE_BYTE = TEXTURE_COUNT * POSITION_ELEMENT;
 
 
-
     public static final int INDICES_PER_VERTEX = 6;
 
     private int[] locations;
 
     {
-        locations = new int[] { 0, 1 };
+        locations = new int[]{0, 1};
     }
 
-    private BasicIndexEngine basicIndexEngine;
+//    private BasicIndexEngine basicIndexEngine;
 
     @Override
     public void build(Collection<Chunk> renderables) {
@@ -85,7 +84,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
             renderable.setVertexAttributesId(vertexAttributesId);
             renderable.setPositionsArrayId(positionsArrayId);
             renderable.setColorsArrayId(colorsArrayId);
-            renderable.setIndicesBufferId(basicIndexEngine.get(MapUtils.newEntry(rows,columns)).getIndexId());
+            renderable.setIndicesBufferId(indexEngine.get(MapUtils.newEntry(rows, columns)).getIndexId());
         }
 
     }
@@ -111,6 +110,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
         }
 
     }
+
     @Override
     public void destroy(Collection<Chunk> renderables) {
         for (Chunk renderable : renderables) {
@@ -124,7 +124,7 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 //            GL15.glDeleteBuffers(indicesBufferId);
-            basicIndexEngine.done(MapUtils.newEntry(rows,columns));
+            indexEngine.done(MapUtils.newEntry(rows, columns));
 
             GL30.glBindVertexArray(0);
             GL30.glDeleteVertexArrays(renderable.getVertexAttributesId());
@@ -153,20 +153,5 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     @Override
     protected void setIndicesBufferId() {
 
-    }
-
-    @Override
-    public void setAttributeLocations(int[] locations) {
-        this.locations=locations;
-    }
-
-    @Override
-    public int[] getAttributeLocations() {
-        return locations;
-    }
-
-    @Override
-    public void setIndexEngine(BasicIndexEngine chunkIndexEngine) {
-        this.basicIndexEngine = (BasicIndexEngine)chunkIndexEngine;
     }
 }

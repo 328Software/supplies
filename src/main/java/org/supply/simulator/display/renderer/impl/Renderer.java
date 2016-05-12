@@ -32,11 +32,11 @@ public class Renderer extends RendererBase<Entity> implements EntityRenderer<Ent
 
 
 
-    protected void setIndicesBufferId() {
-
-
-        indicesBufferId = (indexEngine).get(MapUtils.newEntry(maxEntities,1)).getIndexId();
-    }
+//    protected void setIndicesBufferId() {
+//
+//
+//        indicesBufferId = (indexEngine).get(MapUtils.newEntry(maxEntities,1)).getIndexId();
+//    }
 
     public void setDrawStatic(boolean drawStatic) {
         this.drawStatic = drawStatic;

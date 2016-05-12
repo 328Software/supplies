@@ -42,12 +42,12 @@
         <property name="indexEngine" ref="chunkIndexEngine"/>
     </bean>
 
-    <bean id="menuRenderer" class="org.supply.simulator.display.renderer.impl.BasicMenuRenderer">
+    <bean id="menuRenderer" class="org.supply.simulator.display.renderer.impl.Renderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
         <property name="indexEngine" ref="unitIndexEngine"/>
     </bean>
 
-    <bean id="unitRenderer" class="org.supply.simulator.display.renderer.impl.BasicUnitRenderer">
+    <bean id="unitRenderer" class="org.supply.simulator.display.renderer.impl.Renderer">
         <property name="textureEngine" ref="basicTextureEngine"/>
         <property name="indexEngine" ref="unitIndexEngine"/>
     </bean>

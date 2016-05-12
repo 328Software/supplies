@@ -12,5 +12,8 @@ import org.supply.simulator.data.HasId;
  * non-generic super-type for all matter.
  */
 public interface Entity extends HasId<Long> {
+    Positions getPositions();
+    void setPositions(Positions positions);
+
     String getTextureKey();
 }

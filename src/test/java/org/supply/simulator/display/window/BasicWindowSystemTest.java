@@ -12,8 +12,7 @@ import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.mock.MockUnitManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
-import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
+import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.impl.BasicWindow;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
@@ -32,10 +31,11 @@ public class BasicWindowSystemTest {
     private BasicChunkRenderer chunkRenderer;
     private MockChunkManager chunkManager;
 
-    private BasicUnitRenderer unitRenderer;
+    private Renderer unitRenderer;
+    private Renderer menuRenderer;
+
     private MockUnitManager unitManager;
     private BasicMenuManager menuManager;
-    private BasicMenuRenderer menuRenderer;
     private UnitIndexEngine indexEngine;
 
     @Before
@@ -60,17 +60,18 @@ public class BasicWindowSystemTest {
         chunkManager.setEntityRenderer(chunkRenderer);
 
         unitManager = new MockUnitManager();
-        unitRenderer = new BasicUnitRenderer();
+        unitRenderer = new Renderer();
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
         unitRenderer.setTextureEngine(new BasicTextureEngine());
         unitRenderer.setIndexEngine(indexEngine);
         unitManager.setEntityRenderer(unitRenderer);
 
         menuManager = new BasicMenuManager();
-        menuRenderer = new BasicMenuRenderer();
+        menuRenderer = new Renderer();
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
         menuRenderer.setTextureEngine(new BasicTextureEngine());
         menuRenderer.setIndexEngine(indexEngine);
+
         menuManager.setEntityRenderer(menuRenderer);
 
         window = new BasicWindow();

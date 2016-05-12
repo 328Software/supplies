@@ -40,7 +40,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
-    protected final int max_entities;
+    protected final int maxEntities;
 
     protected final int VERTEX_SIZE = 40;
     protected final int VERTICES_PER_ENTITY = 6;
@@ -63,14 +63,14 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         super();
         idMap = new HashMap<>();
         idMap2 = new HashMap<>();
-        max_entities = 100;
+        maxEntities = 100;
     }
 
 
 
     @Override
     public void build(Collection<V> entities) {
-        // Create Indices Buffer, uses max_entities to determine size
+        // Create Indices Buffer, uses maxEntities to determine size
         if (indicesBufferId < 0) {
             setIndicesBufferId();
 //     indicesBufferId = indexEngine.get(ENTITY_MAX).getIndexId();
@@ -201,7 +201,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
 //    protected void movePositions2OpenGLMemory(Collection<V> entityList) {
-//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * max_entities);
+//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * maxEntities);
 //
 //        for (Entity entity : entityList) {
 //            //TODO we really need to combine unit and chunk positions to be able to clean this up

@@ -7,5 +7,4 @@ public interface Unit extends Entity {
     Positions getPositions();
 
     void setPositions(Positions unitPositions);
-
 }

@@ -5,9 +5,6 @@ import org.lwjgl.opengl.GL20;
 import org.supply.simulator.display.assetengine.shader.ShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
-import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
-import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
 
 /**
  * Created by Alex on 6/29/2014.
@@ -17,9 +14,9 @@ public abstract class AbstractWindow implements Window {
     protected ShaderEngine<ShaderProgramType> shaderEngine;
 
     protected Camera camera;
-    protected Manager<BasicMenuRenderer>  menuManager;
-    protected Manager<BasicUnitRenderer>  unitManager;
-    protected Manager<BasicChunkRenderer> chunkManager;
+    protected Manager menuManager;
+    protected Manager unitManager;
+    protected Manager chunkManager;
 
     public AbstractWindow() {
     }

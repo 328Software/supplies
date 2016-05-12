@@ -13,7 +13,7 @@ import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockCamera;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.impl.BasicUnitRenderer;
+import org.supply.simulator.display.renderer.impl.Renderer;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class BasicUnitRendererTest {
     BasicShaderEngine shaderEngine;
     BasicTextureEngine textureEngine;
     MockCamera camera;
-    BasicUnitRenderer unitRenderer;
+    Renderer unitRenderer;
     UnitIndexEngine indexEngine;
     DataGenerator dataGenerator;
 
@@ -125,7 +125,7 @@ public class BasicUnitRendererTest {
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getViewMatrixLocation());
         camera.create();
-        unitRenderer = new BasicUnitRenderer();
+        unitRenderer = new Renderer();
         unitRenderer.setTextureEngine(textureEngine);
         unitRenderer.setIndexEngine(indexEngine);
         unitRenderer.setAttributeLocations(new int[]{0,1,2});

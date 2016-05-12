@@ -10,9 +10,6 @@ public interface Chunk extends Entity {
     Colors getColors();
     void setColors(Colors colors);
 
-    Positions getPositions();
-    void setPositions(Positions positions);
-
     int getVertexAttributesId();
     void setVertexAttributesId(int vertexAttributesId);
 

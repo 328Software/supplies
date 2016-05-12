@@ -3,7 +3,7 @@ package org.supply.simulator.display;
 import org.supply.simulator.display.assetengine.shader.impl.BasicShaderEngine;
 import org.supply.simulator.display.core.DisplayCore;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
-import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
+import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
 
 /**
@@ -18,7 +18,7 @@ public class EntityFactoryFactory {
     private BasicShaderEngine shaderEngine;
 
     private BasicMenuManager manager;
-    private BasicMenuRenderer renderer;
+    private Renderer renderer;
 
     //todo perhaps we'll construct this on the fly, or else wire it up.
     //i lean towards wiring it up because on the fly construction might imply

@@ -19,7 +19,7 @@ public class TexturedChunkRenderer extends RendererBase<BasicChunk> implements E
 
     public TexturedChunkRenderer () {
         super();
-//        max_entities =1000;
+//        maxEntities =1000;
         chunkIdMap=new HashMap<>();
     }
 

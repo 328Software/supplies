@@ -13,7 +13,7 @@ import org.supply.simulator.display.assetengine.texture.impl.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.impl.BasicMenuRenderer;
+import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class BasicMenuRendererTest {
     private BasicShaderEngine shaderEngine;
 
     private BasicMenuManager manager;
-    private BasicMenuRenderer renderer;
+    private Renderer renderer;
 
     @Before
     public void create() {
@@ -45,7 +45,7 @@ public class BasicMenuRendererTest {
         camera = new Camera();
 
         manager = new BasicMenuManager();
-        renderer = new BasicMenuRenderer();
+        renderer = new Renderer();
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         renderer.setTextureEngine(new BasicTextureEngine());

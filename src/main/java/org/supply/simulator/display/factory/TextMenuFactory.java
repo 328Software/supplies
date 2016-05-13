@@ -7,6 +7,7 @@ import org.supply.simulator.display.MenuFactory;
 import static java.lang.System.arraycopy;
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 import org.supply.simulator.data.entity.Positions.*;
+import org.supply.simulator.display.assetengine.texture.AtlasType;
 
 /**
  * Created by Brandon on 5/8/2016.
@@ -42,6 +43,16 @@ public class TextMenuFactory implements MenuFactory {
 
             @Override
             public void setPositions(Positions positions) {
+
+            }
+
+            @Override
+            public AtlasType getAtlasType() {
+                return null; //TODO sorry Chuck idk what to do here
+            }
+
+            @Override
+            public void setAtlasType(AtlasType atlasType) {
 
             }
 

@@ -89,7 +89,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         for (V entity : entities) {
 
             fillEntityWithTextureData(entity);
-            AtlasType atlas = textureEngine.get(entity.getTextureKey()).getAtlasType();
+            AtlasType atlas = entity.getAtlasType();
 
             if (!idMap.containsKey(atlas)) {
                 AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
@@ -177,38 +177,39 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
         //Chunks come prefilled with texture data,
         // menu and unit soon to come
-        if (entity instanceof Menu || entity instanceof Unit) {
-            TextureHandle texture = textureEngine.get(entity.getTextureKey());
-            float[] data = null;
-            //TODO we really need to fix our data package to be able to clean this up
-            Positions pos= null;
 
-            if (entity instanceof Menu) {
-                pos = ((Menu)entity).getPositions();
-            } else if (entity instanceof Unit) {
-                pos = ((Unit) entity).getPositions();
-            } else if (entity instanceof Chunk) {
-                pos = ((Chunk)entity).getPositions();
-            } else {
-                logger.error("INVALID entity type");
-            }
+        entity.setAtlasType(textureEngine.get(entity.getTextureKey()).getAtlasType());
+        TextureHandle texture = textureEngine.get(entity.getTextureKey());
+        float[] data = null;
+        //TODO we really need to fix our data package to be able to clean this up
+        Positions pos= null;
+
+        if (entity instanceof Menu) {
+            pos = ((Menu)entity).getPositions();
+        } else if (entity instanceof Unit) {
+            pos = ((Unit) entity).getPositions();
+        } else if (entity instanceof Chunk) {
+            pos = ((Chunk)entity).getPositions();
+        } else {
+            logger.error("INVALID entity type");
+        }
 
 
-            //TODO can this be done on Entity generation?
-            pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-            pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        //TODO can this be done on Entity generation?
+        pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
-            pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-            pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
 
-            pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-            pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
 
-            pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-            pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
 //            entity.getType().setTextureHandle(texture);
-        }
+
     }
 
 //    protected void movePositions2OpenGLMemory(Collection<V> entityList) {

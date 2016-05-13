@@ -3,6 +3,7 @@ package org.supply.simulator.data.entity.impl;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
+import org.supply.simulator.display.assetengine.texture.AtlasType;
 
 /**
  * Created by Alex on 9/7/2014.
@@ -11,6 +12,7 @@ public class BasicChunk implements Chunk {
     private Long id;
     private Colors colors;
     private Positions positions;
+    private AtlasType atlasType;
 
     protected int vertexAttributesId;
 
@@ -44,6 +46,17 @@ public class BasicChunk implements Chunk {
 
     public void setPositions(Positions positions) {
         this.positions = positions;
+    }
+
+    @Override
+    public AtlasType getAtlasType() {
+        return atlasType;
+
+    }
+
+    @Override
+    public void setAtlasType(AtlasType atlasType) {
+        this.atlasType=atlasType;
     }
 
     public void setVertexAttributesId(int vertexAttributesId) {

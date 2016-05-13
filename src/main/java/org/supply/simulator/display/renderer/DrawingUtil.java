@@ -32,6 +32,11 @@ public class DrawingUtil {
         int size = verticesFloatBuffer.limit();
         verticesFloatBuffer.flip();
 
+//        try {
+//            Thread.sleep(100);//milliseconds
+//        } catch(InterruptedException ex) {
+//            Thread.currentThread().interrupt();
+//        }
 
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
         GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of

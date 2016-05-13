@@ -8,6 +8,7 @@ import org.supply.simulator.util.MapUtils;
 import java.util.Collection;
 
 import static org.supply.simulator.display.renderer.DrawingUtil.dynamicDraw;
+import static org.supply.simulator.display.renderer.DrawingUtil.staticDraw;
 
 /**
  * Created by Alex on 5/6/2016.
@@ -15,7 +16,6 @@ import static org.supply.simulator.display.renderer.DrawingUtil.dynamicDraw;
 public class Renderer extends RendererBase<Entity> implements EntityRenderer<Entity> {
 
     boolean drawStatic = false;
-
     boolean oneEntityPerBuffer = false;
 
     protected void buildEntities(Collection<Entity> entityList) {
@@ -24,7 +24,7 @@ public class Renderer extends RendererBase<Entity> implements EntityRenderer<Ent
 
     protected void drawEntities(Collection<Entity> entityList) {
         if(drawStatic) {
-
+            staticDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
         } else {
             dynamicDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
         }

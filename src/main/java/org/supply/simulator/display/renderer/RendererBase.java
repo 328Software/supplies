@@ -180,17 +180,17 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         Positions pos= entity.getPositions();
 
         //TODO can this be done on Entity generation?
-        pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[9] =(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        pos.getValue()[8] =texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[9] =texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
 
-        pos.getValue()[18]=(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[19]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[18]=texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
+        pos.getValue()[19]=texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
 
-        pos.getValue()[28]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[29]=(float)texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[28]=texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[29]=texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
 
-        pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        pos.getValue()[38]=texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
+        pos.getValue()[39]=texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
     }
 
 

@@ -174,26 +174,10 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
     protected void fillEntityWithTextureData(Entity entity) {
-
-        //Chunks come prefilled with texture data,
-        // menu and unit soon to come
-
         entity.setAtlasType(textureEngine.get(entity.getTextureKey()).getAtlasType());
         TextureHandle texture = textureEngine.get(entity.getTextureKey());
-        float[] data = null;
-        //TODO we really need to fix our data package to be able to clean this up
-        Positions pos= null;
 
-        if (entity instanceof Menu) {
-            pos = ((Menu)entity).getPositions();
-        } else if (entity instanceof Unit) {
-            pos = ((Unit) entity).getPositions();
-        } else if (entity instanceof Chunk) {
-            pos = ((Chunk)entity).getPositions();
-        } else {
-            logger.error("INVALID entity type");
-        }
-
+        Positions pos= entity.getPositions();
 
         //TODO can this be done on Entity generation?
         pos.getValue()[8] =(float)texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
@@ -207,28 +191,8 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
         pos.getValue()[38]=(float)texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
         pos.getValue()[39]=(float)texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
-
-//            entity.getType().setTextureHandle(texture);
-
     }
 
-//    protected void movePositions2OpenGLMemory(Collection<V> entityList) {
-//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(VERTEX_SIZE * maxEntities);
-//
-//        for (Entity entity : entityList) {
-//            //TODO we really need to combine unit and chunk positions to be able to clean this up
-//            if (entity instanceof Menu) {
-//                verticesFloatBuffer.put(((Menu)entity).getPositions().getValue());
-//            } else if (entity instanceof Unit) {
-//                verticesFloatBuffer.put(((Unit)entity).getPositions().getValue());
-//            } else {
-//                logger.error("INVALID entity type");
-//            }
-//        }
-//        verticesFloatBuffer.flip();
-//        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
-//
-//    }
 
     protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
         AtlasRenderData ids = new AtlasRenderData();

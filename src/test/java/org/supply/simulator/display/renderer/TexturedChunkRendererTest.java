@@ -92,14 +92,10 @@ public class TexturedChunkRendererTest {
                 } else if (num<=1.0) {
                     chunk.setTextureKey("Ground4");
                 }
-
                 chunks.add(chunk);
-
             }
         }
-
         renderer.build(chunks);
-
     }
 
     @Test

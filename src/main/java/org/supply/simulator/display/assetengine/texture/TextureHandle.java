@@ -6,19 +6,19 @@ import org.supply.simulator.display.assetengine.AbstractAssetHandle;
  * Created by Alex on 7/14/2014.
  */
 public class TextureHandle extends AbstractAssetHandle {
-    private AtlasType atlasType;
+    private Atlas atlas;
     private float[] subInfo;
 
 
 
 
     public Integer getTextureId() {
-        return atlasType.getTextureId();
+        return atlas.getTextureId();
     }
 
 
     public void setTextureId(Integer textureId) {
-        atlasType.setTextureId(textureId);
+        atlas.setTextureId(textureId);
     }
 
 
@@ -31,12 +31,12 @@ public class TextureHandle extends AbstractAssetHandle {
         this.subInfo=subInfo;
     }
 
-    public void setAtlasType(AtlasType subAtlasType) {
-        this.atlasType =subAtlasType;
+    public void setAtlas(Atlas subAtlas) {
+        this.atlas = subAtlas;
     }
 
 
-    public AtlasType getAtlasType() {
-        return atlasType;
+    public Atlas getAtlas() {
+        return atlas;
     }
 }

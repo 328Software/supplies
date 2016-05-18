@@ -2,7 +2,7 @@ package org.supply.simulator.data.entity.impl;
 
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Unit;
-import org.supply.simulator.display.assetengine.texture.AtlasType;
+import org.supply.simulator.display.assetengine.texture.Atlas;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 public class BasicUnit implements Unit {
     private Long id;
     private Set<Positions> unitPositions;
-    private AtlasType atlasType;
+    private Atlas atlas;
 
 //    @Override
 //    public String getTextureKey() {
@@ -27,14 +27,12 @@ public class BasicUnit implements Unit {
         this.unitPositions = unitPositions;
     }
 
-    @Override
-    public AtlasType getAtlasType() {
-        return atlasType;
+    public Atlas getAtlas() {
+        return atlas;
     }
 
-    @Override
-    public void setAtlasType(AtlasType atlasType) {
-        this.atlasType=atlasType;
+    public void setAtlas(Atlas atlas) {
+        this.atlas = atlas;
     }
 
     @Override

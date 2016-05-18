@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
@@ -39,7 +40,7 @@ public class TexturedChunkRendererTest {
     UserCameraInterface userCameraInterface;
 
 
-    ArrayList<BasicChunk> chunks;
+    ArrayList<Entity> chunks;
 
 //    private BasicChunkType chunkType;
 

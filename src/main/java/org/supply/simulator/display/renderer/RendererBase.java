@@ -3,17 +3,14 @@ package org.supply.simulator.display.renderer;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.*;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
+import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
-import org.supply.simulator.display.assetengine.texture.AtlasType;
-import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.renderer.impl.AtlasRenderData;
 import org.supply.simulator.logging.HasLogger;
 import org.supply.simulator.util.MapUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
-
-import static java.util.Objects.nonNull;
 
 /**
  * Created by Alex on 5/6/2016.
@@ -61,7 +58,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     protected int columns;
 
 
-    protected HashMap<AtlasType,AtlasRenderData<V>> idMap;
+    protected HashMap<Atlas,AtlasRenderData<V>> idMap;
 
 
     public RendererBase() {
@@ -90,7 +87,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 //            if (nonNull(entity.getTextureKey())) {
 
             fillEntityWithTextureData(entity);
-            AtlasType atlas = entity.getAtlasType();
+            Atlas atlas = entity.getAtlas();
 
                 if (!idMap.containsKey(atlas)) {
                     AtlasRenderData atlasRenderData = createAtlasData(atlas, locations);
@@ -174,27 +171,27 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
     protected void fillEntityWithTextureData(Entity entity) {
-    /*    entity.setAtlasType(textureEngine.get(entity.getTextureKey()).getAtlasType());
+    /*    entity.setAtlas(textureEngine.get(entity.getTextureKey()).getAtlas());
         TextureHandle texture = textureEngine.get(entity.getTextureKey());
 
         Positions pos= entity.getPositions();
 
         //TODO can this be done on Entity generation?
-        pos.getValue()[8] =texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[9] =texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        pos.getValue()[8] =texture.getSubInfo()[0]/texture.getAtlas().getWidth();  //X0
+        pos.getValue()[9] =texture.getSubInfo()[1]/texture.getAtlas().getHeight(); //Y0
 
-        pos.getValue()[18]=texture.getSubInfo()[0]/texture.getAtlasType().getWidth();  //X0
-        pos.getValue()[19]=texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[18]=texture.getSubInfo()[0]/texture.getAtlas().getWidth();  //X0
+        pos.getValue()[19]=texture.getSubInfo()[3]/texture.getAtlas().getHeight(); //Y1
 
-        pos.getValue()[28]=texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[29]=texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
+        pos.getValue()[28]=texture.getSubInfo()[2]/texture.getAtlas().getWidth();  //X1
+        pos.getValue()[29]=texture.getSubInfo()[3]/texture.getAtlas().getHeight(); //Y1
 
-        pos.getValue()[38]=texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[39]=texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0*/
+        pos.getValue()[38]=texture.getSubInfo()[2]/texture.getAtlas().getWidth();  //X1
+        pos.getValue()[39]=texture.getSubInfo()[1]/texture.getAtlas().getHeight(); //Y0*/
     }
 
 
-    protected AtlasRenderData createAtlasData(AtlasType atlas, int[] locations) {
+    protected AtlasRenderData createAtlasData(Atlas atlas, int[] locations) {
         AtlasRenderData ids = new AtlasRenderData();
         ids.setTextureId(atlas.getTextureId());
         ids.setPositionsArrayId(GL15.glGenBuffers());

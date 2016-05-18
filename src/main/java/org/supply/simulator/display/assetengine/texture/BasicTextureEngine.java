@@ -21,7 +21,7 @@ public class BasicTextureEngine
         extends AbstractAssetEngine<String, TextureHandle>
         implements AssetEngine<String, TextureHandle>{
 
-            private HashMap<String,AtlasType> atlasMap;
+            private HashMap<String,Atlas> atlasMap;
 
             public BasicTextureEngine() {
                 atlasMap = new HashMap<>();
@@ -33,15 +33,15 @@ public class BasicTextureEngine
                 String fileName = lookupTextureFileName(key);
 
 
-                AtlasType atlasType;
+                Atlas atlas;
                 if (atlasMap.containsKey(fileName)) {
-                    atlasType = atlasMap.get(fileName);
+                    atlas = atlasMap.get(fileName);
                 } else {
-                    atlasType = loadPNGTexture2D(fileName, GL13.GL_TEXTURE0);
-                    atlasMap.put(fileName,atlasType);
+                    atlas = loadPNGTexture2D(fileName, GL13.GL_TEXTURE0);
+                    atlasMap.put(fileName, atlas);
                 }
 
-                handle.setAtlasType(atlasType);
+                handle.setAtlas(atlas);
                 handle.setSubInfo(lookupTextureSubInfo(key));
 
 
@@ -50,7 +50,7 @@ public class BasicTextureEngine
 
 
 
-            private AtlasType loadPNGTexture2D(String filename, int textureUnit) {
+            private Atlas loadPNGTexture2D(String filename, int textureUnit) {
 
                 ByteBuffer buf = null;
                 int tWidth = 0;
@@ -101,20 +101,20 @@ public class BasicTextureEngine
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
                         GL11.GL_LINEAR_MIPMAP_LINEAR);
 
-                AtlasType atlasType = new AtlasType();
-                atlasType.setFileName(filename);
-                atlasType.setTextureId(texId);
-                atlasType.setHeight(tHeight);
-                atlasType.setWidth(tWidth);
-                return atlasType;
+                Atlas atlas = new Atlas();
+                atlas.setFileName(filename);
+                atlas.setTextureId(texId);
+                atlas.setHeight(tHeight);
+                atlas.setWidth(tWidth);
+                return atlas;
             }
 
             @Override
             protected void destroyHandle(String key) {
                 TextureHandle handle = handleMap.remove(key);
 
-                if (handle.getAtlasType().count()==0) {
-                    GL11.glDeleteTextures(handle.getAtlasType().getTextureId());
+                if (handle.getAtlas().count()==0) {
+                    GL11.glDeleteTextures(handle.getAtlas().getTextureId());
                     atlasMap.remove(lookupTextureFileName(key));
                 }
 

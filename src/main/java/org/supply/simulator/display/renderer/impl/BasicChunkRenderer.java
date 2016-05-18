@@ -12,7 +12,11 @@ import org.supply.simulator.util.MapUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+
+import static org.supply.simulator.display.renderer.DrawingUtil.createVerticesFloatBuffer;
 
 /**
  * Created by Alex on 9/7/2014.
@@ -55,16 +59,16 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
             int positionsArrayId = GL15.glGenBuffers();
             int colorsArrayId = GL15.glGenBuffers();
 
-            FloatBuffer verticesFloatBuffer =
-                    BufferUtils.createFloatBuffer(
-                            renderable.getPositions().stream().mapToInt(
-                                    e->e.getValue().length
-                            ).sum());
-
-            for(Positions positions: renderable.getPositions()) {
-                verticesFloatBuffer.put(positions.getValue());
-            }
-            verticesFloatBuffer.flip();
+            FloatBuffer verticesFloatBuffer =createVerticesFloatBuffer(Collections.singletonList(renderable));
+//                    BufferUtils.createFloatBuffer(
+//                            renderable.getPositions().stream().mapToInt(
+//                                    e->e.getValue().length
+//                            ).sum());
+//
+//            for(Positions positions: renderable.getPositions()) {
+//                verticesFloatBuffer.put(positions.getValue());
+//            }
+//            verticesFloatBuffer.flip();
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
             GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STATIC_DRAW);
@@ -159,8 +163,4 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
 
     }
 
-    @Override
-    protected void setIndicesBufferId() {
-
-    }
 }

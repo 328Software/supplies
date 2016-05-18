@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import static org.supply.simulator.display.renderer.DrawingUtil.dynamicDraw;
+import static org.supply.simulator.display.renderer.DrawingUtil.staticBuild;
 import static org.supply.simulator.display.renderer.DrawingUtil.staticDraw;
 
 /**
@@ -27,9 +28,11 @@ public class TexturedChunkRenderer extends RendererBase<Entity> implements Entit
 
     protected void buildEntities(Collection<Entity> entityList) {
 
+        if (drawStatic) {
+            staticBuild(entityList);
+        }
 
-
-
+        //Do nothing for dynamic draw, building is done on the fly!
 
     }
 

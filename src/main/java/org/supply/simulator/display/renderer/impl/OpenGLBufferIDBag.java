@@ -8,10 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by Alex on 5/8/2016.
  */
-public class AtlasRenderData<V> extends HasLogger {
+public class OpenGLBufferIDBag<V> extends HasLogger {
     private int vertexAttributesId;
     private int positionsArrayId;
     private int textureId;
+
+    //list of entities using this id bag to render
     private ArrayList<V> list;
 
 
@@ -39,7 +41,7 @@ public class AtlasRenderData<V> extends HasLogger {
         this.positionsArrayId = positionsArrayId;
     }
 
-    public AtlasRenderData() {
+    public OpenGLBufferIDBag() {
         list = new ArrayList<>();
     }
 

@@ -51,8 +51,6 @@ public class TexturedChunkRendererTest {
         core = new MockDisplayCore();
         userCameraInterface = new UserCameraInterface();
 
-        core.build("TexturedChunkRendererTest");
-
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
 
@@ -64,11 +62,6 @@ public class TexturedChunkRendererTest {
         camera.setNearPlane(0.1f);
         camera.setFieldOfView(60);
 
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
-        camera.create();
-
         userCameraInterface.setCamera(camera);
 //        BasicChunkType type = new BasicChunkType();
 //        //where do we get this.
@@ -76,12 +69,29 @@ public class TexturedChunkRendererTest {
 //        type.setColumns(20);
 
         renderer=new TexturedChunkRenderer();
+        renderer.setDrawStatic(true);
+        renderer.setOneEntityPerBuffer(true);
+
         renderer.setAttributeLocations(new int[] {0,1,2});
         renderer.setTextureEngine(textureEngine);
         renderer.setIndexEngine(new BasicIndexEngine());
         renderer.setRows(chunkRows);
         renderer.setColumns(chunkColumns);
 //        renderer.setChunkType(type);
+
+
+    }
+
+
+    @Test
+    public void TexturedChunkRendererTest() {
+        core.build("TexturedChunkRendererTest");
+
+
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+        camera.create();
 
         chunks = new ArrayList<>();
         for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
@@ -102,11 +112,18 @@ public class TexturedChunkRendererTest {
                 chunks.add(chunk);
             }
         }
+
+
+
         renderer.build(chunks);
+
+
+
+        render();
     }
 
-    @Test
-    public void render() {
+    private void render() {
+
         while (!Display.isCloseRequested()) {
 
 

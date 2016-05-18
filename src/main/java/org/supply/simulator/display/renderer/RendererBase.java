@@ -13,6 +13,8 @@ import org.supply.simulator.util.MapUtils;
 import java.util.Collection;
 import java.util.HashMap;
 
+import static java.util.Objects.nonNull;
+
 /**
  * Created by Alex on 5/6/2016.
  */
@@ -87,24 +89,22 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
         //Load texture atlases
         for (V entity : entities) {
+            if (nonNull(entity.getTextureKey())) {
 
             fillEntityWithTextureData(entity);
             AtlasType atlas = entity.getAtlasType();
 
-            if (!idMap.containsKey(atlas)) {
-                AtlasRenderData atlasRenderData = createAtlasData(atlas,locations);
+                if (!idMap.containsKey(atlas)) {
+                    AtlasRenderData atlasRenderData = createAtlasData(atlas, locations);
 
-                atlasRenderData.add(entity);
+                    atlasRenderData.add(entity);
 
-                idMap.put(atlas, atlasRenderData);
-            } else {
-                idMap.get(atlas).add(entity);
+                    idMap.put(atlas, atlasRenderData);
+                } else {
+                    idMap.get(atlas).add(entity);
+                }
             }
-
-
         }
-
-
     }
 
     //TODO currently not using input to this method

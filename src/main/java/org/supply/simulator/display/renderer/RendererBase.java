@@ -20,35 +20,6 @@ import static org.supply.simulator.display.renderer.DrawingUtil.*;
  */
 public abstract class RendererBase<V extends Entity> extends HasLogger implements  EntityRenderer<V> {
 
-    // The amount of bytes an element has
-    public static final int ELEMENT_BYTES = 4;
-
-    // Elements per parameter
-    public static final int POSITION_ELEMENT_COUNT = 4;
-    public static final int COLOR_ELEMENT_COUNT = 4;
-    public static final int TEXTURE_ELEMENT_COUNT = 2;
-
-    // Bytes per parameter
-    public static final int POSITION_BYTES_COUNT = POSITION_ELEMENT_COUNT * ELEMENT_BYTES;
-    public static final int COLOR_BYTE_COUNT = COLOR_ELEMENT_COUNT * ELEMENT_BYTES;
-    public static final int TEXTURE_BYTE_COUNT = TEXTURE_ELEMENT_COUNT * ELEMENT_BYTES;
-
-    // Byte offsets per parameter
-    public static final int POSITION_BYTE_OFFSET = 0;
-    public static final int COLOR_BYTE_OFFSET = POSITION_BYTE_OFFSET + POSITION_BYTES_COUNT;
-    public static final int TEXTURE_BYTE_OFFSET = COLOR_BYTE_OFFSET + COLOR_BYTE_COUNT;
-
-    // The amount of elements that a vertex has
-    // The size of a vertex in bytes, like in C/C++: sizeof(Vertex)
-    public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
-            TEXTURE_BYTE_COUNT;
-
-    protected final int maxEntities;
-
-    protected final int VERTEX_SIZE = 40;
-    protected final int VERTICES_PER_ENTITY = 6;
-
-
     protected BasicTextureEngine textureEngine;
 
     protected BasicIndexEngine indexEngine;
@@ -73,7 +44,6 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     public RendererBase() {
         super();
         idMap = new HashMap<>();
-        maxEntities = 100;
         rows=20;
         columns=20;
     }

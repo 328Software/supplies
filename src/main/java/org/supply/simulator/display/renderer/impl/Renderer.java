@@ -24,9 +24,9 @@ public class Renderer extends RendererBase<Entity> implements EntityRenderer<Ent
 
     protected void drawEntities(Collection<Entity> entityList) {
         if(drawStatic) {
-            staticDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
+            staticDraw(entityList, oneEntityPerBuffer);
         } else {
-            dynamicDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
+            dynamicDraw(entityList);
         }
     }
 

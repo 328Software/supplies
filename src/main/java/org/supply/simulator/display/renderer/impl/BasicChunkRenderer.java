@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import static org.supply.simulator.display.renderer.DrawingUtil.POSITION_BYTE_OFFSET;
 import static org.supply.simulator.display.renderer.DrawingUtil.createVerticesFloatBuffer;
 
 /**

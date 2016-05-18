@@ -18,8 +18,43 @@ import java.util.Collection;
 public class DrawingUtil {
     protected static Logger logger = LogManager.getLogger(DrawingUtil.class);
 
-    public static void staticBuild(Collection<Entity> entityList) {
+    // The amount of bytes an element has
+    public static final int ELEMENT_BYTES = 4;
 
+    // Elements per parameter
+    public static final int POSITION_ELEMENT_COUNT = 4;
+    public static final int COLOR_ELEMENT_COUNT = 4;
+    public static final int TEXTURE_ELEMENT_COUNT = 2;
+
+    // Bytes per parameter
+    public static final int POSITION_BYTES_COUNT = POSITION_ELEMENT_COUNT * ELEMENT_BYTES;
+    public static final int COLOR_BYTE_COUNT = COLOR_ELEMENT_COUNT * ELEMENT_BYTES;
+    public static final int TEXTURE_BYTE_COUNT = TEXTURE_ELEMENT_COUNT * ELEMENT_BYTES;
+
+    // Byte offsets per parameter
+    public static final int POSITION_BYTE_OFFSET = 0;
+    public static final int COLOR_BYTE_OFFSET = POSITION_BYTE_OFFSET + POSITION_BYTES_COUNT;
+    public static final int TEXTURE_BYTE_OFFSET = COLOR_BYTE_OFFSET + COLOR_BYTE_COUNT;
+
+    // The amount of elements that a vertex has
+    // The size of a vertex in bytes, like in C/C++: sizeof(Vertex)
+    public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
+            TEXTURE_BYTE_COUNT;
+
+    protected final int VERTEX_SIZE = 40;
+    protected final int VERTICES_PER_ENTITY = 6;
+
+    /**
+     *
+     * @param entityList
+     * @param oneEntityPerBuffer
+     */
+    public static void staticBuild(Collection<Entity> entityList, boolean oneEntityPerBuffer) {
+        if (oneEntityPerBuffer) {
+
+        } else {
+
+        }
 
     }
 
@@ -31,11 +66,9 @@ public class DrawingUtil {
      *
      *
      * @param entityList
-     * @param vertexSize
-     * @param verticesPerEntity
-     * @param maxEntities
+     * @param oneEntityPerBuffer
      */
-    public static void staticDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
+    public static void staticDraw(Collection<Entity> entityList, boolean oneEntityPerBuffer) {
 
 
     }
@@ -48,11 +81,8 @@ public class DrawingUtil {
      *
      *
      * @param entityList
-     * @param vertexSize
-     * @param verticesPerEntity
-     * @param maxEntities
      */
-    public static void dynamicDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
+    public static void dynamicDraw(Collection<Entity> entityList) {
 //        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
 
         FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
@@ -113,12 +143,12 @@ public class DrawingUtil {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
 
         //TODO where do we store these constants used below, we shouldn't be referencing RendererBase
-        GL20.glVertexAttribPointer(locations[0], RendererBase.POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, RendererBase.STRIDE, RendererBase.POSITION_BYTE_OFFSET);
-        GL20.glVertexAttribPointer(locations[1], RendererBase.COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, RendererBase.STRIDE, RendererBase.COLOR_BYTE_OFFSET);
-        GL20.glVertexAttribPointer(locations[2], RendererBase.TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, RendererBase.STRIDE, RendererBase.TEXTURE_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, POSITION_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, COLOR_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, TEXTURE_BYTE_OFFSET);
 
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);

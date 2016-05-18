@@ -10,14 +10,13 @@ import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureHandle;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.display.mock.MockDisplayCore;
+import org.supply.simulator.display.renderer.DrawingUtil;
 import org.supply.simulator.logging.HasLogger;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
-import static org.supply.simulator.display.renderer.RendererBase.*;
-import static org.supply.simulator.display.renderer.impl.BasicChunkRenderer.STRIDE;
 
 /**
  * Created by Alex on 7/14/2014.
@@ -105,14 +104,14 @@ public class BasicTextureEngineTest extends HasLogger {
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW);
 
         // Put the position coordinates in attribute list 0BYTE
-        GL20.glVertexAttribPointer(0, POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, POSITION_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(0, DrawingUtil.POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, DrawingUtil.STRIDE, DrawingUtil.POSITION_BYTE_OFFSET);
         // Put the color components in attribute list 1
-        GL20.glVertexAttribPointer(1, COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, COLOR_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(1, DrawingUtil.COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, DrawingUtil.STRIDE, DrawingUtil.COLOR_BYTE_OFFSET);
         // Put the texture coordinates in attribute list 2
-        GL20.glVertexAttribPointer(2, TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, TEXTURE_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(2, DrawingUtil.TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, DrawingUtil.STRIDE, DrawingUtil.TEXTURE_BYTE_OFFSET);
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 

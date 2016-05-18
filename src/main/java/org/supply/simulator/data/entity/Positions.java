@@ -2,14 +2,12 @@ package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.data.HasValue;
+import org.supply.simulator.display.renderer.DrawingUtil;
 
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static org.supply.simulator.display.renderer.RendererBase.COLOR_ELEMENT_COUNT;
-import static org.supply.simulator.display.renderer.RendererBase.POSITION_ELEMENT_COUNT;
-import static org.supply.simulator.display.renderer.RendererBase.TEXTURE_ELEMENT_COUNT;
 
 /**
  * Created by Alex on 9/14/2014.
@@ -96,8 +94,8 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
     }
 
     private int getVertexSize(boolean textured, boolean colored) {
-        return POSITION_ELEMENT_COUNT +
-                (colored ? COLOR_ELEMENT_COUNT : 0) + (textured ? TEXTURE_ELEMENT_COUNT : 0);
+        return DrawingUtil.POSITION_ELEMENT_COUNT +
+                (colored ? DrawingUtil.COLOR_ELEMENT_COUNT : 0) + (textured ? DrawingUtil.TEXTURE_ELEMENT_COUNT : 0);
     }
 
 

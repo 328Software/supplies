@@ -29,7 +29,7 @@ public class TexturedChunkRenderer extends RendererBase<Entity> implements Entit
     protected void buildEntities(Collection<Entity> entityList) {
 
         if (drawStatic) {
-            staticBuild(entityList);
+            staticBuild(entityList,oneEntityPerBuffer);
         }
 
         //Do nothing for dynamic draw, building is done on the fly!
@@ -38,9 +38,9 @@ public class TexturedChunkRenderer extends RendererBase<Entity> implements Entit
 
     protected void drawEntities(Collection<Entity> entityList) {
         if(drawStatic) {
-            staticDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
+            staticDraw(entityList,oneEntityPerBuffer);
         } else {
-            dynamicDraw(entityList, VERTEX_SIZE, VERTICES_PER_ENTITY, maxEntities);
+            dynamicDraw(entityList);
         }
     }
 

@@ -5,13 +5,15 @@ import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 
+import java.util.Set;
+
 /**
  * Created by Alex on 9/7/2014.
  */
 public class BasicChunk implements Chunk {
     private Long id;
     private Colors colors;
-    private Positions positions;
+    private Set<Positions> positions;
     private AtlasType atlasType;
 
     protected int vertexAttributesId;
@@ -20,11 +22,6 @@ public class BasicChunk implements Chunk {
     protected int colorsArrayId;
     protected int positionsArrayId;
     String textureKey;
-
-    @Override
-    public String getTextureKey() {
-        return textureKey;
-    }
 
     public void setTextureKey(String textureKey) {
         this.textureKey = textureKey;
@@ -40,11 +37,11 @@ public class BasicChunk implements Chunk {
 
 
 
-    public Positions getPositions() {
+    public Set<Positions> getPositions() {
         return positions;
     }
 
-    public void setPositions(Positions positions) {
+    public void setPositions(Set<Positions> positions) {
         this.positions = positions;
     }
 

@@ -16,6 +16,7 @@ import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by Brandon on 7/8/2014.
@@ -68,7 +69,7 @@ public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer>
                 colors.setValue(terrainChunk.getColors());
 //                chunk.setType(type);
                 chunk.setColors(colors);
-                chunk.setPositions(positions);
+                chunk.setPositions(Collections.singleton(positions));
 
                 newChunks.add(chunk);
                 storeChunk(chunk);

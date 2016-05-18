@@ -3,6 +3,8 @@ package org.supply.simulator.data.entity;
 import org.supply.simulator.data.HasId;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Brandon
@@ -13,13 +15,11 @@ import org.supply.simulator.display.assetengine.texture.AtlasType;
  * non-generic super-type for all matter.
  */
 public interface Entity extends HasId<Long> {
-    Positions getPositions();
+    Set<Positions> getPositions();
 
-    void setPositions(Positions positions);
+    void setPositions(Set<Positions> positions);
 
     AtlasType getAtlasType();
 
     void setAtlasType(AtlasType atlasType);
-
-    String getTextureKey();
 }

@@ -2,6 +2,8 @@ package org.supply.simulator.display.renderer.impl;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.renderer.EntityRenderer;
@@ -44,9 +46,15 @@ public class TexturedChunkRenderer extends RendererBase<BasicChunk> implements E
 //            GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
 //                    false, stride, TEXTURE_BYTE_OFFSET);
 
-            FloatBuffer verticesFloatBuffer
-                    = BufferUtils.createFloatBuffer(chunk.getPositions().getValue().length);
-            verticesFloatBuffer.put(chunk.getPositions().getValue());
+            FloatBuffer verticesFloatBuffer =
+                    BufferUtils.createFloatBuffer(
+                            chunk.getPositions().stream().mapToInt(
+                                    e->e.getValue().length
+                            ).sum());
+
+            for(Positions positions: chunk.getPositions()) {
+                verticesFloatBuffer.put(positions.getValue());
+            }
             verticesFloatBuffer.flip();
 
 //            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.positionsArrayId);

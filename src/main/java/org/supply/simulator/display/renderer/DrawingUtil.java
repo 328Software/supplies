@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Unit;
 
 import java.nio.FloatBuffer;
@@ -23,11 +24,17 @@ public class DrawingUtil {
 
     }
     public static void dynamicDraw(Collection<Entity> entityList, int vertexSize, int verticesPerEntity, int maxEntities) {
-        FloatBuffer verticesFloatBuffer
-                = BufferUtils.createFloatBuffer(entityList.stream().mapToInt(e -> e.getPositions().getValue().length).sum());
+//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
+        FloatBuffer verticesFloatBuffer =
+                BufferUtils.createFloatBuffer(
+                        entityList.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
+                                e->e.getValue().length
+                        ).sum()).sum());
 
         for (Entity entity : entityList) {
-            verticesFloatBuffer.put(entity.getPositions().getValue());
+            for(Positions positions: entity.getPositions()) {
+                verticesFloatBuffer.put(positions.getValue());
+            }
         }
         int size = verticesFloatBuffer.limit();
         verticesFloatBuffer.flip();

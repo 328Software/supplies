@@ -9,6 +9,9 @@ import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX
 import org.supply.simulator.data.entity.Positions.*;
 import org.supply.simulator.display.assetengine.texture.AtlasType;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Created by Brandon on 5/8/2016.
  */
@@ -30,19 +33,19 @@ public class TextMenuFactory implements MenuFactory {
     @Override
     public Menu build() {
         return new Menu() {
-            final Positions positions;
+            final Set<Positions> positions;
 
             {
-                positions = TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width);
+                positions = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
             }
 
             @Override
-            public Positions getPositions() {
+            public Set<Positions> getPositions() {
                 return positions;
             }
 
             @Override
-            public void setPositions(Positions positions) {
+            public void setPositions(Set<Positions> positions) {
 
             }
 
@@ -54,11 +57,6 @@ public class TextMenuFactory implements MenuFactory {
             @Override
             public void setAtlasType(AtlasType atlasType) {
 
-            }
-
-            @Override
-            public String getTextureKey() {
-                return "K";
             }
 
             @Override

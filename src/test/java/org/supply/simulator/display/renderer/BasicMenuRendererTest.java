@@ -11,6 +11,7 @@ import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicMenuManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
@@ -48,7 +49,9 @@ public class BasicMenuRendererTest {
         renderer = new Renderer();
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
-        renderer.setTextureEngine(new BasicTextureEngine());
+        BasicTextureEngine textureEngine = new BasicTextureEngine();
+        generator.setTextureEngine(textureEngine);
+        renderer.setTextureEngine(textureEngine);
         renderer.setIndexEngine(new BasicIndexEngine());
         renderer.setColumns(1);
         renderer.setRows(100);
@@ -73,6 +76,7 @@ public class BasicMenuRendererTest {
         menus.add(generator.createMenu(0.10f, .8f, 0, .1f, .05f, "U"));
         menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
         menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));
+//        menus.add(new TextMenuFactory(0.2f, .8f, .1f, .05f, "K").build());
 
         manager.add(menus);
 

@@ -70,11 +70,14 @@ public class BasicWindowSystemTest {
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
         chunkManager.setEntityRenderer(chunkRenderer);
+        BasicTextureEngine textureEngine = new BasicTextureEngine();
+
+        generator.setTextureEngine(textureEngine);
 
         unitManager = new MockUnitManager();
         unitRenderer = new Renderer();
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
-        unitRenderer.setTextureEngine(new BasicTextureEngine());
+        unitRenderer.setTextureEngine(textureEngine);
         unitRenderer.setIndexEngine(indexEngine);
         unitRenderer.setColumns(1);
         unitRenderer.setRows(MAX_ENTITIES);
@@ -83,7 +86,7 @@ public class BasicWindowSystemTest {
         menuManager = new BasicMenuManager();
         menuRenderer = new Renderer();
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
-        menuRenderer.setTextureEngine(new BasicTextureEngine());
+        menuRenderer.setTextureEngine(textureEngine);
         menuRenderer.setIndexEngine(indexEngine);
         menuRenderer.setColumns(1);
         menuRenderer.setRows(MAX_ENTITIES);

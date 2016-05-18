@@ -63,12 +63,10 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
     protected HashMap<AtlasType,AtlasRenderData<V>> idMap;
 
-    protected HashMap<String,AtlasRenderData<V>> idMap2;
 
     public RendererBase() {
         super();
         idMap = new HashMap<>();
-        idMap2 = new HashMap<>();
         maxEntities = 100;
         rows=20;
         columns=20;
@@ -89,7 +87,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
         //Load texture atlases
         for (V entity : entities) {
-            if (nonNull(entity.getTextureKey())) {
+//            if (nonNull(entity.getTextureKey())) {
 
             fillEntityWithTextureData(entity);
             AtlasType atlas = entity.getAtlasType();
@@ -104,7 +102,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
                     idMap.get(atlas).add(entity);
                 }
             }
-        }
+//        }
     }
 
     //TODO currently not using input to this method
@@ -150,8 +148,10 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     @Override
     public void destroy(Collection<V> entities) {
         for (V entity : entities) {
-            textureEngine.done(entity.getTextureKey());
-            idMap2.get(entity.getTextureKey()).remove(entity);
+            for(Positions positions : entity.getPositions()) {
+                textureEngine.done(positions.getTextureKey());
+            }
+//            idMap2.get(entity.getTextureKey()).remove(entity);
             //TODO when to delete atlas data??
         }
 
@@ -174,7 +174,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
     protected void fillEntityWithTextureData(Entity entity) {
-        entity.setAtlasType(textureEngine.get(entity.getTextureKey()).getAtlasType());
+    /*    entity.setAtlasType(textureEngine.get(entity.getTextureKey()).getAtlasType());
         TextureHandle texture = textureEngine.get(entity.getTextureKey());
 
         Positions pos= entity.getPositions();
@@ -190,7 +190,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
         pos.getValue()[29]=texture.getSubInfo()[3]/texture.getAtlasType().getHeight(); //Y1
 
         pos.getValue()[38]=texture.getSubInfo()[2]/texture.getAtlasType().getWidth();  //X1
-        pos.getValue()[39]=texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0
+        pos.getValue()[39]=texture.getSubInfo()[1]/texture.getAtlasType().getHeight(); //Y0*/
     }
 
 

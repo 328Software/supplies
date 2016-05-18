@@ -3,6 +3,8 @@ package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
+import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
@@ -53,8 +55,15 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
             int positionsArrayId = GL15.glGenBuffers();
             int colorsArrayId = GL15.glGenBuffers();
 
-            FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(renderable.getPositions().getValue().length);
-            verticesFloatBuffer.put(renderable.getPositions().getValue());
+            FloatBuffer verticesFloatBuffer =
+                    BufferUtils.createFloatBuffer(
+                            renderable.getPositions().stream().mapToInt(
+                                    e->e.getValue().length
+                            ).sum());
+
+            for(Positions positions: renderable.getPositions()) {
+                verticesFloatBuffer.put(positions.getValue());
+            }
             verticesFloatBuffer.flip();
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);

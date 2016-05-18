@@ -25,6 +25,7 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
 
     private final int vertexSize;
 
+    private String textureKey;
 
     public static Positions newTexturedPositions() {
         return new Positions(true, false);
@@ -84,6 +85,14 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
 //    @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTextureKey() {
+        return textureKey;
+    }
+
+    public void setTextureKey(String textureKey) {
+        this.textureKey = textureKey;
     }
 
     private int getVertexSize(boolean textured, boolean colored) {

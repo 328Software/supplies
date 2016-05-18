@@ -10,6 +10,7 @@ import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by Alex on 6/29/2014.
@@ -89,7 +90,7 @@ public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
 
             BasicChunk chunk = new BasicChunk();
 //            chunk.setType(type);
-            chunk.setPositions(positions);
+            chunk.setPositions(Collections.singleton(positions));
             chunk.setColors(colors);
 
             return chunk;

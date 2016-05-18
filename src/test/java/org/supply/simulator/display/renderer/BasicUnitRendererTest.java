@@ -37,6 +37,7 @@ public class BasicUnitRendererTest {
         textureEngine = new BasicTextureEngine();
         dataGenerator = new DataGenerator();
         indexEngine = new BasicIndexEngine();
+        dataGenerator.setTextureEngine(textureEngine);
     }
 
 

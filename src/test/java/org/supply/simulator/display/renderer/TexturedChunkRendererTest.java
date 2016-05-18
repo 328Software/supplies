@@ -16,6 +16,7 @@ import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
+import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,8 @@ public class TexturedChunkRendererTest {
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
 
+        dataGenerator.setTextureEngine(textureEngine);
+
         camera = new Camera();
         camera.setAspectRatio(1);
         camera.setFarPlane(100);
@@ -86,14 +89,15 @@ public class TexturedChunkRendererTest {
 
                 double num = Math.random();
                 if (num<2.5) {
-                    chunk.setTextureKey("Ground1");
+                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground1");
                 } else if (num<5.0) {
-                    chunk.setTextureKey("Ground2");
+                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground2");
                 } else if (num<7.5) {
-                    chunk.setTextureKey("Ground3");
+                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground3");
                 } else if (num<=1.0) {
-                    chunk.setTextureKey("Ground4");
+                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground4");
                 }
+                TextureUtils.applyTexture(chunk, textureEngine);
                 chunks.add(chunk);
             }
         }

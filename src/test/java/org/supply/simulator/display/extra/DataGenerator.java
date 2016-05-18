@@ -3,7 +3,11 @@ package org.supply.simulator.display.extra;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.*;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
+import org.supply.simulator.util.TextureUtils;
+
+import java.util.Collections;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 
@@ -12,6 +16,7 @@ import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX
  */
 public class DataGenerator {
 
+    BasicTextureEngine textureEngine;
 //    private HashMap<String,UnitType> unitTypeMap;
 //    private HashMap<String,MenuType> menuTypeMap;
 //    private HashMap<int[],ChunkType> chunkTypeMap;
@@ -56,7 +61,7 @@ public class DataGenerator {
 
 
 //        chunk.setType(type);
-        chunk.setPositions(positions);
+        chunk.setPositions(Collections.singleton(positions));
         chunk.setColors(colors);
 
         return chunk;
@@ -64,18 +69,12 @@ public class DataGenerator {
 
     public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicUnit unit = new BasicUnit();
-        unit.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ,  length,  width));
-        unit.setTextureKey(name);
-       /* UnitType type;
-        if (unitTypeMap.containsKey(name)) {
-            type =  unitTypeMap.get(name);
-        } else {
-            type = new BasicUnitType();
-            type.setName(name);
-            unitTypeMap.put(name,type);
-        }
+        Positions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
+        positions.setTextureKey(name);
+        unit.setPositions(Collections.singleton(positions));
 
-        unit.setType(type);*/
+        TextureUtils.applyTexture(unit, textureEngine);
+
         return unit;
     }
 
@@ -86,20 +85,13 @@ public class DataGenerator {
     public BasicMenu createMenu(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicMenu menu = new BasicMenu();
 
-        menu.setPositions(getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width));
-        menu.setTextureKey(name);
-//        MenuType type;
-
-//        if (menuTypeMap.containsKey(name)) {
-//            type = menuTypeMap.get(name);
-//        } else {
-//            type = new BasicMenuType();
-//            type.setName(name);
-//            menuTypeMap.put(name,type);
-//        }
+        Positions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
+        positions.setTextureKey(name);
+        menu.setPositions(Collections.singleton(positions));
 
         //TODO WHY do I have to cast it to EntityType?
 //        menu.setType((EntityType)type);
+        TextureUtils.applyTexture(menu, textureEngine);
 
         return menu;
     }
@@ -424,4 +416,9 @@ public class DataGenerator {
 //        public MockTextureType textureType;
 //        public float[] subInfo;
 //    }
+
+
+    public void setTextureEngine(BasicTextureEngine textureEngine) {
+        this.textureEngine = textureEngine;
+    }
 }

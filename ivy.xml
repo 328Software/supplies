@@ -105,13 +105,6 @@
             <conf name="test" mapped="default"/>
         </dependency>
 
-
-        <dependency org="org.hibernate" name="hibernate-ehcache" rev="4.3.5.Final">
-            <conf name="default" mapped="default"/>
-            <conf name="runtime" mapped="runtime"/>
-            <conf name="test" mapped="default"/>
-        </dependency>
-
         <dependency org="org.hsqldb" name="hsqldb" rev="2.3.2">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
@@ -120,6 +113,12 @@
 
 
         <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4">
+            <conf name="default" mapped="default"/>
+            <conf name="runtime" mapped="runtime"/>
+            <conf name="test" mapped="default"/>
+        </dependency>
+
+        <dependency org="net.sf.ehcache" name="ehcache" rev="2.10.2">
             <conf name="default" mapped="default"/>
             <conf name="runtime" mapped="runtime"/>
             <conf name="test" mapped="default"/>
@@ -168,6 +167,8 @@
 
 
         <override org="org.lwjgl.lwjgl" rev="2.9.3"/>
+        <override org="net.sf.ehcache" rev="2.10.2"/>
+
         <!--
                 <dependency org="cglib" name="cglib-nodep" rev="3.1">
                     <conf name="default" mapped="default"/>

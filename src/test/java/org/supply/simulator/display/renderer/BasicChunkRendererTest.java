@@ -10,6 +10,7 @@ import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
@@ -50,6 +51,7 @@ public class BasicChunkRendererTest {
     @Before
     public void create() {
         dataGenerator = new DataGenerator();
+        dataGenerator.setTextureEngine(new BasicTextureEngine());
 //        chunkType = new BasicChunkType();
 //        chunkType.setColumns(30);
 //        chunkType.setRows(20);

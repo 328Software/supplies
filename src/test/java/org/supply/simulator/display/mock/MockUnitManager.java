@@ -1,6 +1,7 @@
 package org.supply.simulator.display.mock;
 
 import org.supply.simulator.data.entity.Unit;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
@@ -18,6 +19,7 @@ public class MockUnitManager extends AbstractManager implements Manager {
 
     public  MockUnitManager () {
         dataGenerator = new DataGenerator();
+        dataGenerator.setTextureEngine(new BasicTextureEngine());
         isFirst=true;
     }
 

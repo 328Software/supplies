@@ -86,7 +86,6 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     //TODO currently not using input to this method
     @Override
     public void render(Collection<V> entities) {
-        int count=0;
         for (OpenGLBufferIDBag<V> data : idMap.values()) {
 
             //Prepare to draw block of entities
@@ -109,7 +108,6 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
             disableArrayBuffer();
             disableTextureBuffer();
 
-            count=count+1;
         }
     }
 

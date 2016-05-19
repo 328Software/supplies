@@ -12,6 +12,8 @@ import org.supply.simulator.display.renderer.impl.OpenGLBufferIDBag;
 import java.nio.FloatBuffer;
 import java.util.Collection;
 
+import static java.util.Objects.nonNull;
+
 /**
  * Created by Brandon on 5/11/2016.
  */
@@ -41,21 +43,23 @@ public class DrawingUtil {
     public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
-    protected final int VERTEX_SIZE = 40;
-    protected final int VERTICES_PER_ENTITY = 6;
+    public static final int VERTICES_PER_ENTITY = 6;
 
     /**
+     * Static Build
+     *
+     * First loads entity data into OpenGL memory as STATIC then draws
+     * Assumes appropriate OpenGL buffers are enabled
+     *
      *
      * @param entityList
-     * @param oneEntityPerBuffer
      */
-    public static void staticBuild(Collection<Entity> entityList, boolean oneEntityPerBuffer) {
-        if (oneEntityPerBuffer) {
-
-        } else {
-
-        }
-
+    public static void staticBuild(Collection<Entity> entityList) {
+//        FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
+//
+//        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
+//
+//        drawElements(verticesFloatBuffer.limit(),0);
     }
 
     /**
@@ -66,17 +70,24 @@ public class DrawingUtil {
      *
      *
      * @param entityList
-     * @param oneEntityPerBuffer
      */
-    public static void staticDraw(Collection<Entity> entityList, boolean oneEntityPerBuffer) {
-
-
+    public static void staticDraw(Collection<Entity> entityList) {
+//        int numberOfEntities = entityList.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
+//                e->e.getValue().length
+//        ).sum()).sum();
+//
+//
+//        GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES,
+//                numberOfEntities * VERTICES_PER_ENTITY,
+//                GL11.GL_UNSIGNED_INT,
+//                0,
+//                0);
     }
 
     /**
      * Dynamic Draw
      *
-     * First loads entity data into OpenGL memory then draws
+     * First loads entity data into OpenGL memory as DYNAMIC then draws
      * Assumes appropriate OpenGL buffers are enabled
      *
      *
@@ -86,21 +97,32 @@ public class DrawingUtil {
 //        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
 
         FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
-        int size = verticesFloatBuffer.limit();
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_DYNAMIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_DYNAMIC_DRAW);
 
-        //        try {
-//            Thread.sleep(100);//milliseconds
-//        } catch(InterruptedException ex) {
-//            Thread.currentThread().interrupt();
-//        }
-        GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
-                size, //Number of vertices to render (there's 6 per image)
-                GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
-                size * Integer.SIZE * 0);//index into buffer when to start rendering
+        drawElements(verticesFloatBuffer.limit(),0);
+
     }
 
     /**
+     * Draw Elements
+     *
+     * Calls OpenGL procedure glDrawElements which causes whatever image that is
+     *  stored in the current active buffer to be rendered onto the screen
+     *  Assumes appropriate OpenGL buffers are enabled and initialized
+     *
+     * @param size number of vertices to render
+     * @param index index into buffer when to start rendering
+     */
+    public static void drawElements(int size,int index) {
+        GL11.glDrawElements(GL11.GL_TRIANGLES, //render mode i.e. what kind of primitives are we constructing our image out of
+                size, //Number of vertices to render (there's 6 per image right now)
+                GL11.GL_UNSIGNED_INT, //indicates the type of index values in indices
+                index * Integer.SIZE );//index into buffer when to start rendering
+    }
+
+    /**
+     * Create Vertices Float Buffer
+     *
      *
      * loads entity data into a float buffer
      *
@@ -125,13 +147,14 @@ public class DrawingUtil {
     }
 
     /**
+     * Allocate OpenGL Buffers
      *
      * Creates pointers to OpenGL memory and nicely stores them in a OpenGLBufferIDBag
      *
-     *
-     * @param atlas this class will retrieve the TextureId from the atlas to store in the bag
+     * @param atlas method will retrieve TextureId from atlas to store in the bag
      * @param locations these attribute locations (for shaders) will be bound to the new array buffer
-     * @return
+     *
+     * @return OpenGLBufferIDBag id bag of pointers into OpenGL memory
      */
     public static OpenGLBufferIDBag allocateOpenGLBuffers(Atlas atlas, int[] locations) {
         OpenGLBufferIDBag ids = new OpenGLBufferIDBag();
@@ -142,7 +165,6 @@ public class DrawingUtil {
         GL30.glBindVertexArray(ids.getVertexAttributesId());
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
 
-        //TODO where do we store these constants used below, we shouldn't be referencing RendererBase
         GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
                 false, STRIDE, POSITION_BYTE_OFFSET);
         GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
@@ -156,8 +178,14 @@ public class DrawingUtil {
         return ids;
     }
 
-    public static void bindBufferIds(OpenGLBufferIDBag ids,int indicesBufferId, int locations) {
+    public static void bindBufferIds(OpenGLBufferIDBag ids,int indicesBufferId, int[] locations) {
+        enableArrayBuffer(ids.getPositionsArrayId());
+        enableVertexAttribArray(locations, ids.getVertexAttributesId());
+        enableIndicesBuffer(indicesBufferId);
 
+        if (nonNull(ids.getTextureId())) {
+            enableTextureBuffer(ids.getTextureId());
+        }
 
     }
 

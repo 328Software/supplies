@@ -55,11 +55,11 @@ public class DrawingUtil {
      * @param entityList
      */
     public static void staticBuild(Collection<Entity> entityList) {
-//        FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
-//
-//        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
-//
-//        drawElements(verticesFloatBuffer.limit(),0);
+        FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
+
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
+
+        drawElements(verticesFloatBuffer.limit(),0);
     }
 
     /**
@@ -72,16 +72,16 @@ public class DrawingUtil {
      * @param entityList
      */
     public static void staticDraw(Collection<Entity> entityList) {
-//        int numberOfEntities = entityList.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
-//                e->e.getValue().length
-//        ).sum()).sum();
-//
-//
-//        GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES,
-//                numberOfEntities * VERTICES_PER_ENTITY,
-//                GL11.GL_UNSIGNED_INT,
-//                0,
-//                0);
+        int numberOfEntities = entityList.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
+                e->e.getValue().length
+        ).sum()).sum();
+
+
+        GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES,
+                numberOfEntities * VERTICES_PER_ENTITY,
+                GL11.GL_UNSIGNED_INT,
+                0,
+                0);
     }
 
     /**
@@ -158,6 +158,32 @@ public class DrawingUtil {
      */
     public static OpenGLBufferIDBag allocateOpenGLBuffers(Atlas atlas, int[] locations) {
         OpenGLBufferIDBag ids = new OpenGLBufferIDBag();
+//        if ()
+
+        ids.setTextureId(atlas.getTextureId());
+        ids.setPositionsArrayId(GL15.glGenBuffers());
+        ids.setVertexAttributesId(GL30.glGenVertexArrays());
+
+        GL30.glBindVertexArray(ids.getVertexAttributesId());
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
+
+        GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, POSITION_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, COLOR_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, TEXTURE_BYTE_OFFSET);
+
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL30.glBindVertexArray(0);
+        return ids;
+    }
+
+    public static BufferIDContainer allocateOpenGLBuffers2(Atlas atlas, int[] locations) {
+        BufferIDContainer ids = new BufferIDContainer();
+//        if ()
+
         ids.setTextureId(atlas.getTextureId());
         ids.setPositionsArrayId(GL15.glGenBuffers());
         ids.setVertexAttributesId(GL30.glGenVertexArrays());
@@ -205,18 +231,10 @@ public class DrawingUtil {
 
     }
 
-    public static void disableVertexAttribArray(int[] locations) {
-        for (int attributeLocation : locations) {
-            GL20.glDisableVertexAttribArray(attributeLocation);
-        }
-        GL30.glBindVertexArray(0);
-    }
-
     public static void enableTextureBuffer (int id ) {
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
     }
-
 
     public static void enableArrayBuffer (int id) {
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, id);
@@ -226,6 +244,12 @@ public class DrawingUtil {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER,id);
     }
 
+    public static void disableVertexAttribArray(int[] locations) {
+        for (int attributeLocation : locations) {
+            GL20.glDisableVertexAttribArray(attributeLocation);
+        }
+        GL30.glBindVertexArray(0);
+    }
 
     public static void disableTextureBuffer () {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);

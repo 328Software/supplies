@@ -12,13 +12,10 @@ import org.supply.simulator.util.MapUtils;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static java.util.Objects.nonNull;
-import static org.supply.simulator.display.renderer.DrawingUtil.*;
-
 /**
  * Created by Alex on 5/6/2016.
  */
-public abstract class RendererBase<V extends Entity> extends HasLogger implements  EntityRenderer<V> {
+public abstract class RendererBase extends HasLogger implements  EntityRenderer {
 
     protected BasicTextureEngine textureEngine;
 
@@ -38,7 +35,7 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     //////////
 
 
-    protected HashMap<Atlas,OpenGLBufferIDBag<V>> idMap;
+    protected HashMap<Atlas,OpenGLBufferIDBag<Entity>> idMap;
 
 
     public RendererBase() {
@@ -51,77 +48,29 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
 
 
     @Override
-    public void build(Collection<V> entities) {
+    public void build(Collection<Entity> entities) {
         // Create Indices Buffer, uses maxEntities to determine size
         if (indicesBufferId < 0) {
             indicesBufferId = indexEngine.get(MapUtils.newEntry(rows,columns)).getIndexId();
         }
 
-        // Do any OpenGL pre-work before rendering
         buildEntities(entities);
 
-        //Load texture atlases
-        for (V entity : entities) {
-
-            if (nonNull(entity.getAtlas())) {
-            //Entity is textured;
-                Atlas atlas = entity.getAtlas();
-
-                if (!idMap.containsKey(atlas)) {
-                    OpenGLBufferIDBag openGLBufferIDBag = allocateOpenGLBuffers(atlas, locations);
-
-                    openGLBufferIDBag.add(entity);
-
-                    idMap.put(atlas, openGLBufferIDBag);
-                } else {
-                    idMap.get(atlas).add(entity);
-                }
-            } else {
-            //Entity is NOT textured;
-
-            }
-        }
     }
 
     //TODO currently not using input to this method
     @Override
-    public void render(Collection<V> entities) {
-        for (OpenGLBufferIDBag<V> data : idMap.values()) {
-
-            //Prepare to draw block of entities
-            //    i.e. bind all the opengl buffers, bind texture
-            enableArrayBuffer(data.getPositionsArrayId());
-            enableVertexAttribArray(locations, data.getVertexAttributesId());
-            enableIndicesBuffer(indicesBufferId);
-
-            if (nonNull(data.getTextureId())) {
-                enableTextureBuffer(data.getTextureId());
-            }
-
-            //Draw Entities
-            drawEntities(data.getEntityList());
-
-            //Finish drawing block of entities
-            //    i.e. unbind all the opengl buffers, unbind texture
-            disableVertexAttribArray(locations);
-            disableIndicesBuffer();
-            disableArrayBuffer();
-            disableTextureBuffer();
-
-        }
+    public void render(Collection<Entity> entities) {
+        drawEntities(entities);
     }
 
     @Override
-    public void destroy(Collection<V> entities) {
-        for (V entity : entities) {
-            for(Positions positions : entity.getPositions()) {
-                textureEngine.done(positions.getTextureKey());
-            }
-//            idMap2.get(entity.getTextureKey()).remove(entity);
-            //TODO when to delete atlas data??
-        }
+    public void destroy(Collection<Entity> entities) {
+        destroyEntities(entities);
 
     }
+
+    protected abstract void destroyEntities(Collection<Entity> entities);
 
     @Override
     public void destroyAll() {
@@ -130,8 +79,8 @@ public abstract class RendererBase<V extends Entity> extends HasLogger implement
     }
 
 
-    protected abstract void buildEntities(Collection<V> entityList);
-    protected abstract void drawEntities(Collection<V> entityList);
+    protected abstract void buildEntities(Collection<Entity> entityList);
+    protected abstract void drawEntities(Collection<Entity> entityList);
 
 
     public void setTextureEngine(BasicTextureEngine textureEngine) {

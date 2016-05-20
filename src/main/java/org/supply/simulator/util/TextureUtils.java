@@ -15,13 +15,10 @@ public class TextureUtils {
 
 
     public static void applyTexture(Entity entity, BasicTextureEngine textureEngine) {
-//        entity.setAtlas(textureEngine.get(entity.getTextureKey()).getAtlas());
         for(Positions pos : entity.getPositions()) {
             if(nonNull(pos.getTextureKey())) {
                 entity.setAtlas(textureEngine.get(pos.getTextureKey()).getAtlas());
                 TextureHandle texture = textureEngine.get(pos.getTextureKey());
-
-//            Positions pos = entity.getPositions();
 
                 //TODO can this be done on Entity generation?
                 pos.getValue()[8] = texture.getSubInfo()[0] / texture.getAtlas().getWidth();  //X0

@@ -9,13 +9,13 @@ import java.util.Collection;
 /**
  * Created by Alex on 9/7/2014.
  */
-public interface EntityRenderer<V extends Entity>{
+public interface EntityRenderer {
 
-    public void build(Collection<V> renderables);
+    public void build(Collection<Entity> renderables);
 
-    public void render(Collection<V> renderables);
+    public void render(Collection<Entity> renderables);
 
-    public void destroy(Collection<V> renderables);
+    public void destroy(Collection<Entity> renderables);
 
     public void destroyAll();
 

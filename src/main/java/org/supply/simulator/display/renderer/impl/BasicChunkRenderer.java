@@ -3,6 +3,7 @@ package org.supply.simulator.display.renderer.impl;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
 import org.supply.simulator.util.MapUtils;
@@ -18,7 +19,7 @@ import static org.supply.simulator.display.renderer.DrawingUtil.createVerticesFl
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRenderer<Chunk> {
+public class BasicChunkRenderer extends RendererBase implements EntityRenderer {
 
     // The amount of bytes an element has
     public static final int POSITION_ELEMENT = 4;
@@ -46,8 +47,9 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
 //    private BasicIndexEngine basicIndexEngine;
 
     @Override
-    public void build(Collection<Chunk> renderables) {
-        for (Chunk renderable : renderables) {
+    public void build(Collection<Entity> renderables) {
+        for (Entity entity : renderables) {
+            Chunk renderable = (Chunk)entity;
 
             int vertexAttributesId = GL30.glGenVertexArrays();
 
@@ -100,9 +102,10 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     }
 
     @Override
-    public void render(Collection<Chunk> renderables) {
+    public void render(Collection<Entity> renderables) {
 
-        for (Chunk renderable : renderables) {
+        for (Entity entity : renderables) {
+            Chunk renderable = (Chunk)entity;
             GL30.glBindVertexArray(renderable.getVertexAttributesId());
             GL20.glEnableVertexAttribArray(locations[0]);
             GL20.glEnableVertexAttribArray(locations[1]);
@@ -122,8 +125,9 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     }
 
     @Override
-    public void destroy(Collection<Chunk> renderables) {
-        for (Chunk renderable : renderables) {
+    public void destroy(Collection<Entity> renderables) {
+        for (Entity entity : renderables) {
+            Chunk renderable = (Chunk)entity;
             GL30.glBindVertexArray(renderable.getVertexAttributesId());
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
@@ -146,17 +150,22 @@ public class BasicChunkRenderer extends RendererBase<Chunk> implements EntityRen
     }
 
     @Override
+    protected void destroyEntities(Collection<Entity> entities) {
+
+    }
+
+    @Override
     public void destroyAll() {
 
     }
 
     @Override
-    protected void buildEntities(Collection<Chunk> entityList) {
+    protected void buildEntities(Collection<Entity> entityList) {
 
     }
 
     @Override
-    protected void drawEntities(Collection<Chunk> entityList) {
+    protected void drawEntities(Collection<Entity> entityList) {
 
     }
 

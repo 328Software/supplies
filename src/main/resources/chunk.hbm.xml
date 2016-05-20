@@ -30,7 +30,7 @@
         <!--<property name="rowIndex" column="row_index" type="int"/>-->
         <!--<property name="columnIndex" column="column_index" type="int"/>-->
 
-        <property name="value" column="positions" type="chunkPosition" length="160000"/>
+        <property name="value" column="positionsSet" type="chunkPosition" length="160000"/>
     </class>
 
     <class name="org.supply.simulator.data.entity.impl.BasicChunk" table="chunk">
@@ -42,7 +42,7 @@
         </id>
         <!--<many-to-one name="type" column="chunk_type" class="org.supply.simulator.data.attribute.entity.impl.BasicChunkType" cascade="save-update"/>-->
         <many-to-one name="colors" column="chunk_colors" class="org.supply.simulator.data.entity.Colors" cascade="save-update"/>
-        <set name="positions" table="chunk_positions_set" cascade="save-update">
+        <set name="positionsSet" table="chunk_positions_set" cascade="save-update">
             <key column="chunk_id"/>
             <many-to-many column="positions_id" class="org.supply.simulator.data.entity.Positions"/>
         </set>

@@ -8,8 +8,11 @@ import static java.lang.System.arraycopy;
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 import org.supply.simulator.data.entity.Positions.*;
 import org.supply.simulator.display.assetengine.texture.Atlas;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.util.TextureUtils;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,6 +21,8 @@ import java.util.Set;
 public class TextMenuFactory implements MenuFactory {
     private final float topLeftX, topLeftY, length, width;
     private final String text;
+    private BasicTextureEngine textureEngine;
+
 
 
 
@@ -33,15 +38,26 @@ public class TextMenuFactory implements MenuFactory {
     @Override
     public Menu build() {
         return new Menu() {
-            final Set<Positions> positions;
+            final Set<Positions> positionsSet;
+            Atlas atlas;
 
             {
-                positions = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
+                positionsSet = new HashSet<>();
+                for(int i = 0; i < text.length(); i++) {
+                    Character c = text.charAt(i);
+                    Positions positions = TextMenuFactory.this.getPositions(topLeftX+i*width, topLeftY, 0, length, width);
+                    positionsSet.add(positions);
+
+                    positions.setTextureKey(c.toString());
+                }
+                TextureUtils.applyTexture(this, textureEngine);
+
+//                positionsSet = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
             }
 
             @Override
             public Set<Positions> getPositions() {
-                return positions;
+                return positionsSet;
             }
 
             @Override
@@ -50,11 +66,11 @@ public class TextMenuFactory implements MenuFactory {
             }
 
             public Atlas getAtlas() {
-                return null; //TODO sorry Chuck idk what to do here
+                return atlas; //TODO sorry Chuck idk what to do here
             }
 
             public void setAtlas(Atlas atlas) {
-
+                this.atlas = atlas;
             }
 
             @Override
@@ -91,5 +107,10 @@ public class TextMenuFactory implements MenuFactory {
         entityData.setValue(data);
 
         return entityData;
+    }
+
+
+    public void setTextureEngine(BasicTextureEngine textureEngine) {
+        this.textureEngine = textureEngine;
     }
 }

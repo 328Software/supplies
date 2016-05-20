@@ -11,7 +11,6 @@ import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.util.TextureUtils;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,26 +37,26 @@ public class TextMenuFactory implements MenuFactory {
     @Override
     public Menu build() {
         return new Menu() {
-            final Set<Positions> positionsSet;
+            final Set<Positions> positions;
             Atlas atlas;
 
             {
-                positionsSet = new HashSet<>();
+                positions = new HashSet<>();
                 for(int i = 0; i < text.length(); i++) {
                     Character c = text.charAt(i);
-                    Positions positions = TextMenuFactory.this.getPositions(topLeftX+i*width, topLeftY, 0, length, width);
-                    positionsSet.add(positions);
+                    Positions p = TextMenuFactory.this.getPositions(topLeftX+i*width, topLeftY, 0, length, width);
+                    positions.add(p);
 
-                    positions.setTextureKey(c.toString());
+                    p.setTextureKey(c.toString());
                 }
                 TextureUtils.applyTexture(this, textureEngine);
 
-//                positionsSet = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
+//                positions = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
             }
 
             @Override
             public Set<Positions> getPositions() {
-                return positionsSet;
+                return positions;
             }
 
             @Override

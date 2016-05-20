@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
+
 /**
  * Created by Alex on 9/10/2014.
  */
@@ -28,31 +30,33 @@ public class BasicMenuManager extends AbstractManager implements Manager {
         super();
         isAdded=true;
         isRemoved=true;
+        toAdd = new ArrayList<>();
+        toRemove = new ArrayList<>();
+
     }
 
     @Override
     protected Collection getRenderablesToAdd(Camera camera) {
-        if (isAdded) return new ArrayList();
-        isAdded=true;
-        return toAdd;
-
+        //TODO this cant be right, this is inefficient
+        ArrayList out = new ArrayList();
+        out.addAll(toAdd);
+        toAdd=new ArrayList();
+        return out;
     }
 
     @Override
     protected Collection getRenderablesToRemove(Camera camera) {
-        if (isRemoved) return new ArrayList();
-        isRemoved=true;
-
-        return toRemove;
+        ArrayList out = new ArrayList();
+        out.addAll(toRemove);
+        toRemove=new ArrayList();
+        return out;
     }
 
     public void add(List<Entity> menues) {
-        isAdded=false;
-        toAdd =menues;
+        toAdd.addAll(menues);
     }
 
     public void remove(List<Entity> menues) {
-        isRemoved=false;
-        toRemove =menues;
+        toRemove.addAll(menues);
     }
 }

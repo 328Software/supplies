@@ -3,7 +3,7 @@ package org.supply.simulator.display.window;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
@@ -124,7 +124,7 @@ public class BasicWindowSystemTest {
     }
 
     private void populateManagers() {
-        List<Menu> menus=new ArrayList<>();
+        List<Entity> menus=new ArrayList<>();
         menus.add(generator.createMenu(-0.15f, .8f, 0, .1f, .05f, "Y"));
         menus.add(generator.createMenu(-0.10f, .8f, 0, .1f, .05f, "O"));
         menus.add(generator.createMenu(-0.05f, .8f, 0, .1f, .05f, "U"));

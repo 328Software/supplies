@@ -1,7 +1,7 @@
 package org.supply.simulator.data.entity.impl;
 
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.data.entity.Unit;
 import org.supply.simulator.display.assetengine.texture.Atlas;
 
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by Alex on 9/7/2014.
  */
-public class BasicUnit implements Unit {
+public class BasicUnit implements Entity {
     private Long id;
     private Set<Positions> unitPositions;
     private Atlas atlas;

@@ -1,18 +1,18 @@
 package org.supply.simulator.display.factory;
 
-import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
+import org.supply.simulator.data.entity.Positions.Vertex;
 import org.supply.simulator.display.MenuFactory;
-
-import static java.lang.System.arraycopy;
-import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
-import org.supply.simulator.data.entity.Positions.*;
 import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static java.lang.System.arraycopy;
+import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 
 /**
  * Created by Brandon on 5/8/2016.
@@ -35,8 +35,8 @@ public class TextMenuFactory implements MenuFactory {
 
 
     @Override
-    public Menu build() {
-        return new Menu() {
+    public Entity build() {
+        return new Entity() {
             final Set<Positions> positions;
             Atlas atlas;
 
@@ -50,8 +50,6 @@ public class TextMenuFactory implements MenuFactory {
                     p.setTextureKey(c.toString());
                 }
                 TextureUtils.applyTexture(this, textureEngine);
-
-//                positions = Collections.singleton(TextMenuFactory.this.getPositions(topLeftX, topLeftY, 0, length, width));
             }
 
             @Override
@@ -61,11 +59,10 @@ public class TextMenuFactory implements MenuFactory {
 
             @Override
             public void setPositions(Set<Positions> positions) {
-
             }
 
             public Atlas getAtlas() {
-                return atlas; //TODO sorry Chuck idk what to do here
+                return atlas;
             }
 
             public void setAtlas(Atlas atlas) {

@@ -1,9 +1,9 @@
 package org.supply.simulator.display.mock;
 
 import org.supply.simulator.data.entity.Chunk;
-import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
+import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;

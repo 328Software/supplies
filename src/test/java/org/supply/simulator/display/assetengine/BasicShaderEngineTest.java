@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.logging.HasLogger;
 

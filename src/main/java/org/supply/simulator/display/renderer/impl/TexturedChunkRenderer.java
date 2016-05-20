@@ -1,22 +1,12 @@
 package org.supply.simulator.display.renderer.impl;
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
-import org.supply.simulator.util.MapUtils;
 
-import java.nio.FloatBuffer;
 import java.util.Collection;
-import java.util.HashMap;
 
-import static org.supply.simulator.display.renderer.DrawingUtil.dynamicDraw;
-import static org.supply.simulator.display.renderer.DrawingUtil.staticBuild;
-import static org.supply.simulator.display.renderer.DrawingUtil.staticDraw;
+import static org.supply.simulator.display.renderer.DrawingUtil.*;
 
 /**
  * Created by Alex on 5/8/2016.

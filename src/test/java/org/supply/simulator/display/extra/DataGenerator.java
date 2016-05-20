@@ -2,7 +2,9 @@ package org.supply.simulator.display.extra;
 
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.data.entity.impl.*;
+import org.supply.simulator.data.entity.impl.BasicChunk;
+import org.supply.simulator.data.entity.impl.BasicMenu;
+import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.util.TextureUtils;

@@ -1,6 +1,5 @@
 package org.supply.simulator.display.renderer.impl;
 
-import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.logging.HasLogger;
 
 import java.util.ArrayList;

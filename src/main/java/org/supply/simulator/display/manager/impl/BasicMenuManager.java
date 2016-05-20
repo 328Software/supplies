@@ -1,6 +1,6 @@
 package org.supply.simulator.display.manager.impl;
 
-import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
 import org.supply.simulator.display.window.Camera;
@@ -16,8 +16,8 @@ public class BasicMenuManager extends AbstractManager implements Manager {
 
     private boolean isAdded;
     private boolean isRemoved;
-    private List<Menu> toAdd;
-    private List<Menu> toRemove;
+    private List<Entity> toAdd;
+    private List<Entity> toRemove;
 
 //    //TODO Remove this method, its for testing.
 //    public void setSpecialRenderer(EntityRenderer renderer) {
@@ -46,12 +46,12 @@ public class BasicMenuManager extends AbstractManager implements Manager {
         return toRemove;
     }
 
-    public void add(List<Menu> menues) {
+    public void add(List<Entity> menues) {
         isAdded=false;
         toAdd =menues;
     }
 
-    public void remove(List<Menu> menues) {
+    public void remove(List<Entity> menues) {
         isRemoved=false;
         toRemove =menues;
     }

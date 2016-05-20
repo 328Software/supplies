@@ -5,10 +5,10 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.data.entity.Menu;
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
-import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
+import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
@@ -63,7 +63,7 @@ public class BasicMenuRendererTest {
         camera.create();
         manager.start();
 
-        List<Menu> menus = new ArrayList();
+        List<Entity> menus = new ArrayList();
 //        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "a"));
        /* menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
         menus.add(generator.createMenu(.5f, .25f, 0, .5f, .5f, "textures/rect.png"));

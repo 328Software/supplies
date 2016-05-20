@@ -3,7 +3,6 @@ package org.supply.simulator.display.renderer.impl;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
-import org.supply.simulator.util.MapUtils;
 
 import java.util.Collection;
 

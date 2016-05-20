@@ -1,7 +1,7 @@
 package org.supply.simulator.display.renderer;
 
-import org.lwjgl.opengl.*;
-import org.supply.simulator.data.entity.*;
+import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;

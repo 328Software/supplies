@@ -10,6 +10,7 @@ import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
@@ -77,7 +78,7 @@ public class BasicMenuRendererTest {
         menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
         menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));*/
         TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "KISS A BUTT");
-        textMenuFactory.setTextureEngine(textureEngine);
+        textMenuFactory.setTextureEngine(new FontTextureEngine());
         menus.add(textMenuFactory.build());
 
         manager.add(menus);

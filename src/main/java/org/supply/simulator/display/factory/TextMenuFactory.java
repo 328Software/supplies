@@ -5,7 +5,7 @@ import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Positions.Vertex;
 import org.supply.simulator.display.MenuFactory;
 import org.supply.simulator.display.assetengine.texture.Atlas;
-import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.HashSet;
@@ -20,9 +20,7 @@ import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX
 public class TextMenuFactory implements MenuFactory {
     private final float topLeftX, topLeftY, length, width;
     private final String text;
-    private BasicTextureEngine textureEngine;
-
-
+    private TextureEngine textureEngine;
 
 
     public TextMenuFactory(float topLeftX, float topLeftY, float length, float width, String text) {
@@ -49,6 +47,9 @@ public class TextMenuFactory implements MenuFactory {
 
                     p.setTextureKey(c.toString());
                 }
+/*                this.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))
+                        .findAny()
+                        .ifPresent(p -> this.setAtlas(textureEngine.get(p.getTextureKey()).getAtlas()));*/
                 TextureUtils.applyTexture(this, textureEngine);
             }
 
@@ -106,7 +107,7 @@ public class TextMenuFactory implements MenuFactory {
     }
 
 
-    public void setTextureEngine(BasicTextureEngine textureEngine) {
+    public void setTextureEngine(TextureEngine textureEngine) {
         this.textureEngine = textureEngine;
     }
 }

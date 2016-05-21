@@ -19,115 +19,117 @@ import static java.util.Objects.nonNull;
  */
 public class BasicTextureEngine
         extends AbstractAssetEngine<String, TextureHandle>
-        implements AssetEngine<String, TextureHandle>{
+        implements TextureEngine {
 
-            private HashMap<String,Atlas> atlasMap;
+    private HashMap<String,Atlas> atlasMap;
 
-            public BasicTextureEngine() {
-                atlasMap = new HashMap<>();
+    public BasicTextureEngine() {
+        atlasMap = new HashMap<>();
+    }
+
+    @Override
+    protected TextureHandle createHandle(String key) {
+        TextureHandle handle = new TextureHandle();
+        String fileName = lookupTextureFileName(key);
+
+
+        Atlas atlas;
+        if (atlasMap.containsKey(fileName)) {
+            atlas = atlasMap.get(fileName);
+        } else {
+            try {
+                atlas = loadPNGTexture2D(fileName, GL13.GL_TEXTURE0);
+            } catch (IOException e) {
+                throw new RuntimeException();
             }
-
-            @Override
-            protected TextureHandle createHandle(String key) {
-                TextureHandle handle = new TextureHandle();
-                String fileName = lookupTextureFileName(key);
+            atlasMap.put(fileName, atlas);
 
 
-                Atlas atlas;
-                if (atlasMap.containsKey(fileName)) {
-                    atlas = atlasMap.get(fileName);
-                } else {
-                    atlas = loadPNGTexture2D(fileName, GL13.GL_TEXTURE0);
-                    atlasMap.put(fileName, atlas);
-                }
+        }
+        handle.setAtlas(atlas);
+        handle.setSubInfo(lookupTextureSubInfo(key));
 
-                handle.setAtlas(atlas);
-                handle.setSubInfo(lookupTextureSubInfo(key));
-
-
-                return handle;
-            }
+        return handle;
+    }
 
 
 
-            private Atlas loadPNGTexture2D(String filename, int textureUnit) {
-
-                ByteBuffer buf = null;
-                int tWidth = 0;
-                int tHeight = 0;
-
-                try {
-                    // Open the PNG file as an InputStream
-                    InputStream in = ClassLoader.getSystemResourceAsStream(filename);
-                    // Link the PNG decoder to this stream
-                    PNGDecoder decoder = new PNGDecoder(in);
-
-                    // Get the width and height of the texture
-                    tWidth = decoder.getWidth();
-                    tHeight = decoder.getHeight();
+    private Atlas loadPNGTexture2D(String filename, int textureUnit) throws IOException {
 
 
-                    // Decode the PNG file in a ByteBuffer
-                    buf = ByteBuffer.allocateDirect(
-                            4 * decoder.getWidth() * decoder.getHeight());
-                    decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
-                    buf.flip();
+        Atlas atlas = null;
 
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            // Open the PNG file as an InputStream
+        try (InputStream in = ClassLoader.getSystemResourceAsStream(filename)) {
+            ByteBuffer buf = null;
+            // Link the PNG decoder to this stream
+            PNGDecoder decoder = new PNGDecoder(in);
 
-                // Create a new texture object in memory and bind it
-                int texId = GL11.glGenTextures();
-                GL13.glActiveTexture(textureUnit);
-                GL11.glBindTexture(GL11.GL_TEXTURE_2D, texId);
+            // Get the width and height of the texture
+            int tWidth = decoder.getWidth();
+            int tHeight = decoder.getHeight();
 
-                // All RGB bytes are aligned to each other and each component is 1 byte
-                GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
-                // Upload the texture data and generate mip maps (for scaling)
-                GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, tWidth, tHeight, 0,
-                        GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);
-                GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            // Decode the PNG file in a ByteBuffer
+            buf = ByteBuffer.allocateDirect(
+                    4 * decoder.getWidth() * decoder.getHeight());
+            decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
+            buf.flip();
 
-                // Setup the ST coordinate system
-                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+            in.close();
 
-                // Setup what to do when the texture has to be scaled
-                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
-                        GL11.GL_LINEAR);
-                GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
-                        GL11.GL_LINEAR_MIPMAP_LINEAR);
+            // Create a new texture object in memory and bind it
+            int texId = GL11.glGenTextures();
+            GL13.glActiveTexture(textureUnit);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texId);
 
-                Atlas atlas = new Atlas();
-                atlas.setFileName(filename);
-                atlas.setTextureId(texId);
-                atlas.setHeight(tHeight);
-                atlas.setWidth(tWidth);
-                return atlas;
-            }
+            // All RGB bytes are aligned to each other and each component is 1 byte
+            GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
-            @Override
-            protected void destroyHandle(String key) {
-                TextureHandle handle = handleMap.remove(key);
+            // Upload the texture data and generate mip maps (for scaling)
+            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGB, tWidth, tHeight, 0,
+                    GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 
-                if (handle.getAtlas().count()==0) {
-                    GL11.glDeleteTextures(handle.getAtlas().getTextureId());
-                    atlasMap.remove(lookupTextureFileName(key));
-                }
+            // Setup the ST coordinate system
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
 
-            }
+            // Setup what to do when the texture has to be scaled
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
+                    GL11.GL_LINEAR);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
+                    GL11.GL_LINEAR_MIPMAP_LINEAR);
 
-        private String lookupTextureFileName(String key) {
+            atlas = new Atlas();
+            atlas.setFileName(filename);
+            atlas.setTextureId(texId);
+            atlas.setHeight(tHeight);
+            atlas.setWidth(tWidth);
+
+        }
+        return atlas;
+    }
+
+    @Override
+    protected void destroyHandle(String key) {
+        TextureHandle handle = handleMap.remove(key);
+
+        if (handle.getAtlas().count()==0) {
+            GL11.glDeleteTextures(handle.getAtlas().getTextureId());
+            atlasMap.remove(lookupTextureFileName(key));
+        }
+
+    }
+
+    private String lookupTextureFileName(String key) {
         return generateTextureData(key).fileName;
     }
-            private float[] lookupTextureSubInfo(String key) {
-            return generateTextureData(key).subInfo;
-     }
+    private float[] lookupTextureSubInfo(String key) {
+        return generateTextureData(key).subInfo;
+    }
 
-            private TextureData generateTextureData(String name) {
+    private TextureData generateTextureData(String name) {
         TextureData data = new TextureData();
 
 

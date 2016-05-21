@@ -75,7 +75,7 @@ public class DataGenerator {
         positions.setTextureKey(name);
         unit.setPositions(Collections.singleton(positions));
 
-        TextureUtils.applyTexture(unit, textureEngine);
+        TextureUtils.oldApplyTexture(unit, textureEngine);
 
         return unit;
     }
@@ -93,7 +93,7 @@ public class DataGenerator {
 
         //TODO WHY do I have to cast it to EntityType?
 //        menu.setType((EntityType)type);
-        TextureUtils.applyTexture(menu, textureEngine);
+        TextureUtils.oldApplyTexture(menu, textureEngine);
 
         return menu;
     }

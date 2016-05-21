@@ -119,7 +119,7 @@ public class TexturedChunkRendererTest {
                 } else if (num<=1.0) {
                     chunk.getPositions().stream().findAny().get().setTextureKey("Ground4");
                 }
-                TextureUtils.applyTexture(chunk, textureEngine);
+                TextureUtils.oldApplyTexture(chunk, textureEngine);
                 chunks.add(chunk);
             }
         }

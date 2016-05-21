@@ -53,7 +53,7 @@ public class Renderer extends RendererBase implements EntityRenderer {
             //    i.e. bind all the opengl buffers, bind texture
             enableArrayBuffer(data.getPositionsArrayId());
             enableVertexAttribArray(locations, data.getVertexAttributesId());
-            enableIndicesBuffer(indicesBufferId);
+            enableIndicesBuffer(staticIndicesBufferId);
 
             if (nonNull(data.getTextureId())) {
                 enableTextureBuffer(data.getTextureId());
@@ -61,7 +61,7 @@ public class Renderer extends RendererBase implements EntityRenderer {
 
             //Draw Entities
             if(drawStatic) {
-                staticDraw(entities);
+//                staticDraw(entities);
             } else {
                 dynamicDraw(entities);
             }
@@ -91,7 +91,7 @@ public class Renderer extends RendererBase implements EntityRenderer {
 //    protected void setIndicesBufferId() {
 //
 //
-//        indicesBufferId = (indexEngine).get(MapUtils.newEntry(maxEntities,1)).getIndexId();
+//        staticIndicesBufferId = (indexEngine).get(MapUtils.newEntry(maxEntities,1)).getIndexId();
 //    }
 
     public void setDrawStatic(boolean drawStatic) {

@@ -57,9 +57,9 @@ public class BasicMenuRendererTest {
         renderer.setRows(100);
         manager.setEntityRenderer(renderer);
 
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
         manager.start();
 
@@ -91,7 +91,7 @@ public class BasicMenuRendererTest {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);// | GL11.GL_DEPTH_BUFFER_BIT);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
             camera.update();
 
@@ -99,7 +99,7 @@ public class BasicMenuRendererTest {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
             manager.update();
             GL20.glUseProgram(0);
 
@@ -108,7 +108,7 @@ public class BasicMenuRendererTest {
 
         manager.stop();
         GL20.glUseProgram(0);
-        shaderEngine.done(ShaderProgramType.PLAY);
+        shaderEngine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
         core.destroy();
     }
 

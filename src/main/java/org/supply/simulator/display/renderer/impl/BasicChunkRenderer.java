@@ -137,7 +137,7 @@ public class BasicChunkRenderer extends RendererBase implements EntityRenderer {
             GL15.glDeleteBuffers(renderable.getColorsArrayId());
 
             GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
-//            GL15.glDeleteBuffers(indicesBufferId);
+//            GL15.glDeleteBuffers(staticIndicesBufferId);
             indexEngine.done(MapUtils.newEntry(rows, columns));
 
             GL30.glBindVertexArray(0);

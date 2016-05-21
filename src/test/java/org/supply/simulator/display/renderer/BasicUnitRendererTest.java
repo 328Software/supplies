@@ -122,9 +122,9 @@ public class BasicUnitRendererTest {
 
         core.build(text);
         camera = new MockCamera();
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNIT).getViewMatrixLocation());
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
         unitRenderer = new Renderer();
         unitRenderer.setTextureEngine(textureEngine);
@@ -142,11 +142,11 @@ public class BasicUnitRendererTest {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
             camera.update();
             GL20.glUseProgram(0);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
 
             unitRenderer.render(list);
             GL20.glUseProgram(0);

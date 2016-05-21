@@ -1,7 +1,6 @@
 package org.supply.simulator.display.renderer;
 
 import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
@@ -27,12 +26,22 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
 
     //////////
     //THESE THREE NEED TO STAY TOGETHER
-    // indicesBufferId = indexEngine.get(MapUtils.newEntry(rows,columns))
+    // staticIndicesBufferId = indexEngine.get(MapUtils.newEntry(rows,columns))
     //TODO get this outta here
-    protected int indicesBufferId = -1;
+    protected int staticIndicesBufferId = -1;
     protected int rows;
     protected int columns;
     //////////
+
+    //////////
+    //THESE TWO NEED TO STAY TOGETHER
+    // staticIndicesBufferId = indexEngine.get(MapUtils.newEntry(1,max_positions_per_buffer))
+    //TODO get this outta here
+    protected int dynamicIndicesBufferId = -1;
+    protected int max_positions_per_buffer;
+    //////////
+
+
 
 
     protected HashMap<Atlas,OpenGLBufferIDBag<Entity>> idMap;
@@ -43,6 +52,7 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
         idMap = new HashMap<>();
         rows=20;
         columns=20;
+        max_positions_per_buffer=1000;
     }
 
 
@@ -50,8 +60,12 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
     @Override
     public void build(Collection<Entity> entities) {
         // Create Indices Buffer, uses maxEntities to determine size
-        if (indicesBufferId < 0) {
-            indicesBufferId = indexEngine.get(MapUtils.newEntry(rows,columns)).getIndexId();
+        if (staticIndicesBufferId < 0) {
+            staticIndicesBufferId = indexEngine.get(MapUtils.newEntry(rows,columns)).getIndexId();
+        }
+
+        if (dynamicIndicesBufferId < 0) {
+            dynamicIndicesBufferId = indexEngine.get(MapUtils.newEntry(1,max_positions_per_buffer)).getIndexId();
         }
 
         buildEntities(entities);

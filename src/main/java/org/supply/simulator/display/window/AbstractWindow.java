@@ -23,11 +23,11 @@ public abstract class AbstractWindow implements Window {
 
     @Override
     public void start() {
-        //shaderEngine.createProgram(ShaderProgramType.PLAY);
+        //shaderEngine.createProgram(ShaderProgramType.UNTEXTURED_MOVABLE);
 
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
         chunkManager.start();
         unitManager.start();
@@ -42,7 +42,7 @@ public abstract class AbstractWindow implements Window {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);// | GL11.GL_DEPTH_BUFFER_BIT);
 
         // Set shader program type to VIEW
-        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
         camera.update();
 
@@ -53,15 +53,15 @@ public abstract class AbstractWindow implements Window {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
 
-        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
         chunkManager.update();
         GL20.glUseProgram(0);
 
-        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
         unitManager.update();
         GL20.glUseProgram(0);
 
-        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+        GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
         menuManager.update();
         GL20.glUseProgram(0);
 
@@ -73,7 +73,7 @@ public abstract class AbstractWindow implements Window {
         unitManager.stop();
         menuManager.stop();
         GL20.glUseProgram(0);
-        shaderEngine.done(ShaderProgramType.PLAY);
+        shaderEngine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
     }
 
     /**

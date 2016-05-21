@@ -4,9 +4,9 @@ package org.supply.simulator.display.assetengine.shader;
  * Created by Alex on 6/27/2014.
  */
 public enum ShaderProgramType {
-    PLAY(0,"shaders/vertex.glsl","shaders/fragments.glsl"),
-    MENU(1,"shaders/vertexWithFlatTexture.glsl","shaders/fragmentsWithTexture.glsl"),
-    UNIT(2,"shaders/vertexWithTexture.glsl","shaders/fragmentsWithTexture.glsl");
+    UNTEXTURED_MOVABLE(0,"shaders/vertex.glsl","shaders/fragments.glsl"),
+    TEXTURED_STATIONARY(1,"shaders/vertexWithFlatTexture.glsl","shaders/fragmentsWithTexture.glsl"),
+    TEXTURED_MOVABLE(2,"shaders/vertex.glsl","shaders/fragmentsWithTexture.glsl");
 
 
     private final int value;

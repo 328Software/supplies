@@ -30,26 +30,26 @@ public class BasicShaderEngineTest extends HasLogger {
     @Test
     public void TestPlayShader () {
         logger.info("    TEST createPlayShader");
-        if (engine.get(ShaderProgramType.PLAY).getModelMatrixLocation()!=0
-                ||engine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation()!=1
-                ||engine.get(ShaderProgramType.PLAY).getViewMatrixLocation()!=2) {
+        if (engine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation()!=0
+                ||engine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation()!=1
+                ||engine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation()!=2) {
             logger.error("View matrix location wrong");
 
         }
         logger.info("Successfully created shader program");
 
-        GL20.glUseProgram(engine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glUseProgram(engine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
         GL20.glUseProgram(0);
         logger.info("Successfully used program");
 
-        GL20.glDeleteProgram(engine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glDeleteProgram(engine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
         logger.info("Successfully deleted program");
 
     }
 
     @After
     public void destroyObject() {
-        engine.done(ShaderProgramType.PLAY);
+        engine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
 
         core.destroy();
     }

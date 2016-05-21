@@ -7,10 +7,14 @@ import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.texture.Atlas;
+import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.renderer.impl.OpenGLBufferIDBag;
+import org.supply.simulator.util.MapUtils;
 
 import java.nio.FloatBuffer;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 import static java.util.Objects.nonNull;
 
@@ -69,12 +73,12 @@ public class DrawingUtil {
      * Assumes appropriate OpenGL buffers are enabled
      *
      *
-     * @param entityList
+     * @param positionsSet
      */
-    public static void staticDraw(Collection<Entity> entityList) {
-        int numberOfEntities = entityList.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
+    public static void staticDraw(Set<Positions> positionsSet) {
+        int numberOfEntities = positionsSet.stream().mapToInt(
                 e->e.getValue().length
-        ).sum()).sum();
+        ).sum();
 
 
         GL32.glDrawElementsBaseVertex(GL11.GL_TRIANGLES,
@@ -97,6 +101,25 @@ public class DrawingUtil {
 //        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
 
         FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_DYNAMIC_DRAW);
+
+        drawElements(verticesFloatBuffer.limit(),0);
+
+    }
+
+    /**
+     * Dynamic Draw
+     *
+     * First loads entity data into OpenGL memory as DYNAMIC then draws
+     * Assumes appropriate OpenGL buffers are enabled
+     *
+     *
+     * @param positions
+     */
+    public static void dynamicDraw2(Collection<Positions> positions) {
+//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
+
+        FloatBuffer verticesFloatBuffer= createPositionsFloatBuffer(positions);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_DYNAMIC_DRAW);
 
         drawElements(verticesFloatBuffer.limit(),0);
@@ -146,6 +169,22 @@ public class DrawingUtil {
         return verticesFloatBuffer;
     }
 
+    public static FloatBuffer createPositionsFloatBuffer(Collection<Positions> positions) {
+        FloatBuffer verticesFloatBuffer =
+                BufferUtils.createFloatBuffer(positions.stream().mapToInt(
+                        e->e.getValue().length
+                ).sum());
+
+
+        for(Positions position: positions) {
+            verticesFloatBuffer.put(position.getValue());
+        }
+
+        verticesFloatBuffer.flip();
+
+        return verticesFloatBuffer;
+    }
+
     /**
      * Allocate OpenGL Buffers
      *
@@ -180,11 +219,11 @@ public class DrawingUtil {
         return ids;
     }
 
-    public static BufferIDContainer allocateOpenGLBuffers2(Atlas atlas, int[] locations) {
+    public static BufferIDContainer allocateOpenGLBuffersDynamic(int[] locations) {
         BufferIDContainer ids = new BufferIDContainer();
 //        if ()
 
-        ids.setTextureId(atlas.getTextureId());
+//        ids.setTextureId(textureId);
         ids.setPositionsArrayId(GL15.glGenBuffers());
         ids.setVertexAttributesId(GL30.glGenVertexArrays());
 
@@ -197,6 +236,34 @@ public class DrawingUtil {
                 false, STRIDE, COLOR_BYTE_OFFSET);
         GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
                 false, STRIDE, TEXTURE_BYTE_OFFSET);
+
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL30.glBindVertexArray(0);
+        return ids;
+    }
+
+    public static BufferIDContainer allocateOpenGLBuffersStatic(Collection<Positions> positions, int[] locations) {
+        BufferIDContainer ids = new BufferIDContainer();
+
+        ids.setPositionsArrayId(GL15.glGenBuffers());
+        ids.setVertexAttributesId(GL30.glGenVertexArrays());
+
+        GL30.glBindVertexArray(ids.getVertexAttributesId());
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
+
+        GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, POSITION_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, COLOR_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
+                false, STRIDE, TEXTURE_BYTE_OFFSET);
+
+        FloatBuffer verticesFloatBuffer = createPositionsFloatBuffer(positions);
+
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
+
+//        drawElements(verticesFloatBuffer.limit(),0);
 
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);

@@ -13,6 +13,7 @@ import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
 import org.supply.simulator.display.window.Camera;
@@ -20,6 +21,8 @@ import org.supply.simulator.display.window.impl.UserCameraInterface;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Alex on 5/8/2016.
@@ -34,13 +37,15 @@ public class TexturedChunkRendererTest {
     Camera camera;
 
     MockDisplayCore core;
-    TexturedChunkRenderer renderer;
+    TexturedChunkRenderer staticRenderer;
+    TexturedChunkRenderer dynamicRenderer;
     BasicTextureEngine textureEngine;
     DataGenerator dataGenerator;
     UserCameraInterface userCameraInterface;
 
 
     ArrayList<Entity> chunks;
+    Set<Entity> entities;
 
 //    private BasicChunkType chunkType;
 
@@ -53,6 +58,7 @@ public class TexturedChunkRendererTest {
 
         shaderEngine = new BasicShaderEngine();
         textureEngine = new BasicTextureEngine();
+        BasicIndexEngine indexEngine = new BasicIndexEngine();
 
         dataGenerator.setTextureEngine(textureEngine);
 
@@ -63,21 +69,26 @@ public class TexturedChunkRendererTest {
         camera.setFieldOfView(60);
 
         userCameraInterface.setCamera(camera);
-//        BasicChunkType type = new BasicChunkType();
-//        //where do we get this.
-//        type.setRows(20);
-//        type.setColumns(20);
 
-        renderer=new TexturedChunkRenderer();
-        renderer.setDrawStatic(true);
-        renderer.setOneEntityPerBuffer(true);
+        staticRenderer =new TexturedChunkRenderer();
+        staticRenderer.setDrawStatic(true);
+        staticRenderer.setOneEntityPerBuffer(true);
 
-        renderer.setAttributeLocations(new int[] {0,1,2});
-        renderer.setTextureEngine(textureEngine);
-        renderer.setIndexEngine(new BasicIndexEngine());
-        renderer.setRows(chunkRows);
-        renderer.setColumns(chunkColumns);
-//        renderer.setChunkType(type);
+        staticRenderer.setAttributeLocations(new int[] {0,1,2});
+        staticRenderer.setTextureEngine(textureEngine);
+        staticRenderer.setIndexEngine(indexEngine);
+        staticRenderer.setRows(chunkRows);
+        staticRenderer.setColumns(chunkColumns);
+
+
+        dynamicRenderer=new TexturedChunkRenderer();
+        dynamicRenderer.setDrawStatic(false);
+        dynamicRenderer.setOneEntityPerBuffer(true);
+
+        dynamicRenderer.setAttributeLocations(new int[] {0,1,2});
+        dynamicRenderer.setTextureEngine(textureEngine);
+        dynamicRenderer.setIndexEngine(indexEngine);
+
 
 
     }
@@ -88,9 +99,9 @@ public class TexturedChunkRendererTest {
         core.build("TexturedChunkRendererTest");
 
 
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
 
         chunks = new ArrayList<>();
@@ -113,10 +124,14 @@ public class TexturedChunkRendererTest {
             }
         }
 
+        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "YOU A SUCK");
+        textMenuFactory.setTextureEngine(textureEngine);
 
+        entities = new HashSet<>();
+        entities.add(textMenuFactory.build());
 
-        renderer.build(chunks);
-
+        staticRenderer.build(chunks);
+        dynamicRenderer.build(entities);
 
 
         render();
@@ -129,7 +144,7 @@ public class TexturedChunkRendererTest {
 
 
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getProgramId());
 
             camera.update();
             userCameraInterface.refresh();
@@ -138,9 +153,16 @@ public class TexturedChunkRendererTest {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getProgramId());
 
-            renderer.render(chunks);
+            staticRenderer.render(chunks);
+
+            GL20.glUseProgram(0);
+
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
+
+
+            dynamicRenderer.render(entities);
 
             GL20.glUseProgram(0);
 
@@ -154,10 +176,11 @@ public class TexturedChunkRendererTest {
     public void destroy() {
 
         GL20.glUseProgram(0);
-        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
 
-        renderer.destroyAll();
+        staticRenderer.destroyAll();
+        dynamicRenderer.destroyAll();
         core.destroy();
 
     }

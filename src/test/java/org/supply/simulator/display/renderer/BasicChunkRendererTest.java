@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
@@ -70,9 +69,9 @@ public class BasicChunkRendererTest {
         camera.setNearPlane(0.1f);
         camera.setFieldOfView(60);
 
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
 
         userCameraInterface.setCamera(camera);
@@ -103,7 +102,7 @@ public class BasicChunkRendererTest {
 
 
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
             camera.update();
             userCameraInterface.refresh();
@@ -112,7 +111,7 @@ public class BasicChunkRendererTest {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
             renderer.render(chunks);
 
@@ -128,7 +127,7 @@ public class BasicChunkRendererTest {
     public void destroy() {
         //
         GL20.glUseProgram(0);
-        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 
 
         renderer.destroyAll();

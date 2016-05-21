@@ -26,8 +26,8 @@ public class DAOChunkManagerTest {
 //        core.build("DAOChunkManagerTest");
 //
 //        shaderEngine = new SimpleShaderEngine();
-//        shaderEngine.set(ShaderProgramType.PLAY,"shaders/vertex.glsl");
-//        shaderEngine.set(ShaderProgramType.PLAY,"shaders/fragments.glsl");
+//        shaderEngine.set(ShaderProgramType.UNTEXTURED_MOVABLE,"shaders/vertex.glsl");
+//        shaderEngine.set(ShaderProgramType.UNTEXTURED_MOVABLE,"shaders/fragments.glsl");
 //
 //        camera = new SimpleCamera();
 //
@@ -40,9 +40,9 @@ public class DAOChunkManagerTest {
 ////        source.setUrl("jdbc:mysql://localhost:3306/test");
 ////        source.setDriverClassName("com.mysql.jdbc.Driver");
 //
-//        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getProjectionMatrixLocation());
-//        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getModelMatrixLocation());
-//        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.PLAY).getViewMatrixLocation());
+//        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+//        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+//        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
 //
 //
 //        camera.build();
@@ -60,7 +60,7 @@ public class DAOChunkManagerTest {
 //
 //
 //            // Set shader program type to VIEW
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 //
 //            camera.render();
 //
@@ -71,7 +71,7 @@ public class DAOChunkManagerTest {
 //            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 //
 //            // Set shader program type to CHUNK
-//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 //
 //            // Update visibleChunks with new camera position
 //            manager.update(camera);
@@ -87,7 +87,7 @@ public class DAOChunkManagerTest {
 
 //        manager.clear();
 //        GL20.glUseProgram(0);
-//        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.PLAY).getProgramId());
+//        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProgramId());
 //        core.destroy();
     }
 

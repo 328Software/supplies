@@ -139,7 +139,7 @@ public class BasicTextureEngineTest extends HasLogger {
 
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
 
             // Bind the texture
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -171,7 +171,7 @@ public class BasicTextureEngineTest extends HasLogger {
         }
 
         GL20.glUseProgram(0);
-        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.MENU).getProgramId());
+        GL20.glDeleteProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
         textureEngine.done("textures/rect.png");
         core.destroy();
 

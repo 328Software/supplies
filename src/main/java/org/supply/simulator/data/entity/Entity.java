@@ -18,8 +18,4 @@ public interface Entity extends HasId<Long> {
     Set<Positions> getPositions();
 
     void setPositions(Set<Positions> positions);
-
-    Atlas getAtlas();
-
-    void setAtlas(Atlas atlas);
 }

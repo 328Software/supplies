@@ -33,10 +33,8 @@ import static org.lwjgl.opengl.GL30.GL_BGRA_INTEGER;
  */
 public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle>
         implements TextureEngine {
-    private static final String DEFAULT_FONT = "font";
+    private static final String DEFAULT_FONT = "courier";
     private static final String DEFAULT_DIR = "textures/";
-    public static final int CHARACTER_PER_ROW = 32;
-    public static final int ROWS = 3;
 
     private HashMap<String,Atlas> atlasMap;
 
@@ -59,17 +57,15 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
         }
 
         Atlas atlas;
-        if (atlasMap.containsKey(key)) {
-            atlas = atlasMap.get(key);
+        if (atlasMap.containsKey(filename)) {
+            atlas = atlasMap.get(filename);
         } else {
             try {
                 atlas = loadPNGTexture2D(filename, GL13.GL_TEXTURE0);
             } catch (IOException e) {
                 throw new RuntimeException();
             }
-            atlasMap.put(key, atlas);
-
-
+            atlasMap.put(filename, atlas);
         }
         float[] subInfo = generateTextureData(character, atlas);
         System.out.println(Arrays.toString(subInfo));
@@ -180,14 +176,14 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 //        int width = atlas.getWidth();
 //        int height = atlas.getHeight();
 
-        float charWidth = 1f / CHARACTER_PER_ROW;
-        float charHeight = 1f / ROWS;
+        float charWidth = 1f / 32;
+        float charHeight = 1f / 3;
 
-        int charInt = (int)character.charAt(0) - CHARACTER_PER_ROW;
+        int charInt = (int)character.charAt(0) - 32;
 
         System.out.println("charint = " + charInt);
-        float x = (float)(charInt % CHARACTER_PER_ROW) / CHARACTER_PER_ROW;
-        float y = (float)(charInt / CHARACTER_PER_ROW) / ROWS;
+        float x = (float)(charInt % 32) / 32;
+        float y = (float)(charInt / 32) / 3;
         System.out.println(x);
         System.out.println(y);
 

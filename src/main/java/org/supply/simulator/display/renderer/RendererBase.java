@@ -3,6 +3,7 @@ package org.supply.simulator.display.renderer;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.logging.HasLogger;
 import org.supply.simulator.util.MapUtils;
 
@@ -14,7 +15,7 @@ import java.util.HashMap;
  */
 public abstract class RendererBase extends HasLogger implements  EntityRenderer {
 
-    protected BasicTextureEngine textureEngine;
+    protected TextureEngine textureEngine;
 
     protected BasicIndexEngine indexEngine;
 
@@ -90,7 +91,7 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
     protected abstract void drawEntities(Collection<Entity> entityList);
 
 
-    public void setTextureEngine(BasicTextureEngine textureEngine) {
+    public void setTextureEngine(TextureEngine textureEngine) {
         this.textureEngine =  textureEngine;
     }
 

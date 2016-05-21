@@ -36,7 +36,6 @@ public class TextMenuFactory implements MenuFactory {
     public Entity build() {
         return new Entity() {
             final Set<Positions> positions;
-            Atlas atlas;
 
             {
                 positions = new HashSet<>();
@@ -50,7 +49,7 @@ public class TextMenuFactory implements MenuFactory {
 /*                this.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))
                         .findAny()
                         .ifPresent(p -> this.setAtlas(textureEngine.get(p.getTextureKey()).getAtlas()));*/
-                TextureUtils.oldApplyTexture(this, textureEngine);
+                TextureUtils.applyTexture(this, textureEngine);
             }
 
             @Override
@@ -60,14 +59,6 @@ public class TextMenuFactory implements MenuFactory {
 
             @Override
             public void setPositions(Set<Positions> positions) {
-            }
-
-            public Atlas getAtlas() {
-                return atlas;
-            }
-
-            public void setAtlas(Atlas atlas) {
-                this.atlas = atlas;
             }
 
             @Override

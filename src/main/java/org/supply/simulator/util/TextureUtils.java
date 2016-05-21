@@ -19,9 +19,6 @@ public class TextureUtils {
 
     @Deprecated
     public static void oldApplyTexture(Entity entity, TextureEngine textureEngine) {
-        entity.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))
-                .findAny()
-                .ifPresent(p -> entity.setAtlas(textureEngine.get(p.getTextureKey()).getAtlas()));
         for(Positions pos : entity.getPositions()) {
             if(nonNull(pos.getTextureKey())) {
 //                entity.setAtlas(textureEngine.get(pos.getTextureKey()).getAtlas());
@@ -45,9 +42,6 @@ public class TextureUtils {
     }
 
     public static void applyTexture(Entity entity, TextureEngine textureEngine) {
-        entity.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))
-                .findAny()
-                .ifPresent(p -> entity.setAtlas(textureEngine.get(p.getTextureKey()).getAtlas()));
         for(Positions pos : entity.getPositions()) {
             if(nonNull(pos.getTextureKey())) {
 //                entity.setAtlas(textureEngine.get(pos.getTextureKey()).getAtlas());

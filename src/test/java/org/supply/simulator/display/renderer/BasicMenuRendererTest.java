@@ -11,6 +11,7 @@ import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
@@ -50,7 +51,7 @@ public class BasicMenuRendererTest {
         renderer = new Renderer();
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
-        BasicTextureEngine textureEngine = new BasicTextureEngine();
+        TextureEngine textureEngine = new FontTextureEngine();
         generator.setTextureEngine(textureEngine);
         renderer.setTextureEngine(textureEngine);
         renderer.setIndexEngine(new BasicIndexEngine());
@@ -66,7 +67,7 @@ public class BasicMenuRendererTest {
 
         List<Entity> menus = new ArrayList();
 //        menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "a"));
-       /* menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
+     /*   menus.add(generator.createMenu(-.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
         menus.add(generator.createMenu(.5f, .25f, 0, .5f, .5f, "textures/rect.png"));
         menus.add(generator.createMenu(0.0f, .25f, 0, .5f, .5f, "textures/text2.png"));
         menus.add(generator.createMenu(-0.15f, .8f, 0, .1f, .05f, "Y"));
@@ -78,7 +79,7 @@ public class BasicMenuRendererTest {
         menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
         menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));*/
         TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "KISS A BUTT");
-        textMenuFactory.setTextureEngine(new BasicTextureEngine());
+        textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 
         manager.add(menus);

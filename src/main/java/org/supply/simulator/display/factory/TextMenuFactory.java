@@ -50,7 +50,7 @@ public class TextMenuFactory implements MenuFactory {
 /*                this.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))
                         .findAny()
                         .ifPresent(p -> this.setAtlas(textureEngine.get(p.getTextureKey()).getAtlas()));*/
-                TextureUtils.applyTexture(this, textureEngine);
+                TextureUtils.oldApplyTexture(this, textureEngine);
             }
 
             @Override

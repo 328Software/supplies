@@ -15,7 +15,7 @@ import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.impl.TexturedChunkRenderer;
+import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 import org.supply.simulator.util.TextureUtils;
@@ -28,17 +28,17 @@ import java.util.Set;
  * Created by Alex on 5/8/2016.
  */
 public class TexturedChunkRendererTest {
-    private int chunkRows = 20;
-    private int chunkColumns = 20;
-    private int totalChunkRows = 30;
-    private int totalChunkColumns = 30;
+    private int chunkRows = 50;
+    private int chunkColumns = 50;
+    private int totalChunkRows = 5;
+    private int totalChunkColumns = 5;
 
     BasicShaderEngine shaderEngine;
     Camera camera;
 
     MockDisplayCore core;
-    TexturedChunkRenderer staticRenderer;
-    TexturedChunkRenderer dynamicRenderer;
+    Renderer staticRenderer;
+    Renderer dynamicRenderer;
     BasicTextureEngine textureEngine;
     DataGenerator dataGenerator;
     UserCameraInterface userCameraInterface;
@@ -70,7 +70,7 @@ public class TexturedChunkRendererTest {
 
         userCameraInterface.setCamera(camera);
 
-        staticRenderer =new TexturedChunkRenderer();
+        staticRenderer =new Renderer();
         staticRenderer.setDrawStatic(true);
         staticRenderer.setOneEntityPerBuffer(true);
 
@@ -81,7 +81,7 @@ public class TexturedChunkRendererTest {
         staticRenderer.setColumns(chunkColumns);
 
 
-        dynamicRenderer=new TexturedChunkRenderer();
+        dynamicRenderer=new Renderer();
         dynamicRenderer.setDrawStatic(false);
         dynamicRenderer.setOneEntityPerBuffer(true);
 

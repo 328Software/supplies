@@ -62,6 +62,16 @@ public class Positions implements HasId<Long>, HasValue<float[]> {
         return color;
     }
 
+    public int[] getVertexAttributeLocations () {
+        int[] locations=null;
+        if (this.isTextured()&&this.hasColor()) {
+            locations=new int[]{0,1,2};
+        } else if (this.isTextured()||this.hasColor()){
+            locations=new int[]{0,1};
+        }
+        return locations;
+    }
+
     public Vertex getVertex(int index) {
         return vertices[index];
     }

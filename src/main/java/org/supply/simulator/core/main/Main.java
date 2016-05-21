@@ -28,7 +28,7 @@ public class Main extends HasLogger {
     private static DispatchService dispatchService;
     private static TaskManager taskManager;
     private static SessionFactory sessionFactory;
-    private static Manager<BasicChunkRenderer> manager;
+    private static Manager manager;
     private static BasicDisplayCore displayCore;
     private static MainMenus mainMenus;
 
@@ -86,7 +86,7 @@ public class Main extends HasLogger {
         return logger;
     }
 
-    public static void setManager(Manager<BasicChunkRenderer> manager) {
+    public static void setManager(Manager manager) {
         Main.manager = manager;
     }
 

@@ -2,9 +2,7 @@ package org.supply.simulator.display.renderer;
 
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
-import org.supply.simulator.display.assetengine.texture.Atlas;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
-import org.supply.simulator.display.renderer.impl.OpenGLBufferIDBag;
 import org.supply.simulator.logging.HasLogger;
 import org.supply.simulator.util.MapUtils;
 
@@ -35,7 +33,7 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
 
     //////////
     //THESE TWO NEED TO STAY TOGETHER
-    // staticIndicesBufferId = indexEngine.get(MapUtils.newEntry(1,max_positions_per_buffer))
+    // dynamicIndicesBufferId = indexEngine.get(MapUtils.newEntry(1,max_positions_per_buffer))
     //TODO get this outta here
     protected int dynamicIndicesBufferId = -1;
     protected int max_positions_per_buffer;
@@ -43,13 +41,8 @@ public abstract class RendererBase extends HasLogger implements  EntityRenderer 
 
 
 
-
-    protected HashMap<Atlas,OpenGLBufferIDBag<Entity>> idMap;
-
-
     public RendererBase() {
         super();
-        idMap = new HashMap<>();
         rows=20;
         columns=20;
         max_positions_per_buffer=1000;

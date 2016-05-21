@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * Created by Alex on 6/29/2014.
  */
-public class MockChunkManager extends AbstractManager<BasicChunkRenderer> {
+public class MockChunkManager extends AbstractManager {
 
         private int chunkRows = 20;
         private int chunkColumns = 20;

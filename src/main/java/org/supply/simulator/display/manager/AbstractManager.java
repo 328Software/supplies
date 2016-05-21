@@ -1,16 +1,18 @@
 package org.supply.simulator.display.manager;
 
+import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.logging.HasLogger;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Alex on 7/21/2014.
  */
-public abstract class AbstractManager<R extends EntityRenderer> extends HasLogger implements Manager<R> {
+public abstract class AbstractManager extends HasLogger implements Manager {
 
 
 
@@ -20,6 +22,18 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
     protected Camera camera;
 
     protected EntityRenderer renderer;
+
+    private boolean isAdded;
+    private boolean isRemoved;
+    private List<Entity> toAdd;
+    private List<Entity> toRemove;
+
+    public AbstractManager () {
+        isAdded=true;
+        isRemoved=true;
+        toAdd = new ArrayList<>();
+        toRemove = new ArrayList<>();
+    }
 
     @Override
     public void start() {
@@ -56,28 +70,35 @@ public abstract class AbstractManager<R extends EntityRenderer> extends HasLogge
     }
 
 
-    /**
-     *
-     * @param camera
-     * @return
-     */
-    protected abstract Collection getRenderablesToAdd(Camera camera);
+    protected Collection getRenderablesToAdd(Camera camera) {
+        //TODO this cant be right, this is inefficient
+        ArrayList out = new ArrayList();
+        out.addAll(toAdd);
+        toAdd=new ArrayList();
+        return out;
+    }
 
+    protected Collection getRenderablesToRemove(Camera camera) {
+        ArrayList out = new ArrayList();
+        out.addAll(toRemove);
+        toRemove=new ArrayList();
+        return out;
+    }
 
-    /**
-     *
-     * @param camera
-     * @return
-     */
-    protected abstract Collection getRenderablesToRemove(Camera camera);
+    public void add(List<Entity> menues) {
+        toAdd.addAll(menues);
+    }
 
-
+    public void remove(List<Entity> menues) {
+        toRemove.addAll(menues);
+    }
 
     @Override
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
 
+    @Override
     public void setEntityRenderer(EntityRenderer entityRenderer) {
         this.renderer = entityRenderer;
     }

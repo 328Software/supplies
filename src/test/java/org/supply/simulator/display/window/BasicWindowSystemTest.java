@@ -8,10 +8,9 @@ import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.extra.DataGenerator;
-import org.supply.simulator.display.manager.impl.BasicMenuManager;
+import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.mock.MockUnitManager;
 import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.impl.BasicWindow;
@@ -43,8 +42,8 @@ public class BasicWindowSystemTest {
     private Renderer unitRenderer;
     private Renderer menuRenderer;
 
-    private MockUnitManager unitManager;
-    private BasicMenuManager menuManager;
+    private BasicManager unitManager;
+    private BasicManager menuManager;
     private BasicIndexEngine indexEngine;
 
     @Before
@@ -74,7 +73,7 @@ public class BasicWindowSystemTest {
 
         generator.setTextureEngine(textureEngine);
 
-        unitManager = new MockUnitManager();
+        unitManager = new BasicManager();
         unitRenderer = new Renderer();
         unitRenderer.setAttributeLocations(new int [] {0,1,2});
         unitRenderer.setTextureEngine(textureEngine);
@@ -83,7 +82,7 @@ public class BasicWindowSystemTest {
         unitRenderer.setRows(MAX_ENTITIES);
         unitManager.setEntityRenderer(unitRenderer);
 
-        menuManager = new BasicMenuManager();
+        menuManager = new BasicManager();
         menuRenderer = new Renderer();
         menuRenderer.setAttributeLocations(new int [] {0,1,2});
         menuRenderer.setTextureEngine(textureEngine);

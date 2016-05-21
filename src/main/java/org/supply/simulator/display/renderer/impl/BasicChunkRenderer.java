@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Entity;
+import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.renderer.EntityRenderer;
 import org.supply.simulator.display.renderer.RendererBase;
 import org.supply.simulator.util.MapUtils;
@@ -14,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static org.supply.simulator.display.renderer.DrawingUtil.POSITION_BYTE_OFFSET;
-import static org.supply.simulator.display.renderer.DrawingUtil.createVerticesFloatBuffer;
 
 /**
  * Created by Alex on 9/7/2014.
@@ -58,16 +58,16 @@ public class BasicChunkRenderer extends RendererBase implements EntityRenderer {
             int positionsArrayId = GL15.glGenBuffers();
             int colorsArrayId = GL15.glGenBuffers();
 
-            FloatBuffer verticesFloatBuffer =createVerticesFloatBuffer(Collections.singletonList(renderable));
-//                    BufferUtils.createFloatBuffer(
-//                            renderable.getPositions().stream().mapToInt(
-//                                    e->e.getValue().length
-//                            ).sum());
-//
-//            for(Positions positions: renderable.getPositions()) {
-//                verticesFloatBuffer.put(positions.getValue());
-//            }
-//            verticesFloatBuffer.flip();
+            FloatBuffer verticesFloatBuffer =
+                    BufferUtils.createFloatBuffer(
+                            renderable.getPositions().stream().mapToInt(
+                                    e->e.getValue().length
+                            ).sum());
+
+            for(Positions positions: renderable.getPositions()) {
+                verticesFloatBuffer.put(positions.getValue());
+            }
+            verticesFloatBuffer.flip();
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionsArrayId);
             GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STATIC_DRAW);
@@ -168,5 +168,6 @@ public class BasicChunkRenderer extends RendererBase implements EntityRenderer {
     protected void drawEntities(Collection<Entity> entityList) {
 
     }
+
 
 }

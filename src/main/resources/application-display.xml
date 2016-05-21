@@ -30,11 +30,11 @@
     </bean>
     -->
 
-    <bean id="unitManager" class="org.supply.simulator.display.manager.impl.BasicUnitManager">
+    <bean id="unitManager" class="org.supply.simulator.display.manager.impl.BasicManager">
         <property name="entityRenderer" ref="unitRenderer"/>
     </bean>
 
-    <bean id="menuManager" class="org.supply.simulator.display.manager.impl.BasicMenuManager">
+    <bean id="menuManager" class="org.supply.simulator.display.manager.impl.BasicManager">
         <property name="entityRenderer" ref="menuRenderer"/>
     </bean>
 

@@ -6,18 +6,11 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.display.assetengine.texture.Atlas;
-import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
-import org.supply.simulator.display.renderer.impl.OpenGLBufferIDBag;
-import org.supply.simulator.util.MapUtils;
+
 
 import java.nio.FloatBuffer;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
-
-import static java.util.Objects.nonNull;
-
 /**
  * Created by Brandon on 5/11/2016.
  */
@@ -50,23 +43,6 @@ public class DrawingUtil {
     public static final int VERTICES_PER_ENTITY = 6;
 
     /**
-     * Static Build
-     *
-     * First loads entity data into OpenGL memory as STATIC then draws
-     * Assumes appropriate OpenGL buffers are enabled
-     *
-     *
-     * @param entityList
-     */
-    public static void staticBuild(Collection<Entity> entityList) {
-        FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
-
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
-
-        drawElements(verticesFloatBuffer.limit(),0);
-    }
-
-    /**
      * Static Draw
      *
      * Draws entity data thats already loaded into OpenGL Memory
@@ -75,7 +51,7 @@ public class DrawingUtil {
      *
      * @param positionsSet
      */
-    public static void staticDraw(Set<Positions> positionsSet) {
+    public static void staticDraw(Collection<Positions> positionsSet) {
         int numberOfEntities = positionsSet.stream().mapToInt(
                 e->e.getValue().length
         ).sum();
@@ -95,31 +71,12 @@ public class DrawingUtil {
      * Assumes appropriate OpenGL buffers are enabled
      *
      *
-     * @param entityList
+     * @param positionsSet
      */
-    public static void dynamicDraw(Collection<Entity> entityList) {
+    public static void dynamicDraw(Collection<Positions> positionsSet) {
 //        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
 
-        FloatBuffer verticesFloatBuffer= createVerticesFloatBuffer(entityList);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_DYNAMIC_DRAW);
-
-        drawElements(verticesFloatBuffer.limit(),0);
-
-    }
-
-    /**
-     * Dynamic Draw
-     *
-     * First loads entity data into OpenGL memory as DYNAMIC then draws
-     * Assumes appropriate OpenGL buffers are enabled
-     *
-     *
-     * @param positions
-     */
-    public static void dynamicDraw2(Collection<Positions> positions) {
-//        FloatBuffer verticesFloatBuffer = BufferUtils.createFloatBuffer(vertexSize * maxEntities);
-
-        FloatBuffer verticesFloatBuffer= createPositionsFloatBuffer(positions);
+        FloatBuffer verticesFloatBuffer= createPositionsFloatBuffer(positionsSet);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_DYNAMIC_DRAW);
 
         drawElements(verticesFloatBuffer.limit(),0);
@@ -143,37 +100,16 @@ public class DrawingUtil {
                 index * Integer.SIZE );//index into buffer when to start rendering
     }
 
-    /**
-     * Create Vertices Float Buffer
-     *
-     *
-     * loads entity data into a float buffer
-     *
-     *
-     *
-     * @param entities
-     */
-    public static FloatBuffer createVerticesFloatBuffer (Collection<Entity> entities) {
-        FloatBuffer verticesFloatBuffer =
-                BufferUtils.createFloatBuffer(
-                        entities.stream().mapToInt(c -> c.getPositions().stream().mapToInt(
-                                e->e.getValue().length
-                        ).sum()).sum());
-
-        for (Entity entity : entities) {
-            for(Positions positions: entity.getPositions()) {
-                verticesFloatBuffer.put(positions.getValue());
-            }
-        }
-        verticesFloatBuffer.flip();
-        return verticesFloatBuffer;
-    }
 
     public static FloatBuffer createPositionsFloatBuffer(Collection<Positions> positions) {
+//        FloatBuffer verticesFloatBuffer =
+//                BufferUtils.createFloatBuffer(positions.stream().mapToInt(
+//                        e->e.getValue().length
+//                ).sum());
+
         FloatBuffer verticesFloatBuffer =
-                BufferUtils.createFloatBuffer(positions.stream().mapToInt(
-                        e->e.getValue().length
-                ).sum());
+                BufferUtils.createFloatBuffer(10000*VERTICES_PER_ENTITY);
+
 
 
         for(Positions position: positions) {
@@ -185,21 +121,19 @@ public class DrawingUtil {
         return verticesFloatBuffer;
     }
 
+
     /**
-     * Allocate OpenGL Buffers
+     * Allocate OpenGL Buffers Dynamic
      *
      * Creates pointers to OpenGL memory and nicely stores them in a OpenGLBufferIDBag
-     *
-     * @param atlas method will retrieve TextureId from atlas to store in the bag
-     * @param locations these attribute locations (for shaders) will be bound to the new array buffer
+     *  DOES NOT LOAD ANY INTO BUFFERS
      *
      * @return OpenGLBufferIDBag id bag of pointers into OpenGL memory
      */
-    public static OpenGLBufferIDBag allocateOpenGLBuffers(Atlas atlas, int[] locations) {
-        OpenGLBufferIDBag ids = new OpenGLBufferIDBag();
-//        if ()
+    public static BufferIDContainer allocateOpenGLBuffersDynamic(Collection<Positions> positions) {
+        BufferIDContainer ids = new BufferIDContainer();
+        int[] locations = positions.iterator().next().getVertexAttributeLocations();
 
-        ids.setTextureId(atlas.getTextureId());
         ids.setPositionsArrayId(GL15.glGenBuffers());
         ids.setVertexAttributesId(GL30.glGenVertexArrays());
 
@@ -219,32 +153,19 @@ public class DrawingUtil {
         return ids;
     }
 
-    public static BufferIDContainer allocateOpenGLBuffersDynamic(int[] locations) {
+    /**
+     * Allocate OpenGL Buffers Dynamic
+     *
+     *
+     * Creates pointers to OpenGL memory and nicely stores them in a OpenGLBufferIDBag
+     *   Also loads positionsSet into buffers
+     *
+     *
+     * @return BufferIDContainer id bag of pointers into OpenGL memory
+     */
+    public static BufferIDContainer allocateOpenGLBuffersStatic(Collection<Positions> positions) {
         BufferIDContainer ids = new BufferIDContainer();
-//        if ()
-
-//        ids.setTextureId(textureId);
-        ids.setPositionsArrayId(GL15.glGenBuffers());
-        ids.setVertexAttributesId(GL30.glGenVertexArrays());
-
-        GL30.glBindVertexArray(ids.getVertexAttributesId());
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, ids.getPositionsArrayId());
-
-        GL20.glVertexAttribPointer(locations[0], POSITION_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, POSITION_BYTE_OFFSET);
-        GL20.glVertexAttribPointer(locations[1], COLOR_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, COLOR_BYTE_OFFSET);
-        GL20.glVertexAttribPointer(locations[2], TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT,
-                false, STRIDE, TEXTURE_BYTE_OFFSET);
-
-
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-        GL30.glBindVertexArray(0);
-        return ids;
-    }
-
-    public static BufferIDContainer allocateOpenGLBuffersStatic(Collection<Positions> positions, int[] locations) {
-        BufferIDContainer ids = new BufferIDContainer();
+        int[] locations = positions.iterator().next().getVertexAttributeLocations();
 
         ids.setPositionsArrayId(GL15.glGenBuffers());
         ids.setVertexAttributesId(GL30.glGenVertexArrays());
@@ -263,31 +184,9 @@ public class DrawingUtil {
 
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER,verticesFloatBuffer,GL15.GL_STATIC_DRAW);
 
-//        drawElements(verticesFloatBuffer.limit(),0);
-
-
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         GL30.glBindVertexArray(0);
         return ids;
-    }
-
-    public static void bindBufferIds(OpenGLBufferIDBag ids,int indicesBufferId, int[] locations) {
-        enableArrayBuffer(ids.getPositionsArrayId());
-        enableVertexAttribArray(locations, ids.getVertexAttributesId());
-        enableIndicesBuffer(indicesBufferId);
-
-        if (nonNull(ids.getTextureId())) {
-            enableTextureBuffer(ids.getTextureId());
-        }
-
-    }
-
-    public static void unBindBufferIds(int[] locations) {
-        disableVertexAttribArray(locations);
-
-        disableIndicesBuffer();
-        disableArrayBuffer();
-        disableTextureBuffer();
     }
 
     public static void enableVertexAttribArray(int[] locations, int id) {

@@ -21,7 +21,7 @@ import java.util.Collections;
 /**
  * Created by Brandon on 7/8/2014.
  */
-public class CheckerTestChunkManager extends AbstractManager<BasicChunkRenderer> implements Manager<BasicChunkRenderer> {
+public class CheckerTestChunkManager extends AbstractManager implements Manager {
     private int chunkRows = 8;//chunkType.rows();
     private int chunkColumns =8;// chunkType.columns();
     private int totalChunkRows = 25;

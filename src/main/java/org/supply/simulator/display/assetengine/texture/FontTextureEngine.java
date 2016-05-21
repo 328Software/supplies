@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static java.util.Objects.nonNull;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_UNSIGNED_INT_8_8_8_8_REV;
 import static org.lwjgl.opengl.GL30.GL_BGRA_INTEGER;
@@ -40,6 +41,18 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
     public FontTextureEngine() {
         atlasMap = new HashMap<>();
+    }
+
+    @Override
+    public boolean canHandle(String key) {
+        String filename;
+        if(key.matches("^.+_.+$")) {
+            String[] keySplit = key.split("_");
+            filename = "textures/" + keySplit[0] + ".png";
+        } else {
+            filename = "textures/" + DEFAULT_FONT + ".png";
+        }
+        return nonNull(this.getClass().getClassLoader().getResource(filename));
     }
 
     @Override
@@ -181,11 +194,8 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
         int charInt = (int)character.charAt(0) - 32;
 
-        System.out.println("charint = " + charInt);
         float x = (float)(charInt % 32) / 32;
         float y = (float)(charInt / 32) / 3;
-        System.out.println(x);
-        System.out.println(y);
 
         return new float[] {
                 x,

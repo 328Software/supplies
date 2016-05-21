@@ -12,6 +12,9 @@ import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -39,7 +42,7 @@ public class TexturedChunkRendererTest {
     MockDisplayCore core;
     Renderer staticRenderer;
     Renderer dynamicRenderer;
-    BasicTextureEngine textureEngine;
+    TextureEngine textureEngine;
     DataGenerator dataGenerator;
     UserCameraInterface userCameraInterface;
 
@@ -57,7 +60,7 @@ public class TexturedChunkRendererTest {
         userCameraInterface = new UserCameraInterface();
 
         shaderEngine = new BasicShaderEngine();
-        textureEngine = new BasicTextureEngine();
+        textureEngine = new TextureEngineComposite(new BasicTextureEngine(), new FontTextureEngine());
         BasicIndexEngine indexEngine = new BasicIndexEngine();
 
         dataGenerator.setTextureEngine(textureEngine);

@@ -28,6 +28,11 @@ public class BasicTextureEngine
     }
 
     @Override
+    public boolean canHandle(String key) {
+        return lookupTextureFileName(key) != null;
+    }
+
+    @Override
     protected TextureHandle createHandle(String key) {
         TextureHandle handle = new TextureHandle();
         String fileName = lookupTextureFileName(key);
@@ -123,7 +128,11 @@ public class BasicTextureEngine
     }
 
     private String lookupTextureFileName(String key) {
-        return generateTextureData(key).fileName;
+        TextureData textureData = generateTextureData(key);
+        if(nonNull(textureData)) {
+            return textureData.fileName;
+        }
+        return null;
     }
     private float[] lookupTextureSubInfo(String key) {
         return generateTextureData(key).subInfo;
@@ -135,7 +144,7 @@ public class BasicTextureEngine
 
         if(nonNull(name)) {
             switch (name) {
-                case "1":
+       /*         case "1":
                     data.fileName = "textures/text2.png";
                     data.subInfo = new float[]{0, 0, 11, 20};
                     break;
@@ -386,7 +395,7 @@ public class BasicTextureEngine
                 case " ":
                     data.fileName = "textures/text2.png";
                     data.subInfo = new float[]{492, 21, 503, 40};
-                    break;
+                    break;*/
                 case "textures/text2.png":
                     data.fileName = "textures/text2.png";
                     data.subInfo = new float[]{0, 0, 640, 400};
@@ -420,8 +429,8 @@ public class BasicTextureEngine
                     data.subInfo = new float[]{64, 64, 127, 127};
                     break;
                 default:
-                    logger.error("CANNOT FIND TEXTURE");
-                    break;
+//                    logger.error("CANNOT FIND TEXTURE");
+                    return null;
             }
         }
 

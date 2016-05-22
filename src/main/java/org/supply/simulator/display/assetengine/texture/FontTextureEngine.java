@@ -145,8 +145,8 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
             // All RGB bytes are aligned to each other and each component is 1 byte
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
-//            glEnable(GL_BLEND);
-//            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             // Upload the texture data and generate mip maps (for scaling)
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, tWidth, tHeight, 0,
                     GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);

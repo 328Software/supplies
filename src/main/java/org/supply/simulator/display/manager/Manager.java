@@ -14,12 +14,6 @@ public interface Manager {
 
     public void setEntityRenderer(EntityRenderer entityRenderer);
 
-    public void start();
-
     public void update();
-
-    public void stop();
-
-
 
 }

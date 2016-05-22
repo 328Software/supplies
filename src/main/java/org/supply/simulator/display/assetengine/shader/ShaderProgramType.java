@@ -5,7 +5,7 @@ package org.supply.simulator.display.assetengine.shader;
  */
 public enum ShaderProgramType {
     UNTEXTURED_MOVABLE(0,"shaders/vertex.glsl","shaders/fragments.glsl"),
-    TEXTURED_STATIONARY(1,"shaders/vertexWithFlatTexture.glsl","shaders/fragmentsWithTexture.glsl"),
+    TEXTURED_STATIONARY(1, "shaders/vertexStationary.glsl","shaders/fragmentsWithTexture.glsl"),
     TEXTURED_MOVABLE(2,"shaders/vertex.glsl","shaders/fragmentsWithTexture.glsl");
 
 

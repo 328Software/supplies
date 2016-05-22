@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.badengine.ChunkGenerator;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
@@ -41,9 +42,9 @@ public class TexturedChunkRendererTest {
 
     MockDisplayCore core;
     Renderer staticRenderer;
-    Renderer dynamicRenderer;
     TextureEngine textureEngine;
     DataGenerator dataGenerator;
+    ChunkGenerator chunkGenerator;
     UserCameraInterface userCameraInterface;
 
 
@@ -55,6 +56,7 @@ public class TexturedChunkRendererTest {
     @Before
     public void create() {
         dataGenerator = new DataGenerator();
+        chunkGenerator = new ChunkGenerator();
 
         core = new MockDisplayCore();
         userCameraInterface = new UserCameraInterface();
@@ -83,14 +85,6 @@ public class TexturedChunkRendererTest {
         staticRenderer.setRows(chunkRows);
         staticRenderer.setColumns(chunkColumns);
 
-
-        dynamicRenderer=new Renderer();
-        dynamicRenderer.setDrawStatic(false);
-        dynamicRenderer.setOneEntityPerBuffer(true);
-
-        dynamicRenderer.setAttributeLocations(new int[] {0,1,2});
-        dynamicRenderer.setTextureEngine(textureEngine);
-        dynamicRenderer.setIndexEngine(indexEngine);
 
 
 
@@ -134,7 +128,6 @@ public class TexturedChunkRendererTest {
         entities.add(textMenuFactory.build());
 
         staticRenderer.build(chunks);
-        dynamicRenderer.build(entities);
 
 
         render();
@@ -162,12 +155,7 @@ public class TexturedChunkRendererTest {
 
             GL20.glUseProgram(0);
 
-            GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
 
-
-            dynamicRenderer.render(entities);
-
-            GL20.glUseProgram(0);
 
 
             core.render();
@@ -183,7 +171,6 @@ public class TexturedChunkRendererTest {
 
 
         staticRenderer.destroyAll();
-        dynamicRenderer.destroyAll();
         core.destroy();
 
     }

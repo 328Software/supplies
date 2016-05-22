@@ -40,6 +40,9 @@ public class DrawingUtil {
     public static final int STRIDE = POSITION_BYTES_COUNT + COLOR_BYTE_COUNT +
             TEXTURE_BYTE_COUNT;
 
+    public static final int ELEMENT_PER_VERTEX = POSITION_ELEMENT_COUNT + COLOR_ELEMENT_COUNT + TEXTURE_ELEMENT_COUNT;
+    public static final int VERTICES_PER_QUAD = 4;
+
     public static final int VERTICES_PER_ENTITY = 6;
 
     /**

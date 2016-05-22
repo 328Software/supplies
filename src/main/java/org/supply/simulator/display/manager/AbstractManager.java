@@ -33,10 +33,6 @@ public abstract class AbstractManager extends HasLogger implements Manager {
         isRemoved=true;
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
-    }
-
-    @Override
-    public void start() {
         visibleRenderables = new ArrayList();
     }
     @Override
@@ -62,11 +58,6 @@ public abstract class AbstractManager extends HasLogger implements Manager {
         ///////////RENDER RENDERABLES
         renderer.render(visibleRenderables);
         ////////////
-    }
-
-    @Override
-    public void stop() {
-        renderer.destroyAll();
     }
 
 

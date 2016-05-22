@@ -29,9 +29,6 @@ public abstract class AbstractWindow implements Window {
         camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
-        chunkManager.start();
-        unitManager.start();
-        menuManager.start();
 
     }
 
@@ -69,9 +66,6 @@ public abstract class AbstractWindow implements Window {
 
     @Override
     public void stop() {
-        chunkManager.stop();
-        unitManager.stop();
-        menuManager.stop();
         GL20.glUseProgram(0);
         shaderEngine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
     }

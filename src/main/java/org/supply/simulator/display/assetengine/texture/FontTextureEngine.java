@@ -36,6 +36,7 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
         implements TextureEngine {
     private static final String DEFAULT_FONT = "courier";
     private static final String DEFAULT_DIR = "textures/";
+    public static final int ROWS = 3;
 
     private HashMap<String,Atlas> atlasMap;
 
@@ -186,16 +187,16 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
 
 
-//        int width = atlas.getWidth();
-//        int height = atlas.getHeight();
+//        atlas.getWidth();
+        System.out.println(atlas.getHeight());
 
-        float charWidth = 1f / 32;
-        float charHeight = 1f / 3;
+        float charWidth = 1f / 32;// - (1f / atlas.getWidth());
+        float charHeight = 1f / ROWS;// - (4f / atlas.getHeight());
 
         int charInt = (int)character.charAt(0) - 32;
 
-        float x = (float)(charInt % 32) / 32;
-        float y = (float)(charInt / 32) / 3;
+        float x = (float)(charInt % 32) / 32 + (2f / atlas.getWidth());
+        float y = (float)(charInt / 32) / ROWS;// + (2f / atlas.getHeight());
 
         return new float[] {
                 x,

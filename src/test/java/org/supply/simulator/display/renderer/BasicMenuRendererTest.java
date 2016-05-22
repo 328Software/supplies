@@ -78,7 +78,7 @@ public class BasicMenuRendererTest {
         menus.add(generator.createMenu(0.10f, .8f, 0, .1f, .05f, "U"));
         menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
         menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));*/
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "KISS A BUTT!?");
+        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "KISS A BUTT");
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 

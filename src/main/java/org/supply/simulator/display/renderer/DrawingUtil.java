@@ -105,13 +105,13 @@ public class DrawingUtil {
 
 
     public static FloatBuffer createPositionsFloatBuffer(Collection<Positions> positions) {
-//        FloatBuffer verticesFloatBuffer =
-//                BufferUtils.createFloatBuffer(positions.stream().mapToInt(
-//                        e->e.getValue().length
-//                ).sum());
-
         FloatBuffer verticesFloatBuffer =
-                BufferUtils.createFloatBuffer(10000*VERTICES_PER_ENTITY);
+                BufferUtils.createFloatBuffer(positions.stream().mapToInt(
+                        e->e.getValue().length
+                ).sum());
+
+//        FloatBuffer verticesFloatBuffer =
+//                BufferUtils.createFloatBuffer(10000*VERTICES_PER_ENTITY);
 
 
 

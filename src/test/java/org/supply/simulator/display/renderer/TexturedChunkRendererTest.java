@@ -17,7 +17,6 @@ import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
 import org.supply.simulator.display.extra.DataGenerator;
-import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
@@ -25,15 +24,14 @@ import org.supply.simulator.display.window.impl.UserCameraInterface;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Alex on 5/8/2016.
  */
 public class TexturedChunkRendererTest {
-    private int chunkRows = 50;
-    private int chunkColumns = 50;
+    private int CHUNK_ROWS = 50;
+    private int CHUNK_COLUMNS = 50;
     private int totalChunkRows = 5;
     private int totalChunkColumns = 5;
 
@@ -82,8 +80,8 @@ public class TexturedChunkRendererTest {
         staticRenderer.setAttributeLocations(new int[] {0,1,2});
         staticRenderer.setTextureEngine(textureEngine);
         staticRenderer.setIndexEngine(indexEngine);
-        staticRenderer.setRows(chunkRows);
-        staticRenderer.setColumns(chunkColumns);
+        staticRenderer.setRows(CHUNK_ROWS);
+        staticRenderer.setColumns(CHUNK_COLUMNS);
 
 
 
@@ -102,9 +100,9 @@ public class TexturedChunkRendererTest {
         camera.create();
 
         chunks = new ArrayList<>();
-        for (int i = 0; i<totalChunkRows*chunkRows;i=i+chunkRows) {
-            for (int j = 0; j<totalChunkColumns*chunkColumns;j=j+chunkColumns) {
-                BasicChunk chunk = dataGenerator.createChunk(chunkRows, chunkColumns, i, j);
+        for (int i = 0; i<totalChunkRows* CHUNK_ROWS; i=i+ CHUNK_ROWS) {
+            for (int j = 0; j<totalChunkColumns* CHUNK_COLUMNS; j=j+ CHUNK_COLUMNS) {
+                BasicChunk chunk = dataGenerator.createChunk(CHUNK_ROWS, CHUNK_COLUMNS, i, j);
 
                 double num = Math.random();
                 if (num<2.5) {
@@ -120,12 +118,25 @@ public class TexturedChunkRendererTest {
                 chunks.add(chunk);
             }
         }
+        staticRenderer.build(chunks);
 
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "YOU A SUCK");
-        textMenuFactory.setTextureEngine(textureEngine);
 
-        entities = new HashSet<>();
-        entities.add(textMenuFactory.build());
+        render();
+    }
+
+    @Test
+    public void TexturedChunkRendererTest2() {
+        core.build("TexturedChunkRendererTest2");
+
+
+        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
+        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
+        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
+        camera.create();
+
+        chunks = new ArrayList<>();
+        chunkGenerator.setOptions(CHUNK_ROWS,CHUNK_COLUMNS,-.5f,.5f);
+        chunks.add(chunkGenerator.generate());
 
         staticRenderer.build(chunks);
 
@@ -136,9 +147,6 @@ public class TexturedChunkRendererTest {
     private void render() {
 
         while (!Display.isCloseRequested()) {
-
-
-
 
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_MOVABLE).getProgramId());
 

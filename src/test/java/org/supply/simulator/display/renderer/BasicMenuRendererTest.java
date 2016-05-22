@@ -78,7 +78,10 @@ public class BasicMenuRendererTest {
         menus.add(generator.createMenu(0.10f, .8f, 0, .1f, .05f, "U"));
         menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
         menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));*/
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "the quick brown fox");
+        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .2f, .1f, "the quick brown fox!");
+        textMenuFactory.setTextureEngine(textureEngine);
+        menus.add(textMenuFactory.build());
+        textMenuFactory = new TextMenuFactory(-1f, .8f, .2f, .1f, "/!@#$%^&*()123456789");
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 

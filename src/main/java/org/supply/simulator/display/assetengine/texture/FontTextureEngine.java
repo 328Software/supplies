@@ -17,6 +17,7 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
@@ -24,8 +25,11 @@ import java.util.HashMap;
 
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
 import static java.util.Objects.nonNull;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_BGRA;
+import static org.lwjgl.opengl.GL12.GL_UNSIGNED_INT_8_8_8_8;
 import static org.lwjgl.opengl.GL12.GL_UNSIGNED_INT_8_8_8_8_REV;
 import static org.lwjgl.opengl.GL30.GL_BGRA_INTEGER;
 
@@ -34,9 +38,9 @@ import static org.lwjgl.opengl.GL30.GL_BGRA_INTEGER;
  */
 public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle>
         implements TextureEngine {
-    private static final String DEFAULT_FONT = "courier";
     private static final String DEFAULT_DIR = "textures/";
     public static final int ROWS = 3;
+    private static final String DEFAULT_FONT = "courier-black";
 
     private HashMap<String,Atlas> atlasMap;
 
@@ -99,45 +103,18 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
         // Open the PNG file as an InputStream
         try (InputStream in = ClassLoader.getSystemResourceAsStream(filename)) {
-            ByteBuffer buf = null;
-            // Link the PNG decoder to this stream
-        /*    PNGDecoder decoder = new PNGDecoder(in);
+            ByteBuffer buf;
+            BufferedImage read = convert(ImageIO.read(in), TYPE_INT_ARGB_PRE);
 
-            // Get the width and height of the texture
-            int tWidth = decoder.getWidth();
-            int tHeight = decoder.getHeight();
+            DataBufferInt intData = (DataBufferInt) read.getRaster().getDataBuffer();
 
-
-            // Decode the PNG file in a ByteBuffer
-            buf = ByteBuffer.allocateDirect(
-                    4 * decoder.getWidth() * decoder.getHeight());
-            decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
-            buf.flip();*/
-
-//            PNGDecoder.Format.RGBA
-//            TYPE_INT_ARGB
-            BufferedImage read = convert(ImageIO.read(in), TYPE_4BYTE_ABGR);
-//            BufferedImage read = ImageIO.read(in);
-            byte[] data = ((DataBufferByte)read.getRaster().getDataBuffer()).getData();
-            System.out.println("start");/*
-            System.out.println(data[0]);
-            System.out.println(data[1]);
-            System.out.println(data[2]);
-            System.out.println(data[3]);*/
-
+            buf = ByteBuffer.allocateDirect(4 * intData.getSize());
+            buf.asIntBuffer().put(intData.getData());
 
             int tWidth = read.getWidth();
             int tHeight = read.getHeight();
-            buf = ByteBuffer.allocateDirect(data.length);
-            buf.put(data);
-            buf.flip();
-            // Create a new texture object in memory and bind it
+
             int texId = GL11.glGenTextures();
-
-//            TYPE_INT_ARGB
-//            System.out.println(read.getColorModel().getColorSpace().getType());
-
-//            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tWidth, tHeight, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, buf);
 
             GL13.glActiveTexture(textureUnit);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, texId);
@@ -148,8 +125,9 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             // Upload the texture data and generate mip maps (for scaling)
-            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, tWidth, tHeight, 0,
-                    GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);
+            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL_RGBA, tWidth, tHeight, 0,
+                    GL_BGRA, GL_UNSIGNED_INT_8_8_8_8, buf);
+
             GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 
             // Setup the ST coordinate system
@@ -185,24 +163,21 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
     private float[] generateTextureData(String character, Atlas atlas) {
 
-
-
-//        atlas.getWidth();
-        System.out.println(atlas.getHeight());
-
         float charWidth = 1f / 32;// - (1f / atlas.getWidth());
         float charHeight = 1f / ROWS;// - (4f / atlas.getHeight());
 
         int charInt = (int)character.charAt(0) - 32;
 
-        float x = (float)(charInt % 32) / 32 + (2f / atlas.getWidth());
-        float y = (float)(charInt / 32) / ROWS;// + (2f / atlas.getHeight());
+
+        System.out.println(new BigDecimal(charInt % 32));
+        float x = new BigDecimal(charInt % 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(32), BigDecimal.ROUND_HALF_DOWN).floatValue();
+        float y = new BigDecimal(charInt / 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(ROWS), BigDecimal.ROUND_HALF_DOWN).floatValue();
 
         return new float[] {
-                x,
-                y,
-                x+charWidth,
-                y+charHeight
+                (float)x,
+                (float)y,
+                (float)x+charWidth,
+                (float)y+charHeight
         };
 
     }

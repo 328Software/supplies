@@ -7,6 +7,9 @@ import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
+import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
 import org.supply.simulator.display.extra.DataGenerator;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;
@@ -69,7 +72,7 @@ public class BasicWindowSystemTest {
         chunkRenderer.setAttributeLocations(new int [] {0,1});
 
         chunkManager.setEntityRenderer(chunkRenderer);
-        BasicTextureEngine textureEngine = new BasicTextureEngine();
+        TextureEngine textureEngine = new TextureEngineComposite(new BasicTextureEngine(), new FontTextureEngine());
 
         generator.setTextureEngine(textureEngine);
 

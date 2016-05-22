@@ -11,6 +11,7 @@ import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
 import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -20,6 +21,7 @@ import org.supply.simulator.display.window.impl.BasicWindow;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -109,8 +111,9 @@ public class BasicWindowSystemTest {
         window.start();
 
 
-        populateManagers();
-
+        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "SYSTEM");
+        textMenuFactory.setTextureEngine(textureEngine);
+        menuManager.add(Collections.singletonList(textMenuFactory.build()));
     }
 
     @Test
@@ -125,16 +128,4 @@ public class BasicWindowSystemTest {
         core.destroy();
     }
 
-    private void populateManagers() {
-        List<Entity> menus=new ArrayList<>();
-        menus.add(generator.createMenu(-0.15f, .8f, 0, .1f, .05f, "Y"));
-        menus.add(generator.createMenu(-0.10f, .8f, 0, .1f, .05f, "O"));
-        menus.add(generator.createMenu(-0.05f, .8f, 0, .1f, .05f, "U"));
-        menus.add(generator.createMenu(0.0f, .8f, 0, .1f, .05f, " "));
-        menus.add(generator.createMenu(0.05f, .8f, 0, .1f, .05f, "S"));
-        menus.add(generator.createMenu(0.10f, .8f, 0, .1f, .05f, "U"));
-        menus.add(generator.createMenu(0.15f, .8f, 0, .1f, .05f, "C"));
-        menus.add(generator.createMenu(0.2f, .8f, 0, .1f, .05f, "K"));
-        menuManager.add(menus);
-    }
 }

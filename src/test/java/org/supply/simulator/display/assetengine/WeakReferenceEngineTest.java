@@ -61,7 +61,11 @@ public class WeakReferenceEngineTest {
 
         @Override
         protected String createHandle(String key) {
+            //this isn't actually redundant because
+            //returning the key would result in the same ref
+            //change the lines and see
             return new String(key);
+//            return key;
         }
     }
 }

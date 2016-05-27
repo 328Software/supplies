@@ -11,6 +11,7 @@ public interface Window {
 
     /**
      * Sets the shader engine this window will use.
+     * todo setter is an impl detail we should move to subclasses
      *
      * @param shaderEngine the shader engine
      */

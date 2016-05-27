@@ -1,16 +1,11 @@
 package org.supply.simulator.display.assetengine.texture;
 
-import org.supply.simulator.display.assetengine.AbstractAssetHandle;
-
 /**
  * Created by Alex on 7/14/2014.
  */
-public class TextureHandle extends AbstractAssetHandle {
+public class TextureHandle {
     private Atlas atlas;
     private float[] subInfo;
-
-
-
 
     public Integer getTextureId() {
         return atlas.getTextureId();

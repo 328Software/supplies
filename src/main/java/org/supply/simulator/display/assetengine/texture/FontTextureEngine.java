@@ -7,6 +7,8 @@ import org.lwjgl.opengl.GL21;
 import org.lwjgl.opengl.GL30;
 import org.supply.simulator.display.assetengine.AbstractAssetEngine;
 import org.supply.simulator.display.assetengine.AssetEngine;
+import org.supply.simulator.display.assetengine.WeakReferenceEngine;
+import org.supply.simulator.logging.HasLogger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -23,24 +25,26 @@ import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE;
+import static java.awt.image.BufferedImage.*;
 import static java.util.Objects.nonNull;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_BGRA;
 import static org.lwjgl.opengl.GL12.GL_UNSIGNED_INT_8_8_8_8;
 import static org.lwjgl.opengl.GL12.GL_UNSIGNED_INT_8_8_8_8_REV;
-import static org.lwjgl.opengl.GL30.GL_BGRA_INTEGER;
+import static org.lwjgl.opengl.GL13.GL_COMBINE;
+import static org.lwjgl.opengl.GL13.GL_COMBINE_RGB;
+import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL40.glBlendFunci;
+import static org.lwjgl.opengl.Util.checkGLError;
 
 /**
  * Created by Brandon on 5/19/2016.
  */
-public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle>
+public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle>
         implements TextureEngine {
     private static final String DEFAULT_DIR = "textures/";
     public static final int ROWS = 3;
-    private static final String DEFAULT_FONT = "courier-black";
+    private static final String DEFAULT_FONT = "manaspc";
 
     private HashMap<String,Atlas> atlasMap;
 
@@ -86,7 +90,6 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
             atlasMap.put(filename, atlas);
         }
         float[] subInfo = generateTextureData(character, atlas);
-        System.out.println(Arrays.toString(subInfo));
 
         handle.setAtlas(atlas);
         handle.setSubInfo(subInfo);
@@ -104,12 +107,9 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
         // Open the PNG file as an InputStream
         try (InputStream in = ClassLoader.getSystemResourceAsStream(filename)) {
             ByteBuffer buf;
-            BufferedImage read = convert(ImageIO.read(in), TYPE_INT_ARGB_PRE);
-
-            DataBufferInt intData = (DataBufferInt) read.getRaster().getDataBuffer();
-
-            buf = ByteBuffer.allocateDirect(4 * intData.getSize());
-            buf.asIntBuffer().put(intData.getData());
+            BufferedImage read = ImageIO.read(in);
+            //todo fail here if the image isn't 8 bit
+            buf = extractAlphaChannelBuffer(read);
 
             int tWidth = read.getWidth();
             int tHeight = read.getHeight();
@@ -124,21 +124,27 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
             // Upload the texture data and generate mip maps (for scaling)
-            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL_RGBA, tWidth, tHeight, 0,
-                    GL_BGRA, GL_UNSIGNED_INT_8_8_8_8, buf);
+//            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL_RGBA, tWidth, tHeight, 0,
+//                    GL_BGRA, GL_UNSIGNED_INT_8_8_8_8, buf);
+            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL_R8, tWidth, tHeight, 0,
+                    GL_RED, GL_UNSIGNED_BYTE, buf);
 
             GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 
             // Setup the ST coordinate system
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-
+//            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+//            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
             // Setup what to do when the texture has to be scaled
+
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
-                    GL11.GL_LINEAR);
+                    GL11.GL_NEAREST);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
-                    GL11.GL_LINEAR_MIPMAP_LINEAR);
+                    GL11.GL_NEAREST_MIPMAP_LINEAR);
 
             atlas = new Atlas();
             atlas.setFileName(filename);
@@ -150,15 +156,19 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
         return atlas;
     }
 
+    private ByteBuffer extractAlphaChannelBuffer(BufferedImage read) {
+        ByteBuffer buf;DataBufferByte byteData = (DataBufferByte) read.getRaster().getDataBuffer();
+        byte[] data = byteData.getData();
+
+        buf = ByteBuffer.allocateDirect(data.length);
+        buf.put(data);
+        buf.flip();
+        return buf;
+    }
+
     @Override
     protected void destroyHandle(String key) {
-        TextureHandle handle = handleMap.remove(key);
-
-        if (handle.getAtlas().count()==0) {
-            GL11.glDeleteTextures(handle.getAtlas().getTextureId());
-            atlasMap.remove(key);
-        }
-
+        logger.info("Destroying handle " + key);
     }
 
     private float[] generateTextureData(String character, Atlas atlas) {
@@ -168,24 +178,22 @@ public class FontTextureEngine extends AbstractAssetEngine<String, TextureHandle
 
         int charInt = (int)character.charAt(0) - 32;
 
-
-        System.out.println(new BigDecimal(charInt % 32));
         float x = new BigDecimal(charInt % 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(32), BigDecimal.ROUND_HALF_DOWN).floatValue();
         float y = new BigDecimal(charInt / 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(ROWS), BigDecimal.ROUND_HALF_DOWN).floatValue();
 
         return new float[] {
-                (float)x,
-                (float)y,
-                (float)x+charWidth,
-                (float)y+charHeight
+                x,
+                y,
+                x+charWidth,
+                y+charHeight
         };
 
     }
 
-    public static BufferedImage convert(BufferedImage src, int bufImgType) {
+  /*  public static BufferedImage convert(BufferedImage src, int bufImgType) {
         BufferedImage img= new BufferedImage(src.getWidth(), src.getHeight(), bufImgType);
         ColorConvertOp xformOp = new ColorConvertOp(null);
         xformOp.filter(src, img);
         return img;
-    }
+    }*/
 }

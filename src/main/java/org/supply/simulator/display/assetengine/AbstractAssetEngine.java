@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Alex on 9/11/2014.
  */
-public abstract class AbstractAssetEngine<K,V extends AbstractAssetHandle> extends HasLogger implements AssetEngine<K,V> {
+public abstract class AbstractAssetEngine<K,V> extends HasLogger implements AssetEngine<K,V> {
     protected Map<K,V> handleMap;
     protected Map<K,CountVar> countsMap;
 
@@ -26,7 +26,7 @@ public abstract class AbstractAssetEngine<K,V extends AbstractAssetHandle> exten
             handleMap.put(key,createHandle(key));
         }
         V handle = handleMap.get(key);
-        handle.add();
+//        handle.add();
         return handle;
     }
 
@@ -34,11 +34,11 @@ public abstract class AbstractAssetEngine<K,V extends AbstractAssetHandle> exten
     public void done(K key) {
         if (handleMap.containsKey(key)) {
             V handle = handleMap.get(key);
-            handle.subtract();
+//            handle.subtract();
 
-            if (handle.count()==0) {
+        /*    if (handle.count()==0) {
                 destroyHandle(key);
-            }
+            }*/
         }
     }
 
@@ -47,6 +47,7 @@ public abstract class AbstractAssetEngine<K,V extends AbstractAssetHandle> exten
 
     protected abstract V createHandle(K key);
 
+    //todo see AtomicInteger..
     protected class CountVar {
 
         Integer count;

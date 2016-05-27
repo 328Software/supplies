@@ -1,12 +1,11 @@
 package org.supply.simulator.display.assetengine.shader;
 
-import org.supply.simulator.display.assetengine.AbstractAssetHandle;
-
 /**
  * Created by Alex on 7/13/2014.
  */
-public class ShaderHandle extends AbstractAssetHandle {
+public class ShaderHandle {
 
+    //todo why?
     private int projectionMatrixLocation;
     private int viewMatrixLocation;
     private int modelMatrixLocation;

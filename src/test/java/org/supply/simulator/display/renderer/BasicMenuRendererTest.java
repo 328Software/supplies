@@ -29,7 +29,7 @@ public class BasicMenuRendererTest {
     private MockDisplayCore core;
     private Camera camera;
 
-    private DataGenerator generator;
+//    private DataGenerator generator;
 
     private BasicShaderEngine shaderEngine;
 
@@ -41,7 +41,6 @@ public class BasicMenuRendererTest {
         core = new MockDisplayCore();
         core.build("MenuRendererTest");
 
-        generator = new DataGenerator();
 
         shaderEngine = new BasicShaderEngine();
 
@@ -52,7 +51,6 @@ public class BasicMenuRendererTest {
 
         renderer.setAttributeLocations(new int[]{0, 1, 2});
         TextureEngine textureEngine = new FontTextureEngine();
-        generator.setTextureEngine(textureEngine);
         renderer.setTextureEngine(textureEngine);
         renderer.setIndexEngine(new BasicIndexEngine());
         renderer.setColumns(1);
@@ -65,10 +63,10 @@ public class BasicMenuRendererTest {
         camera.create();
 
         List<Entity> menus = new ArrayList();
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .2f, .1f, "the quick brown fox!");
+        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "the quick brown fox!");
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
-        textMenuFactory = new TextMenuFactory(-1f, .8f, .2f, .1f, "/!@#$%^&*()123456789");
+        textMenuFactory = new TextMenuFactory(-1f, .2f, .2f, .1f, "/!@#$%^&*()123456789");
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 

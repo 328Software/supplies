@@ -30,10 +30,10 @@ import java.util.Set;
  * Created by Alex on 5/8/2016.
  */
 public class TexturedChunkRendererTest {
-    private int CHUNK_ROWS = 50;
-    private int CHUNK_COLUMNS = 50;
-    private int totalChunkRows = 5;
-    private int totalChunkColumns = 5;
+    private int CHUNK_ROWS =5;
+    private int CHUNK_COLUMNS =5;
+    private int totalChunkRows = 2;
+    private int totalChunkColumns = 2;
 
     BasicShaderEngine shaderEngine;
     Camera camera;
@@ -88,42 +88,6 @@ public class TexturedChunkRendererTest {
 
     }
 
-
-    @Test
-    public void TexturedChunkRendererTest() {
-        core.build("TexturedChunkRendererTest");
-
-
-        camera.setProjectionMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getProjectionMatrixLocation());
-        camera.setModelMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getModelMatrixLocation());
-        camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
-        camera.create();
-
-        chunks = new ArrayList<>();
-        for (int i = 0; i<totalChunkRows* CHUNK_ROWS; i=i+ CHUNK_ROWS) {
-            for (int j = 0; j<totalChunkColumns* CHUNK_COLUMNS; j=j+ CHUNK_COLUMNS) {
-                BasicChunk chunk = dataGenerator.createChunk(CHUNK_ROWS, CHUNK_COLUMNS, i, j);
-
-                double num = Math.random();
-                if (num<2.5) {
-                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground1");
-                } else if (num<5.0) {
-                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground2");
-                } else if (num<7.5) {
-                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground3");
-                } else if (num<=1.0) {
-                    chunk.getPositions().stream().findAny().get().setTextureKey("Ground4");
-                }
-                TextureUtils.oldApplyTexture(chunk, textureEngine);
-                chunks.add(chunk);
-            }
-        }
-        staticRenderer.build(chunks);
-
-
-        render();
-    }
-
     @Test
     public void TexturedChunkRendererTest2() {
         core.build("TexturedChunkRendererTest2");
@@ -135,7 +99,7 @@ public class TexturedChunkRendererTest {
         camera.create();
 
         chunks = new ArrayList<>();
-        chunkGenerator.setOptions(CHUNK_ROWS,CHUNK_COLUMNS,-.5f,.5f);
+        chunkGenerator.setOptions(CHUNK_ROWS,CHUNK_COLUMNS,-.5f,.5f,.5f);
         chunks.add(chunkGenerator.generate());
 
         staticRenderer.build(chunks);

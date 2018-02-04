@@ -99,7 +99,8 @@ public class Renderer extends RendererBase implements EntityRenderer {
         if(drawStatic) {
             for (Map.Entry<Entity,BufferIDContainer> entry : staticIdMap.entrySet()) {
                 BufferIDContainer ids = entry.getValue();
-                //todo lazy af
+
+                //todo fix this laziness, idk know how
                 Integer atlasId = textureEngine.get(entry.getKey().getPositions().iterator().next().getTextureKey()).getTextureId();
 
                 //Prepare to draw block of entities

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.supply.simulator.display.window.BasicWindowSystemTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-02-05T04:03:24" hostname="alexputer" time="0.618">
-  <properties/>
-  <testcase name="render" classname="org.supply.simulator.display.window.BasicWindowSystemTest" time="0.618"/>
-  <system-out><![CDATA[2018/02/04 23:03:24.410 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] START DISPLAY: BasicWindowSystemTest
-2018/02/04 23:03:25.019 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] STOP DISPLAY
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

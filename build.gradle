@@ -79,7 +79,6 @@ dependencies {
 
 
 test {
-    println(configurations.agents.singleFile)
     jvmArgs "-javaagent:${configurations.agents.singleFile}",'-Djava.library.path=build\\native'
 }
 

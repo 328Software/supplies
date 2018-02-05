@@ -7,7 +7,7 @@ repositories {
 }
 
 ext {
-    springVersion = '4.0.5.RELEASE'
+    springVersion = '5.0.3.RELEASE'
     log4jVersion = '2.0-rc1'
     lwjglVersion = '2.9.3'
 }

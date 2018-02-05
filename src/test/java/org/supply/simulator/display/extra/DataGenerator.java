@@ -4,13 +4,17 @@ import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
+import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.util.TextureUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 
@@ -70,6 +74,35 @@ public class DataGenerator {
         return chunk;
     }
 
+    public List<BasicNode> threeNodes () {
+
+        List<BasicNode> l = new ArrayList<>();
+
+        Positions p1 = getUnitPositions(0.5f, 0.5f, 0f, .25f, .25f);
+
+        Positions p2= getUnitPositions(.8f, .8f, 0f, .25f, .25f);
+
+        Positions p3 = getUnitPositions(.1f, .1f, 0f, .35f, .35f);
+
+        BasicNode v1 = new BasicNode();
+        v1.setName("v1");
+        v1.setPositions(Collections.singleton(p1));
+        l.add(v1);
+
+        BasicNode v2 = new BasicNode();
+        v2.setName("v2");
+        v2.setPositions(Collections.singleton(p2));
+        l.add(v2);
+
+        BasicNode v3 = new BasicNode();
+        v3.setName("v3");
+        v3.setPositions(Collections.singleton(p3));
+        l.add(v3);
+
+        return l;
+    }
+
+
     public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicUnit unit = new BasicUnit();
         Positions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
@@ -121,6 +154,7 @@ public class DataGenerator {
 
         return entityData;
     }
+
 
     private ChunkData getChunkData
             (int row, int col, int topLeftX, int topLeftY) {

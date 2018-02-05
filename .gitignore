@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+/logs
 
 # BlueJ files
 *.ctxt
@@ -28,4 +29,5 @@ hs_err_pid*
 # build
 /target
 /out
-supplies.properties
+/build
+.gradle

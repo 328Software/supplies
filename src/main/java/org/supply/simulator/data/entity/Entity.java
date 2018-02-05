@@ -1,6 +1,7 @@
 package org.supply.simulator.data.entity;
 
 import org.supply.simulator.data.HasId;
+import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.display.assetengine.texture.Atlas;
 
 import java.util.Set;
@@ -18,4 +19,6 @@ public interface Entity extends HasId<Long> {
     Set<Positions> getPositions();
 
     void setPositions(Set<Positions> positions);
+    
+    void addAttribute(EntityAttribute attribute);
 }

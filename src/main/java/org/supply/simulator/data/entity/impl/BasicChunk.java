@@ -1,5 +1,6 @@
 package org.supply.simulator.data.entity.impl;
 
+import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
@@ -43,6 +44,11 @@ public class BasicChunk implements Chunk {
 
     public void setPositions(Set<Positions> positions) {
         this.positions = positions;
+    }
+
+    @Override
+    public void addAttribute(EntityAttribute attribute) {
+
     }
 
     public Atlas getAtlas() {

@@ -67,7 +67,10 @@ dependencies {
 
             [group: 'org.joml', name: 'joml', version: '1.7.1'],
 
-//            [group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: '2.9.3', classifier: 'natives-windows'],
+            [group: 'org.jgrapht', name: 'jgrapht-core', version: '1.1.0'],
+
+            [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version:'2.9.3', classifier:'natives-windows'],
+//            'org.lwjgl:lwjgl-platform:3.0:natives-windows'
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-linux'],
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-osx']
 

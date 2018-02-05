@@ -1,5 +1,6 @@
 package org.supply.simulator.display.factory;
 
+import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Positions.Vertex;
@@ -60,6 +61,11 @@ public class TextMenuFactory implements MenuFactory {
 
             @Override
             public void setPositions(Set<Positions> positions) {
+            }
+
+            @Override
+            public void addAttribute(EntityAttribute attribute) {
+
             }
 
             @Override

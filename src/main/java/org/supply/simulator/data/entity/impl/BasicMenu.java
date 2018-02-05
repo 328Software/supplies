@@ -1,5 +1,6 @@
 package org.supply.simulator.data.entity.impl;
 
+import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.texture.Atlas;
@@ -30,6 +31,11 @@ public class BasicMenu implements Entity {
 
     public void setPositions(Set<Positions> unitPositions) {
         this.unitPositions = unitPositions;
+    }
+
+    @Override
+    public void addAttribute(EntityAttribute attribute) {
+
     }
 
     public Atlas getAtlas() {

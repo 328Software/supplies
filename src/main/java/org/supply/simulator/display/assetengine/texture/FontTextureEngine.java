@@ -147,7 +147,7 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
 
             atlas = new Atlas();
             atlas.setFileName(filename);
-            atlas.setTextureId(texId);
+            atlas.setId(texId);
             atlas.setHeight(tHeight);
             atlas.setWidth(tWidth);
 

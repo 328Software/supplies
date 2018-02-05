@@ -6,6 +6,12 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    springVersion = '4.0.5.RELEASE'
+    log4jVersion = '2.0-rc1'
+    lwjglVersion = '2.9.3'
+}
+
 configurations {
     api
     agents
@@ -25,24 +31,24 @@ compileJava.dependsOn extractApi
 
 dependencies {
     api 'org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-windows'
-    agents (group: 'org.springframework', name: 'spring-instrument', version: '4.0.5.RELEASE')
+    agents (group: 'org.springframework', name: 'spring-instrument', version: springVersion)
 
     compile(
-            [group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-rc1'],
+            [group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion],
 
-            [group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-rc1'],
+            [group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4jVersion],
 
-            [group: 'org.springframework', name: 'spring-core', version: '4.0.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-core', version: springVersion],
 
-            [group: 'org.springframework', name: 'spring-context', version: '4.0.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-context', version: springVersion],
 
-            [group: 'org.springframework', name: 'spring-orm', version: '4.0.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-orm', version: springVersion],
 
-            [group: 'org.springframework', name: 'spring-aspects', version: '4.0.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-aspects', version: springVersion],
 
-            [group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'],
+            [group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: lwjglVersion],
 
-            [group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'],
+            [group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: lwjglVersion],
 
             [group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'],
 
@@ -62,7 +68,7 @@ dependencies {
 
             [group: 'org.jgrapht', name: 'jgrapht-core', version: '1.1.0'],
 
-            [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version:'2.9.3', classifier:'natives-windows'],
+            [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version: lwjglVersion, classifier:'natives-windows'],
 //            'org.lwjgl:lwjgl-platform:3.0:natives-windows'
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-linux'],
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-osx']

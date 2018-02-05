@@ -2,51 +2,42 @@ apply plugin: 'java'
 
 import org.apache.tools.ant.taskdefs.condition.Os
 
-/*sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-        resources {
-            srcDirs = ['src/main/resources']
-        }
-    }
-    test {
-        java {
-            srcDirs = ['src/test/java']
-        }
-        resources {
-            srcDirs = ['src/test/resources']
-        }
-    }
-}*/
-
-
-
 repositories {
     mavenCentral()
 }
 
+configurations {
+    api
+    agents
+}
+
+task extractApi(type: Sync) {
+    dependsOn configurations.api
+
+    from {
+        configurations.api.collect { zipTree(it) }
+    }
+
+    into "$buildDir/native/"
+}
+
+task getAgent(type: Sync) {
+    dependsOn configurations.agents
+
+    into "$buildDir/agents/"
+    from configurations.agents
+}
+
+compileJava.dependsOn extractApi, getAgent
+
 dependencies {
+    api 'org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-windows'
+    agents (group: 'org.springframework', name: 'spring-instrument', version: '4.0.5.RELEASE')
 
-
-
-/*
-         <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.9.3" conf="*">
-    <artifact name="lwjgl-platform" e:classifier="natives-linux" conf="linux-native"/>
-    <artifact name="lwjgl-platform" e:classifier="natives-windows" conf="windows-native"/>
-    <artifact name="lwjgl-platform" e:classifier="natives-osx" conf="osx-native"/>
-    </dependency>
-     */
-
-//    aspectpath "org.springframework:spring-aspects:4.0.5.RELEASE"
-
-    compile (
+    compile(
             [group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-rc1'],
 
-
             [group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-rc1'],
-
 
             [group: 'org.springframework', name: 'spring-core', version: '4.0.5.RELEASE'],
 
@@ -55,12 +46,8 @@ dependencies {
             [group: 'org.springframework', name: 'spring-orm', version: '4.0.5.RELEASE'],
 
             [group: 'org.springframework', name: 'spring-aspects', version: '4.0.5.RELEASE'],
-            [group: 'org.springframework', name: 'spring-instrument', version: '4.0.5.RELEASE'],
 
-//            [group: 'org.lwjgl', name: 'lwjgl', version: '3.1.5'],
             [group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'],
-
-
 
             [group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'],
 
@@ -69,7 +56,6 @@ dependencies {
             [group: 'org.hibernate', name: 'hibernate-core', version: '4.3.5.Final'],
 
             [group: 'org.hsqldb', name: 'hsqldb', version: '2.3.2'],
-
 
             [group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'],
 
@@ -81,28 +67,31 @@ dependencies {
 
             [group: 'org.joml', name: 'joml', version: '1.7.1'],
 
-
-            [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version:'2.9.3', classifier:'natives-windows'],
-//            'org.lwjgl:lwjgl-platform:3.0:natives-windows'
+//            [group: 'org.lwjgl.lwjgl', name: 'lwjgl-platform', version: '2.9.3', classifier: 'natives-windows'],
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-linux'],
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-osx']
 
     )
 
-    testCompile (
+    testCompile(
             [group: 'junit', name: 'junit', version: '4.11'],
             [group: 'com.carrotsearch', name: 'junit-benchmarks', version: '0.7.2']
     )
 
 
+}
 
+
+test {
+    jvmArgs '-javaagent:build\\agents\\spring-instrument-4.0.5.RELEASE.jar','-Djava.library.path=build\\native'
 }
 
 
 
 
+/*
 task checkWin() << {
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
         println "*** WINDOWS "
     }
-}
+}*/

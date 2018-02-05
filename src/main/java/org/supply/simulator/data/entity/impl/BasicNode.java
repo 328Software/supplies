@@ -9,7 +9,7 @@ import javax.naming.Name;
 /**
  *  Node, used to represent towns
  */
-public class BasicNode extends AbstractUnit implements Node, HasName {
+public class BasicNode extends AbstractUnit implements Node, HasName<String> {
 
 
     private String name;
@@ -18,6 +18,7 @@ public class BasicNode extends AbstractUnit implements Node, HasName {
     public String getName() {
         return this.name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

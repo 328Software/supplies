@@ -3,14 +3,13 @@ package org.supply.simulator.display.window;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
-import org.supply.simulator.display.extra.DataGenerator;
+import org.supply.simulator.badengine.temp.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;
@@ -20,9 +19,7 @@ import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.impl.BasicWindow;
 import org.supply.simulator.display.window.impl.UserCameraInterface;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Alex on 7/18/2014.

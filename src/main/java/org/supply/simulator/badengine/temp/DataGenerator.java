@@ -58,10 +58,10 @@ public class DataGenerator {
         }*/
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-        Positions positions = Positions.newTexturedColorPositions();
+        Positions positions = Positions.newTexturedColorPositions(pair.positions);
         Colors colors = new Colors();
 
-        positions.setValue(pair.positions);
+//        positions.setValue(pair.positions);
         colors.setValue(pair.colors);
 
 
@@ -149,8 +149,8 @@ public class DataGenerator {
         System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
         System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
 
-        Positions entityData = Positions.newTexturedColorPositions();
-        entityData.setValue(data);
+        Positions entityData = Positions.newTexturedColorPositions(data);
+//        entityData.setValue(data);
 
         return entityData;
     }

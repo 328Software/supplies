@@ -8,7 +8,4 @@ import org.supply.simulator.data.entity.Entity;
  */
 public interface MenuFactory extends Factory<Entity> {
 
-
-
-
 }

@@ -63,9 +63,9 @@ public class CheckerTestChunkManager extends AbstractManager implements Manager 
 
                 logger.info("creating chunk " + (count++));
                 BasicChunk chunk = new BasicChunk();
-                Positions positions = Positions.newTexturedColorPositions();
+                Positions positions = Positions.newTexturedColorPositions(terrainChunk.getPositions());
                 Colors colors = new Colors();
-                positions.setValue(terrainChunk.getPositions());
+//                positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());
 //                chunk.setType(type);
                 chunk.setColors(colors);

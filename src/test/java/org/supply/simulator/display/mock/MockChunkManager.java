@@ -81,10 +81,10 @@ public class MockChunkManager extends AbstractManager {
 //            type.setRows(chunkRows);
 
             DataPair pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-            Positions positions = Positions.newTexturedColorPositions();
+            Positions positions = Positions.newTexturedColorPositions(pair.positions);
             Colors colors = new Colors();
 
-            positions.setValue(pair.positions);
+//            positions.setValue(pair.positions);
             colors.setValue(pair.colors);
 
 

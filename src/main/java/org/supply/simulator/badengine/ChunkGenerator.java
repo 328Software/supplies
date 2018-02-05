@@ -37,8 +37,7 @@ public class ChunkGenerator implements Generator<Entity> {
                         op_quad_size); //QUAD WIDTH AND LENGTH
 
 
-                Positions positions = Positions.newTexturedColorPositions();
-                positions.setValue(value);
+                Positions positions = Positions.newTexturedColorPositions(value);
                 positions.setTextureKey(textureKey);
                 positionsSet.add(positions);
             }
@@ -198,9 +197,9 @@ public class ChunkGenerator implements Generator<Entity> {
             }
         }
 
-        Positions positions = Positions.newTexturedColorPositions();
+        Positions positions = Positions.newTexturedColorPositions(data);
         positions.setTextureKey(textureKey);
-        positions.setValue(data);
+//        positions.setValue(data);
         return positions;
     }
 

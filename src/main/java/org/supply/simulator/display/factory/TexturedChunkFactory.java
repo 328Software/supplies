@@ -1,6 +1,7 @@
 package org.supply.simulator.display.factory;
 
 import org.supply.simulator.badengine.terrain.TerrainGenerator;
+import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
@@ -38,6 +39,11 @@ public class TexturedChunkFactory implements ChunkFactory {
 
             @Override
             public void setPositions(Set<Positions> positions) {
+            }
+
+            @Override
+            public void addAttribute(EntityAttribute attribute) {
+
             }
 
             @Override

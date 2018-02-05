@@ -1,5 +1,25 @@
 apply plugin: 'java'
+
 import org.apache.tools.ant.taskdefs.condition.Os
+
+/*sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+}*/
 
 
 
@@ -19,6 +39,7 @@ dependencies {
     </dependency>
      */
 
+//    aspectpath "org.springframework:spring-aspects:4.0.5.RELEASE"
 
     compile (
             [group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0-rc1'],
@@ -36,6 +57,7 @@ dependencies {
             [group: 'org.springframework', name: 'spring-aspects', version: '4.0.5.RELEASE'],
             [group: 'org.springframework', name: 'spring-instrument', version: '4.0.5.RELEASE'],
 
+//            [group: 'org.lwjgl', name: 'lwjgl', version: '3.1.5'],
             [group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'],
 
 
@@ -57,7 +79,13 @@ dependencies {
 
             [group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.1'],
 
-            [group: 'org.joml', name: 'joml', version: '1.7.1']
+            [group: 'org.joml', name: 'joml', version: '1.7.1'],
+
+
+            [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version:'2.9.3', classifier:'natives-windows'],
+//            'org.lwjgl:lwjgl-platform:3.0:natives-windows'
+//            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-linux'],
+//            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-osx']
 
     )
 
@@ -69,7 +97,6 @@ dependencies {
 
 
 }
-
 
 
 

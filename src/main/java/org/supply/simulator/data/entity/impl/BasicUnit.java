@@ -14,4 +14,14 @@ import java.util.Set;
  */
 public class BasicUnit extends AbstractUnit implements Entity {
 
+    private Set<Positions> p;
+
+    public Set<Positions> getPositions() {
+        return p;
+    }
+
+    public void setPositions(Set<Positions> p) {
+        this.p = p;
+    }
+
 }

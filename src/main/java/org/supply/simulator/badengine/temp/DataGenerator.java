@@ -1,6 +1,7 @@
 package org.supply.simulator.badengine.temp;
 
 import org.supply.simulator.data.entity.Colors;
+import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
@@ -75,27 +76,30 @@ public class DataGenerator {
     }
 
     public List<BasicNode> threeNodes () {
+        return this.threeNodes("v");
+    }
 
+    public List<BasicNode> threeNodes(String v) {
         List<BasicNode> l = new ArrayList<>();
 
-        Positions p1 = getUnitPositions(0.5f, 0.5f, 0f, .25f, .25f);
+        Positions p1 = getUnitPositions(0.0f, 0.8f, 0f, .25f, .25f);
 
-        Positions p2= getUnitPositions(.8f, .8f, 0f, .25f, .25f);
+        Positions p2= getUnitPositions(-0.5f, .0f, 0f, .25f, .25f);
 
-        Positions p3 = getUnitPositions(.1f, .1f, 0f, .35f, .35f);
+        Positions p3 = getUnitPositions(.5f, .0f, 0f, .25f, .25f);
 
         BasicNode v1 = new BasicNode();
-        v1.setName("v1");
+        v1.setName(v+"1");
         v1.setPositions(Collections.singleton(p1));
         l.add(v1);
 
         BasicNode v2 = new BasicNode();
-        v2.setName("v2");
+        v2.setName(v+"2");
         v2.setPositions(Collections.singleton(p2));
         l.add(v2);
 
         BasicNode v3 = new BasicNode();
-        v3.setName("v3");
+        v3.setName(v+"3");
         v3.setPositions(Collections.singleton(p3));
         l.add(v3);
 
@@ -211,6 +215,8 @@ public class DataGenerator {
 
         return new ChunkData(positions,colors);
     }
+
+
 
     private class ChunkData {
         public float[] positions;

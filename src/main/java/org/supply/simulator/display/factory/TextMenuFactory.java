@@ -46,6 +46,7 @@ public class TextMenuFactory implements MenuFactory {
                     Positions p = TextMenuFactory.this.getPositions(topLeftX+i*width, topLeftY, 0, length, width);
                     positions.add(p);
 
+                    System.out.println(c.toString());
                     p.setTextureKey(c.toString());
                 }
 /*                this.getPositions().stream().filter(p -> nonNull(p.getTextureKey()))

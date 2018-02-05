@@ -1,5 +1,6 @@
 package org.supply.simulator.util;
 
+import org.lwjgl.Sys;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
@@ -44,7 +45,9 @@ public class TextureUtils {
     public static void applyTexture(Entity entity, TextureEngine textureEngine) {
         for(Positions pos : entity.getPositions()) {
             if(nonNull(pos.getTextureKey())) {
+                System.out.println("hey");
 //                entity.setAtlas(textureEngine.get(pos.getTextureKey()).getAtlas());
+                System.out.println(pos.getTextureKey());
                 TextureHandle texture = textureEngine.get(pos.getTextureKey());
 
                 //TODO can this be done on Entity generation?

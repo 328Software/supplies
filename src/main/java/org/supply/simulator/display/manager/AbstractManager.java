@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Alex on 7/21/2014.
  */
-public abstract class AbstractManager extends HasLogger implements Manager {
+public abstract class AbstractManager<I extends Entity> extends HasLogger implements Manager<I> {
 
 
 
@@ -76,11 +76,11 @@ public abstract class AbstractManager extends HasLogger implements Manager {
         return out;
     }
 
-    public void add(List<Entity> menues) {
+    public void add(List<I> menues) {
         toAdd.addAll(menues);
     }
 
-    public void remove(List<Entity> menues) {
+    public void remove(List<I> menues) {
         toRemove.addAll(menues);
     }
 

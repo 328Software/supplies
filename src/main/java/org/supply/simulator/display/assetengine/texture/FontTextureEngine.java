@@ -46,7 +46,7 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
     public static final int ROWS = 3;
     private static final String DEFAULT_FONT = "manaspc";
 
-    private HashMap<String,Atlas> atlasMap;
+    private HashMap<String, Atlas> atlasMap;
 
     public FontTextureEngine() {
         atlasMap = new HashMap<>();
@@ -55,7 +55,7 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
     @Override
     public boolean canHandle(String key) {
         String filename;
-        if(key.matches("^.+_.+$")) {
+        if (key.matches("^.+_.+$")) {
             String[] keySplit = key.split("_");
             filename = "textures/" + keySplit[0] + ".png";
         } else {
@@ -69,7 +69,7 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
         TextureHandle handle = new TextureHandle();
         String filename;
         String character;
-        if(key.matches("^.+_.+$")) {
+        if (key.matches("^.+_.+$")) {
             String[] keySplit = key.split("_");
             filename = "textures/" + keySplit[0] + ".png";
             character = keySplit[1];
@@ -96,7 +96,6 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
 
         return handle;
     }
-
 
 
     private Atlas loadPNGTexture2D(String filename, int textureUnit) throws IOException {
@@ -157,7 +156,8 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
     }
 
     private ByteBuffer extractAlphaChannelBuffer(BufferedImage read) {
-        ByteBuffer buf;DataBufferByte byteData = (DataBufferByte) read.getRaster().getDataBuffer();
+        ByteBuffer buf;
+        DataBufferByte byteData = (DataBufferByte) read.getRaster().getDataBuffer();
         byte[] data = byteData.getData();
 
         buf = ByteBuffer.allocateDirect(data.length);
@@ -176,16 +176,16 @@ public class FontTextureEngine extends WeakReferenceEngine<String, TextureHandle
         float charWidth = 1f / 32;// - (1f / atlas.getWidth());
         float charHeight = 1f / ROWS;// - (4f / atlas.getHeight());
 
-        int charInt = (int)character.charAt(0) - 32;
+        int charInt = (int) character.charAt(0) - 32;
 
         float x = new BigDecimal(charInt % 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(32), BigDecimal.ROUND_HALF_DOWN).floatValue();
         float y = new BigDecimal(charInt / 32).setScale(3, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(ROWS), BigDecimal.ROUND_HALF_DOWN).floatValue();
 
-        return new float[] {
+        return new float[]{
                 x,
                 y,
-                x+charWidth,
-                y+charHeight
+                x + charWidth,
+                y + charHeight
         };
 
     }

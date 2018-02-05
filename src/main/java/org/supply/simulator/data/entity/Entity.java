@@ -15,7 +15,7 @@ import java.util.Set;
  * object matter that can be described by Attributes. Entity is meant to be used as the highest
  * non-generic super-type for all matter.
  */
-public interface Entity extends HasId<Long> {
+public interface Entity extends HasId<Entity, Long> {
     Set<Positions> getPositions();
 
     void setPositions(Set<Positions> positions);

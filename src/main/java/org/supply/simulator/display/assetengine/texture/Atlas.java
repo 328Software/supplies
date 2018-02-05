@@ -1,63 +1,39 @@
 package org.supply.simulator.display.assetengine.texture;
 
+import org.supply.simulator.data.HasId;
+
+import java.util.Comparator;
+
 /**
  * Created by Alex on 7/30/2014.
  */
-public class Atlas {
+public class Atlas implements HasId<Atlas, Integer> {
 
     private String fileName;
     private Integer id;
-    protected Integer count=0;
     private int height;
     private int width;
-
-
-    public void add() {
-        count = count +1;
-    }
-
-
-    public void subtract() {
-        count = count -1;
-    }
-
-
-    public Integer count() {
-        return count;
-    }
-
 
     public void setFileName(String fileName) {
         this.fileName=fileName;
     }
 
-
     public String getFileName() {
         return this.fileName;
     }
 
-
-    public Integer getTextureId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
-
-    public void setTextureId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Atlas)) return false;
-        return false;
-    }
-
 
     public int getWidth() {
         return width;
     }
-
 
     public void setWidth(int width) {
         this.width = width;
@@ -68,7 +44,28 @@ public class Atlas {
         return height;
     }
 
+
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public int compareTo(Atlas o) {
+        return Comparator.comparing(Atlas::getId).compare(this, o);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Atlas atlas = (Atlas) o;
+
+        return id != null ? id.equals(atlas.id) : atlas.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

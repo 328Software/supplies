@@ -33,11 +33,6 @@ public class Production implements Attribute<Long>, HasValue<Float> {
     }
 
     @Override
-    public int compareTo(HasId<Long> o) {
-        return 0;
-    }
-
-    @Override
     public Float getValue() {
         return value;
     }

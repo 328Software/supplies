@@ -6,7 +6,7 @@ import org.supply.simulator.data.HasValue;
 /**
  * Created by Alex on 9/14/2014.
  */
-public class Colors implements HasId<Long>, HasValue<byte[]> {
+public class Colors implements HasId<Colors, Long>, HasValue<byte[]> {
     private Long id;
 
     private byte[] value;

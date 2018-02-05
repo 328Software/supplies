@@ -12,7 +12,7 @@ import java.util.TreeMap;
 /**
  * Created by Alex on 9/14/2014.
  */
-public class Positions implements HasId<Long>, HasValue<float[]> {
+public class Positions implements HasId<Positions, Long>, HasValue<float[]> {
     public static final Comparator<Map.Entry<Integer, Integer>> ENTRY_COMPARATOR = Map.Entry.<Integer, Integer>comparingByKey().thenComparing(Map.Entry.<Integer, Integer>comparingByValue());
     public static final int NUMBER_OF_VERTICES = 4;
 

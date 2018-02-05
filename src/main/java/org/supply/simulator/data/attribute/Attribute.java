@@ -12,6 +12,6 @@ import org.supply.simulator.data.HasId;
  * that exist in the game. Attributes are supposed to describe every single detail
  * of an object.
  */
-public interface Attribute<I extends Comparable<I>> extends HasId<I> {
+public interface Attribute<I extends Comparable<I>> extends HasId<Attribute<I>, I> {
 
 }

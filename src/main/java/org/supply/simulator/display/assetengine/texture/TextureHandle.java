@@ -8,14 +8,12 @@ public class TextureHandle {
     private float[] subInfo;
 
     public Integer getTextureId() {
-        return atlas.getTextureId();
+        return atlas.getId();
     }
-
 
     public void setTextureId(Integer textureId) {
-        atlas.setTextureId(textureId);
+        atlas.setId(textureId);
     }
-
 
     public float[] getSubInfo() {
         return subInfo;

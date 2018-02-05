@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.Objects.nonNull;
 
@@ -21,7 +22,8 @@ public class BasicTextureEngine
         extends AbstractAssetEngine<String, TextureHandle>
         implements TextureEngine {
 
-    private HashMap<String,Atlas> atlasMap;
+    private Map<String,Atlas> atlasMap;
+//    private Map<>
 
     public BasicTextureEngine() {
         atlasMap = new HashMap<>();
@@ -108,7 +110,7 @@ public class BasicTextureEngine
 
             atlas = new Atlas();
             atlas.setFileName(filename);
-            atlas.setTextureId(texId);
+            atlas.setId(texId);
             atlas.setHeight(tHeight);
             atlas.setWidth(tWidth);
 
@@ -120,10 +122,12 @@ public class BasicTextureEngine
     protected void destroyHandle(String key) {
         TextureHandle handle = handleMap.remove(key);
 
-        if (handle.getAtlas().count()==0) {
-            GL11.glDeleteTextures(handle.getAtlas().getTextureId());
+
+        //todo keep a local count
+       /* if (handle.getAtlas().count()==0) {
+            GL11.glDeleteTextures(handle.getAtlas().getId());
             atlasMap.remove(lookupTextureFileName(key));
-        }
+        }*/
 
     }
 

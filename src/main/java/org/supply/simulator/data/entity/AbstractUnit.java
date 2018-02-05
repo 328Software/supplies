@@ -9,7 +9,7 @@ import java.util.Set;
 public abstract class AbstractUnit implements Entity{
 
     private Long id;
-    private Set<Positions> unitPositions;
+
     private Atlas atlas;
 
     private AttributeContainer atts;
@@ -18,14 +18,6 @@ public abstract class AbstractUnit implements Entity{
 //    public String getTextureKey() {
 //        return textureKey;
 //    }
-
-    public Set<Positions> getPositions() {
-        return unitPositions;
-    }
-
-    public void setPositions(Set<Positions> unitPositions) {
-        this.unitPositions = unitPositions;
-    }
 
     @Override
     public void addAttribute(EntityAttribute attribute) {

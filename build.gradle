@@ -21,14 +21,7 @@ task extractApi(type: Sync) {
     into "$buildDir/native/"
 }
 
-task getAgent(type: Sync) {
-    dependsOn configurations.agents
-
-    into "$buildDir/agents/"
-    from configurations.agents
-}
-
-compileJava.dependsOn extractApi, getAgent
+compileJava.dependsOn extractApi
 
 dependencies {
     api 'org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-windows'
@@ -86,11 +79,9 @@ dependencies {
 
 
 test {
-    jvmArgs '-javaagent:build\\agents\\spring-instrument-4.0.5.RELEASE.jar','-Djava.library.path=build\\native'
+    println(configurations.agents.singleFile)
+    jvmArgs "-javaagent:${configurations.agents.singleFile}",'-Djava.library.path=build\\native'
 }
-
-
-
 
 /*
 task checkWin() << {

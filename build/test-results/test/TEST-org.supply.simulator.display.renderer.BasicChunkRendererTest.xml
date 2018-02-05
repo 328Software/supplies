@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.supply.simulator.display.renderer.BasicChunkRendererTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-02-05T04:03:22" hostname="alexputer" time="0.948">
+  <properties/>
+  <testcase name="render" classname="org.supply.simulator.display.renderer.BasicChunkRendererTest" time="0.948"/>
+  <system-out><![CDATA[2018/02/04 23:03:22.140 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] START DISPLAY: BasicChunkRendererTest
+2018/02/04 23:03:23.073 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] STOP DISPLAY
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
+        </Console>
+        <File name="info" fileName="logs/simulator.info.log" append="true">
+            <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
+        </File>
+        <File name="display" fileName="logs/simulator.display.log" append="true">
+            <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info" additivity="true">
+            <AppenderRef ref="console"/>
+        </Root>
+
+        <logger name="org.supply.simulator.display" level="info" additivity="true">
+            <AppenderRef ref="display"/>
+        </logger>
+
+        <logger name="org.supply.simulator.core" level="info" additivity="true">
+            <AppenderRef ref="info"/>
+        </logger>
+
+        <logger name="org.hibernate" level="info" additivity="true">
+            <AppenderRef ref="info"/>
+        </logger>
+
+        <logger name="org.springframework" level="info" additivity="true">
+            <AppenderRef ref="info"/>
+        </logger>
+    </Loggers>
+</Configuration>

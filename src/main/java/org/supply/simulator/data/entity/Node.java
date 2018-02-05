@@ -1,4 +1,6 @@
 package org.supply.simulator.data.entity;
 
-public interface Node extends Entity {
+import org.supply.simulator.data.HasName;
+
+public interface Node extends Entity, HasName {
 }

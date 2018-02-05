@@ -4,11 +4,11 @@ import org.supply.simulator.data.entity.Entity;
 
 import java.util.Collection;
 
-public interface EntityContainer {
+public interface EntityContainer<E extends Entity> {
 
-    Collection<Entity> getAll();
+    Collection<E> getAll();
 
-    void add(Entity e);
+    void add(E e);
 }
 
 

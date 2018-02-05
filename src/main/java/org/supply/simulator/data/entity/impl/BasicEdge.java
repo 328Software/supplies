@@ -13,6 +13,15 @@ public class BasicEdge extends AbstractUnit implements Edge {
     private Node fromNode;
     private Node toNode;
 
+    protected Object	getSource() {
+        return fromNode;
+    }
+
+    protected Object	getTarget() {
+        return toNode;
+    }
+
+
     private float magnitude;
 
 

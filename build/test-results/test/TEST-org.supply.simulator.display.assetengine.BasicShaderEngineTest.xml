@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.supply.simulator.display.assetengine.BasicShaderEngineTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-02-05T04:03:19" hostname="alexputer" time="0.042">
+  <properties/>
+  <testcase name="TestPlayShader" classname="org.supply.simulator.display.assetengine.BasicShaderEngineTest" time="0.042"/>
+  <system-out><![CDATA[2018/02/04 23:03:19.883 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] START DISPLAY: BasicShaderEngineTest
+2018/02/04 23:03:19.916 INFO org.supply.simulator.display.assetengine.BasicShaderEngineTest [Test worker] START BasicShaderEngineTest
+2018/02/04 23:03:19.916 INFO org.supply.simulator.display.assetengine.BasicShaderEngineTest [Test worker]     TEST createPlayShader
+2018/02/04 23:03:19.919 INFO org.supply.simulator.display.assetengine.BasicShaderEngineTest [Test worker] Successfully created shader program
+2018/02/04 23:03:19.919 INFO org.supply.simulator.display.assetengine.BasicShaderEngineTest [Test worker] Successfully used program
+2018/02/04 23:03:19.919 INFO org.supply.simulator.display.assetengine.BasicShaderEngineTest [Test worker] Successfully deleted program
+2018/02/04 23:03:19.919 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] STOP DISPLAY
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

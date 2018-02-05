@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.supply.simulator.display.assetengine.BasicIndexEngineTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-02-05T04:03:19" hostname="alexputer" time="0.368">
+  <properties/>
+  <testcase name="chunkIndexEngineTest" classname="org.supply.simulator.display.assetengine.BasicIndexEngineTest" time="0.368"/>
+  <system-out><![CDATA[2018/02/04 23:03:19.517 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] START DISPLAY: BasicIndexEngineTest
+2018/02/04 23:03:19.873 INFO org.supply.simulator.display.assetengine.BasicIndexEngineTest [Test worker] Succesfully created chunk index opengl buffer:1
+2018/02/04 23:03:19.873 INFO org.supply.simulator.display.mock.MockDisplayCore [Test worker] STOP DISPLAY
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

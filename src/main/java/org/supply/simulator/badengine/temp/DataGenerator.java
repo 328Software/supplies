@@ -19,7 +19,13 @@ import java.util.List;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
 
-/**
+/**NOTE
+ * NOTE (2/4/2018): Moving this to badengine from test because of weird test cannot fine method error
+ * NOTE     -Alex
+ *
+ *
+ *
+ *
  * Created by Alex on 9/10/2014.
  */
 public class DataGenerator {

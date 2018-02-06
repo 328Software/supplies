@@ -65,10 +65,11 @@ public class JGraphTTest {
             System.out.println("Sink: "+n2.getName());
         }
 
-        System.out.println("v1->v2: "+ alg.getMaximumFlow(n1,n2));
+//        System.out.println("v1->v2: "+ alg.getMaximumFlow(n1,n2));
 
-        System.out.println("v2->v1: "+alg.getMaximumFlow(n2,n1));
-
+//        System.out.println("v2->v1: "+alg.getMaximumFlow(n2,n1));
+//        alg.
+//        alg.getFlowMap().entrySet().stream().forEach(v -> System.out.println(v.getKey().getName()+" | "+v.getValue()));
     }
 
     @Test
@@ -100,7 +101,7 @@ public class JGraphTTest {
             System.out.println("flow: "+n);
         }
 
-        alg.getFlowMap().entrySet().stream().forEach(v -> System.out.println(v.getKey().getName()+" | "+v.getValue()));
+
 
     }
 

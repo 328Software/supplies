@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by Alex on 5/6/2016.
  */
-public abstract class RendererBase extends HasLogger implements  EntityRenderer {
+public abstract class RendererBase extends HasLogger implements EntityRenderer {
 
     protected TextureEngine textureEngine;
 

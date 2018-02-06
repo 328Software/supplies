@@ -34,6 +34,8 @@ dependencies {
     agents (group: 'org.springframework', name: 'spring-instrument', version: springVersion)
 
     compile(
+            [group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'],
+
             [group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion],
 
             [group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4jVersion],

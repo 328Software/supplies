@@ -1,5 +1,6 @@
 package org.supply.simulator.badengine;
 
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
@@ -37,7 +38,7 @@ public class ChunkGenerator implements Generator<Entity> {
                         op_quad_size); //QUAD WIDTH AND LENGTH
 
 
-                Positions positions = Positions.newTexturedColorPositions(value);
+                BasicPositions positions = BasicPositions.newTexturedColorPositions(value);
                 positions.setTextureKey(textureKey);
                 positionsSet.add(positions);
             }
@@ -197,7 +198,7 @@ public class ChunkGenerator implements Generator<Entity> {
             }
         }
 
-        Positions positions = Positions.newTexturedColorPositions(data);
+        BasicPositions positions = BasicPositions.newTexturedColorPositions(data);
         positions.setTextureKey(textureKey);
 //        positions.setValue(data);
         return positions;

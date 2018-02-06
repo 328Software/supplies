@@ -1,11 +1,11 @@
 package org.supply.simulator.display.mock;
 
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.Chunk;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
-import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class MockChunkManager extends AbstractManager {
 //            type.setRows(chunkRows);
 
             DataPair pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-            Positions positions = Positions.newTexturedColorPositions(pair.positions);
+            Positions positions = BasicPositions.newTexturedColorPositions(pair.positions);
             Colors colors = new Colors();
 
 //            positions.setValue(pair.positions);

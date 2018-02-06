@@ -6,12 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.supply.simulator.badengine.terrain.chunk.TerrainChunk;
 import org.supply.simulator.badengine.terrain.impl.SimpleTerrainGenerator;
 import org.supply.simulator.core.dao.chunk.ChunkDAO;
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.display.manager.AbstractManager;
 import org.supply.simulator.display.manager.Manager;
-import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.window.Camera;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class CheckerTestChunkManager extends AbstractManager implements Manager 
 
                 logger.info("creating chunk " + (count++));
                 BasicChunk chunk = new BasicChunk();
-                Positions positions = Positions.newTexturedColorPositions(terrainChunk.getPositions());
+                Positions positions = BasicPositions.newTexturedColorPositions(terrainChunk.getPositions());
                 Colors colors = new Colors();
 //                positions.setValue(terrainChunk.getPositions());
                 colors.setValue(terrainChunk.getColors());

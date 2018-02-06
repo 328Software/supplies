@@ -60,10 +60,12 @@ public class BasicMenuRendererTest {
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
 
-        List<Entity> menus = new ArrayList();
+        List<Entity> menus = new ArrayList<>();
         TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "the quick brown fox!");
         textMenuFactory.setTextureEngine(textureEngine);
+
         menus.add(textMenuFactory.build());
+
         textMenuFactory = new TextMenuFactory(-1f, .2f, .2f, .1f, "/!@#$%^&*()123456789");
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
@@ -88,7 +90,9 @@ public class BasicMenuRendererTest {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
             GL20.glUseProgram(shaderEngine.get(ShaderProgramType.TEXTURED_STATIONARY).getProgramId());
+
             manager.update();
+
             GL20.glUseProgram(0);
 
             core.render();

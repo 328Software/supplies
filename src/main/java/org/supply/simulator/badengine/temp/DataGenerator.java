@@ -1,20 +1,18 @@
 package org.supply.simulator.badengine.temp;
 
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.Colors;
-import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
 import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.data.entity.impl.BasicUnit;
-import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.supply.simulator.display.factory.TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE;
@@ -65,7 +63,7 @@ public class DataGenerator {
         }*/
 
         ChunkData pair = getChunkData(chunkRows, chunkColumns, offsetX, offsetY);
-        Positions positions = Positions.newTexturedColorPositions(pair.positions);
+        Positions positions = BasicPositions.newTexturedColorPositions(pair.positions);
         Colors colors = new Colors();
 
 //        positions.setValue(pair.positions);
@@ -115,7 +113,7 @@ public class DataGenerator {
 
     public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicUnit unit = new BasicUnit();
-        Positions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
+        BasicPositions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
         positions.setTextureKey(name);
         unit.setPositions(Collections.singleton(positions));
 
@@ -131,7 +129,7 @@ public class DataGenerator {
     public BasicMenu createMenu(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
         BasicMenu menu = new BasicMenu();
 
-        Positions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
+        BasicPositions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
         positions.setTextureKey(name);
         menu.setPositions(Collections.singleton(positions));
 
@@ -142,7 +140,7 @@ public class DataGenerator {
         return menu;
     }
 
-    private Positions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();
@@ -159,7 +157,7 @@ public class DataGenerator {
         System.arraycopy(v2.getElements(),0,data,2*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
         System.arraycopy(v3.getElements(),0,data,3*TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE,TexturedVertex.TEXTURE_VERTEX_TOTAL_SIZE);
 
-        Positions entityData = Positions.newTexturedColorPositions(data);
+        BasicPositions entityData = BasicPositions.newTexturedColorPositions(data);
 //        entityData.setValue(data);
 
         return entityData;

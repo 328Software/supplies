@@ -20,7 +20,7 @@
         <property name="value" column="colors" type="chunkColor" length="40000"/>
     </class>
 
-    <class name="org.supply.simulator.data.entity.Positions" table="chunk_positions">
+    <class name="org.supply.simulator.data.entity.impl.BasicPositions" table="chunk_positions">
         <meta attribute="class-description">
             This class contains the employee detail.
         </meta>
@@ -44,7 +44,7 @@
         <many-to-one name="colors" column="chunk_colors" class="org.supply.simulator.data.entity.Colors" cascade="save-update"/>
         <set name="positions" table="chunk_positions_set" cascade="save-update">
             <key column="chunk_id"/>
-            <many-to-many column="positions_id" class="org.supply.simulator.data.entity.Positions"/>
+            <many-to-many column="positions_id" class="org.supply.simulator.data.entity.impl.BasicPositions"/>
         </set>
     </class>
 

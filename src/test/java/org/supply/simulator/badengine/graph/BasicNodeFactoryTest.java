@@ -1,14 +1,13 @@
-package org.supply.simulator.display.renderer;
+package org.supply.simulator.badengine.graph;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
 import org.supply.simulator.badengine.temp.DataGenerator;
-import org.supply.simulator.core.main.Menu;
 import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
@@ -18,7 +17,6 @@ import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
-import org.supply.simulator.display.renderer.impl.BasicChunkRenderer;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.util.TextureUtils;
@@ -26,8 +24,9 @@ import org.supply.simulator.util.TextureUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicNodeRendererTest {
-    private DataGenerator generator;
+public class BasicNodeFactoryTest {
+
+    private static int NUM_NODES = 3;
 
     private MockDisplayCore core;
     private Camera camera;
@@ -42,9 +41,8 @@ public class BasicNodeRendererTest {
     @Before
     public void create() {
         core = new MockDisplayCore();
-        core.build("Nodes&EdgesRendererTest");
+        core.build("BasicNodeFactoryTest");
 
-        generator= new DataGenerator();
         shaderEngine = new BasicShaderEngine();
 
         camera = new Camera();
@@ -65,19 +63,22 @@ public class BasicNodeRendererTest {
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
 
+        BasicNodeFactory nodeFactory = new BasicNodeFactory();
+        nodeFactory.setTextureEngine(textureEngine);
 
+//        List nodes = new ArrayList<BasicNode>();
+//        nodes.add(nodeFactory.createVertex());
+        List nodes = nodeFactory.createVertex(NUM_NODES);
 
-        List<BasicNode> nodes = generator.threeNodes();
         nodes.stream().forEach(v-> {
-            v.getPositions().stream().forEach(p->p.setTextureKey("k"));
-            TextureUtils.applyTexture(v,textureEngine);
+            ((BasicNode)v).getPositions().stream().forEach(p->System.out.println("TK: "+p.getTextureKey()));
+            TextureUtils.applyTexture(((BasicNode)v),textureEngine);
         });
 
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "v");
-        List<Entity> menus = new ArrayList();
-//        menus.add(textMenuFactory.build());
+
+
+
         manager.add(nodes);
-//        manager.add(menus);
 
     }
 
@@ -107,4 +108,5 @@ public class BasicNodeRendererTest {
         shaderEngine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
         core.destroy();
     }
+
 }

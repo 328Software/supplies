@@ -35,7 +35,7 @@ public class BasicIndexEngineTest extends HasLogger {
 
     @After
     public void destroyFixture() {
-        indexEngine.done(MapUtils.newEntry(20,20));
+//        indexEngine.done(MapUtils.newEntry(20,20));
         core.destroy();
 
     }

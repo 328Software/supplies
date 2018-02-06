@@ -68,6 +68,10 @@ dependencies {
 
             [group: 'org.jgrapht', name: 'jgrapht-core', version: '1.1.0'],
 
+            [group: 'org.jgrapht', name: 'jgrapht-ext', version: '1.1.0'],
+
+            [group: 'jgraph', name: 'jgraph', version: '5.13.0.0'],
+
             [group:'org.lwjgl.lwjgl', name:'lwjgl-platform', version: lwjglVersion, classifier:'natives-windows'],
 //            'org.lwjgl:lwjgl-platform:3.0:natives-windows'
 //            [group:'org.lwjgl', name:'lwjgl-platform', version:'3.0', classifier:'natives-linux'],

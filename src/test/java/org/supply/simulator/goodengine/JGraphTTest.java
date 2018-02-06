@@ -112,7 +112,7 @@ public class JGraphTTest {
 
     private Graph<BasicNode, BasicEdge> createGraph()
     {
-        System.out.println("hey");
+        //System.out.println("hey");
         Graph<BasicNode, BasicEdge> g = new SimpleWeightedGraph<>(BasicEdge.class);
 
 //        g.

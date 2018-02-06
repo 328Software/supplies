@@ -45,9 +45,9 @@ public class TextureUtils {
     public static void applyTexture(Entity entity, TextureEngine textureEngine) {
         for(Positions pos : entity.getPositions()) {
             if(nonNull(pos.getTextureKey())) {
-                System.out.println("hey");
+//                System.out.println("hey");
 //                entity.setAtlas(textureEngine.get(pos.getTextureKey()).getAtlas());
-                System.out.println(pos.getTextureKey());
+//                System.out.println("key:"+pos.getTextureKey());
                 TextureHandle texture = textureEngine.get(pos.getTextureKey());
 
                 //TODO can this be done on Entity generation?

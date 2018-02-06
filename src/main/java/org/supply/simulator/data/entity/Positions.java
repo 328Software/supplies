@@ -62,6 +62,8 @@ public class Positions implements HasId<Positions, Long>, HasValue<float[]> {
             value = new float[vertexSize * NUMBER_OF_VERTICES];
         } else {
             if (data.length != vertexSize * NUMBER_OF_VERTICES) {
+//                System.out.println("data length is " + data.length);
+//                System.out.println(vertexSize * NUMBER_OF_VERTICES);
                 throw new RuntimeException();
             }
             value = data;
@@ -100,9 +102,9 @@ public class Positions implements HasId<Positions, Long>, HasValue<float[]> {
         return value;
     }
 
-//    public void setValue(float[] value) {
-//        this.value = value;
-//    }
+    public void setValue(float[] value) {
+        System.arraycopy(value, 0, this.value, 0, value.length);
+    }
 
     @Override
     public Long getId() {

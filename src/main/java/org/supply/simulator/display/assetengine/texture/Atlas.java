@@ -1,6 +1,7 @@
 package org.supply.simulator.display.assetengine.texture;
 
 import org.supply.simulator.data.HasId;
+import org.supply.simulator.data.entity.Entity;
 
 import java.util.Comparator;
 

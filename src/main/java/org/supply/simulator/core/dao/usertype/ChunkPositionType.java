@@ -3,6 +3,7 @@ package org.supply.simulator.core.dao.usertype;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.jdbc.NonContextualLobCreator;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.BlobType;
 import org.hibernate.usertype.UserType;
 import org.supply.simulator.core.dao.util.ArrayFloatByteTranslator;
@@ -29,7 +30,7 @@ public class ChunkPositionType extends AbstractArrayUserType implements UserType
     }
 
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
+    public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sessionImplementor, Object o) throws HibernateException, SQLException {
         assert strings.length == 1;
         Blob blob = ((Blob)BlobType.INSTANCE.get(resultSet, strings[0], sessionImplementor));
         if(blob != null) {
@@ -41,7 +42,7 @@ public class ChunkPositionType extends AbstractArrayUserType implements UserType
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SessionImplementor sessionImplementor) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
         if(o == null) {
             BlobType.INSTANCE.set(preparedStatement, null,i,sessionImplementor);
         } else {

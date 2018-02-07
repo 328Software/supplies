@@ -24,12 +24,21 @@ public class TextMenuFactory implements HasLogger, MenuFactory {
 
 
 
+    @Deprecated
     public TextMenuFactory(float topLeftX, float topLeftY, float length, float width, String text) {
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         this.length = length;
         this.width = width;
         this.text = text;
+    }
+
+    public TextMenuFactory(String text, float topLeftX, float topLeftY, float length, float width) {
+        this.text = text;
+        this.topLeftX = topLeftX;
+        this.topLeftY = topLeftY;
+        this.length = length;
+        this.width = width;
     }
 
 

@@ -76,19 +76,19 @@ public class BasicNodeFactory implements NodeFactory {
 
         Float scale = node_count/10.0f;
 
+        String formatted = String.format("%02d", node_count);
 
-        BasicPositions p1 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale,TOP_LEFT_Y+scale,
+        Positions p1 = FactoryUtils.newTexturedColorPositions("n", TOP_LEFT_X+scale,TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, LENGTH/3, WIDTH);
 
-        BasicPositions p2 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+LETTER_SPACING,TOP_LEFT_Y+scale,
+        Positions p2 = FactoryUtils.newTexturedColorPositions(formatted.substring(0,1), TOP_LEFT_X+scale+LETTER_SPACING,TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, 2*LENGTH/3, WIDTH);
 
-        BasicPositions p3 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+(2*LETTER_SPACING),TOP_LEFT_Y+scale,
+        Positions p3 = FactoryUtils.newTexturedColorPositions(formatted.substring(1,2), TOP_LEFT_X+scale+(2*LETTER_SPACING),TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, LENGTH, WIDTH);
-        p1.setTextureKey("n");
-        String formatted = String.format("%02d", node_count);
-        p2.setTextureKey(formatted.substring(0,1));
-        p3.setTextureKey(formatted.substring(1,2));
+//        p1.setTextureKey("n");
+//        p2.setTextureKey(formatted.substring(0,1));
+//        p3.setTextureKey(formatted.substring(1,2));
 
         ps.add(p1);
         ps.add(p2);

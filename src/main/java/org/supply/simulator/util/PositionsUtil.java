@@ -3,17 +3,26 @@ package org.supply.simulator.util;
 import org.supply.simulator.data.entity.Positions;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class PositionsUtil {
+
+    public static void printPositions(Collection<Positions> p) {
+        p.forEach(PositionsUtil::printPositions);
+    }
+
+    public static void printPositions(Positions p) {
+        float[] value = p.getValue();
+        System.out.println("X" + value[0] + " Y"+ value[1] +" Z"+ value[2]);
+    }
+
     public static void copyXYZvalues(Collection<Positions> source, Collection<Positions> target) {
         if (source.size() != target.size()) {
             throw new RuntimeException("Source and target Positions sets not the same size");
         }
-        Positions[] sP = (Positions[]) source.toArray();
-        for (Positions tP : target) {
 
-        }
-
+        Iterator<Positions> it = source.iterator();
+        target.forEach(t->PositionsUtil.copyXYZvalues(it.next(),t));
     }
 
     public static void copyXYZvalues(Positions source, Positions target) {

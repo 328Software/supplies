@@ -8,7 +8,7 @@ repositories {
 
 ext {
     springVersion = '5.0.3.RELEASE'
-    log4jVersion = '2.0-rc1'
+    log4jVersion = '2.10.0'
     lwjglVersion = '2.9.3'
 }
 
@@ -35,6 +35,8 @@ dependencies {
 
     compile(
             [group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'],
+
+            [group: 'commons-io', name: 'commons-io', version: '2.6'],
 
             [group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion],
 

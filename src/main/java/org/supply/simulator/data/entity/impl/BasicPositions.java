@@ -55,16 +55,11 @@ public class BasicPositions implements Positions {
         if(data == null) {
             value = new float[vertexSize * NUMBER_OF_VERTICES];
         } else {
-//            if (data.length != vertexSize * NUMBER_OF_VERTICES) {
             value = data;
             if (value.length % vertexSize > 0) {
-//                System.out.println("data length is " + data.length);
-//                System.out.println(vertexSize * NUMBER_OF_VERTICES);
                 throw new RuntimeException();
             }
         }
-
-
 
         vertices = new Vertex[value.length / vertexSize];
         for (int i = 0; i < value.length / vertexSize; i++) {

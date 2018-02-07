@@ -4,6 +4,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.generate.BarabasiAlbertGraphGenerator;
 import org.jgrapht.generate.GraphGenerator;
 import org.jgrapht.graph.SimpleWeightedGraph;
+import org.lwjgl.Sys;
 import org.supply.simulator.badengine.graph.MapGraphGenerator;
 import org.supply.simulator.badengine.graph.NodeFactory;
 import org.supply.simulator.data.entity.Edge;
@@ -12,6 +13,9 @@ import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.impl.BasicEdge;
 import org.supply.simulator.data.entity.impl.BasicMapGraph;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.util.GraphUtils;
+
+import java.util.Set;
 
 public class NodeGraphGenerator implements MapGraphGenerator {
 
@@ -19,24 +23,45 @@ public class NodeGraphGenerator implements MapGraphGenerator {
 
     @Override
     public MapGraph generate() {
-        BasicMapGraph g = new BasicMapGraph();
+        System.out.println("GENERATING");
+        Graph g = generateGraph();
 
-        g.setGraph(generateGraph());
+        // this is pretty bad, need different way to determine first node.
+//        Node n = (Node)g.vertexSet().iterator().next();
+//        arrangeNodes(g,n);
 
-//        g.getNodeSet().stream().forEach(n->{
-//            n.setPositions();
-//        });
+        System.out.println("SINL "+Math.sin(60*Math.PI/180) +  "      COS:"+Math.cos(60*Math.PI/180));
+        GraphUtils.printGraph(g);
+//        g.vertexSet().forEach(n->arrangeNodes(g,(Node)n));
 
-        return g;
+
+        BasicMapGraph mapGraph = new BasicMapGraph();
+        mapGraph.setGraph(g);
+        return mapGraph;
     }
 
+    /**
+     * Recursively changes positions of nodes to arrange them well
+     *
+     * @param g
+     * @param n
+     */
+    private void arrangeNodes(Graph g, Node n) {
+        Set<Edge> edges = g.edgesOf(n);
 
+        int count = 0;
+        for(Edge e : edges) {
+//            float scale = count/edges
+            Node src = e.getSource();
+            Node tgt = e.getTarget();
+            if (src.equals(n)) { //only follow edges that start at the src Node
+//                GraphUtils.copyXYZvalues(src,tgt);
 
-//    @Override
-//    public Graph<BasicNode, BasicEdge> generate() {
-//
-//        return generateGraph(generator);
-//    }
+                arrangeNodes(g,tgt);
+            }
+            count++;
+        }
+    }
 
     /**
      * This uses the Barabási-Albert growth and preferential attachment graph generator.
@@ -44,12 +69,12 @@ public class NodeGraphGenerator implements MapGraphGenerator {
      * @return
      */
     private Graph<BasicNode, BasicEdge> generateGraph() {
-        int M0 = 2;     // number of initial nodes
-        int E  = 1;     // number of edges of each new node added during the network growth
-        int M1 = 7;      // final number of nodes
+        int m0 = 1;     // number of initial nodes
+        int e  = 1;     // number of edges of each new node added during the network growth
+        int m1 = 7;     // final number of nodes
 
 
-        BarabasiAlbertGraphGenerator gen = new BarabasiAlbertGraphGenerator<Node, Edge>(M0,E,M1);
+        OurBarabasiAlbertGraphGenerator gen = new OurBarabasiAlbertGraphGenerator(m0,e,m1);
         Graph g = new SimpleWeightedGraph<BasicNode,BasicEdge>(BasicEdge.class);
 
 

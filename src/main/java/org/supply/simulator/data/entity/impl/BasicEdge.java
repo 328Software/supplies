@@ -13,6 +13,8 @@ import java.util.Set;
 public class BasicEdge extends AbstractUnit implements Edge {
 
 
+
+
     private Node fromNode;
     private Node toNode;
 
@@ -28,12 +30,24 @@ public class BasicEdge extends AbstractUnit implements Edge {
 
     private String name;
 
-    protected Object	getSource() {
+    @Override
+    public Node	getSource() {
         return fromNode;
     }
 
-    protected Object	getTarget() {
+    @Override
+    public Node	getTarget() {
         return toNode;
+    }
+
+    @Override
+    public void setSource(Node fromNode) {
+        this.fromNode = fromNode;
+    }
+
+    @Override
+    public void setTarget(Node toNode) {
+        this.toNode = toNode;
     }
 
     public String getName() {

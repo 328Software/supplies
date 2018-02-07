@@ -5,6 +5,20 @@ import org.supply.simulator.data.entity.Positions;
 import java.util.Collection;
 
 public class PositionsUtil {
+    public static void copyXYZvalues(Collection<Positions> source, Collection<Positions> target) {
+        if (source.size() != target.size()) {
+            throw new RuntimeException("Source and target Positions sets not the same size");
+        }
+        Positions[] sP = (Positions[]) source.toArray();
+        for (Positions tP : target) {
+
+        }
+
+    }
+
+    public static void copyXYZvalues(Positions source, Positions target) {
+                System.arraycopy(source.getValue(),0,target.getValue(),0,3);
+    }
 
     public static void movePositionsX(Collection<Positions> ps, float dx) {
         ps.stream().forEach(p -> PositionsUtil.movePositionsX(p,dx));

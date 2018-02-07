@@ -70,7 +70,9 @@ public class BasicMapGraphGeneratorTest {
 
         MapGraph g  = generator.generate();
 
-//        Set nodes = g.getNodeSet();
+        Set nodes = g.getNodeSet();
+
+
 //
 //        manager.add(nodes);
 

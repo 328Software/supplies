@@ -5,9 +5,13 @@ package org.supply.simulator.data.entity;
  */
 public interface Vertex {
     // Setters
-    void setXYZ(float x, float y, float z);
+    default void setXYZ(float x, float y, float z) {
+        this.setXYZW(x, y, z, 1f);
+    }
 
-    void setRGB(float r, float g, float b);
+    default void setRGB(float r, float g, float b) {
+        this.setRGBA(r, g, b, 1f);
+    }
 
     void setXYZW(float x, float y, float z, float w);
 

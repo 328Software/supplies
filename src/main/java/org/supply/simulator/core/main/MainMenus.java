@@ -9,7 +9,7 @@ import static org.supply.simulator.core.main.Game.DISPLAY_CORE_KEY;
  */
 public class MainMenus {
 
-    MenuFactory mainMenusFactory;
+    MainMenuFactory mainMenusFactory;
 
     BasicDisplayCore displayCore;
 
@@ -35,7 +35,7 @@ public class MainMenus {
         return true;
     }
 
-    public void setMainMenusFactory(MenuFactory mainMenusFactory) {
+    public void setMainMenusFactory(MainMenuFactory mainMenusFactory) {
         this.mainMenusFactory = mainMenusFactory;
     }
 

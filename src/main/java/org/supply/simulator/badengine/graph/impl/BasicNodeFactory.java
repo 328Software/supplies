@@ -5,18 +5,14 @@ import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicNode;
-import org.supply.simulator.data.entity.impl.BasicPositions;
-import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.factory.TextMenuFactory;
-import org.supply.simulator.util.EntityUtils;
+import org.supply.simulator.display.factory.TextMenuSubElementBuilder;
 import org.supply.simulator.util.FactoryUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 public class BasicNodeFactory implements NodeFactory {
 
@@ -62,10 +58,10 @@ public class BasicNodeFactory implements NodeFactory {
 
     private Set<Positions> getNewPositionsFromTextMenuFactory () {
 
-        //using text menu factory for now, will implement unique Node Factory code eventually
+        //using text menu factory for now, will implement unique Node Builder code eventually
         String text = "n"+String.format("%02d", node_count);
 
-        TextMenuFactory t = new TextMenuFactory(text, TOP_LEFT_X,TOP_LEFT_Y, LENGTH, WIDTH);
+        TextMenuSubElementBuilder t = new TextMenuSubElementBuilder(text, TOP_LEFT_X,TOP_LEFT_Y, LENGTH, WIDTH);
         t.setTextureEngine(textureEngine);
         Entity e = t.build();
         return e.getPositions();

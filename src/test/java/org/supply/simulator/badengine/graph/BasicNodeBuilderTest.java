@@ -7,13 +7,11 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
 import org.supply.simulator.data.entity.Node;
-import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
@@ -21,10 +19,9 @@ import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.util.PositionsUtil;
 import org.supply.simulator.util.TextureUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class BasicNodeFactoryTest {
+public class BasicNodeBuilderTest {
 
     private static int NUM_NODES = 3;
 
@@ -41,7 +38,7 @@ public class BasicNodeFactoryTest {
     @Before
     public void create() {
         core = new MockDisplayCore();
-        core.build("BasicNodeFactoryTest");
+        core.build("BasicNodeBuilderTest");
 
         shaderEngine = new BasicShaderEngine();
 

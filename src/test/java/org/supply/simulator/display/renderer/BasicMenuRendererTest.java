@@ -11,7 +11,7 @@ import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.factory.TextMenuFactory;
+import org.supply.simulator.display.factory.TextMenuSubElementBuilder;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
@@ -61,12 +61,12 @@ public class BasicMenuRendererTest {
         camera.create();
 
         List<Entity> menus = new ArrayList<>();
-        TextMenuFactory textMenuFactory = new TextMenuFactory("the quick brown fox!", -1f, 1f, .8f, .4f);
+        TextMenuSubElementBuilder textMenuFactory = new TextMenuSubElementBuilder("the quick brown fox!", -1f, 1f, .8f, .4f);
         textMenuFactory.setTextureEngine(textureEngine);
 
         menus.add(textMenuFactory.build());
 
-        textMenuFactory = new TextMenuFactory("/!@#$%^&*()123456789", -1f, .2f, .2f, .1f);
+        textMenuFactory = new TextMenuSubElementBuilder("/!@#$%^&*()123456789", -1f, .2f, .2f, .1f);
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 

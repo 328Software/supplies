@@ -10,7 +10,7 @@ import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
 import org.supply.simulator.badengine.temp.DataGenerator;
-import org.supply.simulator.display.factory.TextMenuFactory;
+import org.supply.simulator.display.factory.TextMenuSubElementBuilder;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
@@ -108,7 +108,7 @@ public class BasicWindowSystemTest {
         window.start();
 
 
-        TextMenuFactory textMenuFactory = new TextMenuFactory("SYSTEM", -0.15f, .8f, .1f, .05f);
+        TextMenuSubElementBuilder textMenuFactory = new TextMenuSubElementBuilder("SYSTEM", -0.15f, .8f, .1f, .05f);
         textMenuFactory.setTextureEngine(textureEngine);
         menuManager.add(Collections.singletonList(textMenuFactory.build()));
     }

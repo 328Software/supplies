@@ -6,31 +6,31 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
-import org.supply.simulator.data.entity.Node;
+import org.supply.simulator.badengine.graph.impl.NodeGraphGenerator;
+import org.supply.simulator.data.entity.MapGraph;
 import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
 import org.supply.simulator.util.TextureUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class BasicNodeFactoryTest {
+public class BasicMapGraphGeneratorTest {
 
     private static int NUM_NODES = 3;
 
     private MockDisplayCore core;
     private Camera camera;
 
-//    private DataGenerator generator;
+    private MapGraphGenerator generator;
 
     private BasicShaderEngine shaderEngine;
 
@@ -40,7 +40,7 @@ public class BasicNodeFactoryTest {
     @Before
     public void create() {
         core = new MockDisplayCore();
-        core.build("BasicNodeFactoryTest");
+        core.build("BasicMapGraphGeneratorTest");
 
         shaderEngine = new BasicShaderEngine();
 
@@ -65,21 +65,14 @@ public class BasicNodeFactoryTest {
         BasicNodeFactory nodeFactory = new BasicNodeFactory();
         nodeFactory.setTextureEngine(textureEngine);
 
-        List<Node> nodes = nodeFactory.createVertex(NUM_NODES);
+        MapGraphGenerator generator = new NodeGraphGenerator();
+        generator.setNodeFactory(nodeFactory);
 
-        //        Float scale = node_count/10.0f;
-        //TOP_LEFT_X+scale,TOP_LEFT_Y+scale, LENGTH, WIDTH
-        int node_count = 0;
-        for (Node n : nodes) {
-            Float scale = node_count/10.0f;
-            TextureUtils.applyTexture(n,textureEngine);
+        MapGraph g  = generator.generate();
 
-
-            node_count=node_count+1;
-        }
-
-
-        manager.add(nodes);
+//        Set nodes = g.getNodeSet();
+//
+//        manager.add(nodes);
 
     }
 

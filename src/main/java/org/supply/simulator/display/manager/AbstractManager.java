@@ -76,7 +76,7 @@ public abstract class AbstractManager<I extends Entity> extends HasLogger implem
         return out;
     }
 
-    public void add(List<I> menues) {
+    public void add(Collection<I> menues) {
         toAdd.addAll(menues);
     }
 

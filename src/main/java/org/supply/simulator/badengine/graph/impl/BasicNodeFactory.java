@@ -60,12 +60,11 @@ public class BasicNodeFactory implements NodeFactory {
     }
 
     private Set<Positions> getNewPositionsFromTextMenuFactory () {
-        Float scale = node_count/10.0f;
 
         //using text menu factory for now, will implement unique Node Factory code eventually
         String text = "n"+String.format("%02d", node_count);
 
-        TextMenuFactory t = new TextMenuFactory(TOP_LEFT_X+scale,TOP_LEFT_Y+scale, LENGTH, WIDTH, text);
+        TextMenuFactory t = new TextMenuFactory(text, TOP_LEFT_X,TOP_LEFT_Y, LENGTH, WIDTH);
         t.setTextureEngine(textureEngine);
         Entity e = t.build();
         return e.getPositions();

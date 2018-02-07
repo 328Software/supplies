@@ -108,7 +108,7 @@ public class BasicWindowSystemTest {
         window.start();
 
 
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-0.15f, .8f, .1f, .05f, "SYSTEM");
+        TextMenuFactory textMenuFactory = new TextMenuFactory("SYSTEM", -0.15f, .8f, .1f, .05f);
         textMenuFactory.setTextureEngine(textureEngine);
         menuManager.add(Collections.singletonList(textMenuFactory.build()));
     }

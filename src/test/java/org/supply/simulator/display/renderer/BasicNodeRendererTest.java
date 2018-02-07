@@ -74,7 +74,7 @@ public class BasicNodeRendererTest {
             TextureUtils.applyTexture(v,textureEngine);
         });
 
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "v");
+        TextMenuFactory textMenuFactory = new TextMenuFactory("v", -1f, 1f, .8f, .4f);
         List<Entity> menus = new ArrayList();
 //        menus.add(textMenuFactory.build());
         manager.add(nodes);

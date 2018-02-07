@@ -61,12 +61,12 @@ public class BasicMenuRendererTest {
         camera.create();
 
         List<Entity> menus = new ArrayList<>();
-        TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "the quick brown fox!");
+        TextMenuFactory textMenuFactory = new TextMenuFactory("the quick brown fox!", -1f, 1f, .8f, .4f);
         textMenuFactory.setTextureEngine(textureEngine);
 
         menus.add(textMenuFactory.build());
 
-        textMenuFactory = new TextMenuFactory(-1f, .2f, .2f, .1f, "/!@#$%^&*()123456789");
+        textMenuFactory = new TextMenuFactory("/!@#$%^&*()123456789", -1f, .2f, .2f, .1f);
         textMenuFactory.setTextureEngine(textureEngine);
         menus.add(textMenuFactory.build());
 

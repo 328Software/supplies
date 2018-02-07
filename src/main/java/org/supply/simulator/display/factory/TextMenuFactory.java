@@ -1,28 +1,27 @@
 package org.supply.simulator.display.factory;
 
 import org.apache.logging.log4j.Logger;
-import org.supply.simulator.data.HasLogger;
 import org.supply.simulator.data.attribute.entity.EntityAttribute;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
+import org.supply.simulator.data.entity.impl.BasicEntity;
 import org.supply.simulator.display.MenuFactory;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
+import org.supply.simulator.logging.HasLogger;
 import org.supply.simulator.util.FactoryUtils;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
  * Created by Brandon on 5/8/2016.
  */
-public class TextMenuFactory implements HasLogger, MenuFactory {
+public class TextMenuFactory extends HasLogger {
     private final float topLeftX, topLeftY, length, width;
     private final String text;
     private TextureEngine textureEngine;
-    private Logger logger = getLogger();
-
-
 
     @Deprecated
     public TextMenuFactory(float topLeftX, float topLeftY, float length, float width, String text) {
@@ -41,55 +40,27 @@ public class TextMenuFactory implements HasLogger, MenuFactory {
         this.width = width;
     }
 
-//    @Override
-//    public Entity build() {
-//        return null;
-//    }
-//
-
-        @Override
     public Entity build() {
-        return new Entity() {
-            final Set<Positions> positions;
+        BasicEntity entity = new BasicEntity();
 
-            {
-                positions = new HashSet<>();
-                for(int i = 0; i < text.length(); i++) {
-                    Character c = text.charAt(i);
-                    Positions p = FactoryUtils.newTexturedColorPositions(c.toString(), topLeftX+i*width, topLeftY, 0, length, width);
-                    positions.add(p);
+        final Set<Positions> positions = new LinkedHashSet<>();
+        entity.setPositions(positions);
 
-                    logger.debug(c.toString());
-                }
+        for(int i = 0; i < text.length(); i++) {
+            Character c = text.charAt(i);
+            Positions p = toPosition(i, c);
+            positions.add(p);
 
-                TextureUtils.applyTexture(this, textureEngine);
-            }
+            logger.debug(c.toString());
+        }
 
-            @Override
-            public Set<Positions> getPositions() {
-                return positions;
-            }
+        TextureUtils.applyTexture(entity, textureEngine);
 
-            @Override
-            public void setPositions(Set<Positions> positions) {
-            }
+        return entity;
+    }
 
-            @Override
-            public void addAttribute(EntityAttribute attribute) {
-
-            }
-
-            @Override
-            public Long getId() {
-//                return java.util.UUID.randomUUID();
-                return null;
-            }
-
-//            @Override
-            public void setId(Long id) {
-
-            }
-        };
+    private Positions toPosition(int i, Character c) {
+        return FactoryUtils.newTexturedColorPositions(c.toString(), topLeftX+i*width, topLeftY, 0, length, width);
     }
 
     public void setTextureEngine(TextureEngine textureEngine) {

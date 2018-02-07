@@ -34,7 +34,7 @@ public class BasicMenu implements Entity {
         this.unitPositions = unitPositions;
     }
 
-    @Override
+//    @Override
     public void addAttribute(EntityAttribute attribute) {
 
     }

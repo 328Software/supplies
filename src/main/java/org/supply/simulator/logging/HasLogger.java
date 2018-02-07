@@ -7,9 +7,10 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by Brandon on 6/15/2014.
  */
-public abstract class HasLogger {
-    protected Logger logger = LogManager.getLogger(this.getClass());
+public abstract class HasLogger implements org.supply.simulator.data.HasLogger {
+    protected Logger logger = LogManager.getLogger(getClass());
 
+    @Override
     public Logger getLogger() {
         return logger;
     }

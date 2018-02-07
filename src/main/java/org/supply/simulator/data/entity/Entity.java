@@ -19,6 +19,4 @@ public interface Entity extends HasId<Entity, Long> {
     Set<Positions> getPositions();
 
     void setPositions(Set<Positions> positions);
-    
-    void addAttribute(EntityAttribute attribute);
 }

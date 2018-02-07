@@ -41,7 +41,7 @@ public class TexturedChunkFactory implements ChunkFactory {
             public void setPositions(Set<Positions> positions) {
             }
 
-            @Override
+//            @Override
             public void addAttribute(EntityAttribute attribute) {
 
             }

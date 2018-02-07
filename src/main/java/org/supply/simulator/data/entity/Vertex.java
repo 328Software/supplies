@@ -18,6 +18,8 @@ public interface Vertex {
     // Getters
     float[] getElements();
 
+    int getSize();
+
     float[] getXYZW();
 
     float[] getRGBA();

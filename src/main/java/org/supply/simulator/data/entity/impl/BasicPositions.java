@@ -2,7 +2,6 @@ package org.supply.simulator.data.entity.impl;
 
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.Vertex;
-import org.supply.simulator.display.renderer.DrawingUtil;
 
 import java.util.Comparator;
 import java.util.Map;
@@ -56,17 +55,20 @@ public class BasicPositions implements Positions {
         if(data == null) {
             value = new float[vertexSize * NUMBER_OF_VERTICES];
         } else {
-            if (data.length != vertexSize * NUMBER_OF_VERTICES) {
-                System.out.println("data length is " + data.length);
-                System.out.println(vertexSize * NUMBER_OF_VERTICES);
+//            if (data.length != vertexSize * NUMBER_OF_VERTICES) {
+            value = data;
+            if (value.length % vertexSize > 0) {
+//                System.out.println("data length is " + data.length);
+//                System.out.println(vertexSize * NUMBER_OF_VERTICES);
                 throw new RuntimeException();
             }
-            value = data;
         }
 
-        vertices = new Vertex[NUMBER_OF_VERTICES];
-        for (int i = 0; i < NUMBER_OF_VERTICES; i++) {
-            vertices[i] = new BasicVertex(this, i);
+
+
+        vertices = new Vertex[value.length / vertexSize];
+        for (int i = 0; i < value.length / vertexSize; i++) {
+            vertices[i] = new PositionsBackedVertex(this, i);
         }
     }
 

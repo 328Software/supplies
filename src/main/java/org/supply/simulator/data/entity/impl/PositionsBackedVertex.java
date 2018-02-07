@@ -6,11 +6,11 @@ import org.supply.simulator.data.entity.Vertex;
 /**
  * Created by Brandon on 2/5/2018.
  */
-public final class BasicVertex implements Vertex {
+public final class PositionsBackedVertex implements Vertex {
     private Positions positions;
     private final int index;
 
-    public BasicVertex(Positions positions, int index) {
+    public PositionsBackedVertex(Positions positions, int index) {
         this.positions = positions;
         this.index = index;
     }
@@ -29,7 +29,7 @@ public final class BasicVertex implements Vertex {
     @Override
     public void setXYZW(float x, float y, float z, float w) {
         int offset = getOffset();
-        float[] value = positions.getValue();
+        float[] value = getValue();
         value[offset] = x;
         value[offset + 1] = y;
         value[offset + 2] = z;
@@ -38,9 +38,9 @@ public final class BasicVertex implements Vertex {
 
     @Override
     public void setRGBA(float r, float g, float b, float a) {
-        if (positions.hasColor()) {
+        if (hasColor()) {
             int offset = getOffset();
-            float[] value = positions.getValue();
+            float[] value = getValue();
             value[offset + 4] = r;
             value[offset + 5] = g;
             value[offset + 6] = b;
@@ -51,11 +51,15 @@ public final class BasicVertex implements Vertex {
         }
     }
 
+    private boolean hasColor() {
+        return positions.hasColor();
+    }
+
     @Override
     public void setST(float s, float t) {
-        if (positions.isTextured()) {
+        if (isTextured()) {
             int offset = getOffset();
-            float[] value = positions.getValue();
+            float[] value = getValue();
             value[offset + 8] = s;
             value[offset + 9] = t;
         } else {
@@ -63,18 +67,14 @@ public final class BasicVertex implements Vertex {
         }
     }
 
-    private int getOffset() {
-        return index * positions.getVertexSize();
-    }
-
     // Getters
     @Override
     public float[] getElements() {
         int i = 0;
-        float[] out = new float[positions.getVertexSize()];
+        float[] out = new float[getSize()];
         // Insert XYZW elements
         int offset = getOffset();
-        float[] value = positions.getValue();
+        float[] value = getValue();
         out[i++] = value[offset];
         out[i++] = value[offset + 1];
         out[i++] = value[offset + 2];
@@ -92,9 +92,14 @@ public final class BasicVertex implements Vertex {
     }
 
     @Override
+    public int getSize() {
+        return positions.getVertexSize();
+    }
+
+    @Override
     public float[] getXYZW() {
         int offset = getOffset();
-        float[] value = positions.getValue();
+        float[] value = getValue();
         return new float[]{
                 value[offset], value[offset + 1], value[offset + 2], value[offset + 3]
         };
@@ -102,8 +107,8 @@ public final class BasicVertex implements Vertex {
 
     @Override
     public float[] getRGBA() {
-        if (positions.hasColor()) {
-            float[] value = positions.getValue();
+        if (hasColor()) {
+            float[] value = getValue();
             int offset = getOffset();
             return new float[]{value[offset + 4], value[offset + 5], value[offset + 6], value[offset + 7]};
         }
@@ -112,11 +117,23 @@ public final class BasicVertex implements Vertex {
 
     @Override
     public float[] getST() {
-        if (positions.isTextured()) {
-            float[] value = positions.getValue();
+        if (isTextured()) {
+            float[] value = getValue();
             int offset = getOffset();
             return new float[]{value[offset + 8], value[offset + 9]};
         }
         throw new ArrayIndexOutOfBoundsException("Not a textured " + getClass().getEnclosingClass().getName());
+    }
+
+    private boolean isTextured() {
+        return positions.isTextured();
+    }
+
+    private float[] getValue() {
+        return positions.getValue();
+    }
+
+    private int getOffset() {
+        return index * getSize();
     }
 }

@@ -74,7 +74,7 @@ public class BasicMapGraphGeneratorTest {
 
 
 //
-//        manager.add(nodes);
+        manager.add(nodes);
 
     }
 

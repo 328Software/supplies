@@ -14,6 +14,7 @@ import org.supply.simulator.data.entity.impl.BasicEdge;
 import org.supply.simulator.data.entity.impl.BasicMapGraph;
 import org.supply.simulator.data.entity.impl.BasicNode;
 import org.supply.simulator.util.GraphUtils;
+import org.supply.simulator.util.PositionsUtil;
 
 import java.util.Set;
 
@@ -23,16 +24,19 @@ public class NodeGraphGenerator implements MapGraphGenerator {
 
     @Override
     public MapGraph generate() {
-        System.out.println("GENERATING");
+//        System.out.println("GENERATING");
         Graph g = generateGraph();
 
         // this is pretty bad, need different way to determine first node.
-//        Node n = (Node)g.vertexSet().iterator().next();
-//        arrangeNodes(g,n);
+//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+//        GraphUtils.printGraph(g);
 
-        System.out.println("SINL "+Math.sin(60*Math.PI/180) +  "      COS:"+Math.cos(60*Math.PI/180));
-        GraphUtils.printGraph(g);
-//        g.vertexSet().forEach(n->arrangeNodes(g,(Node)n));
+        Node n = (Node)g.vertexSet().iterator().next();
+//        System.out.println("|||||||||||||||||||||"+n.getName()+"|||||||||||||||||||||||||||||");
+        arrangeNodes(g,n);
+//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+//        GraphUtils.printGraph(g);
+//
 
 
         BasicMapGraph mapGraph = new BasicMapGraph();
@@ -49,14 +53,19 @@ public class NodeGraphGenerator implements MapGraphGenerator {
     private void arrangeNodes(Graph g, Node n) {
         Set<Edge> edges = g.edgesOf(n);
 
+        float angle = 180/(edges.size());
         int count = 0;
         for(Edge e : edges) {
 //            float scale = count/edges
             Node src = e.getSource();
             Node tgt = e.getTarget();
             if (src.equals(n)) { //only follow edges that start at the src Node
-//                GraphUtils.copyXYZvalues(src,tgt);
 
+
+                GraphUtils.copyXYZvalues(src,tgt);
+                float dx = (float)Math.sin(angle*count*Math.PI/180);
+                float dy = (float)Math.cos(angle*count*Math.PI/180);
+                PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
                 arrangeNodes(g,tgt);
             }
             count++;

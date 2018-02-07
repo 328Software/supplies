@@ -9,6 +9,7 @@ import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TextMenuFactory;
+import org.supply.simulator.util.EntityUtils;
 import org.supply.simulator.util.FactoryUtils;
 
 import java.util.ArrayList;
@@ -41,12 +42,12 @@ public class BasicNodeFactory implements NodeFactory {
         Float scale = node_count/10.0f;
 
 
-
         BasicNode node = new BasicNode();
         node.setPositions(getNewPositionsFromTextMenuFactory());
 //        node.setPositions(getNewPositions());
         node.setName("n"+node_count);
         node_count=node_count+1;
+//        EntityUtils.printNode(node);
         return node;
     }
 

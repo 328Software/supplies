@@ -7,30 +7,20 @@ public class PositionsUtil {
 
 
     public static void movePositionsX(BasicPositions p, float dx) {
-        float[] value = p.getValue();
-        int size = p.getVertexSize();
-        for (int offset=0; offset<value.length; offset=offset+size) {
-            value[offset] = value[offset] + dx;
+        for (int offset=0; offset<p.getValue().length; offset=offset+p.getVertexSize()) {
+            p.getValue()[offset] = p.getValue()[offset] + dx;
         }
     }
 
     public static void movePositionsY(BasicPositions p, float dy) {
-        float[] value = p.getValue();
-        int size = p.getVertexSize();
-        for (int offset=0; offset<value.length; offset=offset+size) {
-            value[offset+1] = value[offset+1] + dy;
+        for (int offset=0; offset<p.getValue().length; offset=offset+p.getVertexSize()) {
+            p.getValue()[offset+1] = p.getValue()[offset+1] + dy;
         }
-
     }
 
     public static void movePositionsZ(BasicPositions p, float dz) {
-        float[] value = p.getValue();
-        int size = p.getVertexSize();
-        for (int offset=0; offset<value.length; offset=offset+size) {
-            value[offset+2] = value[offset+2] + dz;
+        for (int offset=0; offset<p.getValue().length; offset=offset+p.getVertexSize()) {
+            p.getValue()[offset+2] = p.getValue()[offset+2] + dz;
         }
-
     }
-
-
 }

@@ -18,6 +18,7 @@ import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.util.PositionsUtil;
 import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class BasicNodeFactoryTest {
             Float scale = node_count/10.0f;
             TextureUtils.applyTexture(n,textureEngine);
 
+            PositionsUtil.movePositionsXY(n.getPositions(),scale,scale);
 
             node_count=node_count+1;
         }

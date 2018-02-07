@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * Created by Alex on 9/14/2014.
  */
+@Deprecated
 public class BasicMenu implements Entity {
     private Long id;
     private Set<Positions> unitPositions;

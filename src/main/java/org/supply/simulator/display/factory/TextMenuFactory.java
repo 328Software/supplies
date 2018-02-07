@@ -41,8 +41,13 @@ public class TextMenuFactory implements HasLogger, MenuFactory {
         this.width = width;
     }
 
+//    @Override
+//    public Entity build() {
+//        return null;
+//    }
+//
 
-    @Override
+        @Override
     public Entity build() {
         return new Entity() {
             final Set<Positions> positions;

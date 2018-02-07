@@ -5,6 +5,7 @@ import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TextMenuFactory;
@@ -76,13 +77,13 @@ public class BasicNodeFactory implements NodeFactory {
         Float scale = node_count/10.0f;
 
 
-        Positions p1 = FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale,TOP_LEFT_Y+scale,
+        BasicPositions p1 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale,TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, LENGTH/3, WIDTH);
 
-        Positions p2 = FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+LETTER_SPACING,TOP_LEFT_Y+scale,
+        BasicPositions p2 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+LETTER_SPACING,TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, 2*LENGTH/3, WIDTH);
 
-        Positions p3 = FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+(2*LETTER_SPACING),TOP_LEFT_Y+scale,
+        BasicPositions p3 = (BasicPositions)FactoryUtils.newTexturedColorPositions(TOP_LEFT_X+scale+(2*LETTER_SPACING),TOP_LEFT_Y+scale,
                 TOP_LEFT_Z, LENGTH, WIDTH);
         p1.setTextureKey("n");
         String formatted = String.format("%02d", node_count);

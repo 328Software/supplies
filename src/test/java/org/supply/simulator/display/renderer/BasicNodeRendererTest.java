@@ -10,6 +10,7 @@ import org.supply.simulator.core.main.Menu;
 import org.supply.simulator.data.entity.Entity;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
@@ -69,7 +70,7 @@ public class BasicNodeRendererTest {
 
         List<BasicNode> nodes = generator.threeNodes();
         nodes.stream().forEach(v-> {
-            v.getPositions().stream().forEach(p->p.setTextureKey("k"));
+            v.getPositions().stream().forEach(p->((BasicPositions)p).setTextureKey("k"));
             TextureUtils.applyTexture(v,textureEngine);
         });
 

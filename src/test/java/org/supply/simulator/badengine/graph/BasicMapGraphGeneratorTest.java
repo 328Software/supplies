@@ -39,6 +39,7 @@ public class BasicMapGraphGeneratorTest {
 
     @Before
     public void create() {
+
         core = new MockDisplayCore();
         core.build("BasicMapGraphGeneratorTest");
 

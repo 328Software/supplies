@@ -13,6 +13,7 @@ import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.impl.BasicEdge;
 import org.supply.simulator.data.entity.impl.BasicMapGraph;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.util.EntityUtils;
 import org.supply.simulator.util.GraphUtils;
 import org.supply.simulator.util.PositionsUtil;
 
@@ -25,16 +26,18 @@ public class NodeGraphGenerator implements MapGraphGenerator {
     @Override
     public MapGraph generate() {
 //        System.out.println("GENERATING");
-        Graph g = generateGraph();
+        Graph<Node,Edge> g = generateGraph();
 
         // this is pretty bad, need different way to determine first node.
 //        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-//        GraphUtils.printGraph(g);
-
-        Node n = (Node)g.vertexSet().iterator().next();
+        GraphUtils.printGraph(g);
+//        g.vertexSet().forEach(EntityUtils::printNode);
+        Node n = g.vertexSet().iterator().next();
 //        System.out.println("|||||||||||||||||||||"+n.getName()+"|||||||||||||||||||||||||||||");
-        arrangeNodes(g,n);
-//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        arrangeNodes(g,n,1);
+
+//        g.vertexSet().forEach(EntityUtils::printNode);
 //        GraphUtils.printGraph(g);
 //
 
@@ -50,25 +53,30 @@ public class NodeGraphGenerator implements MapGraphGenerator {
      * @param g
      * @param n
      */
-    private void arrangeNodes(Graph g, Node n) {
+    protected void arrangeNodes(Graph g, Node n, int c1) {
         Set<Edge> edges = g.edgesOf(n);
 
         float angle = 180/(edges.size());
-        int count = 0;
+        int c2 = 0;
         for(Edge e : edges) {
 //            float scale = count/edges
             Node src = e.getSource();
             Node tgt = e.getTarget();
+
+            System.out.println(src.getName()+"  C2:"+c1+" C2:"+c2);
             if (src.equals(n)) { //only follow edges that start at the src Node
 
 
-                GraphUtils.copyXYZvalues(src,tgt);
-                float dx = (float)Math.sin(angle*count*Math.PI/180);
-                float dy = (float)Math.cos(angle*count*Math.PI/180);
+//                GraphUtils.copyXYZvalues(src,tgt);
+                float dx = .3f*c1;
+                float dy = .3f*c2;
+//                float dx = Math.round(1000*Math.sin(angle*count*Math.PI/180))/1000;
+//                float dy = Math.round(1000*Math.cos(angle*count*Math.PI/180))/1000;
+                System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
                 PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
-                arrangeNodes(g,tgt);
+                arrangeNodes(g,tgt,0);
             }
-            count++;
+            c2++;
         }
     }
 
@@ -77,10 +85,10 @@ public class NodeGraphGenerator implements MapGraphGenerator {
      *
      * @return
      */
-    private Graph<BasicNode, BasicEdge> generateGraph() {
+    protected Graph<Node, Edge> generateGraph() {
         int m0 = 1;     // number of initial nodes
         int e  = 1;     // number of edges of each new node added during the network growth
-        int m1 = 7;     // final number of nodes
+        int m1 = 5;     // final number of nodes
 
 
         OurBarabasiAlbertGraphGenerator gen = new OurBarabasiAlbertGraphGenerator(m0,e,m1);

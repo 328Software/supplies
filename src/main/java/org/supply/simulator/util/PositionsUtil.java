@@ -13,7 +13,11 @@ public class PositionsUtil {
 
     public static void printPositions(Positions p) {
         float[] value = p.getValue();
-        System.out.println("X" + value[0] + " Y"+ value[1] +" Z"+ value[2]);
+        System.out.println("-----------------------------------------");
+        for (int i =0; i<value.length;i+=p.getVertexSize()) {
+            System.out.println("X" + value[i+0] + " Y"+ value[i+1] +" Z"+ value[i+2]);
+        }
+
     }
 
     public static void copyXYZvalues(Collection<Positions> source, Collection<Positions> target) {

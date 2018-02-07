@@ -2,7 +2,8 @@
 <Configuration status="ERROR">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>
+            <PatternLayout pattern="%m%n"/>
+            <!--<PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>-->
         </Console>
         <File name="info" fileName="logs/simulator.info.log" append="true">
             <PatternLayout pattern="%d{YYYY/MM/dd HH:mm:ss.SSS} %p %c [%t] %m%n"/>

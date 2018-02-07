@@ -1,11 +1,10 @@
 package org.supply.simulator.badengine.temp;
 
-import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Positions;
 import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.data.entity.impl.BasicMenu;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.data.entity.impl.BasicPositions;
 import org.supply.simulator.data.entity.impl.BasicUnit;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
@@ -122,7 +121,7 @@ public class DataGenerator {
         return unit;
     }
 
-    public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    /*public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         return createUnit( topLeftX, topLeftY, topLeftZ,  length,  width,"textures/alexsface.png");
     }
 
@@ -139,7 +138,7 @@ public class DataGenerator {
 
         return menu;
     }
-
+*/
     private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();

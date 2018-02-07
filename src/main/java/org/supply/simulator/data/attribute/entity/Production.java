@@ -7,6 +7,7 @@ import org.supply.simulator.data.attribute.Attribute;
 /**
  * Supply production attribute
  *    how much supplies an entity is producing
+ *  todo what is this??
  */
 public class Production implements Attribute<Long>, HasValue<Float> {
     private Long id;

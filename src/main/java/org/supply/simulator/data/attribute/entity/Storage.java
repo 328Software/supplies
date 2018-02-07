@@ -6,6 +6,7 @@ import org.supply.simulator.data.attribute.Attribute;
 /**
  * Storage
  *  where
+ *  todo what is this??
  */
 public class Storage implements Attribute<Long>, HasValue<Float> {
     Long id;

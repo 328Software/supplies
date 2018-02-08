@@ -17,7 +17,7 @@ public class PositionsUtil {
 
         float[] r = p.stream().map(x->calculateCentroidXYZ(x))
                 .reduce(new float[]{0,0,0},(x, v)->
-                        new float[]{x[0]+v[0],(x[1]+v[1]),(x[2]+v[2])});
+                        new float[]{x[0]+v[0],x[1]+v[1],x[2]+v[2]});
         r[0]=r[0]/size;
         r[1]=r[1]/size;
         r[2]=r[2]/size;

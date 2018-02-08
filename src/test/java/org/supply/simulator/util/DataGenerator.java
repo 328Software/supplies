@@ -171,7 +171,7 @@ public class DataGenerator {
         return unit;
     }
 
-    private static BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    public static BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();

@@ -81,12 +81,7 @@ public class FixedMapGraphTest extends NodeGraphGenerator {
 
         File file = new File("./src/main/resources/graphs/graph.gml");
 
-//        g.exportGraph(file);
 
-//        Set nodes = g.getNodeSet();
-//
-//
-////
         manager.add(g.vertexSet());
 
     }
@@ -113,8 +108,9 @@ public class FixedMapGraphTest extends NodeGraphGenerator {
                 System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
                 PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
                 arrangeNodes(g,tgt,1);
+                c2++;
             }
-            c2++;
+
         }
     }
 

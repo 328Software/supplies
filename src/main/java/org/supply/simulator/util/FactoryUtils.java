@@ -6,7 +6,7 @@ import org.supply.simulator.data.entity.Vertex;
 
 public class FactoryUtils {
 
-    public static Positions newTexturedColorPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    public static Positions newUntexturedColorPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         BasicPositions positions = BasicPositions.newTexturedColorPositions();
         Vertex v0 = positions.getVertex(0);
         Vertex v1 = positions.getVertex(1);

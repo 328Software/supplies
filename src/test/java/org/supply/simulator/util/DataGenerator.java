@@ -1,14 +1,17 @@
-package org.supply.simulator.badengine.temp;
+package org.supply.simulator.util;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.SimpleWeightedGraph;
+import org.supply.simulator.badengine.graph.impl.BasicEdgeFactory;
+import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
 import org.supply.simulator.data.entity.Colors;
+import org.supply.simulator.data.entity.Edge;
+import org.supply.simulator.data.entity.Node;
 import org.supply.simulator.data.entity.Positions;
-import org.supply.simulator.data.entity.impl.BasicChunk;
-import org.supply.simulator.data.entity.impl.BasicNode;
-import org.supply.simulator.data.entity.impl.BasicPositions;
-import org.supply.simulator.data.entity.impl.BasicUnit;
+import org.supply.simulator.data.entity.impl.*;
+import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.factory.TexturedVertex;
-import org.supply.simulator.util.TextureUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,11 +81,58 @@ public class DataGenerator {
         return chunk;
     }
 
-    public List<BasicNode> threeNodes () {
-        return this.threeNodes("v");
+    public static Graph<Node,Edge> fiveNodeGraph() {
+        TextureEngine textureEngine = new FontTextureEngine();
+        Graph<Node, Edge> g = new SimpleWeightedGraph<>(BasicEdge.class);
+        BasicNodeFactory nodeFactory = new BasicNodeFactory();
+        nodeFactory.setTextureEngine(textureEngine);
+        BasicEdgeFactory edgeFactory = new BasicEdgeFactory();
+
+
+        // MAKE NODES
+        /////////////
+        List<Node> nodes = nodeFactory.createVertex(5);
+        nodes.forEach(n->g.addVertex(n));
+        nodes.forEach(n->n.getName());
+
+        // MAKE EDGES
+        /////////////
+        // 0 -> 1
+        edgeFactory.setSource((BasicNode)nodes.get(0));
+        edgeFactory.setTarget((BasicNode)nodes.get(1));
+        Edge e = edgeFactory.build();
+        g.addEdge(nodes.get(0),nodes.get(1),e);
+        g.setEdgeWeight(e,5.0);
+
+        // 0 -> 2
+        edgeFactory.setSource((BasicNode)nodes.get(0));
+        edgeFactory.setTarget((BasicNode)nodes.get(2));
+        e = edgeFactory.build();
+        g.addEdge(nodes.get(0),nodes.get(2),e);
+        g.setEdgeWeight(e,2.0);
+
+        // 1 -> 3
+        edgeFactory.setSource((BasicNode)nodes.get(1));
+        edgeFactory.setTarget((BasicNode)nodes.get(3));
+        e = edgeFactory.build();
+        g.addEdge(nodes.get(1),nodes.get(3),e);
+        g.setEdgeWeight(e,0.5);
+
+        // 1 -> 4
+        edgeFactory.setSource((BasicNode)nodes.get(1));
+        edgeFactory.setTarget((BasicNode)nodes.get(4));
+        e = edgeFactory.build();
+        g.addEdge(nodes.get(1),nodes.get(4),e);
+        g.setEdgeWeight(e,1.0);
+
+        return  g;
     }
 
-    public List<BasicNode> threeNodes(String v) {
+    public static List<BasicNode> threeNodes () {
+        return DataGenerator.threeNodes("v");
+    }
+
+    public static List<BasicNode>  threeNodes(String v) {
         List<BasicNode> l = new ArrayList<>();
 
         Positions p1 = getUnitPositions(0.0f, 0.8f, 0f, .25f, .25f);
@@ -121,25 +171,7 @@ public class DataGenerator {
         return unit;
     }
 
-    /*public BasicUnit createUnit(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
-        return createUnit( topLeftX, topLeftY, topLeftZ,  length,  width,"textures/alexsface.png");
-    }
-
-    public BasicMenu createMenu(float topLeftX, float topLeftY, float topLeftZ, float length, float width, String name) {
-        BasicMenu menu = new BasicMenu();
-
-        BasicPositions positions = getUnitPositions(topLeftX, topLeftY, topLeftZ, length, width);
-        positions.setTextureKey(name);
-        menu.setPositions(Collections.singleton(positions));
-
-        //TODO WHY do I have to cast it to EntityType?
-//        menu.setType((EntityType)type);
-        TextureUtils.oldApplyTexture(menu, textureEngine);
-
-        return menu;
-    }
-*/
-    private BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
+    private static BasicPositions getUnitPositions(float topLeftX, float topLeftY, float topLeftZ, float length, float width) {
         TexturedVertex v0 = new TexturedVertex();
         TexturedVertex v1 = new TexturedVertex();
         TexturedVertex v2 = new TexturedVertex();
@@ -219,7 +251,77 @@ public class DataGenerator {
         return new ChunkData(positions,colors);
     }
 
+    public static Graph<BasicNode, BasicEdge> createGraph()
+    {
+        BasicEdge e1;
+        BasicEdge e2;
+        BasicEdge e3;
 
+        BasicNode v1;
+        BasicNode v2;
+        BasicNode v3;
+        BasicEdge k1;
+        BasicEdge k2;
+        BasicEdge k3;
+
+        BasicNode n1;
+        BasicNode n2;
+        BasicNode n3;
+        //System.out.println("hey");
+        Graph<BasicNode, BasicEdge> g = new SimpleWeightedGraph<>(BasicEdge.class);
+
+//        g.
+
+
+
+        List<BasicNode> nodes = DataGenerator.threeNodes("n");
+        List<BasicNode> nodes2 = DataGenerator.threeNodes("n");
+
+        nodes.stream().forEach(v ->  g.addVertex(v));
+        nodes2.stream().forEach(v ->  g.addVertex(v));
+//        nodes.stream().forEach(v ->  System.out.println(v.getName()));
+        e1 = new BasicEdge();
+        e1.setName("e1");
+        e2 = new BasicEdge();
+        e2.setName("e2");
+        e3 = new BasicEdge();
+        e3.setName("e3");
+
+        v1 = nodes.get(0);
+        v2 = nodes.get(1);
+        v3 = nodes.get(2);
+
+        g.addEdge(v1,v2,e1);
+        g.setEdgeWeight(e1,5.0);
+//        g.addEdge(v2,v3,e2);
+//        g.setEdgeWeight(e2,10.0);
+        g.addEdge(v1,v3,e3);
+        g.setEdgeWeight(e3,2.0);
+
+        k1 = new BasicEdge();
+        k1.setName("k1");
+        k2 = new BasicEdge();
+        k2.setName("k2");
+        k3 = new BasicEdge();
+        k3.setName("k3");
+
+        n1 = nodes2.get(0);
+        n2 = nodes2.get(1);
+        n3 = nodes2.get(2);
+
+        g.addEdge(n1,n2,k1);
+        g.setEdgeWeight(k1,0.5);
+//        g.addEdge(v2,v3,e2);
+//        g.setEdgeWeight(e2,10.0);
+        g.addEdge(n1,n3,k3);
+        g.setEdgeWeight(k3,1.0);
+
+        g.addEdge(v3,n1,k2);
+        g.setEdgeWeight(k2,3);
+
+        return g;
+//    return null;
+    }
 
     private class ChunkData {
         public float[] positions;

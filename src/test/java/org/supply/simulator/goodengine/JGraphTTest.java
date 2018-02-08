@@ -3,20 +3,17 @@ package org.supply.simulator.goodengine;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.flow.EdmondsKarpMFImpl;
 import org.jgrapht.alg.flow.GusfieldEquivalentFlowTree;
-import org.jgrapht.alg.flow.MaximumFlowAlgorithmBase;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CORBA.Object;
-import org.supply.simulator.data.entity.Edge;
-import org.supply.simulator.data.entity.Node;
-import org.supply.simulator.badengine.temp.DataGenerator;
+import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.util.DataGenerator;
 import org.supply.simulator.data.entity.impl.BasicEdge;
 import org.supply.simulator.data.entity.impl.BasicNode;
+import org.supply.simulator.util.PositionsUtil;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class JGraphTTest {
@@ -40,6 +37,52 @@ public class JGraphTTest {
     @Before
     public void create() {
         generator=new DataGenerator();
+    }
+
+    @Test
+    public void positionsUtilCopyTest() {
+
+        BasicPositions positions = BasicPositions.newTexturedColorPositions();
+        float[] data = new float[positions.getVertexSize() * BasicPositions.NUMBER_OF_VERTICES];
+        int offset =positions.getVertexSize();
+        data[0] = 2;
+        data[1] = 2;
+        data[2] = 2;
+        data[offset] = 2;
+        data[offset + 1] = 2;
+        data[offset + 2] = 2;
+        System.out.println("==1==========================");
+        System.out.println(data.length);
+        for (float d : data) {
+            System.out.print(d + " |");
+        }
+        System.out.println();
+        positions.setValue(data);
+
+        BasicPositions positions2 = BasicPositions.newTexturedColorPositions();
+        data = new float[positions2.getVertexSize() * BasicPositions.NUMBER_OF_VERTICES];
+        offset =positions2.getVertexSize();
+        data[0] = 1;
+        data[1] = 1;
+        data[2] = 1;
+        data[offset] = 1;
+        data[offset + 1] = 1;
+        data[offset + 2] = 1;
+        for (float d : data) {
+            System.out.print(d + " |");
+        }
+        System.out.println();
+        positions2.setValue(data);
+        System.out.println("==2==========================");
+        PositionsUtil.copyXYZvalues(positions,positions2);
+        System.out.println(positions.getValue().length);
+        for (float d : positions.getValue()) {
+            System.out.print(d + " |");
+        }
+        System.out.println();
+        for (float d : positions2.getValue()) {
+            System.out.print(d + " |");
+        }
     }
 
     @Test

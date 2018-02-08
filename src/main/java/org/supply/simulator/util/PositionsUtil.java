@@ -13,7 +13,11 @@ public class PositionsUtil {
 
     public static void printPositions(Positions p) {
         float[] value = p.getValue();
-        System.out.println("X" + value[0] + " Y"+ value[1] +" Z"+ value[2]);
+        System.out.println("-----------------------------------------");
+        for (int i =0; i<value.length;i+=p.getVertexSize()) {
+            System.out.println("X" + value[i+0] + " Y"+ value[i+1] +" Z"+ value[i+2]);
+        }
+
     }
 
     public static void copyXYZvalues(Collection<Positions> source, Collection<Positions> target) {
@@ -26,7 +30,9 @@ public class PositionsUtil {
     }
 
     public static void copyXYZvalues(Positions source, Positions target) {
-                System.arraycopy(source.getValue(),0,target.getValue(),0,3);
+        for (int offset = 0; offset<target.getValue().length; offset += target.getVertexSize()) {
+            System.arraycopy(source.getValue(),offset,target.getValue(),offset,3);
+        }
     }
 
     public static void movePositionsX(Collection<Positions> ps, float dx) {

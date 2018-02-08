@@ -1,37 +1,40 @@
-package org.supply.simulator.display.renderer;
+package org.supply.simulator.badengine.graph;
 
+import org.jgrapht.Graph;
+import org.jgrapht.io.ExportException;
 import org.junit.Before;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
+import org.supply.simulator.badengine.graph.impl.NodeGraphGenerator;
 import org.supply.simulator.util.DataGenerator;
-import org.supply.simulator.data.entity.Entity;
-import org.supply.simulator.data.entity.impl.BasicNode;
-import org.supply.simulator.data.entity.impl.BasicPositions;
+import org.supply.simulator.data.entity.Edge;
+import org.supply.simulator.data.entity.Node;
+import org.supply.simulator.data.entity.impl.BasicMapGraph;
 import org.supply.simulator.display.assetengine.indices.BasicIndexEngine;
 import org.supply.simulator.display.assetengine.shader.BasicShaderEngine;
 import org.supply.simulator.display.assetengine.shader.ShaderProgramType;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
-import org.supply.simulator.display.factory.TextMenuSubElementBuilder;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;
+import org.supply.simulator.util.GraphUtils;
 import org.supply.simulator.util.PositionsUtil;
-import org.supply.simulator.util.TextureUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
 
-public class BasicNodeRendererTest {
-    private DataGenerator generator;
+public class FixedMapGraphTest extends NodeGraphGenerator {
+
+    private static int NUM_NODES = 3;
 
     private MockDisplayCore core;
     private Camera camera;
-
-//    private DataGenerator generator;
 
     private BasicShaderEngine shaderEngine;
 
@@ -39,11 +42,11 @@ public class BasicNodeRendererTest {
     private Renderer renderer;
 
     @Before
-    public void create() {
-        core = new MockDisplayCore();
-        core.build("Nodes&EdgesRendererTest");
+    public void create() throws ExportException, IOException {
 
-        generator= new DataGenerator();
+        core = new MockDisplayCore();
+        core.build("FixedMapGraphTest");
+
         shaderEngine = new BasicShaderEngine();
 
         camera = new Camera();
@@ -64,21 +67,58 @@ public class BasicNodeRendererTest {
         camera.setViewMatrixLocation(shaderEngine.get(ShaderProgramType.UNTEXTURED_MOVABLE).getViewMatrixLocation());
         camera.create();
 
+        BasicNodeFactory nodeFactory = new BasicNodeFactory();
+        nodeFactory.setTextureEngine(textureEngine);
+
+        this.setNodeFactory(nodeFactory);
+        Graph<Node,Edge> g  = DataGenerator.fiveNodeGraph();
+
+        Node n = g.vertexSet().iterator().next();
+        arrangeNodes(g,n, 1);
+
+        GraphUtils.printGraph(g);
 
 
-        List<BasicNode> nodes = generator.threeNodes();
-        nodes.stream().forEach(v-> {
-            v.getPositions().stream().forEach(p->((BasicPositions)p).setTextureKey("k"));
-            TextureUtils.applyTexture(v,textureEngine);
-        });
+        File file = new File("./src/main/resources/graphs/graph.gml");
 
-        TextMenuSubElementBuilder textMenuFactory = new TextMenuSubElementBuilder("v", -1f, 1f, .8f, .4f);
-        List<Entity> menus = new ArrayList();
-//        menus.add(textMenuFactory.build());
-        manager.add(nodes);
-//        manager.add(menus);
+//        g.exportGraph(file);
+
+//        Set nodes = g.getNodeSet();
+//
+//
+////
+        manager.add(g.vertexSet());
 
     }
+
+    protected void arrangeNodes(Graph g, Node n, int c1) {
+        Set<Edge> edges = g.edgesOf(n);
+
+        float angle = 180/(edges.size());
+        int c2 = 0;
+        for(Edge e : edges) {
+//            float scale = count/edges
+            Node src = e.getSource();
+            Node tgt = e.getTarget();
+
+            System.out.println(src.getName()+"  C1:"+c1+" C2:"+c2);
+            if (src.equals(n)) { //only follow edges that start at the src Node
+
+
+                GraphUtils.copyXYZvalues(src,tgt);
+                float dx = .3f*c1;
+                float dy = .3f*c2;
+//                float dx = Math.round(1000*Math.sin(angle*count*Math.PI/180))/1000;
+//                float dy = Math.round(1000*Math.cos(angle*count*Math.PI/180))/1000;
+                System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
+                PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
+                arrangeNodes(g,tgt,1);
+            }
+            c2++;
+        }
+    }
+
+
 
     @Test
     public void render() {
@@ -106,4 +146,5 @@ public class BasicNodeRendererTest {
         shaderEngine.done(ShaderProgramType.UNTEXTURED_MOVABLE);
         core.destroy();
     }
+
 }

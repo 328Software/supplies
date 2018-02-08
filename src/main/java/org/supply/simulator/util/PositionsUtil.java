@@ -12,17 +12,12 @@ import java.util.stream.Stream;
 
 public class PositionsUtil {
 
-    public static void printFirstPositions(Collection<Positions> p) {
-        p.forEach(PositionsUtil::printFirstPositions);
-    }
-
     public static float[] calculateCentroidXYZ(Set<Positions> p) {
         float size = p.size();
 
-
         float[] r = p.stream().map(x->calculateCentroidXYZ(x))
-                .reduce(new float[]{0,0,0},(x, v)->addXYZ(x,v));
-
+                .reduce(new float[]{0,0,0},(x, v)->
+                        new float[]{x[0]+v[0],(x[1]+v[1]),(x[2]+v[2])});
         r[0]=r[0]/size;
         r[1]=r[1]/size;
         r[2]=r[2]/size;
@@ -53,6 +48,10 @@ public class PositionsUtil {
         xyz[2]=centroidZ/num_vertices;
 
         return xyz;
+    }
+
+    public static void printFirstPositions(Collection<Positions> p) {
+        p.forEach(PositionsUtil::printFirstPositions);
     }
 
     public static void printFirstPositions(Positions p) {
@@ -143,9 +142,10 @@ public class PositionsUtil {
     }
     public static float[] addXYZ(float[] xyz1, float[] xyz2) {
         float[] res = new float[3];
-        res[0]=xyz1[0]+xyz2[0];
-        res[1]=xyz1[1]+xyz2[1];
-        res[2]=xyz1[2]+xyz2[2];
-        return res;
+        res[0] = xyz1[0] + xyz2[0];
+        res[1] = xyz1[1] + xyz2[1];
+        res[2] = xyz1[2] + xyz2[2];
+//        return res;
+        return new float[]{xyz1[0] + xyz2[0], xyz1[1] + xyz2[1], xyz1[2] + xyz2[2]};
     }
 }

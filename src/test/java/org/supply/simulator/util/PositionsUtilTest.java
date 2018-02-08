@@ -16,7 +16,7 @@ public class PositionsUtilTest {
         Positions p = FactoryUtils.newUntexturedColorPositions(1f,1f,0,1,1);
         float[] xyz = PositionsUtil.calculateCentroidXYZ(p);
 
-        PositionsUtil.printPositions(p);
+//        PositionsUtil.printPositions(p);
 //        System.out.println("X:" +xyz[0]+" Y:"+xyz[1]+" Z:"+xyz[2]);
         assert xyz[0]==1.5f;
         assert xyz[1]==0.5f;
@@ -24,8 +24,8 @@ public class PositionsUtilTest {
 
         Positions p2 = FactoryUtils.newUntexturedColorPositions(2f,1f,0,1,1);
         Positions p3 = FactoryUtils.newUntexturedColorPositions(3f,2f,0,1,1);
-        PositionsUtil.printPositions(p2);
-        PositionsUtil.printPositions(p3);
+//        PositionsUtil.printPositions(p2);
+//        PositionsUtil.printPositions(p3);
         Set<Positions> s = new LinkedHashSet<>();
         s.add(p);
         s.add(p2);
@@ -33,7 +33,11 @@ public class PositionsUtilTest {
 
 
         xyz = PositionsUtil.calculateCentroidXYZ(s);
-        System.out.println("X:" +xyz[0]+" Y:"+xyz[1]+" Z:"+xyz[2]);
+//        System.out.println("X:" +xyz[0]+" Y:"+xyz[1]+" Z:"+xyz[2]);
+        assert xyz[0]==2.5f;
+        assert xyz[1]==2.5f/3f;
+        assert xyz[2]==0.0f;
+
     }
 
     @Test

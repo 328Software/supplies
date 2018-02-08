@@ -27,6 +27,7 @@ import org.supply.simulator.util.PositionsUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Set;
 
 public class FixedMapGraphTest extends NodeGraphGenerator {
@@ -72,48 +73,27 @@ public class FixedMapGraphTest extends NodeGraphGenerator {
 
         this.setNodeFactory(nodeFactory);
         Graph<Node,Edge> g  = DataGenerator.fiveNodeGraph();
-
-        Node n = g.vertexSet().iterator().next();
+        Iterator<Node> it =g.vertexSet().iterator();
+        Node n = it.next();
         arrangeNodes(g,n, 1);
 
-        GraphUtils.printGraph(g);
+//        GraphUtils.printGraph(g);
+
+        Node n2 = it.next();
+        Edge e = g.edgeSet().iterator().next();
+
+        PositionsUtil.printPositions(n.getPositions());
+        PositionsUtil.printPositions(n2.getPositions());
+        PositionsUtil.printPositions(e.getPositions());
 
 
         File file = new File("./src/main/resources/graphs/graph.gml");
 
 
         manager.add(g.vertexSet());
+        manager.add(g.edgeSet());
 
     }
-
-    protected void arrangeNodes(Graph g, Node n, int c1) {
-        Set<Edge> edges = g.edgesOf(n);
-
-        float angle = 180/(edges.size());
-        int c2 = 0;
-        for(Edge e : edges) {
-//            float scale = count/edges
-            Node src = e.getSource();
-            Node tgt = e.getTarget();
-
-            System.out.println(src.getName()+"  C1:"+c1+" C2:"+c2);
-            if (src.equals(n)) { //only follow edges that start at the src Node
-
-
-                GraphUtils.copyXYZvalues(src,tgt);
-                float dx = .3f*c1;
-                float dy = .3f*c2;
-//                float dx = Math.round(1000*Math.sin(angle*count*Math.PI/180))/1000;
-//                float dy = Math.round(1000*Math.cos(angle*count*Math.PI/180))/1000;
-                System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
-                PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
-                arrangeNodes(g,tgt,1);
-                c2++;
-            }
-
-        }
-    }
-
 
 
     @Test

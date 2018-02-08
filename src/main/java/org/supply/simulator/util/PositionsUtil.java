@@ -61,10 +61,14 @@ public class PositionsUtil {
             System.out.println("X" + value[i+0] + " Y"+ value[i+1] +" Z"+ value[i+2]);
         }
     }
-
+    public static void printPositions(Set<Positions> p) {
+        System.out.println("============POSITIONS SET vvvvvvvvvvvvvvvv================");
+        p.forEach(PositionsUtil::printPositions);
+        System.out.println("============POSITIONS SET ^^^^^^^^^^^^^^^^================");
+    }
     public static void printPositions(Positions p) {
         float[] value = p.getValue();
-        System.out.println("============================");
+        System.out.println("-------------------------------");
         System.out.println(value.length);
         for (int i =0; i<value.length;i++) {
             if (i%10==0) System.out.print("<|> ");
@@ -141,11 +145,6 @@ public class PositionsUtil {
         }
     }
     public static float[] addXYZ(float[] xyz1, float[] xyz2) {
-        float[] res = new float[3];
-        res[0] = xyz1[0] + xyz2[0];
-        res[1] = xyz1[1] + xyz2[1];
-        res[2] = xyz1[2] + xyz2[2];
-//        return res;
         return new float[]{xyz1[0] + xyz2[0], xyz1[1] + xyz2[1], xyz1[2] + xyz2[2]};
     }
 }

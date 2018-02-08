@@ -35,4 +35,18 @@ public class FactoryUtils {
 
         return positions;
     }
+
+    public static Positions newTexturedColorPositions() {
+        BasicPositions positions = BasicPositions.newTexturedColorPositions();
+        Vertex v0 = positions.getVertex(0);
+        Vertex v1 = positions.getVertex(1);
+        Vertex v2 = positions.getVertex(2);
+        Vertex v3 = positions.getVertex(3);
+        v0.setXYZ( 0, 0, 0); v0.setRGB(1, 1, 1); v0.setST(0, 0);
+        v1.setXYZ( 0, 0, 0); v1.setRGB(1, 1, 1); v1.setST(0, 1);
+        v2.setXYZ( 0, 0, 0); v2.setRGB(1, 1, 1); v2.setST(1, 1);
+        v3.setXYZ( 0, 0, 0); v3.setRGB(1, 1, 1); v3.setST(1, 0);
+
+        return positions;
+    }
 }

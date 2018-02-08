@@ -68,7 +68,7 @@ public class NodeGraphGenerator implements MapGraphGenerator {
 
 
 
-            System.out.println(src.getName()+"  C2:"+c1+" C2:"+c2);
+//            System.out.println(src.getName()+"  C2:"+c1+" C2:"+c2);
             if (src.equals(n)) { //only follow edges that start at the src Node
 
 
@@ -77,58 +77,18 @@ public class NodeGraphGenerator implements MapGraphGenerator {
                 float dy = .3f*c2;
 //                float dx = Math.round(1000*Math.sin(angle*count*Math.PI/180))/1000;
 //                float dy = Math.round(1000*Math.cos(angle*count*Math.PI/180))/1000;
-                System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
+//                System.out.println(tgt.getName()+"          dx:"+dx+"    dy:"+dy);
                 PositionsUtil.movePositionsXY(tgt.getPositions(), dx, dy);
 
                 arrangeNodes(g,tgt,c1+1);
                 c2++;
             }
 
-
-
-
-
-
-            e.setPositions(generateEdgePositions(src,tgt));
+            e.setPositions(GraphUtils.generateEdgePositions(src,tgt));
         }
     }
 
-    private Set<Positions> generateEdgePositions(Node source, Node target) {
-        BasicPositions p = BasicPositions.newTexturedColorPositions();
-        float[] data = new float[BasicPositions.NUMBER_OF_VERTICES * p.getVertexSize()];
-        int offset = 0;
 
-        float[] sourceCentroid = PositionsUtil.calculateCentroidXYZ(p);
-        // vertex 0
-        data[offset + 0] = 0; //x
-        data[offset + 1] = 0; //y
-        data[offset + 2] = 0; //z
-
-        offset *= p.getVertexSize();
-
-        // vertex 1
-        data[offset + 0] = 0; //x
-        data[offset + 1] = 0; //y
-        data[offset + 2] = 0; //z
-
-        offset *= p.getVertexSize();
-
-        // vertex 2
-        data[offset + 0] = 0; //x
-        data[offset + 1] = 0; //y
-        data[offset + 2] = 0; //z
-
-        offset *= p.getVertexSize();
-
-        // vertex 3
-        data[offset + 0] = 0; //x
-        data[offset + 1] = 0; //y
-        data[offset + 2] = 0; //z
-
-        Set<Positions> set = new LinkedHashSet<>();
-
-        return set;
-    }
     /**
      * This uses the Barabási-Albert growth and preferential attachment graph generator.
      *

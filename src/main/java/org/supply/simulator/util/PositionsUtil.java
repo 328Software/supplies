@@ -1,14 +1,11 @@
 package org.supply.simulator.util;
 
 
-import org.lwjgl.Sys;
 import org.supply.simulator.data.entity.Positions;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class PositionsUtil {
 

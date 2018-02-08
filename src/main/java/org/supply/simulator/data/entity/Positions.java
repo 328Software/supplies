@@ -30,4 +30,8 @@ public interface Positions extends HasId<Positions, Long>, HasValue<float[]> {
         return DrawingUtil.POSITION_ELEMENT_COUNT +
                 (hasColor() ? DrawingUtil.COLOR_ELEMENT_COUNT : 0) + (isTextured() ? DrawingUtil.TEXTURE_ELEMENT_COUNT : 0);
     }
+
+    default int getSize() {
+        return getValue().length / getVertexSize();
+    }
 }

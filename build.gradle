@@ -37,6 +37,8 @@ dependencies {
     agents (group: 'org.springframework', name: 'spring-instrument', version: springVersion)
 
     compile(
+            [group: 'com.vividsolutions', name: 'jts-core', version: '1.14.0'],
+
             [group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'],
 
             [group: 'commons-io', name: 'commons-io', version: '2.6'],

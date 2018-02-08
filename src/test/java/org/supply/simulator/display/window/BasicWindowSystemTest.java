@@ -9,7 +9,7 @@ import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
-import org.supply.simulator.badengine.temp.DataGenerator;
+import org.supply.simulator.util.DataGenerator;
 import org.supply.simulator.display.factory.TextMenuFactory;
 import org.supply.simulator.display.manager.impl.BasicManager;
 import org.supply.simulator.display.mock.MockChunkManager;

@@ -30,7 +30,9 @@ public class PositionsUtil {
     }
 
     public static void copyXYZvalues(Positions source, Positions target) {
-                System.arraycopy(source.getValue(),0,target.getValue(),0,3);
+        for (int offset = 0; offset<target.getValue().length; offset += target.getVertexSize()) {
+            System.arraycopy(source.getValue(),offset,target.getValue(),offset,3);
+        }
     }
 
     public static void movePositionsX(Collection<Positions> ps, float dx) {

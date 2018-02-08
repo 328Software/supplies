@@ -3,9 +3,6 @@ package org.supply.simulator.util;
 import org.jgrapht.Graph;
 import org.supply.simulator.data.entity.Edge;
 import org.supply.simulator.data.entity.Node;
-import org.supply.simulator.data.entity.impl.BasicPositions;
-
-import java.util.Set;
 
 public class GraphUtils {
 

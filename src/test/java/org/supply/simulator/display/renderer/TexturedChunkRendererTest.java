@@ -15,7 +15,7 @@ import org.supply.simulator.display.assetengine.texture.BasicTextureEngine;
 import org.supply.simulator.display.assetengine.texture.FontTextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngine;
 import org.supply.simulator.display.assetengine.texture.TextureEngineComposite;
-import org.supply.simulator.badengine.temp.DataGenerator;
+import org.supply.simulator.util.DataGenerator;
 import org.supply.simulator.display.mock.MockDisplayCore;
 import org.supply.simulator.display.renderer.impl.Renderer;
 import org.supply.simulator.display.window.Camera;

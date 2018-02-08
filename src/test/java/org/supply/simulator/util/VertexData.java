@@ -1,4 +1,4 @@
-package org.supply.simulator.badengine.temp;
+package org.supply.simulator.util;
 
 /**
  * Created by Alex on 6/29/2014.

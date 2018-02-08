@@ -30,11 +30,11 @@ public class NodeGraphGenerator implements MapGraphGenerator {
 
         // this is pretty bad, need different way to determine first node.
 //        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        GraphUtils.printGraph(g);
+//        GraphUtils.printGraph(g);
 //        g.vertexSet().forEach(EntityUtils::printNode);
         Node n = g.vertexSet().iterator().next();
 //        System.out.println("|||||||||||||||||||||"+n.getName()+"|||||||||||||||||||||||||||||");
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+//        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         arrangeNodes(g,n,1);
 
 //        g.vertexSet().forEach(EntityUtils::printNode);

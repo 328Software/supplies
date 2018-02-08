@@ -2,7 +2,7 @@ package org.supply.simulator.util;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleWeightedGraph;
-import org.supply.simulator.badengine.graph.impl.BasicEdgeFactory;
+import org.supply.simulator.badengine.graph.impl.BasicEdgeBuilder;
 import org.supply.simulator.badengine.graph.impl.BasicNodeFactory;
 import org.supply.simulator.data.entity.Colors;
 import org.supply.simulator.data.entity.Edge;
@@ -86,7 +86,7 @@ public class DataGenerator {
         Graph<Node, Edge> g = new SimpleWeightedGraph<>(BasicEdge.class);
         BasicNodeFactory nodeFactory = new BasicNodeFactory();
         nodeFactory.setTextureEngine(textureEngine);
-        BasicEdgeFactory edgeFactory = new BasicEdgeFactory();
+        BasicEdgeBuilder edgeFactory = new BasicEdgeBuilder();
 
 
         // MAKE NODES

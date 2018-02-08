@@ -29,7 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-public class InternalBasicMapGraphGeneratorTest extends NodeGraphGenerator {
+public class FixedMapGraphTest extends NodeGraphGenerator {
 
     private static int NUM_NODES = 3;
 
@@ -45,7 +45,7 @@ public class InternalBasicMapGraphGeneratorTest extends NodeGraphGenerator {
     public void create() throws ExportException, IOException {
 
         core = new MockDisplayCore();
-        core.build("InternalBasicMapGraphGeneratorTest");
+        core.build("FixedMapGraphTest");
 
         shaderEngine = new BasicShaderEngine();
 

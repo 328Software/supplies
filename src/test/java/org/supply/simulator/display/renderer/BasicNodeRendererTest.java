@@ -72,7 +72,7 @@ public class BasicNodeRendererTest {
             TextureUtils.applyTexture(v,textureEngine);
         });
 
-        PositionsUtil.copyXYZvalues(nodes.get(0).getPositions(),nodes.get(1).getPositions());
+//        PositionsUtil.copyXYZvalues(nodes.get(0).getPositions(),nodes.get(1).getPositions());
 
         TextMenuFactory textMenuFactory = new TextMenuFactory(-1f, 1f, .8f, .4f, "v");
         List<Entity> menus = new ArrayList();

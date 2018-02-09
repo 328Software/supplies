@@ -12,7 +12,6 @@ public class ShaderHandle {
 
     private int programId;
 
-
     public void setModelMatrixLocation(int modelMatrixLocation) {
         this.modelMatrixLocation = modelMatrixLocation;
     }
@@ -21,8 +20,6 @@ public class ShaderHandle {
     public void setProjectionMatrixLocation(int projectionMatrixLocation) {
         this.projectionMatrixLocation = projectionMatrixLocation;
     }
-
-
 
     public void setViewMatrixLocation(int viewMatrixLocation) {
         this.viewMatrixLocation = viewMatrixLocation;
@@ -34,12 +31,9 @@ public class ShaderHandle {
     }
 
 
-
-
     public int getProjectionMatrixLocation() {
         return projectionMatrixLocation;
     }
-
 
     public int getViewMatrixLocation() {
         return viewMatrixLocation;

@@ -3,7 +3,6 @@ package org.supply.simulator.display.assetengine;
 import org.supply.simulator.logging.HasLogger;
 
 import java.lang.ref.ReferenceQueue;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -17,8 +16,17 @@ import static java.util.Objects.isNull;
  */
 public abstract class WeakReferenceEngine<K,V> extends HasLogger implements AssetEngine<K, V> {
     private final ReferenceQueue<V> referenceQueue = new ReferenceQueue<>();
-    private final Map<K, WeakReferenceWithKey> weakRefs = new HashMap<>();
+    private final Map<K, WeakReferenceWithKey<K,V>> weakRefs = new HashMap<>();
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private final WeakReferenceWithKeyFactory factory;
+
+    public WeakReferenceEngine(WeakReferenceWithKeyFactory factory) {
+        this.factory = factory;
+    }
+
+    public WeakReferenceEngine() {
+        factory = WeakReferenceWithKey::new;
+    }
 
     @Override
     public V get(K key) {
@@ -48,7 +56,7 @@ public abstract class WeakReferenceEngine<K,V> extends HasLogger implements Asse
         try {
             V handle;
             handle = createHandle(key);
-            weakRefs.put(key, new WeakReferenceWithKey(key, handle, referenceQueue));
+            weakRefs.put(key, factory.get(key, handle, referenceQueue));
             return handle;
         } finally {
             //downgrade
@@ -62,7 +70,7 @@ public abstract class WeakReferenceEngine<K,V> extends HasLogger implements Asse
         //note its ok to suppress warnings because only the object
         //can modify its reference queue, guaranteeing it only contains
         //what we put in it
-        WeakReferenceWithKey ref;
+        WeakReferenceWithKey<K,V> ref;
         while((ref = (WeakReferenceWithKey)referenceQueue.poll()) != null) {
             lock.writeLock().lock();
             try {
@@ -77,16 +85,4 @@ public abstract class WeakReferenceEngine<K,V> extends HasLogger implements Asse
     protected abstract void destroyHandle(K key);
     protected abstract V createHandle(K key);
 
-    private class WeakReferenceWithKey extends WeakReference<V> {
-        final K key;
-
-        public WeakReferenceWithKey(K key, V handle, ReferenceQueue<? super V> q) {
-            super(handle, q);
-            this.key = key;
-        }
-
-        public K getKey() {
-            return key;
-        }
-    }
 }
